@@ -1,6 +1,9 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
-import { ChangePasswordPage, ClaimAccountPage, LoginPage, ResetPasswordPage } from "./page";
+import { ChangePasswordPage, ClaimAccountPage, CommunityPage, EventDetailPage, EventPage, ImpactReportPage, LoginPage, NotificationPage, ResetPasswordPage } from "./page";
 import { DashboardLayout } from "./components/dashboard";
+import DashboardPage from "./page/dashboardPage"; 
+import DonatePage from "./page/donatePage";
+import CreateEventPage from "./page/event/createEventPage";
 
 
 function App() {
@@ -13,8 +16,14 @@ function App() {
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} /> 
         <Route path="/dashboard" element={<DashboardLayout />} >
-          <Route index element={<div className=" bg-red-500 " >Dashoard</div>} />
-          <Route path="event" element={<div>Event</div>} />
+          <Route index element={<DashboardPage />} />
+          <Route path="event" element={<EventPage />} />
+          <Route path="event-details" element={<EventDetailPage />} />
+          <Route path="create-event" element={<CreateEventPage />} />
+          <Route path="community" element={<CommunityPage />} />
+          <Route path="donation" element={<DonatePage />} />
+          <Route path="notification" element={<NotificationPage />} />
+          <Route path="report" element={<ImpactReportPage />} />
         </Route>
       </Route>
     )
