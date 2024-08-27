@@ -22,7 +22,7 @@ export default function PageHeader({ header, body, back }: IProps) {
                 </div>
             )}
             <div className=' flex flex-col ' >
-                <Text className=' text-[28px] leading-7 font-black tracking-[1%] text-primary ' >{header}</Text>
+                <Text className=' text-[24px] leading-7 font-black tracking-[1%] text-primary ' >{header}</Text>
                 <Text className=' leading-5 -mt-1 font-semibold text-primary text-opacity-50 ' >{body}</Text>
             </div>
         </div>

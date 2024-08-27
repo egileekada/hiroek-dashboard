@@ -1,5 +1,5 @@
-import CommunityCardList from "../components/shared/communityCardList";
-import PageHeader from "../components/shared/pageHeader";
+import CommunityCardList from "../../components/shared/communityCardList";
+import PageHeader from "../../components/shared/pageHeader";
 
 
 export default function CommunityPage() {

@@ -1,9 +1,6 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
-import { ChangePasswordPage, ClaimAccountPage, CommunityPage, EventDetailPage, EventPage, ImpactReportPage, LoginPage, NotificationPage, ResetPasswordPage } from "./page";
-import { DashboardLayout } from "./components/dashboard";
-import DashboardPage from "./page/dashboardPage"; 
-import DonatePage from "./page/donatePage";
-import CreateEventPage from "./page/event/createEventPage";
+import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ResetPasswordPage } from "./page";
+import { DashboardLayout } from "./components/dashboard";  
 
 
 function App() {
@@ -14,16 +11,31 @@ function App() {
         <Route index element={<ClaimAccountPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/change-password" element={<ChangePasswordPage />} /> 
+        <Route path="/change-password" element={<ChangePasswordPage />} />
         <Route path="/dashboard" element={<DashboardLayout />} >
           <Route index element={<DashboardPage />} />
-          <Route path="event" element={<EventPage />} />
-          <Route path="event-details" element={<EventDetailPage />} />
-          <Route path="create-event" element={<CreateEventPage />} />
-          <Route path="community" element={<CommunityPage />} />
-          <Route path="donation" element={<DonatePage />} />
+          <Route path="event" >
+            <Route index element={<EventPage />} />
+            <Route path="details" element={<EventDetailPage />} />
+            <Route path="create" element={<CreateEventPage />} />
+            <Route path="support" element={<EventSupportPage />} />
+          </Route>
+          <Route path="community" >
+            <Route index element={<CommunityPage />} />
+            <Route path="details" element={<CommunityDetailPage />} />
+            <Route path="member" element={<CommunityMemberPage />} />
+            <Route path="create" element={<CreateCommunityPage />} />
+            <Route path="post" element={<CommunityPostPage />} />
+          </Route>
+          <Route path="donation" >
+            <Route index element={<DonatePage />} />
+            <Route path="bankInfo" element={<AddBankDetailPage />} />
+          </Route>
           <Route path="notification" element={<NotificationPage />} />
-          <Route path="report" element={<ImpactReportPage />} />
+          <Route path="report" >
+            <Route index element={<ImpactReportPage />} />
+            <Route path="post" element={<PostReportPage />} />
+          </Route>
         </Route>
       </Route>
     )

@@ -1,7 +1,7 @@
 import { Text } from "@radix-ui/themes";
-import PageHeader from "../components/shared/pageHeader";
-import { CashIcon, WalletIcon } from "../svg";
-import { CustomButton } from "../components/shared";
+import PageHeader from "../../components/shared/pageHeader";
+import { CashIcon, WalletIcon } from "../../svg";
+import { CustomButton } from "../../components/shared";
 import { useState } from "react";
 
 

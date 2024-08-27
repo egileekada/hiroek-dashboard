@@ -1,5 +1,5 @@
-import { ReportCardList } from '../components/report'
-import PageHeader from '../components/shared/pageHeader'
+import { ReportCardList } from '../../components/report'
+import PageHeader from '../../components/shared/pageHeader'
 
 export default function ImpactReportPage() {
     return (
