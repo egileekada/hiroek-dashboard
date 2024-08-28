@@ -1,5 +1,5 @@
 import { Text } from "@radix-ui/themes";
-import { ChatIcon, ChatWhiteIcon, HeartColorlessIcon, MoreIcon, SendTopIcon } from "../../svg";
+import { BackWhiteIcon, ChatIcon, ChatWhiteIcon, HeartColorlessIcon, MoreIcon, SendTopIcon } from "../../svg";
 
 
 export default function CommunityDetail() {
@@ -7,12 +7,14 @@ export default function CommunityDetail() {
     const data = ["media", "", "", "media"]
 
     return (
-        <div className=" w-full flex gap-6 text-primary pb-6 " >
-            <div className=" w-full h-fit flex flex-col rounded-[44px] p-8 pb-12 " style={{ boxShadow: "0px 4px 30px 0px #0000000D" }} >
-                <div className=" w-full h-[316px] bg-green-700 rounded-3xl " >
-
+        <div className=" w-full flex lg:flex-row flex-col gap-6 text-primary pb-6 " >
+            <div className=" w-full h-fit flex flex-col rounded-b-[44px] lg:rounded-[44px] lg:p-8 pb-12 " style={{ boxShadow: "0px 4px 30px 0px #0000000D" }} >
+                <div className=" w-full h-[316px] bg-green-700 relative rounded-b-[44px] lg:rounded-[44px] " >
+                    <div role="button" className=" cursor-pointer w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-[#FFFFFF33] flex justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
+                        <BackWhiteIcon />
+                    </div>
                 </div>
-                <div className=" w-full px-6 -mt-[25%]  " >
+                <div className=" w-full px-4 lg:px-6 z-20 -mt-[25%]  " >
                     <div className=" p-5 text-primary w-full gap-2 bg-white flex flex-col rounded-[14px] items-center " style={{ boxShadow: "0px 3px 10px 0px #0000000D" }} >
                         <Text className=" font-black text-2xl " >Hope Harvesters</Text>
                         <Text className=" text-xs text-primary text-opacity-75 font-semibold text-center " >Hope Harvesters is A Community dedicated to uplifting underprivileged communities through sustainable development programs, educational initiatives, and health services. Our mission is to harvest hope and create opportunities for a brighter future.</Text>
@@ -40,14 +42,14 @@ export default function CommunityDetail() {
                 </div>
             </div>
             <div className=" w-full flex flex-col gap-6 " >
-                <div className=" w-full flex gap-2 " >
-                    <button className=" text-white text-xs font-bold h-[40px] rounded-[44px] px-4 w-fit bg-primary " >Recent Posts</button>
-                    <button className=" text-primary text-xs font-bold h-[40px] rounded-[44px] px-4 w-fit bg-primary bg-opacity-10 " >Announcements</button>
-                    <button className=" text-white gap-2 text-xs flex items-center font-bold h-[40px] rounded-[44px] px-4 w-fit bg-primary " style={{ background: "linear-gradient(180deg, #4C49ED 0%, rgba(55, 19, 127, 0.9) 100%)" }} >
+                <div className=" w-full flex gap-2 px-2 " >
+                    <button className=" text-white text-xs font-bold h-[40px] rounded-[44px] lg:px-4 lg:w-fit w-full bg-primary " >Recent Posts</button>
+                    <button className=" text-primary text-xs font-bold h-[40px] rounded-[44px] lg:px-4 lg:w-fit w-full bg-primary bg-opacity-10 " >Announcements</button>
+                    <button className=" text-white gap-1 lg:gap-2 text-xs flex items-center justify-center font-bold h-[40px] rounded-[44px] lg:px-4 lg:w-fit w-full bg-primary " style={{ background: "linear-gradient(180deg, #4C49ED 0%, rgba(55, 19, 127, 0.9) 100%)" }} >
                         <ChatWhiteIcon /> Add New Post
                     </button>
                 </div>
-                <div className=" w-full rounded-[44px] p-6 flex flex-col gap-6 " style={{ boxShadow: "0px 4px 30px 0px #2E2D741A" }} >
+                <div className=" w-full rounded-[44px] p-4 lg:p-6 flex flex-col gap-6 " style={{ boxShadow: "0px 4px 30px 0px #2E2D741A" }} >
                     {data?.map((item) => {
                         return (
                             <div className=" w-full flex flex-col gap-3 " >

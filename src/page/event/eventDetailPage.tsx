@@ -1,6 +1,6 @@
 import { Text } from "@radix-ui/themes";
 import PageHeader from "../../components/shared/pageHeader";
-import { CalendarIcon, LocationIcon } from "../../svg";
+import { BackWhiteIcon, CalendarIcon, LocationIcon, TwoChatIcon } from "../../svg";
 
 
 export default function EventDetailPage() {
@@ -9,13 +9,23 @@ export default function EventDetailPage() {
 
     return (
         <div className=' w-full flex flex-col gap-6 ' >
-            <PageHeader back={true} header="Event Details" body="Effortless Event Creation and Community Engagement." />
-            <div className=" w-full flex gap-6 text-primary " >
-                <div className=" w-full h-fit flex flex-col rounded-[44px] p-8 " style={{ boxShadow: "0px 4px 30px 0px #0000000D" }} >
-                    <div className=" w-full h-[316px] bg-green-700 rounded-3xl " >
-
+            <div className=" w-full lg:block hidden " >
+                <PageHeader back={true} header="Event Details" body="Effortless Event Creation and Community Engagement." />
+            </div>
+            <div className=" w-full flex lg:flex-row flex-col gap-6 text-primary " >
+                <div className=" w-full h-fit flex flex-col rounded-[44px] lg:pb-8 pb-6 lg:p-8 " style={{ boxShadow: "0px 4px 30px 0px #0000000D" }} >
+                    <div className=" w-full h-[316px] bg-green-700 rounded-b-3xl lg:rounded-3xl relative " >
+                        c
+                        <div role="button" className=" cursor-pointer z-10 w-fit h-fit absolute top-6 right-4 " >
+                            <div className=" w-11 h-11 rounded-md bg-[#FFFFFF33] relative flex justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
+                                <div className=' absolute -top-3 -left-3 w-6 h-6 text-primary bg-white rounded font-semibold text-[10px] tracking-[0.5%] flex justify-center items-center ' >
+                                    6
+                                </div>
+                                <TwoChatIcon />
+                            </div>
+                        </div>
                     </div>
-                    <div className=" w-full px-6 -mt-[25%]  " >
+                    <div className=" w-full px-6 relative z-20 -mt-[25%]  " >
                         <div className=" p-5 text-primary w-full bg-white flex flex-col rounded-[14px] " style={{ boxShadow: "0px 3px 10px 0px #0000000D" }} >
                             <Text className=" font-bold " ><span className=" text-black " >Re:wild :</span> A Night For Wildlife</Text>
                             <div className=" flex items-center gap-2 mt-2 " >
@@ -38,14 +48,16 @@ export default function EventDetailPage() {
                             </div>
                         </div>
                     </div>
-                    <Text className=" font-bold mt-5 text-lg " >Description</Text>
-                    <Text className=" text-primary text-opacity-90 font-medium !leading-[18px] mt-2 " >A glamorous black-tie gala to raise funds for wildlife conservation in Africa. The event will feature a silent auction, live music, a three-course dinner, and guest speakers who are experts in wildlife conservation.</Text>
-                    <Text className=" font-bold mt-5 text-lg " >Description</Text>
-                    <div className=" w-full rounded-[12px] h-[217px] mt-2 bg-red-600 " >
+                    <div className=" w-full flex flex-col lg:px-0 px-6 mt-4 " >
+                        <Text className=" font-bold mt-5 text-lg " >Description</Text>
+                        <Text className=" text-primary text-opacity-90 font-medium !leading-[18px] mt-2 " >A glamorous black-tie gala to raise funds for wildlife conservation in Africa. The event will feature a silent auction, live music, a three-course dinner, and guest speakers who are experts in wildlife conservation.</Text>
+                        <Text className=" font-bold mt-5 text-lg " >Venue & Location</Text>
+                        <div className=" w-full rounded-[12px] h-[217px] mt-2 bg-red-600 " >
 
+                        </div>
                     </div>
                 </div>
-                <div className=" w-full flex flex-col gap-6 " >
+                <div className=" w-full flex flex-col gap-6 lg:px-0 px-6 pb-6 " >
                     <div style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }} className=" w-full h-[384px] rounded-[44px] p-6 " >
 
                     </div>

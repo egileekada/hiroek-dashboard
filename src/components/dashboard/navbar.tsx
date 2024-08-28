@@ -9,10 +9,10 @@ export default function Navbar() {
 
     return (
         <div className=" w-full h-[55px] flex justify-between items-center px-4 " >
-            <div className=" w-[300px] " >
+            <div className=" w-[300px] lg:block hidden " >
                 <input type={"search"} placeholder={"Search"} value={searchText} onChange={(e) => setSearchText(e.target.value)} className=" h-[35px] px-3 border-[#37137F80] border-[0.5px] hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] rounded-[10px] bg-transparent w-full text-sm font-semibold text-primary " />
             </div>
-            <div className=" flex items-center " >
+            <div className=" flex items-center ml-auto " >
                 <div role="button" className=" w-10 h-10 relative flex justify-center items-center " >
                     <div className=' absolute top-0 right-0 w-5 h-5 text-white bg-primary rounded font-semibold text-[10px] tracking-[0.5%] flex justify-center items-center ' >
                         0
@@ -25,11 +25,11 @@ export default function Navbar() {
                         </div>
                         <div className=" w-[10px] h-[10px] absolute bottom-0 right-0 border-2 border-white rounded-full bg-[#22CA83] " />
                     </div>
-                    <div className=" flex flex-col ml-1 " >
+                    <div className=" hidden lg:flex flex-col ml-1 " >
                         <Text className=" text-xs tracking-[0.5%] font-semibold leading-[5px] text-[#1D1F2C] " >British Red Cross</Text>
                         <Text className=" text-xs tracking-[0.5%] font-semibold leading-[5px] text-[#4A4C56] " >Online</Text>
                     </div>
-                    <div role="button" >
+                    <div className=" lg:block hidden " role="button" >
                         <DownArrowIcon />
                     </div>
                 </div>

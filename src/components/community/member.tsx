@@ -4,7 +4,7 @@ import { Text } from "@radix-ui/themes"
 export default function ComunityMember() {
     return (
         <div className=" w-full flex flex-col gap-4 " >
-            <div className=" max-w-[564px] w-full flex flex-col " >
+            <div className=" max-w-[564px] w-full flex lg:px-0 px-4 flex-col " >
                 <div className=" w-full flex flex-col gap-3 " >
                     <Text className=" text-primary text-opacity-50 font-bold text-xs " >Moderators</Text>
                     <div className=" w-full flex flex-col gap-3 " >

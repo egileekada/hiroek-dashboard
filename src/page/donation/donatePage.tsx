@@ -14,8 +14,8 @@ export default function DonatePage() {
     return (
         <div className=' w-full flex flex-col gap-6 ' >
             <PageHeader header="Manage Donations" body="Effortless Event Creation and Community Engagement." />
-            <div className=" w-full flex flex-col gap-6 " >
-                <div className=" w-full flex gap-8 " >
+            <div className=" w-full flex flex-col gap-6 lg:px-0 px-4 " >
+                <div className=" w-full flex gap-8 lg:flex-row flex-col  " >
                     <div className=" w-full rounded-[15px] pt-8 h-[290px] text-white flex justify-between flex-col " style={{ background: "linear-gradient(107.38deg, #4C49ED 2.61%, #37137F 101.2%)" }} >
                         <div className=" w-full flex items-center justify-between px-8 " >
                             <div className=" flex flex-col " >
@@ -39,14 +39,14 @@ export default function DonatePage() {
                             <CustomButton bgColor="#FFFFFF4D" className=" " >Withdrawal History</CustomButton>
                         </div>
                     </div>
-                    <div className=" w-full " >
+                    <div className=" w-full h-[200px] " >
 
                     </div>
                 </div>
                 <div className=" w-full flex flex-col gap-6 mt-8 " >
                     <div className=" w-full flex h-[23px] " >
                         <div role="button" onClick={() => setTab(0)} className={` cursor-pointer w-full flex flex-col relative px-3 text-primary ${tab === 0 ? " bg-opacity-50 " : "  "} `} >
-                            <Text className=" text-[13px] font-bold text-center " >All Transactions</Text>
+                            <Text className=" text-[13px] font-bold text-center " >All data</Text>
                             <div className={` w-full h-[2px] rounded-t-[10px] ${tab === 0 ? " bg-primary " : " bg-[#EBEEF2] "} absolute -bottom-1 inset-x-0 `} />
                         </div>
                         <div role="button" onClick={() => setTab(1)} className={` cursor-pointer w-full flex flex-col relative px-3 text-primary ${tab === 1 ? " bg-opacity-50 " : "  "} `} >
