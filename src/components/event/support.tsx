@@ -61,7 +61,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
             <div className={` w-full ${tab ? " lg:flex " : " lg:flex hidden "} flex-col h-full items-end `} >
                 <div className=" w-full lg:max-w-[393px] relative flex flex-col gap-2 lg:mt-auto h-full lg:h-[500px] rounded-3xl lg:border-[5px] overflow-y-auto lg:border-primary " >
                     <div className=" w-full flex sticky top-0 flex-col bg-white gap-1 pb-2 rounded-t-3xl pt-3 lg:px-3 px-4  " >
-                        <div className=' w-fit ' >
+                        <div className=' w-fit lg:hidden ' >
                             <div onClick={() => setTab(false)} role='button' className=' w-11 h-11 lg:w-[62px] lg:h-[62px] flex justify-center bg-primary bg-opacity-15 rounded-[6px] items-center cursor-pointer ' style={{ boxShadow: "0px 2px 4px 0px #0000000D" }} >
                                 <BackArrowIcon />
                             </div>
