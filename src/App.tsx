@@ -1,6 +1,6 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ProfileInfoPage, ResetPasswordPage } from "./page";
-import { DashboardLayout } from "./components/dashboard";  
+import { DashboardLayout } from "./components/dashboard";
 
 
 function App() {
@@ -43,7 +43,9 @@ function App() {
     )
   );
   return (
-    <RouterProvider router={router} />
+    <div className=" inter-all w-full " >
+      <RouterProvider router={router} />
+    </div>
   )
 }
 

@@ -8,8 +8,14 @@
     src: url("/font/Inter.ttf");
 }
 
-body { 
+html, body { 
   overflow-x: hidden !important;
-  font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif !important;
   scroll-behavior: smooth;
 }
+
+.inter-all {
+    font-family: "Inter";
+    font-weight: 800; 
+    font-style: normal;
+  }
