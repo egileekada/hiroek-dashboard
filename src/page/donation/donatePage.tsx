@@ -3,6 +3,7 @@ import PageHeader from "../../components/shared/pageHeader";
 import { CashIcon, WalletIcon } from "../../svg";
 import { CustomButton } from "../../components/shared";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export default function DonatePage() {
@@ -11,20 +12,22 @@ export default function DonatePage() {
 
     const data = ["green", "red"]
 
+    const router = useNavigate()
+
     return (
         <div className=' w-full flex flex-col gap-6 ' >
             <PageHeader header="Manage Donations" body="Effortless Event Creation and Community Engagement." />
             <div className=" w-full flex flex-col gap-6 lg:px-0 px-4 " >
                 <div className=" w-full flex gap-8 lg:flex-row flex-col  " >
                     <div className=" w-full rounded-[15px] pt-8 h-[290px] text-white flex justify-between flex-col " style={{ background: "linear-gradient(107.38deg, #4C49ED 2.61%, #37137F 101.2%)" }} >
-                        <div className=" w-full flex items-center justify-between px-8 " >
+                        <div className=" w-full flex items-center justify-between px-6 " >
                             <div className=" flex flex-col " >
                                 <Text className=" text-sm font-bold " >Donations Account Balance</Text>
                                 <Text className=" text-[22px] font-semibold -mt-1 "  >£5,000.<span className=" text-base " >00</span></Text>
                             </div>
                             <WalletIcon />
                         </div>
-                        <div className=" w-full flex justify-between px-8 " >
+                        <div className=" w-full flex justify-between px-6 " >
                             <div className=" w-full flex flex-col gap-1 " >
                                 <Text className=" text-xs text-[#FFFFFFB2] font-semibold " >Bank Name</Text>
                                 <Text className=" text-sm text-[#FFFFFF] font-semibold " >First National Bank</Text>
@@ -34,8 +37,8 @@ export default function DonatePage() {
                                 <Text className=" text-sm text-[#FFFFFF] font-semibold " >754158965214526</Text>
                             </div>
                         </div>
-                        <div className=" w-full h-[87px] flex items-center gap-6 px-8 " style={{ background: "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%)" }} >
-                            <CustomButton bgColor="#FFFFFF4D" className=" " >Manage Account</CustomButton>
+                        <div className=" w-full h-[87px] flex items-center gap-6 px-6 " style={{ background: "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%)" }} >
+                            <CustomButton onClick={()=> router("/dashboard/donation/bankInfo")} bgColor="#FFFFFF4D" className=" " >Manage Account</CustomButton>
                             <CustomButton bgColor="#FFFFFF4D" className=" " >Withdrawal History</CustomButton>
                         </div>
                     </div>

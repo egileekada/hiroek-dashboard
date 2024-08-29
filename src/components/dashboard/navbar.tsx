@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { DownArrowIcon, NotificationIcon } from "../../svg";
 import { Text } from "@radix-ui/themes";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Navbar() {
 
     const [searchText, setSearchText] = useState("")
+
+    const router = useNavigate()
 
     return (
         <div className=" w-full h-[55px] flex justify-between items-center px-4 " >
@@ -13,7 +16,7 @@ export default function Navbar() {
                 <input type={"search"} placeholder={"Search"} value={searchText} onChange={(e) => setSearchText(e.target.value)} className=" h-[35px] px-3 border-[#37137F80] border-[0.5px] hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] rounded-[10px] bg-transparent w-full text-sm font-semibold text-primary " />
             </div>
             <div className=" flex items-center ml-auto " >
-                <div role="button" className=" w-10 h-10 relative flex justify-center items-center " >
+                <div onClick={()=> router("/dashboard/notification")} role="button" className=" w-10 h-10 relative flex justify-center items-center " >
                     <div className=' absolute top-0 right-0 w-5 h-5 text-white bg-primary rounded font-semibold text-[10px] tracking-[0.5%] flex justify-center items-center ' >
                         0
                     </div>

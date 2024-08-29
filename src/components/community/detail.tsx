@@ -1,16 +1,18 @@
 import { Text } from "@radix-ui/themes";
 import { BackWhiteIcon, ChatIcon, ChatWhiteIcon, HeartColorlessIcon, MoreIcon, SendTopIcon } from "../../svg";
+import { useNavigate } from "react-router-dom";
 
 
 export default function CommunityDetail() {
 
     const data = ["media", "", "", "media"]
+    const router = useNavigate()
 
     return (
         <div className=" w-full flex lg:flex-row flex-col gap-6 text-primary pb-6 " >
             <div className=" w-full h-fit flex flex-col rounded-b-[44px] lg:rounded-[44px] lg:p-8 pb-12 " style={{ boxShadow: "0px 4px 30px 0px #0000000D" }} >
                 <div className=" w-full h-[316px] bg-green-700 relative rounded-b-[44px] lg:rounded-[44px] " >
-                    <div role="button" className=" cursor-pointer w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-[#FFFFFF33] flex justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
+                    <div onClick={()=> router(-1)} role="button" className=" cursor-pointer w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-[#FFFFFF33] flex justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
                         <BackWhiteIcon />
                     </div>
                 </div>
@@ -22,13 +24,13 @@ export default function CommunityDetail() {
                             Causes & Interest
                         </div>
                         <div className=" w-fit flex gap-3 " >
-                            <div className="w-fit px-4  h-[30px] bg-primary bg-opacity-90 text-white font-bold text-sm flex justify-center items-center rounded-[44px] " style={{ boxShadow: "0px 2px 4px 0px #0000001A" }} >
+                            <div className="w-fit px-4  h-[30px] bg-primary bg-opacity-90 text-white font-bold text-xs flex justify-center items-center rounded-[44px] " style={{ boxShadow: "0px 2px 4px 0px #0000001A" }} >
                                 Education
                             </div>
-                            <div className="w-fit px-4  h-[30px] bg-primary bg-opacity-90 text-white font-bold text-sm flex justify-center items-center rounded-[44px] " style={{ boxShadow: "0px 2px 4px 0px #0000001A" }} >
+                            <div className="w-fit px-4  h-[30px] bg-primary bg-opacity-90 text-white font-bold text-xs flex justify-center items-center rounded-[44px] " style={{ boxShadow: "0px 2px 4px 0px #0000001A" }} >
                                 Healthcare
                             </div>
-                            <div className="w-fit px-4  h-[30px] bg-primary bg-opacity-90 text-white font-bold text-sm flex justify-center items-center rounded-[44px] " style={{ boxShadow: "0px 2px 4px 0px #0000001A" }} >
+                            <div className="w-fit px-4  h-[30px] bg-primary bg-opacity-90 text-white font-bold text-xs flex justify-center items-center rounded-[44px] " style={{ boxShadow: "0px 2px 4px 0px #0000001A" }} >
                                 Agriculture
                             </div>
                         </div>
@@ -45,7 +47,7 @@ export default function CommunityDetail() {
                 <div className=" w-full flex gap-2 px-2 " >
                     <button className=" text-white text-xs font-bold h-[40px] rounded-[44px] lg:px-4 lg:w-fit w-full bg-primary " >Recent Posts</button>
                     <button className=" text-primary text-xs font-bold h-[40px] rounded-[44px] lg:px-4 lg:w-fit w-full bg-primary bg-opacity-10 " >Announcements</button>
-                    <button className=" text-white gap-1 lg:gap-2 text-xs flex items-center justify-center font-bold h-[40px] rounded-[44px] lg:px-4 lg:w-fit w-full bg-primary " style={{ background: "linear-gradient(180deg, #4C49ED 0%, rgba(55, 19, 127, 0.9) 100%)" }} >
+                    <button onClick={()=> router("/dashboard/community/post")} className=" text-white gap-1 lg:gap-2 text-xs flex items-center justify-center font-bold h-[40px] rounded-[44px] lg:px-4 lg:w-fit w-full bg-primary " style={{ background: "linear-gradient(180deg, #4C49ED 0%, rgba(55, 19, 127, 0.9) 100%)" }} >
                         <ChatWhiteIcon /> Add New Post
                     </button>
                 </div>

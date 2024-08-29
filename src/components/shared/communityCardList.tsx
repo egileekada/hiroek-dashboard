@@ -1,5 +1,6 @@
 import { Text } from '@radix-ui/themes'
 import { textLimit } from '../util/textlimit'
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
     title?: string;
@@ -7,6 +8,8 @@ interface IProps {
 }
 
 export default function CommunityCardList({ title, notitle }: IProps) {
+
+    const router = useNavigate()
 
     const array = ["November 15 2024", "November 15 2024", "November 15 2024", "November 15 2024", "November 15 2024", "November 15 2024", "November 15 2024", "November 15 2024", "November 15 2024"]
 
@@ -21,7 +24,7 @@ export default function CommunityCardList({ title, notitle }: IProps) {
                 <div className=' w-fit flex gap-4 ' >
                     {array?.map((item) => {
                         return (
-                            <div key={item} className=' w-[346px] h-[186px] rounded-2xl bg-blue-500 relative flex justify-center items-center ' >
+                            <div role='button' onClick={()=> router("/dashboard/community/details")} key={item} className=' w-[346px] h-[186px] rounded-2xl bg-blue-500 relative flex justify-center items-center ' >
                                 <div style={{ boxShadow: "0px 3px 3px 0px #00000038" }} className=' gap-1 w-[300px] h-[138px] text-primary flex items-center flex-col rounded-[10px] bg-[#2D264B80] py-[8px] px-3 ' >
                                     <Text className=' text-xl tracking-[0.5%] text-center font-black ' >Hope Harvesters</Text>
                                     <Text className=' text-xs text-center font-semibold ' >{textLimit(text, 80)}</Text>

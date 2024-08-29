@@ -1,15 +1,18 @@
 import { Text } from "@radix-ui/themes"
+import { useNavigate } from "react-router-dom"
 
 
 export default function ReportCardList() {
 
     const data = ["item", "item"]
 
+    const router = useNavigate()
+
     return (
-        <div className=' w-full flex flex-col gap-4 pb-6 ' >
+        <div className=' w-full flex flex-col gap-6 lg:px-0 px-4 pb-6 ' >
             {data?.map((item) => {
                 return (
-                    <div key={item} className=" w-full flex gap-6 " >
+                    <div onClick={()=> router("/dashboard/report/details")} role="button" key={item} className=" w-full flex lg:flex-row flex-col gap-6 " >
                         <div className=" w-full max-w-[419px] h-[318px] rounded-[32px] flex flex-col relative bg-purple-500 p-6 " >
                             <div className=" w-full flex mt-auto gap-2 " >
                                 <div className=" w-full h-[80px] rounded-2xl bg-violet-500 " />

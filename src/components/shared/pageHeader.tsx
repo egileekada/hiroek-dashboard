@@ -13,7 +13,7 @@ export default function PageHeader({ header, body, back }: IProps) {
     const router = useNavigate()
 
     return (
-        <div className=' w-full flex lg:flex-row flex-col lg:items-center lg:px-0 px-4 gap-2 ' >
+        <div className=' w-auto flex lg:flex-row flex-col lg:items-center lg:px-0 px-4 gap-2 ' >
             {back && (
                 <div className=' w-fit ' >
                     <div onClick={()=> router(-1)} role='button' className=' w-11 h-11 lg:w-[62px] lg:h-[62px] flex justify-center bg-primary bg-opacity-15 rounded-[6px] items-center cursor-pointer ' style={{boxShadow: "0px 2px 4px 0px #0000000D"}} >
