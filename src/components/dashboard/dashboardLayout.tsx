@@ -21,35 +21,35 @@ export default function DashboardLayout() {
                 <div className={` w-full bg-white h-fit ${(history?.pathname === "/dashboard/event/details" || history?.pathname === "/dashboard/community/details") ? " lg:block hidden " : " blocl "} top-0 sticky `} >
                     <Navbar />
                 </div>
-                <div className={` overflow-y-auto inset-0 lg:bottom-0 bottom-[90px] absolute flex ${(history?.pathname === "/dashboard/event/details" || history?.pathname === "/dashboard/community/details") ? " lg:top-[55px] lg:p-6 top-0 " : " top-[55px] lg:p-6 p-0 " } pb-8 `} >
+                <div className={` overflow-y-auto inset-0 lg:bottom-0 bottom-[90px] absolute flex ${(history?.pathname === "/dashboard/event/details" || history?.pathname === "/dashboard/community/details") ? " lg:top-[55px] lg:p-6 top-0 " : " top-[55px] lg:p-6 p-0 "} pb-8 `} >
                     <Outlet />
                 </div>
-            </div>
-            <div className=" w-full h-[90px] absolute bottom-0 z-50 rounded-[25px] bg-primary lg:hidden flex flex-row justify-around items-center px-2 " >
-                {menulistmobile?.map((item, index) => {
-                    return (
-                        <div onClick={() => router(item?.link)} role='button' key={index} className={` w-full h-fit flex flex-col items-center justify-center text-white rounded-t-[25px] `} >
-                            <div className={` w-[70%] h-8 ${history?.pathname === item?.link ? " bg-[#FFFFFF1F] " : ""} rounded-[44px] flex justify-center items-center`} >
-                                {item?.name === "Home" && (
-                                    <MobileHomeIcon />
-                                )}
-                                {item?.name === "Events" && (
-                                    <MobileEventIcon />
-                                )}
-                                {item?.name === "Community" && (
-                                    <MobileCommunityIcon />
-                                )}
-                                {item?.name === "Donations" && (
-                                    <MobileCashIcon />
-                                )}
-                                {item?.name === "Impact" && (
-                                    <MobileImpactIcon />
-                                )}
+                <div className=" w-full h-[90px] sticky mt-auto bottom-0 z-50 rounded-[25px] bg-primary lg:hidden flex flex-row justify-around items-center px-2 " >
+                    {menulistmobile?.map((item, index) => {
+                        return (
+                            <div onClick={() => router(item?.link)} role='button' key={index} className={` w-full h-fit flex flex-col items-center justify-center text-white rounded-t-[25px] `} >
+                                <div className={` w-[70%] h-8 ${history?.pathname === item?.link ? " bg-[#FFFFFF1F] " : ""} rounded-[44px] flex justify-center items-center`} >
+                                    {item?.name === "Home" && (
+                                        <MobileHomeIcon />
+                                    )}
+                                    {item?.name === "Events" && (
+                                        <MobileEventIcon />
+                                    )}
+                                    {item?.name === "Community" && (
+                                        <MobileCommunityIcon />
+                                    )}
+                                    {item?.name === "Donations" && (
+                                        <MobileCashIcon />
+                                    )}
+                                    {item?.name === "Impact" && (
+                                        <MobileImpactIcon />
+                                    )}
+                                </div>
+                                <Text className=' text-sm font-bold !leading-[16px] mt-2 ' >{item?.name}</Text>
                             </div>
-                            <Text className=' text-sm font-bold !leading-[16px] mt-2 ' >{item?.name}</Text> 
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </div>
         </div>
     )
