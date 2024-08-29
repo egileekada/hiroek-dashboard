@@ -1,5 +1,5 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
-import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ResetPasswordPage } from "./page";
+import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ProfileInfoPage, ResetPasswordPage } from "./page";
 import { DashboardLayout } from "./components/dashboard";  
 
 
@@ -32,6 +32,7 @@ function App() {
             <Route path="bankInfo" element={<AddBankDetailPage />} />
           </Route>
           <Route path="notification" element={<NotificationPage />} />
+          <Route path="profile" element={<ProfileInfoPage />} />
           <Route path="report" >
             <Route index element={<ImpactReportPage />} />
             <Route path="details" element={<ImpactReportDetailPage />} />

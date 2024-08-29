@@ -30,7 +30,7 @@ export default function CustomInput({ isPassword = false, name, type, placeholde
     return (
         // <TextField.Root size="3" placeholder={placeholder} name={name} type={type} disabled={disable} value={value} />
         <div className=" w-full h-[45px] relative " >
-            <input type={showText} style={{ borderRadius: borderRadius ?? "10px" }} placeholder={placeholder} disabled={disable} value={value} name={name} className=" h-[45px] px-3 border-[#37137F80] border-[1.5px] hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] bg-transparent w-full text-sm font-semibold text-primary " />
+            <input type={showText} style={{ borderRadius: borderRadius ?? "10px" }} placeholder={placeholder} disabled={disable} value={value} name={name} className=" h-[45px] px-3 border-[#37137F] border-opacity-30 border-[1.5px] outline-none hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] bg-transparent w-full text-sm font-semibold text-primary " />
             {(isPassword) && (
                 <div role="button" onClick={clickHandler} className=" w-[30px] pr-2 h-[45px] flex justify-center items-center absolute right-0 top-0 " >
                     <EyeIcon />

@@ -22,7 +22,7 @@ export default function Navbar() {
                     </div>
                     <NotificationIcon />
                 </div>
-                <div className=" pl-3 ml-1 border-l border-[#F0F1F3] flex items-center gap-2 " >
+                <div role="button" onClick={()=> router("/dashboard/profile")} className=" cursor-pointer pl-3 ml-1 border-l border-[#F0F1F3] flex items-center gap-2 " >
                     <div className=" w-fit relative " >
                         <div className=" w-8 h-8 relative bg-primary rounded-full " >
                         </div>
