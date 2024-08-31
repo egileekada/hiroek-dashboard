@@ -27,7 +27,7 @@ export default function AuthLayout({ children, header, body, hidesidebar }: IPro
                         <Text className=" text-[28px] font-black mt-4 " >{header}</Text>
                         <Text className=" text-sm tracking-[1%] font-medium " >{body}</Text>
                     </div>
-                    {children} 
+                    {children}
                     <div className=" max-w-[389px] w-full lg:flex hidden flex-col font-medium text-sm text-primary lg:mt-0 mt-auto lg:text-[#FFFFFFBF] text-center gap-4 " >
                         <div className=" w-full flex h-[44px] justify-between items-center " >
                             <Text role="button" >Get In Touch</Text>
@@ -37,20 +37,24 @@ export default function AuthLayout({ children, header, body, hidesidebar }: IPro
                         <Text role="button" >© 2024 Hiroek. All Rights Reserved.</Text>
                     </div>
                 </div>
-                    <div className=" absolute bottom-8 max-w-[389px] w-full flex lg:hidden flex-col font-medium text-sm px-6 text-primary lg:mt-0 mt-auto lg:text-[#FFFFFFBF] text-center gap-4 " >
-                        <div className=" w-full flex h-[44px] justify-between items-center " >
-                            <Text role="button" >Get In Touch</Text>
-                            <Text role="button" >Privacy Policy</Text>
-                            <Text role="button" >Terms of Use</Text>
-                        </div>
-                        <Text role="button" >© 2024 Hiroek. All Rights Reserved.</Text>
+                <div className=" absolute bottom-8 max-w-[389px] w-full flex lg:hidden flex-col font-medium text-sm px-6 text-primary lg:mt-0 mt-auto lg:text-[#FFFFFFBF] text-center gap-4 " >
+                    <div className=" w-full flex h-[44px] justify-between items-center " >
+                        <Text role="button" >Get In Touch</Text>
+                        <Text role="button" >Privacy Policy</Text>
+                        <Text role="button" >Terms of Use</Text>
                     </div>
+                    <Text role="button" >© 2024 Hiroek. All Rights Reserved.</Text>
+                </div>
 
             </div>
             <div className={` w-full h-full hidden ${hidesidebar ? " hidden " : " lg:block "} `} >
-                <div className=" w-full h-full rounded-bl-[150px] flex flex-col gap-5 bg-black px-8 pt-[10%] text-white " >
-                    <Text className=" leading-[48px] text-[40px] text-center font-extrabold " >Get Started With 3 Easy Steps</Text>
-                    <div className=" flex gap-3 " >
+                <div className=" w-full h-full rounded-bl-[150px] flex flex-col relative gap-5 px-8 pt-[10%] text-white " >
+                    <div className="  absolute inset-0 bg-black rounded-bl-[150px] bg-opacity-15 z-10 " >
+                        <img alt="bg1" className=" w-full h-full object-cover rounded-bl-[150px] " src="/images/bg1.png" />
+                    </div>
+                        <div className=" bg-[#00000080] absolute rounded-bl-[150px] inset-0 z-[12] " />
+                    <Text className=" leading-[48px] relative z-20 text-[40px] text-center font-extrabold " >Get Started With 3 Easy Steps</Text>
+                    <div className=" flex gap-3 relative z-20 " >
                         <div className=" w-[64px] h-[64px] rounded-full flex justify-center items-center bg-[#FFFFFF1A] text-[18px] font-bold text-[#FFFFFFBF] " >
                             1
                         </div>
@@ -59,7 +63,7 @@ export default function AuthLayout({ children, header, body, hidesidebar }: IPro
                             <Text className=" text-lg font-medium " >Start by entering your organizations email To claim Your account And a verification Link Will Be Sent To Organizations email.</Text>
                         </div>
                     </div>
-                    <div className=" flex gap-3 " >
+                    <div className=" flex gap-3 relative z-20 " >
                         <div className=" w-[64px] h-[64px] rounded-full flex justify-center items-center bg-[#FFFFFF1A] text-[18px] font-bold text-[#FFFFFFBF] " >
                             2
                         </div>
@@ -68,7 +72,7 @@ export default function AuthLayout({ children, header, body, hidesidebar }: IPro
                             <Text className=" text-lg font-medium " >After Verifying the link sent to The email, Organization Will Be Required To create a new password for their account.</Text>
                         </div>
                     </div>
-                    <div className=" flex gap-3 " >
+                    <div className=" flex gap-3 relative z-20 " >
                         <div className=" w-[64px] h-[64px] rounded-full flex justify-center items-center bg-[#FFFFFF1A] text-[18px] font-bold text-[#FFFFFFBF] " >
                             3
                         </div>
