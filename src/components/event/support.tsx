@@ -1,6 +1,7 @@
 import { Text } from "@radix-ui/themes";
 import { CustomInput } from "../shared";
 import { BackArrowIcon, SendIcon } from "../../svg";
+import useEvent from "../../hooks/useEvent";
 
 interface IProps {
     tab: boolean,
@@ -9,7 +10,9 @@ interface IProps {
 
 export default function EventSupport({ tab, setTab }: IProps) {
 
-    return (
+    const { supportHookForm } = useEvent()
+
+    return supportHookForm (
         <div className=' w-full flex gap-4 h-full' >
             <div className={` w-full px-4 ${!tab ? " lg:flex flex " : " lg:flex hidden "} flex-col gap-4 `} >
                 <div role="button" onClick={() => setTab(true)} className=" w-full flex items-center gap-2  " >

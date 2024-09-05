@@ -1,5 +1,5 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
-import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ProfileInfoPage, ResetPasswordPage } from "./page";
+import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ProfileInfoPage, ResetPasswordPage, WithDrawalPin } from "./page";
 import { DashboardLayout } from "./components/dashboard";
 
 
@@ -10,8 +10,8 @@ function App() {
       <Route path="/">
         <Route index element={<ClaimAccountPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/change-password" element={<ChangePasswordPage />} />
+        <Route path="/forgot-password" element={<ResetPasswordPage />} />
+        <Route path="/reset-password" element={<ChangePasswordPage />} />
         <Route path="/dashboard" element={<DashboardLayout />} >
           <Route index element={<DashboardPage />} />
           <Route path="event" >
@@ -29,7 +29,8 @@ function App() {
           </Route>
           <Route path="donation" >
             <Route index element={<DonatePage />} />
-            <Route path="bankInfo" element={<AddBankDetailPage />} />
+            <Route path="bankinfo" element={<AddBankDetailPage />} />
+            <Route path="pin" element={<WithDrawalPin />} />
           </Route>
           <Route path="notification" element={<NotificationPage />} />
           <Route path="profile" element={<ProfileInfoPage />} />

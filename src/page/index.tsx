@@ -19,4 +19,5 @@ export {default as ImpactReportDetailPage} from "./impactReport/impactReportDeta
 export {default as PostReportPage} from "./impactReport/postReportPage" 
 export {default as DonatePage} from "./donation/donatePage" 
 export {default as AddBankDetailPage} from "./donation/addBankDetailPage" 
+export {default as WithDrawalPin} from "./donation/withDrawalPin" 
 export {default as ProfileInfoPage} from "./profileInfoPage" 

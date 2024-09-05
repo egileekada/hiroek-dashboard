@@ -1,7 +1,7 @@
 import { Text } from '@radix-ui/themes'
 import PageHeader from '../components/shared/pageHeader'
 import { CalendarStarIcon, ChatColoredIcon, CommentIcon, DonateIcon, FollwingIcon, HeartIcon, ThumbUpIcon } from '../svg'
-import { textLimit } from '../components/util/textlimit'
+import { textLimit } from '../utils/textlimit'
 
 export default function NotificationPage() {
 
@@ -9,7 +9,7 @@ export default function NotificationPage() {
 
     return (
         <div className=' w-full flex flex-col gap-6 ' >
-            <PageHeader back={true} header="Notifications" body="Effortless Event Creation and Community Engagement." />
+            <PageHeader back={true} header="Notifications" body="Get Notification On Donations To Your Organisation, On Events Set Up In Aid of Your Mission And More..." />
             <div className=' w-full flex flex-col gap-6 lg:px-0 px-4 pb-6 ' >
                 <div className=' w-full flex items-center gap-4 lg:border-b-0 border-b pb-6 lg:pb-0  ' >
                     <div className=' flex gap-2 items-center ' >

@@ -16,7 +16,7 @@ export default function DonatePage() {
 
     return (
         <div className=' w-full flex flex-col gap-6 ' >
-            <PageHeader header="Manage Donations" body="Effortless Event Creation and Community Engagement." />
+            <PageHeader header="Manage Your Donations." body="Effortless Event Creation and Community Engagement." />
             <div className=" w-full flex flex-col gap-6 lg:px-0 px-4 " >
                 <div className=" w-full flex gap-8 lg:flex-row flex-col  " >
                     <div className=" w-full rounded-[15px] pt-8 h-[290px] text-white flex justify-between flex-col " style={{ background: "linear-gradient(107.38deg, #4C49ED 2.61%, #37137F 101.2%)" }} >
@@ -64,7 +64,7 @@ export default function DonatePage() {
                     <div style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }} className=" px-5 mt-4 py-[14px] w-full flex flex-col " >
                         {data?.map((item) => {
                             return (
-                                <div className=" w-full flex items-center py-3 justify-between " >
+                                <div key={item} className=" w-full flex items-center py-3 justify-between " >
                                     <div className=" flex gap-3 items-center " >
                                         <div className=" text-primary text-opacity-50 " >
                                             <CashIcon size="32px" />

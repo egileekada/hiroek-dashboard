@@ -1,10 +1,14 @@
 import { Text } from "@radix-ui/themes";
 import { CustomInput } from "../shared";
 import ImagePicker from "../shared/imagePicker";
+import useEvent from "../../hooks/useEvent";
 
 
 export default function EventForm() {
-    return (
+
+    const { eventHookForm } = useEvent()
+
+    return eventHookForm (
         <div className=" w-full flex flex-col gap-4 lg:pb-6 " >
             <div className=" w-full p-4 lg:p-5 flex flex-col gap-4 " style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }}  >
                 <div className=" flex w-full flex-col gap-1 " >

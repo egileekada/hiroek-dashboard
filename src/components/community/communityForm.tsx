@@ -1,10 +1,14 @@
 import { Text } from "@radix-ui/themes";
 import { CustomInput } from "../shared";
 import ImagePicker from "../shared/imagePicker";
+import useCommunity from "../../hooks/useCommunity";
 
 
 export default function CommunityForm() {
-    return (
+
+    const { communityHookForm } = useCommunity()
+
+    return communityHookForm (
         <div className=" w-full flex flex-col gap-4 pb-6 " >
             <div className=" w-full py-5 px-4 lg:px-5 lg:p-5 flex flex-col gap-4 " style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }}  >
                 <div className=" flex w-full flex-col gap-1 " >

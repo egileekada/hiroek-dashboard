@@ -1,14 +1,17 @@
 import { ArrowIcon } from '../../svg';
 
 interface IProps { 
-    hasBackIcon?: boolean,
-    hasFrontIcon?: boolean,
-    children?: React.ReactNode,
-    icon?: React.ReactNode,
-    bgColor?: string,
-    color?: string,
-    width?: string,
-    rounded?: string
+    hasBackIcon?: boolean;
+    hasFrontIcon?: boolean;
+    children?: React.ReactNode;
+    icon?: React.ReactNode;
+    loading?: boolean;
+    bgColor?: string;
+    color?: string;
+    width?: string;
+    height?: string;
+    rounded?: string;
+    type?: "submit" | "reset" | "button"
     [x:string]: any;
 }
 
@@ -22,18 +25,21 @@ export default function CustomButton(props: IProps) {
         icon,
         color,
         width,
+        height,
         rounded,
+        loading,
+        type,
         ...rest
     } = props
     return ( 
-        <button {...rest} style={{boxShadow: "2px 2px 0px 0px #37137F4D", background: bgColor ?? "#37137f", color: color ?? "white", borderRadius: rounded ?? "10px" }} className=' w-full h-[50px] px-3 flex gap-3 items-center text-white font-black justify-center' >
-            {hasFrontIcon && (
+        <button {...rest} type={type} disabled={loading} style={{boxShadow: "2px 2px 0px 0px #37137F4D", background: bgColor ?? "#37137f", color: color ?? "white", borderRadius: rounded ?? "10px", height: height ?? "50px", width: width ?? "100%" }} className=' px-3 flex gap-3 items-center text-white font-semibold justify-center' >
+            {(hasFrontIcon && !loading) && (
                 <>
                     {icon ?? <ArrowIcon />}
                 </>
             )}
-            {children}
-            {hasIcon && (
+            {loading ? "Loading..." : children}
+            {(hasIcon && !loading) && (
                 <>
                     {icon ?? <ArrowIcon />}
                 </>

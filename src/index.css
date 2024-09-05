@@ -8,14 +8,34 @@
     src: url("/font/Inter.ttf");
 }
 
-html, body { 
-  overflow-x: hidden !important;
-  font-family: "Inter", sans-serif !important;
-  scroll-behavior: smooth;
+html,
+body {
+    overflow-x: hidden !important;
+    font-family: "Inter", sans-serif !important;
+    scroll-behavior: smooth;
 }
 
 .inter-all {
     font-family: "Inter";
-    font-weight: 800; 
+    font-weight: 800;
     font-style: normal;
-  }
+}
+
+.pincode-input-container {
+    .pincode-input-text {
+        padding: 0 !important;
+        margin: 0 2px;
+        text-align: center;
+        border-radius: 6px;
+        border: 0px solid transparent;
+        background: transparent;
+        color: #37137F;
+        width: 120px;
+        height: 60px;
+    }
+
+    .pincode-input-text:focus {
+        outline: none;
+        box-shadow: none;
+    }
+}

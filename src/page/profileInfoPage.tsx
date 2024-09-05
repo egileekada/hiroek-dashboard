@@ -8,7 +8,7 @@ export default function ProfileInfoPage() {
     return (
         <div className=' w-full flex flex-col gap-6 ' >
             <div className=" w-full flex items-center justify-between " >
-                <PageHeader back={true} header="Profile Setup" body="Effortless Event Creation and Community Engagement." />
+                <PageHeader back={true} header="Update Your Profile" body="Effortless Event Creation and Community Engagement." />
                 <div className=" w-fit hidden lg:flex ">
                     <CustomButton hasFrontIcon={true} icon={
                         <EventIcon />

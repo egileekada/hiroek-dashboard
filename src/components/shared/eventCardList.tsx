@@ -32,9 +32,9 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
             {!mobile && (
                 <div className={` w-full overflow-x-auto flex `} >
                     <div className={` w-fit flex gap-4 `} >
-                        {array?.map((item) => {
+                        {array?.map((item, index) => {
                             return (
-                                <div onClick={()=> router("/dashboard/event/details")} role='button' key={item} className=' w-[346px] h-[186px] rounded-2xl bg-green-500 relative ' >
+                                <div onClick={()=> router("/dashboard/event/details")} role='button' key={index} className=' w-[346px] h-[186px] rounded-2xl bg-green-500 relative ' >
                                     <div className=' absolute bottom-2 inset-x-2 text-white flex items-center justify-between rounded-[10px] bg-[#2D264B80] py-[8px] px-3 ' >
                                         <div className=' flex-col flex gap-1 ' >
                                             <Text className=' text-xs font-semibold ' >Coldplay : Music of the Spheres</Text>
@@ -44,7 +44,7 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
                                             </div>
                                             <div className=' flex gap-2 items-center ' >
                                                 <CalendarIcon />
-                                                <Text className=' text-xs font-medium ' >November 15 2024</Text>
+                                                <Text className=' text-xs font-medium ' >{item}</Text>
                                             </div>
                                         </div>
                                         <div className=' flex flex-col ' >
@@ -60,9 +60,9 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
             )}
             {mobile && (
                 <div className={` w-full grid grid-cols-2 gap-4 pb-6 `} >
-                    {array?.map((item) => {
+                    {array?.map((item, index) => {
                         return (
-                            <div onClick={()=> router("/dashboard/event/details")} role='button' key={item} className=' w-full rounded-2xl relative p-2 ' style={{ boxShadow: "0px 2px 10px 0px #00000014" }} >
+                            <div onClick={()=> router("/dashboard/event/details")} role='button' key={index} className=' w-full rounded-2xl relative p-2 ' style={{ boxShadow: "0px 2px 10px 0px #00000014" }} >
                                 <div className=' w-full h-[102px] bg-red-500 rounded-lg ' >
 
                                 </div>
@@ -74,7 +74,7 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
                                     </div>
                                     <div className=' flex gap-2 items-center ' >
                                         <CalendarIcon />
-                                        <Text className=' text-[10px] font-medium ' >November 15 2024</Text>
+                                        <Text className=' text-[10px] font-medium ' >{item}</Text>
                                     </div>
                                 </div>
                             </div>
