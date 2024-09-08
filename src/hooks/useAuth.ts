@@ -1,20 +1,21 @@
 
 import { useMutation } from "react-query";
 import { unsecureHttpService } from "../utils/httpService";  
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { requestCodeValidation, signInValidation } from "../services/validation";
 import { useForm } from "./useForm";
 import toast from "react-hot-toast";
 import { ILogin, IResetPassword, IResetRequest } from "../model/auth";
+import Cookies from "js-cookie"
 
 const useAuth = () => {
  
     const router = useNavigate(); 
 
-    const [searchParams] = useSearchParams();
+    // const [searchParams] = useSearchParams();
   
     // Extract resetCode from URL query parameters
-    const resetCode = searchParams.get('resetCode');
+    // const resetCode = searchParams.get('resetCode');
 
     const email = localStorage?.getItem("email")?.toString()
 
@@ -26,8 +27,9 @@ const useAuth = () => {
             toast.error(error?.response?.data?.error?.details?.message)
         },
         onSuccess: (data: any) => {
-            console.log(data);
             
+            Cookies.set("access_token", data?.data?.token)
+            Cookies.set("user-info", JSON.stringify(data?.data?.organization))
             toast.success("Login Successful")
             router("/dashboard")
         },
@@ -42,7 +44,7 @@ const useAuth = () => {
         },
         onSuccess: () => {  
             toast.success("Email Sent Successfully")
-            router("/login")
+            router("/reset-password")
         },
     });  
 
@@ -55,7 +57,6 @@ const useAuth = () => {
         },
         onSuccess: (data: any) => {
             console.log(data);
-            
             toast.success("Password Successfully Changed")
             router("/login")
         },
@@ -95,7 +96,7 @@ const useAuth = () => {
     const { renderForm: resetPasswordForm, values: resetValue } = useForm({
         defaultValues: {
             email: email,
-            resetCode: resetCode,
+            resetCode: '',
             password: '',
         },
         validationSchema: requestCodeValidation,

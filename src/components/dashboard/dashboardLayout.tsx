@@ -4,16 +4,28 @@ import Navbar from "./navbar"
 import { menulistmobile } from "../../constant"
 import { MobileCashIcon, MobileCommunityIcon, MobileEventIcon, MobileHomeIcon, MobileImpactIcon } from "../../svg"
 import { Text } from "@radix-ui/themes"
+import Cookies from "js-cookie"
+import { useDetails } from "../../global-state/useUserDetails"
+import { useEffect } from "react"
 
 export default function DashboardLayout() {
 
     const router = useNavigate()
     const history = useLocation()
+    const { setAll } = useDetails((state) => state);
+
+
+    const userData: any = Cookies.get("user-info") 
+    
+    useEffect(()=> {
+        const data = JSON.parse(userData) 
+        setAll({...data})
+    }, [userData, Cookies, setAll])
 
     return (
         <div className=" w-screen h-screen flex overflow-hidden " >
-            <div className=" w-fit lg:block hidden " >
-                <div className=" w-[300px] h-screen border-r border-r-[#F0F1F3] " style={{ boxShadow: "4px 0px 30px 0px #8362EA0D" }} >
+            <div className=" w-fit md:block hidden " >
+                <div className=" md:w-[60px] lg:w-[300px] h-screen border-r border-r-[#F0F1F3] " style={{ boxShadow: "4px 0px 30px 0px #8362EA0D" }} >
                     <Sidebar />
                 </div>
             </div>
@@ -21,10 +33,10 @@ export default function DashboardLayout() {
                 <div className={` w-full bg-white h-fit ${(history?.pathname === "/dashboard/event/details" || history?.pathname === "/dashboard/community/details") ? " lg:block hidden " : " blocl "} top-0 sticky `} >
                     <Navbar />
                 </div>
-                <div className={` overflow-y-auto inset-0 lg:bottom-0 bottom-[90px] absolute flex ${(history?.pathname === "/dashboard/event/details" || history?.pathname === "/dashboard/community/details") ? " lg:top-[55px] lg:p-6 top-0 " : " top-[55px] lg:p-6 p-0 "} pb-8 `} >
+                <div className={` overflow-y-auto inset-0 md:bottom-0 bottom-[90px] absolute flex ${(history?.pathname === "/dashboard/event/details" || history?.pathname === "/dashboard/community/details") ? " lg:top-[55px] lg:p-6 top-0 " : " top-[55px] lg:p-6 p-0 "} pb-8 `} >
                     <Outlet />
                 </div>
-                <div className=" w-full h-[90px] fixed bottom-0 z-50 rounded-[25px] bg-primary lg:hidden flex flex-row justify-around items-center px-2 " >
+                <div className=" w-full h-[90px] fixed bottom-0 z-50 rounded-[25px] bg-primary md:hidden flex flex-row justify-around items-center px-2 " >
                     {menulistmobile?.map((item, index) => {
                         return (
                             <div onClick={() => router(item?.link)} role='button' key={index} className={` w-full h-fit flex flex-col items-center justify-center text-white rounded-t-[25px] `} >
