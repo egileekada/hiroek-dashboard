@@ -7,8 +7,7 @@ import { EventIcon } from "../../svg";
 
 export default function EventPage() {
 
-    const router = useNavigate()
-
+    const router = useNavigate() 
     return (
         <div className=' w-full flex flex-col gap-6 flex-1 relative ' >
             <div className=" w-full flex items-center justify-between " >
