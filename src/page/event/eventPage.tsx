@@ -24,10 +24,10 @@ export default function EventPage() {
             <div className=" w-full flex flex-col lg:px-0 px-5 gap-6 " >
                 <EventCardList title="Curated Events" details="View Events Created By Your Supporters In Aid of Your Mission. Chat With The Event Creators To Support Their Effort." filter={true} />
                 <div className=" w-full lg:hidden " >
-                    <EventCardList mobile={true} title="Events Curated" />
+                    <EventCardList mobile={true} title="Events created by members" />
                 </div>
                 <div className=" w-full lg:block hidden " >
-                    <EventCardList title="Events Curated"  />
+                    <EventCardList title="Events created by members"  />
                 </div>
             </div>
             <div className=" w-fit lg:hidden sticky bottom-2 ml-auto mr-6 right-0 ">
