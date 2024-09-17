@@ -3,10 +3,10 @@ import Sidebar from "./sidebar"
 import Navbar from "./navbar"
 import { menulistmobile } from "../../constant"
 import { MobileCashIcon, MobileCommunityIcon, MobileEventIcon, MobileHomeIcon, MobileImpactIcon } from "../../svg"
-import { Text } from "@radix-ui/themes"
-import Cookies from "js-cookie"
+import { Text } from "@radix-ui/themes" 
 import { useDetails } from "../../global-state/useUserDetails"
 import { useEffect } from "react"
+import useUser from "../../hooks/useUser"
 
 export default function DashboardLayout() {
 
@@ -15,12 +15,11 @@ export default function DashboardLayout() {
     const { setAll } = useDetails((state) => state);
 
 
-    const userData: any = Cookies.get("user-info") 
+    const {isLoading, data} = useUser() 
     
-    useEffect(()=> {
-        const data = JSON.parse(userData) 
+    useEffect(()=> { 
         setAll({...data})
-    }, [userData, Cookies, setAll])
+    }, [setAll, isLoading])
 
     return (
         <div className=" w-screen h-screen flex overflow-hidden " >

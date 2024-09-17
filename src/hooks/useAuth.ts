@@ -10,13 +10,7 @@ import Cookies from "js-cookie"
 
 const useAuth = () => {
  
-    const router = useNavigate(); 
-
-    // const [searchParams] = useSearchParams();
-  
-    // Extract resetCode from URL query parameters
-    // const resetCode = searchParams.get('resetCode');
-
+    const router = useNavigate();  
     const email = localStorage?.getItem("email")?.toString()
 
     const { mutate: signIn, isLoading: signInLoading, isSuccess: signInSuccess } = useMutation({
@@ -29,7 +23,7 @@ const useAuth = () => {
         onSuccess: (data: any) => {
             
             Cookies.set("access_token", data?.data?.token)
-            Cookies.set("user-info", JSON.stringify(data?.data?.organization))
+            Cookies.set("user-index", data?.data?.organization?._id) 
             toast.success("Login Successful")
             router("/dashboard")
         },
