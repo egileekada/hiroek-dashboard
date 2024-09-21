@@ -1,7 +1,7 @@
 
 import { useMutation } from "react-query";
 import { unsecureHttpService } from "../utils/httpService";  
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { requestCodeValidation, resetPasswordValidation, signInValidation } from "../services/validation";
 import { useForm } from "./useForm";
 import toast from "react-hot-toast";
@@ -10,7 +10,10 @@ import Cookies from "js-cookie"
 
 const useAuth = () => {
  
-    const router = useNavigate();   
+    const router = useNavigate();     
+    const [searchParams] = useSearchParams();
+  
+    const resetCode = searchParams.get('resetCode');
 
     const { mutate: signIn, isLoading: signInLoading, isSuccess: signInSuccess } = useMutation({
         mutationFn: (data: ILogin) => unsecureHttpService.post(`/organizations/login`, data),
@@ -84,7 +87,7 @@ const useAuth = () => {
     const { renderForm: resetPasswordForm, values: resetValue } = useForm({
         defaultValues: {
             email: '',
-            resetCode: '',
+            resetCode: resetCode,
             password: '',
             confirmpassword: '',
         },
@@ -96,7 +99,7 @@ const useAuth = () => {
                 resetPasswordMutate({
                     email: data?.email,
                     password: data?.password,
-                    resetCode: data?.resetCode,
+                    resetCode: resetCode+"",
                 })
             }
         }
