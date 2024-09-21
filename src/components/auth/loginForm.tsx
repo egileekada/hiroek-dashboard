@@ -15,8 +15,8 @@ export default function LoginForm() {
                 <Text className=" text-primary font-semibold text-sm " >Email*</Text>
                 <CustomInput name="email" type="email" placeholder="Email Address*" />
             </div>
-            <div className=" flex w-full flex-col gap-1 " >
-                <Text className=" text-primary font-semibold text-sm " >Password*</Text>
+            <div className=" flex w-full flex-col gap-1 text-primary " >
+                <Text className=" font-semibold text-sm " >Password*</Text>
                 <CustomInput name="password" type="password" placeholder="Password*" isPassword={true} />
             </div>
             <div className=' flex gap-1 ' >

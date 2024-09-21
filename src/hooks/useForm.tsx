@@ -33,7 +33,7 @@ export const useForm = ({submit, defaultValues, validationSchema}: IProps) => {
         setValue:methods.setValue,
         values: methods.getValues(),
         formState: methods.formState,
-        watch: methods.watch
-
+        watch: methods.watch,
+        reset: methods?.reset
     }
 }

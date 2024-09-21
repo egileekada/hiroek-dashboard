@@ -13,7 +13,7 @@ export default function DashboardPage() {
     
     return (
         <div className=' w-full flex flex-col gap-6 ' >
-            <PageHeader header={"Welcome "+capitalizeFLetter(name)} body="Effortlessly create and showcase events while facilitating real-time, direct communication with your supporters." />
+            <PageHeader header={"Welcome "+capitalizeFLetter(name)} body="Effortlessly Create Events and Engage With Your Supporters In Real Time." />
             <div className=" w-full grid grid-cols-2 lg:flex gap-4 px-4 lg:px-0 " >
                 <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-primary h-[170px] relative flex items-center  " >
                     <div className=" px-4 flex flex-col text-white " >

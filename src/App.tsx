@@ -8,16 +8,17 @@ function App() {
 
     createRoutesFromElements(
       <Route path="/">
-        <Route index element={<ClaimAccountPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        {/* <Route index element={<ClaimAccountPage />} /> */}
+        <Route index element={<LoginPage />} />
         <Route path="/forgot-password" element={<ResetPasswordPage />} />
         <Route path="/reset-password" element={<ChangePasswordPage />} />
         <Route path="/dashboard" element={<DashboardLayout />} >
           <Route index element={<DashboardPage />} />
           <Route path="event" >
             <Route index element={<EventPage />} />
-            <Route path="details" element={<EventDetailPage />} />
+            <Route path="details/:id" element={<EventDetailPage />} />
             <Route path="create" element={<CreateEventPage />} />
+            <Route path="edit/:id" element={<CreateEventPage />} />
             <Route path="support" element={<EventSupportPage />} />
           </Route>
           <Route path="community" >

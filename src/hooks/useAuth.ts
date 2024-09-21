@@ -2,16 +2,15 @@
 import { useMutation } from "react-query";
 import { unsecureHttpService } from "../utils/httpService";  
 import { useNavigate } from "react-router-dom";
-import { requestCodeValidation, signInValidation } from "../services/validation";
+import { requestCodeValidation, resetPasswordValidation, signInValidation } from "../services/validation";
 import { useForm } from "./useForm";
 import toast from "react-hot-toast";
 import { ILogin, IResetPassword, IResetRequest } from "../model/auth";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie" 
 
 const useAuth = () => {
  
-    const router = useNavigate();  
-    const email = localStorage?.getItem("email")?.toString()
+    const router = useNavigate();   
 
     const { mutate: signIn, isLoading: signInLoading, isSuccess: signInSuccess } = useMutation({
         mutationFn: (data: ILogin) => unsecureHttpService.post(`/organizations/login`, data),
@@ -30,7 +29,7 @@ const useAuth = () => {
     }); 
 
     const { mutate: requestCodeMutate, isLoading: requestCodeLoading, isSuccess: requestCodeSuccess } = useMutation({
-        mutationFn: (data: IResetRequest) => unsecureHttpService.post(`/organizations/password-reset-request`, data),
+        mutationFn: (data: any) => unsecureHttpService.post(`/organizations/password-reset-request`, data),
         onError: (error: any) => { 
             console.log(error?.response?.data?.error?.details?.message);
             
@@ -52,14 +51,9 @@ const useAuth = () => {
         onSuccess: (data: any) => {
             console.log(data);
             toast.success("Password Successfully Changed")
-            router("/login")
+            router("/")
         },
-    }); 
-
-    const Test = (data: any) => {
-        console.log(data);
-        
-    }
+    });  
   
     const { renderForm, values } = useForm({
         defaultValues: {
@@ -89,12 +83,23 @@ const useAuth = () => {
   
     const { renderForm: resetPasswordForm, values: resetValue } = useForm({
         defaultValues: {
-            email: email,
+            email: '',
             resetCode: '',
             password: '',
+            confirmpassword: '',
         },
-        validationSchema: requestCodeValidation,
-        submit: (data: IResetPassword) => Test(data)
+        validationSchema: resetPasswordValidation,
+        submit: (data: IResetPassword) => {
+            if(data.confirmpassword !== data?.password){
+                toast.success("Incorrect Confirm Password")
+            } else{
+                resetPasswordMutate({
+                    email: data?.email,
+                    password: data?.password,
+                    resetCode: data?.resetCode,
+                })
+            }
+        }
     });
 
     return { 
@@ -113,7 +118,7 @@ const useAuth = () => {
         requestCodeSuccess,
         resetPasswordMutate,
         resetPasswordLoading,
-        resetPasswordSuccess,
+        resetPasswordSuccess, 
     };
 }
 

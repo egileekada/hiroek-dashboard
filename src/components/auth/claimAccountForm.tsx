@@ -22,7 +22,7 @@ export default function ClaimAccountForm() {
             <CustomButton onClick={()=> router("/dashboard")} hasIcon={true} >
                 Claim Account
             </CustomButton>
-            <Text className=" text-sm font-medium text-primary text-center " >Already have an account? <span role="button" style={{ fontWeight: "bold" }} onClick={()=> router("/login")} >Log In</span></Text>
+            <Text className=" text-sm font-medium text-primary text-center " >Already have an account? <span role="button" style={{ fontWeight: "bold" }} onClick={()=> router("/")} >Log In</span></Text>
         </div>
     )
 }

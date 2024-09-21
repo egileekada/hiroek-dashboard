@@ -12,7 +12,7 @@ export default function CommunityPage() {
     return (
         <div className=' w-full flex flex-col gap-6 relative ' >
             <div className=" w-full flex items-center justify-between " >
-                <PageHeader header="Community" body="Create and Nuture a Close-Knit Community centred around your cause, fostering a sense of belonging among your supporters and strengthening your network. Keep them engaged with push notifications for important updates, changes, and reminders." />
+                <PageHeader header="Community" body="Create and Nurture a Close-Knit Community centered around your cause," />
                 <div className=" w-fit lg:block hidden text-white ">
                     <CustomButton width="270px" onClick={() => router("/dashboard/community/create")} hasFrontIcon={true} icon={
                         <CommunityIcon />

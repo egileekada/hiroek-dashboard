@@ -34,7 +34,7 @@ export default function AuthLayout({ children, header, body, hidesidebar }: IPro
                             <Text role="button" >Privacy Policy</Text>
                             <Text role="button" >Terms of Use</Text>
                         </div>
-                        <Text role="button" >© 2024 Hiroek. All Rights Reserved.</Text>
+                        <Text role="button" >Copyright MyHero Ltd © 2023. All right reserved.</Text>
                     </div>
                 </div>
                 <div className=" absolute bottom-8 max-w-[389px] w-full flex lg:hidden flex-col font-medium text-sm px-6 text-primary lg:mt-0 mt-auto lg:text-[#FFFFFFBF] text-center gap-4 " >
@@ -43,7 +43,7 @@ export default function AuthLayout({ children, header, body, hidesidebar }: IPro
                         <Text role="button" >Privacy Policy</Text>
                         <Text role="button" >Terms of Use</Text>
                     </div>
-                    <Text role="button" >© 2024 Hiroek. All Rights Reserved.</Text>
+                    <Text role="button" >Copyright MyHero Ltd © 2023. All right reserved.</Text>
                 </div>
 
             </div>

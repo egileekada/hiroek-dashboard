@@ -12,4 +12,5 @@ export interface IResetPassword {
     email: string;
     resetCode: string;
     password: string;
+    confirmpassword?: string;
 }

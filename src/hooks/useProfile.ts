@@ -59,8 +59,7 @@ const useProfile = () => {
         },
         validationSchema: ProfileValidation,
         submit: async (data: any) => {
-            const formData = new FormData()
-            console.log(image);
+            const formData = new FormData() 
             if (!logo && !imageFile) {
                 toast.error("Add Logo")
             } else {
