@@ -21,7 +21,7 @@ export default function ChangePasswordForm() {
             <CustomButton loading={resetPasswordLoading} type="submit" hasIcon={true} >
                 Create New Password
             </CustomButton>
-            <Text className=" text-sm font-medium text-primary text-center " >Already have an account? <span role="button" style={{ fontWeight: "bold" }} onClick={()=> router("/")} >Log In</span></Text>
+            <Text className=" text-sm font-medium text-primary text-center " >Already have an account? <span role="button" style={{ fontWeight: "bold" }} onClick={()=> router("/login")} >Log In</span></Text>
         </div>
     )
 }
