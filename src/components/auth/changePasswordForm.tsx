@@ -5,8 +5,7 @@ import useAuth from '../../hooks/useAuth'
 
 export default function ChangePasswordForm() {
 
-    const router = useNavigate()
-
+    const router = useNavigate() 
     const { resetPasswordForm, resetPasswordLoading } = useAuth()  
 
     return resetPasswordForm (
