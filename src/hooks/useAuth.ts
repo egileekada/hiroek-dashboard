@@ -14,6 +14,7 @@ const useAuth = () => {
     const [searchParams] = useSearchParams();
   
     const resetCode = searchParams.get('resetCode');
+    const email = searchParams.get('email'); 
 
     const { mutate: signIn, isLoading: signInLoading, isSuccess: signInSuccess } = useMutation({
         mutationFn: (data: ILogin) => unsecureHttpService.post(`/organizations/login`, data),
@@ -33,19 +34,17 @@ const useAuth = () => {
 
     const { mutate: requestCodeMutate, isLoading: requestCodeLoading, isSuccess: requestCodeSuccess } = useMutation({
         mutationFn: (data: any) => unsecureHttpService.post(`/organizations/password-reset-request`, data),
-        onError: (error: any) => { 
-            console.log(error?.response?.data?.error?.details?.message);
-            
+        onError: (error: any) => {  
             toast.error(error?.response?.data?.error?.details?.message)
         },
         onSuccess: () => {  
             toast.success("Email Sent Successfully")
-            router("/reset-password")
+            router("/login")
         },
     });  
 
     const { mutate: resetPasswordMutate, isLoading: resetPasswordLoading, isSuccess: resetPasswordSuccess } = useMutation({
-        mutationFn: (data: IResetPassword) => unsecureHttpService.post(`/organizations/password-reset-request`, data),
+        mutationFn: (data: IResetPassword) => unsecureHttpService.post(`/organizations/password-reset`, data),
         onError: (error: any) => { 
             console.log(error?.response?.data?.error?.details?.message);
             
@@ -54,7 +53,7 @@ const useAuth = () => {
         onSuccess: (data: any) => {
             console.log(data);
             toast.success("Password Successfully Changed")
-            router("/")
+            router("/login")
         },
     });  
   
@@ -69,11 +68,10 @@ const useAuth = () => {
   
     const { renderForm: claimHookForm, values: claimValue } = useForm({
         defaultValues: {
-            username: '',
-            password: '',
+            email: ''
         },
-        validationSchema: signInValidation,
-        submit: (data: any) => { console.log(data) }
+        validationSchema: requestCodeValidation,
+        submit: (data: any) => requestCodeMutate(data)
     });
   
     const { renderForm: requestCodeForm, values: requestValue } = useForm({
@@ -86,21 +84,21 @@ const useAuth = () => {
   
     const { renderForm: resetPasswordForm, values: resetValue } = useForm({
         defaultValues: {
-            email: '',
+            email: email,
             resetCode: resetCode,
             password: '',
             confirmpassword: '',
         },
         validationSchema: resetPasswordValidation,
         submit: (data: IResetPassword) => {
-            if(data.confirmpassword !== data?.password){
-                toast.success("Incorrect Confirm Password")
-            } else{
+            if(data.confirmpassword === data?.password){
                 resetPasswordMutate({
-                    email: data?.email,
+                    email: email+"",
                     password: data?.password,
                     resetCode: resetCode+"",
                 })
+            } else{ 
+                toast.error("Incorrect Confirm Password")
             }
         }
     });

@@ -1,5 +1,5 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
-import { AddBankDetailPage, ChangePasswordPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ProfileInfoPage, ResetPasswordPage, WithDrawalPin } from "./page";
+import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ProfileInfoPage, ResetPasswordPage, WithDrawalPin } from "./page";
 import { DashboardLayout } from "./components/dashboard";
 
 
@@ -8,8 +8,8 @@ function App() {
 
     createRoutesFromElements(
       <Route path="/">
-        {/* <Route index element={<ClaimAccountPage />} /> */}
-        <Route index element={<LoginPage />} />
+        <Route index element={<ClaimAccountPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ResetPasswordPage />} />
         <Route path="/reset-password" element={<ChangePasswordPage />} />
         <Route path="/dashboard" element={<DashboardLayout />} >
