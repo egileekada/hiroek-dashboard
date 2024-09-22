@@ -26,7 +26,7 @@ function LoadingAnimation(props: Props) {
         // Set a 3-second timeout
         const timeoutId = setTimeout(() => { 
             setLoading(false);
-        }, 3000);
+        }, 1000);
 
         // Cleanup: clear the timeout if the component unmounts or a new timer is set
         return () => clearTimeout(timeoutId);
