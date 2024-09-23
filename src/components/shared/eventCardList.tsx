@@ -64,7 +64,7 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
                             {data?.map((item, index) => {
                                 return (
                                     <div onClick={() => clickHandler(item)} role='button' key={index} className=' w-[346px] h-[186px] rounded-2xl bg-green-500 relative ' >
-                                        <img src={item?.photo} alt={item?.name} className=' w-full h-full absolute inset-0 rounded-2xl ' />
+                                        <img src={item?.photo} alt={item?.name} className=' w-full h-full object-cover absolute inset-0 rounded-2xl ' />
                                         <div className=' absolute bottom-2 inset-x-2 text-white flex items-center justify-between rounded-[10px] bg-[#2D264B80] py-[8px] px-3 ' >
                                             <div className=' flex-col flex gap-1 ' >
                                                 <Text className=' text-xs font-semibold ' >{textLimit(item?.name, 20)}</Text>
@@ -96,7 +96,7 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
                             return (
                                 <div onClick={() => clickHandler(item)} role='button' key={index} className=' w-full rounded-2xl relative p-2 ' style={{ boxShadow: "0px 2px 10px 0px #00000014" }} >
                                     <div className=' w-full md:h-[200px] h-[102px] bg-red-500 rounded-lg ' >
-                                        <img src={item?.photo} alt={item?.name} className=' w-full h-full rounded-lg ' />
+                                        <img src={item?.photo} alt={item?.name} className=' w-full h-full object-cover rounded-lg ' />
                                     </div>
                                     <div className=' flex mt-3 flex-col gap-1 ' >
                                         <Text className=' text-[10px] font-semibold ' >{textLimit(item?.name, 20)}</Text>
