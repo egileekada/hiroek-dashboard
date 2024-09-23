@@ -1,8 +1,9 @@
 import { Select, Text } from '@radix-ui/themes'
 import { IInterest } from '../../model/interest' 
+import { useState } from 'react';
 
 interface IProps {
-    changeHandler?: (by: string) => void;
+    changeHandler?: any;
     list?: Array<string>;
     interest?: Array<IInterest>;
     placeholder: string,
@@ -23,9 +24,16 @@ export default function CustomSelect(props: IProps) {
         formState
     } = props 
 
+    const [ defaultData, setDefaultData ] = useState(value)
+
+    const clickhandler = (item: string) => {
+        setDefaultData(item) 
+        changeHandler(name, item)
+    }
+
     return (
         <div className=' flex flex-col ' > 
-            <Select.Root value={value} onValueChange={changeHandler} size={"3"} >
+            <Select.Root value={defaultData} onValueChange={clickhandler} size={"3"} >
                 <Select.Trigger placeholder={placeholder} />
                 <Select.Content >
                     {list?.length > 0 && (

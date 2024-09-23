@@ -56,12 +56,12 @@ export default function EventForm(props: IProps) {
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Event Category</Text>
                         {!loadingCategory && (
-                            <CustomSelect value={values?.category} formState={formState} placeholder="Select Categories" name="category" changeHandler={(e) => changeHandler(e, "category")} list={categoryData} />
+                            <CustomSelect value={values?.category} formState={formState} placeholder="Select Categories" name="category" changeHandler={setValue} list={categoryData} />
                         )}
                     </div>
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Event Privacy</Text>
-                        <CustomSelect value={values?.privacy} formState={formState} placeholder="Select Privacy" name="privacy" changeHandler={(e) => changeHandler(e, "privacy")} list={["public", "invite-only"]} />
+                        <CustomSelect value={values?.privacy} formState={formState} placeholder="Select Privacy" name="privacy" changeHandler={setValue} list={["public", "invite-only"]} />
                     </div>
                 </div>
                 <div className=" w-full flex gap-4 lg:flex-row flex-col " >
