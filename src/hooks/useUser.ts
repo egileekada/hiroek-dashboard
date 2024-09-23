@@ -6,10 +6,11 @@ import httpService from "../utils/httpService";
 import Cookies from "js-cookie"
 import { useState } from "react";
 import { IUser } from "../model/user";
+import { useNavigate } from "react-router-dom";
 
 const useUser = () => {
 
-    // const router = useNavigate(); 
+    const router = useNavigate(); 
     const { email } = useDetails((state) => state);  
 
     const [data, setData] = useState({} as IUser)
@@ -23,6 +24,8 @@ const useUser = () => {
         {
             onError: (error: any) => {
                 toast.error(error.response?.data)
+                console.log(error);
+                router("/login")
             },
             onSuccess: (data: any) => {  
                 setData(data?.data?.organization)
