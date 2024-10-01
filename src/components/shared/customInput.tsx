@@ -17,6 +17,7 @@ interface IProps {
     textColor?: string;
     icon?: React.ReactNode;
     hasIcon?: boolean;
+    hasLeftIcon?: boolean;
     borderRadius?: string,
     textarea?: boolean,
     onclick?: () => void,
@@ -24,7 +25,7 @@ interface IProps {
     setValue?: any
 }
 
-export default function CustomInput({ isPassword = false, name, textarea, type, placeholder, disable, value, icon, hasIcon, borderRadius, onclick, edit, setValue }: IProps) {
+export default function CustomInput({ isPassword = false, name, textarea, type, placeholder, disable, value, icon, hasIcon, hasLeftIcon, borderRadius, onclick, edit, setValue }: IProps) {
 
     const [showText, setShowText] = useState(type)
     const [defaultValue, setDefaultValue] = useState(value+"")
@@ -59,7 +60,7 @@ export default function CustomInput({ isPassword = false, name, textarea, type, 
                                     required: true,
                                     pattern: /^[A-Za-z]+$/i
                                 })}
-                                type={showText} style={{ borderRadius: borderRadius ?? "5px" }} placeholder={placeholder} disabled={disable} value={type === "date" ? new Date(value).toISOString().split('T')[0] : value} name={name} className=" h-[39px] px-3 border-[#37137F] border-opacity-30 border-[1.5px] outline-none hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] bg-transparent w-full text-sm font-medium text-primary " />
+                                type={showText} style={{ borderRadius: borderRadius ?? "5px" }} placeholder={placeholder} disabled={disable} value={type === "date" ? new Date(value).toISOString().split('T')[0] : value} name={name} className={` ${hasLeftIcon ? " pl-[40px] " : " "} h-[39px] px-3 border-[#37137F] border-opacity-30 border-[1.5px] outline-none hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] bg-transparent w-full text-sm font-medium text-primary `} />
                             {(isPassword) && (
                                 <div role="button" onClick={clickHandler} className={` ${showText === "password" ? "" : "opacity-20"} w-[30px] pr-2 h-[39px] flex justify-center items-center absolute right-0 top-0 `} >
                                     <EyeIcon />
@@ -67,6 +68,13 @@ export default function CustomInput({ isPassword = false, name, textarea, type, 
                             )}
                             {(!isPassword && hasIcon) && (
                                 <div onClick={onclick} role="button" className=" absolute w-fit cursor-pointer right-0 top-0 pr-2 " >
+                                    <div className=" w-[30px] h-[39px] flex justify-center items-center " >
+                                        {icon}
+                                    </div>
+                                </div>
+                            )}
+                            {(!isPassword && hasLeftIcon) && (
+                                <div onClick={onclick} role="button" className=" absolute w-fit cursor-pointer left-0 top-0 pr-2 " >
                                     <div className=" w-[30px] h-[39px] flex justify-center items-center " >
                                         {icon}
                                     </div>

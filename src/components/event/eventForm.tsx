@@ -4,8 +4,9 @@ import ImagePicker from "../shared/imagePicker";
 import useInterest from "../../hooks/useInterest";
 import useCategory from "../../hooks/useCategory";
 import CustomSelect from "../shared/customSelect";
-import MultipleSelect from "../shared/multipleSelect"; 
-import CustomDatePicker from "../shared/customDatePicker";
+import MultipleSelect from "../shared/multipleSelect";
+import CustomDatePicker from "../shared/customDatePicker"; 
+import CustomAddress from "../shared/customAddress";
 
 interface IProps {
     setValue: any;
@@ -26,9 +27,10 @@ export default function EventForm(props: IProps) {
     const { isLoading: loadingInterest, data: interestData } = useInterest()
     const { isLoading: loadingCategory, data: categoryData } = useCategory() 
 
+    // const { loadingMap, center, setMarkerPosition, markerPosition } = useMapLocation()
     const changeHandler = (item: string, name: string) => {
         setValue(name, item)
-    }
+    } 
 
     return (
         <div className=" w-full flex flex-col gap-4 lg:pb-6 " >
@@ -44,7 +46,7 @@ export default function EventForm(props: IProps) {
                 </div>
                 <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Event Venue</Text>
-                    <CustomInput name="address" type="text" placeholder="Type or search for venue..." />
+                    <CustomAddress name="address" type="text" setValue={setValue} placeholder="Type or search for venue..." />
                 </div>
                 <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Event Interest</Text>
@@ -90,7 +92,7 @@ export default function EventForm(props: IProps) {
                 <CustomButton loading={isLoading} className=" px-3 " width="100%" type="submit" >
                     Create New Event
                 </CustomButton>
-            </div>
+            </div> 
         </div>
     )
 }

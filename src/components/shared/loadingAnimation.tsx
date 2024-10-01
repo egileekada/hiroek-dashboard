@@ -33,7 +33,7 @@ function LoadingAnimation(props: Props) {
     }, [])
 
     return (
-        <div className=' w-full ' >
+        <div className=' w-full bg-white ' >
             {(!loading && !isLoading) && (
                 <div className=' w-full ' >
                     {children}
@@ -59,7 +59,7 @@ function LoadingAnimation(props: Props) {
             {(loading || isLoading) && (
                 <div className=' w-full flex ' >
                     {!customLoader && (
-                        <div className=' w-full flex justify-center py-4 text-lg ' >
+                        <div className=' w-full flex justify-center  py-4 text-lg ' >
                             <Spinner size={"3"} className=' !text-primary ' />
                         </div>
                     )}
