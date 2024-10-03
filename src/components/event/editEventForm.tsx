@@ -34,7 +34,7 @@ export default function EditEventForm(props: IProps) {
 
     const changeHandler = (item: string, name: string) => {
         setValue(name, item)
-    } 
+    }
 
     return (
         <div className=" w-full flex flex-col gap-4 lg:pb-6 " >

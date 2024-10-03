@@ -33,6 +33,7 @@ const useInterest = () => {
 
                 setData(flavorOptions)
             },
+            enabled: data?.length > 0 ? false : true 
         },
     );
 

@@ -9,13 +9,12 @@ interface LatLngLiteral {
 
 const useMapLocation = () => {
 
-
+    const [loading, setLoading] = useState(true)
     const API_KEY = import.meta.env.VITE_APP_MAP_KEY
 
     const [markerPosition, setMarkerPosition] = useState<LatLngLiteral | null>(null);
 
-    const { address } = useMap((state) => state);
-
+    const { address, updateMarker, marker } = useMap((state) => state); 
 
     // Function to fetch geolocation from the address
     const fetchGeolocation = async (address: string) => {
@@ -30,6 +29,11 @@ const useMapLocation = () => {
                 lat: lat,
                 lng: lng,
             })
+            setLoading(false)
+            updateMarker({
+                lat: lat,
+                lng: lng,
+            })
             // setDirectionsResponse({ lat, lng });
         }
     };
@@ -41,9 +45,10 @@ const useMapLocation = () => {
     }, [address]) 
 
     return {
-        // loadingMap,
+        loading,
         markerPosition,
-        setMarkerPosition
+        setMarkerPosition,
+        marker
     };
 }
 

@@ -10,6 +10,7 @@ import LoadingAnimation from './loadingAnimation';
 import { useEventDetail } from '../../global-state/useEventDetails';
 import useEvent from '../../hooks/useEvent';
 import { IEvent } from '../../model/event';
+import { useMap } from '../../global-state/useMapStore';
 
 interface IProps {
     title?: string;
@@ -28,9 +29,11 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
 
     const { eventFilter, updateFilter } = usePagintion((state) => state)
     const { updateEvent } = useEventDetail((state) => state)
+    const { updateMap } = useMap((state) => state);
 
     const clickHandler = (item: IEvent) => {
         updateEvent(item)
+        updateMap(item?.address)
         router(`/dashboard/event/details/${item?._id}`)
     }
 

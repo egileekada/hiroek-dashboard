@@ -13,16 +13,18 @@ import { useInterest } from "../global-state/useInterestData";
 import { usePagintion } from "../global-state/usePagination";
 import { IEvent } from "../model/event";
 import { useEventDetail } from "../global-state/useEventDetails";
+import { useMap } from "../global-state/useMapStore";
 
 const useEvent = () => {
 
     const [data, setData] = useState<Array<IEvent>>([])
-    const [singleData, setSingleData] = useState({} as IEvent)
-    const [showEvent, setShowEvent] = useState(true)
+    const [donationData, setDonationData] = useState<Array<any>>([])
+    const [singleData, setSingleData] = useState({} as IEvent) 
     const { eventImage } = useImage((state) => state)
     const { interest: interestData } = useInterest((state) => state)
     const { page, pageSize, eventFilter } = usePagintion((state) => state)
     const { event, updateEvent } = useEventDetail((state) => state)
+    const { updateMap } = useMap((state) => state); 
 
     const router = useNavigate();
     const userId = Cookies.get("user-index")
@@ -47,22 +49,38 @@ const useEvent = () => {
             onSuccess: (data: any) => {
                 setData(data?.data?.events?.data)
             },
-            enabled: showEvent
+            enabled: history?.pathname?.includes("dashboard/event")
         },
     );
 
     // single event by id
     const { isLoading: loadingSingleEvent } = useQuery(
-        ["Event", page, pageSize, eventFilter],
+        ["Event", page, pageSize, eventFilter, id],
         () => httpService.get(`/events/${id}`),
         {
             onError: (error: any) => {
                 toast.error(error.response?.data)
             },
-            onSuccess: (data: any) => {
+            onSuccess: (data: any) => { 
+                setSingleData(data?.data?.event)
+                updateEvent(data?.data?.event)
+                // updateInterest(data?.data?.event?.interests)
+                updateMap(data?.data?.event?.address)
+            }, 
+            enabled: (!event?.name && !id)? false : true
+        },
+    );
 
-                setSingleData(data?.data?.events?.data[0])
-                updateEvent(data?.data?.events?.data[0])
+    // single event by id
+    const { isLoading: loadingDonation } = useQuery(
+        ["Event_Donation", page, pageSize, eventFilter],
+        () => httpService.get(`/organizations/direct-donation-history/${id}`),
+        {
+            onError: (error: any) => {
+                toast.error(error.response?.data)
+            },
+            onSuccess: (data: any) => { 
+                setDonationData(data?.data?.donations?.data) 
             },
             enabled: (!id) ? false : true
         },
@@ -94,9 +112,10 @@ const useEvent = () => {
         },
         onSuccess: () => {
             toast.success("Updated Event Successfully")
-            router("/dashboard/event")
+            router("/dashboard/event/details/"+id)
         },
-    });
+    }); 
+    
 
     const { renderForm: eventHookForm, values, setValue, formState, reset } = useForm({
         defaultValues: {
@@ -172,14 +191,15 @@ const useEvent = () => {
         isLoading,
         isSuccess,
         values,
-        loadingEvent,
-        setShowEvent,
+        loadingEvent, 
         data,
         formState,
         reset,
         singleData,
         loadingSingleEvent,
-        loadingEditEvent
+        loadingEditEvent,
+        loadingDonation,
+        donationData, 
     };
 }
 

@@ -14,7 +14,6 @@ interface LatLngLiteral {
 
 interface Props {
     setOpen?: any,
-    hidesearch?: boolean
 }
 
 const libraries: ("places")[] = ['places']; // Libraries to load for Google Maps
@@ -35,7 +34,6 @@ const MapWithClickMarker = (props: Props) => {
 
     const {
         setOpen,
-        hidesearch
     } = props
 
     const { updateMap } = useMap((state) => state);
@@ -107,9 +105,7 @@ const MapWithClickMarker = (props: Props) => {
             (results: any, status: any) => {
                 if (status === 'OK' && results[0]) {
 
-                    let address = results[0].formatted_address
-                    console.log(address);
-
+                    let address = results[0].formatted_address 
                     updateMap(address)
 
                 } else {
@@ -125,6 +121,8 @@ const MapWithClickMarker = (props: Props) => {
     if (loadError) return <div>Error loading maps</div>;
     if (!isLoaded) return <div>Loading maps...</div>;
 
+
+
     return (
         <div>
 
@@ -136,23 +134,16 @@ const MapWithClickMarker = (props: Props) => {
                 center={location}
                 onClick={(e) => handleMapClick(e)} // Add the onClick handler here
             >
-                {hidesearch && (
-                    <MapSearch setMarker={setMarkerPosition} center={location} panTo={panTo} />
-                )}
+                <MapSearch setMarker={setMarkerPosition} center={location} panTo={panTo} />
                 {markerPosition && (
-                    <Marker position={{
-                        lat: markerPosition?.lat,
-                        lng: markerPosition?.lng
-                    }} /> // Render the marker at the clicked position
+                    <Marker position={markerPosition} /> // Render the marker at the clicked position
                 )}
             </GoogleMap>
-            {hidesearch && (
-                <div className=' w-full bg-white flex justify-end py-3 px-4 '  >
-                    <CustomButton onClick={() => setOpen(false)} ml={"auto"} width={"150px"}>
-                        Okay
-                    </CustomButton>
-                </div>
-            )}
+            <div className=' w-full bg-white flex justify-end py-3 px-4 '  >
+                <CustomButton onClick={() => setOpen(false)} ml={"auto"} width={"150px"}>
+                    Okay
+                </CustomButton>
+            </div>
         </div>
     );
 };

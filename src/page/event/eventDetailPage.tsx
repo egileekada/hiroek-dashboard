@@ -7,24 +7,18 @@ import { useEventDetail } from "../../global-state/useEventDetails";
 import { dateFormat } from "../../utils/dateFormat";
 import useEvent from "../../hooks/useEvent";
 import LoadingAnimation from "../../components/shared/loadingAnimation";
-import { useMap } from "../../global-state/useMapStore";
-import { useEffect } from "react";
-import MapWithClickMarker from "../../components/shared/map_component/newMap";
 import { textLimit } from "../../utils/textlimit";
+import ChartGraph from "../../components/shared/chartGraph";
+import { formatNumberWithK } from "../../utils/formatNumberWithK"; 
+import ViewMap from "../../components/shared/map_component/viewMap";
 
 
-export default function EventDetailPage() { 
+export default function EventDetailPage() {
 
     const router = useNavigate()
 
-    const { loadingSingleEvent } = useEvent()
-
+    const { loadingSingleEvent } = useEvent() 
     const { event } = useEventDetail((state) => state)
-    const { updateMap } = useMap((state) => state);
-
-    useEffect(() => {
-        updateMap(event?.address)
-    }, [])
 
     return (
         <div className=' w-full flex flex-col gap-6 ' >
@@ -54,7 +48,7 @@ export default function EventDetailPage() {
                 <div className=" w-full flex lg:flex-row flex-col pb-4 gap-6 text-primary " >
                     <div className=" w-full h-fit flex flex-col rounded-[44px] lg:pb-8 pb-6 lg:p-8 " style={{ boxShadow: "0px 4px 30px 0px #0000000D" }} >
                         <div className=" w-full h-[316px] bg-green-700 rounded-b-3xl lg:rounded-3xl relative " >
-                            <img src={event.photo} alt={event?.name} className=" w-full h-full rounded-b-3xl lg:rounded-3xl object-cover " />
+                            <img src={event?.photo} alt={event?.name} className=" w-full h-full rounded-b-3xl lg:rounded-3xl object-cover " />
                             <div role="button" onClick={() => router(-1)} className=" cursor-pointer lg:hidden w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-[#FFFFFF33] flex justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
                                 <BackWhiteIcon />
                             </div>
@@ -94,15 +88,34 @@ export default function EventDetailPage() {
                             <Text className=" font-bold mt-5 text-lg " >Description</Text>
                             <Text className=" text-primary text-opacity-90 font-medium !leading-[18px] mt-2 " >{event?.description}</Text>
                             <Text className=" font-bold mt-5 text-lg " >Venue & Location</Text>
-                            <div className=" w-full rounded-[12px] h-auto mt-2" >
-                                <MapWithClickMarker />
+                            <div className=" w-full rounded-[12px] h-auto mt-2 relative " > 
+                                {event?.address && (
+                                    <ViewMap address={event?.address} />
+                                )}
                             </div>
                         </div>
                     </div>
                     <div className=" w-full flex flex-col gap-6 lg:px-0 px-4 " >
-                        {/* <div style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }} className=" w-full h-[384px] rounded-[44px] p-6 " >
-
-                        </div> */}
+                        <div style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }} className=" w-full rounded-[44px] flex flex-col p-6 " >
+                            <Text className=" text-xl tracking-[1%] text-primary " >Fundraising Target</Text>
+                            <Text className=" text-[#858D9D] " >This is the target for this event.</Text>
+                            <ChartGraph />
+                            <Text className=" text-[#667085] font-medium text-center text-sm " >You received donations of <span style={{ color: "#37137F" }} >£240</span> today, its higher than yesterday</Text>
+                            <div className=" w-full px-2 flex justify-between pt-2 " >
+                                <div className=" flex flex-col items-center" >
+                                    <Text className=" font-medium text-[#667085] text-sm " >Target</Text>
+                                    <Text className=" font-semibold text-xl text-[#1D1F2C] " >£{formatNumberWithK(event?.fundraisingGoal)}</Text>
+                                </div>
+                                <div className=" flex flex-col items-center" >
+                                    <Text className=" font-medium text-[#667085] text-sm " >Donated</Text>
+                                    <Text className=" font-semibold text-xl text-[#1D1F2C] " >£0k</Text>
+                                </div>
+                                <div className=" flex flex-col items-center" >
+                                    <Text className=" font-medium text-[#667085] text-sm " >Today</Text>
+                                    <Text className=" font-semibold text-xl text-[#1D1F2C] " >£0k</Text>
+                                </div>
+                            </div>
+                        </div>
                         <div style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }} className=" w-full rounded-[44px] p-6 bg-white text-primary " >
                             <div className=" w-full flex items-center justify-between " >
                                 <div className=" flex flex-col " >
