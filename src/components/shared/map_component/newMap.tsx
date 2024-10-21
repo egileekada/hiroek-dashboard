@@ -49,7 +49,7 @@ const MapWithClickMarker = (props: Props) => {
         zoomControl: true,
     };
 
-    const { markerPosition: newMarker } = useMapLocation()
+    const { markerPosition: newMarker, loading } = useMapLocation()
 
     useEffect(() => {
         if (newMarker?.lat) {
@@ -119,7 +119,7 @@ const MapWithClickMarker = (props: Props) => {
     };
 
     if (loadError) return <div>Error loading maps</div>;
-    if (!isLoaded) return <div>Loading maps...</div>;
+    if (!isLoaded && loading) return <div>Loading maps...</div>;
 
 
 

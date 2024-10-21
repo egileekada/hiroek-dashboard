@@ -20,11 +20,12 @@ export default function ModalLayout(props: {
         width
     } = props
 
-    return ( 
+    return (
         <Dialog.Root open={open} >
             <Dialog.Portal  >
                 <Dialog.Overlay onClick={() => setOpen(false)} className="DialogOverlay bg-black bg-opacity-40 " />
                 <Dialog.Content style={{ maxWidth: width ? width : "450px" }} className="DialogContent relative ">
+
                     <div className='w-full h-10 flex items-center justify-center ' >
                         {title}
                     </div>
@@ -32,7 +33,7 @@ export default function ModalLayout(props: {
                         <IoIosCloseCircle size={"25px"} />
                     </div>
                     <div className=' w-full flex flex-col ' >
-                        {props?.children} 
+                        {props?.children}
                     </div>
                 </Dialog.Content>
             </Dialog.Portal>

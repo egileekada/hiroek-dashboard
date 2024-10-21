@@ -4,9 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { Text } from "@radix-ui/themes";
 import { useMap } from "../../global-state/useMapStore";
 import ModalLayout from "./modalLayout";
-import MapWithClickMarker from "./map_component/newMap";
-import useMapLocation from "../../hooks/useMapLocation";
-// import useMapLocation from "../../hooks/useMapLocation";
+import MapWithClickMarker from "./map_component/newMap"; 
 
 
 interface IProps {
@@ -38,9 +36,6 @@ export default function CustomAddress({ name, type, placeholder, disable, value,
         setDefaultValue(address)
     }, [address])
 
-    const { markerPosition: newMarker } = useMapLocation()
-    
-
     return (
         // <TextField.Root size="3" placeholder={placeholder} name={name} type={type} disabled={disable} value={value} />
         <>
@@ -53,10 +48,8 @@ export default function CustomAddress({ name, type, placeholder, disable, value,
                 </div>
                 {errors[name] && <Text className=" text-left text-xs text-red-500 font-medium -mt-1 " >{errors[name]?.message as string}</Text>}
 
-                <ModalLayout width="600px" open={open} setOpen={setOpen} >
-                    {newMarker && (
-                        <MapWithClickMarker setOpen={setOpen} />
-                    )}
+                <ModalLayout width="600px" open={open} setOpen={setOpen} > 
+                        <MapWithClickMarker setOpen={setOpen} /> 
                 </ModalLayout>
             </div>
         </>

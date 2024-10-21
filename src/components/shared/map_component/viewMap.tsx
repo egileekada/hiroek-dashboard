@@ -25,6 +25,9 @@ const defaultCenter: LatLngLiteral = {
 };
 
 const API_KEY = import.meta.env.VITE_APP_MAP_KEY
+
+console.log(API_KEY);
+
  
 
 export default function ViewMap(props: Props) {
