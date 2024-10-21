@@ -9,8 +9,14 @@ interface IProps {
 
 export default function AuthLayout({ children, header, body, hidesidebar }: IProps) {
     return (
-        <div className=" w-full h-screen flex lg:bg-gradient-to-r from-[#37137F] from-[34.29%]  to-[#2E4991] to-100%  "  >
+        <div className=" w-full !h-screen flex !overflow-hidden lg:bg-gradient-to-r from-[#37137F] from-[34.29%]  to-[#2E4991] to-100%  "  >
+            <div className=" w-[477px] h-[477px] fixed z-50 -top-[300px] -left-[270px] bg-[#FFFFFF26] rounded-r-full rounded-bl-full " />
+            <div className=" w-[477px] h-[477px] fixed z-50 top-[77%] -left-[270px] bg-[#FFFFFF26] rounded-r-full rounded-bl-full " />
+            <div className={` ${!hidesidebar ? "hidden" : "block"} w-[477px] h-[477px] fixed z-50 -top-[300px] -right-[270px] bg-[#FFFFFF26] rounded-l-full rounded-br-full `} />
+            <div className={` ${!hidesidebar ? "hidden" : "block"} w-[477px] h-[477px] fixed z-50 top-[80%] -right-[270px] bg-[#FFFFFF26] rounded-l-full rounded-br-full `} />
             <div className=" w-full h-full flex flex-col justify-center relative items-center lg:px-0 px-6  " >
+                {/* <div className=" w-[477px] h-[477px] fixed -top-[0px] -left-[40%] bg-[#FFFFFF26] rounded-full " /> 
+                <div className=" w-[477px] h-[477px] absolute top-[80%] -left-[40%] bg-[#FFFFFF26] rounded-full " />  */}
                 <div className="  rounded-full absolute top-0 w-full flex justify-center " >
                     <div className=" max-w-[450px] h-[150px] lg:hidden w-full relative " >
                         <img src="/images/halfcircle.png" className=" w-full max-w-[450px] " />
@@ -20,7 +26,7 @@ export default function AuthLayout({ children, header, body, hidesidebar }: IPro
                         </div>
                     </div>
                 </div>
-                <div className=" max-w-[450px] w-full flex flex-col items-center text-primary lg:text-white gap-4 " >
+                <div className=" max-w-[450px] w-full flex flex-col items-center text-primary  lg:text-white gap-4 " >
                     <div className=" w-full flex flex-col items-center " >
                         <Text className=" uppercase lg:block hidden text-[32px] font-black " >Hiroek</Text>
                         <Text className=" lg:block hidden text-xs tracking-[1%] font-medium " >FOR CHARITIES</Text>
@@ -52,7 +58,7 @@ export default function AuthLayout({ children, header, body, hidesidebar }: IPro
                     <div className="  absolute inset-0 bg-black rounded-bl-[150px] bg-opacity-15 z-10 " >
                         <img alt="bg1" className=" w-full h-full object-cover rounded-bl-[150px] " src="/images/bg1.png" />
                     </div>
-                        <div className=" bg-[#00000080] absolute rounded-bl-[150px] inset-0 z-[12] " />
+                    <div className=" bg-[#00000080] absolute rounded-bl-[150px] inset-0 z-[12] " />
                     <Text className=" leading-[48px] relative z-20 text-[40px] text-center font-extrabold " >Get Started With 3 Easy Steps</Text>
                     <div className=" flex gap-3 relative z-20 " >
                         <div className=" w-[64px] h-[64px] rounded-full flex justify-center items-center bg-[#FFFFFF1A] text-[18px] font-bold text-[#FFFFFFBF] " >

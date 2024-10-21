@@ -9,11 +9,13 @@ import { useDetails } from "../global-state/useUserDetails";
 import { useState } from "react";
 import Cookies from "js-cookie"
 import { useImage } from "../global-state/useImageData";
+import { useInterest } from "../global-state/useInterestData";
 
 const useProfile = () => {
 
     const { name, charityRegNumber, description, logo, setAll } = useDetails((state) => state);
     const { image: imageFile, updateImage } = useImage((state) => state)
+    const { interest: interestData } = useInterest((state) => state)
 
     const [image, setImage] = useState('');
 
@@ -64,6 +66,11 @@ const useProfile = () => {
                 toast.error("Add Logo")
             } else {
                 formData.append("name", data?.name ?? name)
+                {
+                    interestData?.map((item) => {
+                        formData.append("interests[]", item?.value)
+                    })
+                }
                 formData.append("charityRegNumber", data?.charityRegNumber ?? charityRegNumber)
                 formData.append("description", data?.description ?? description)
                 if (imageFile) {

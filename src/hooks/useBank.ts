@@ -1,17 +1,18 @@
 
 import { useMutation, useQuery } from "react-query";
 // import { useNavigate } from "react-router-dom";
-import { BankValidation } from "../services/validation";
+import { BankValidation, BankPinValidation } from "../services/validation";
 import { useForm } from "./useForm";
 import toast from "react-hot-toast";
 import httpService from "../utils/httpService";
 import { useState } from "react";
 import axios from "axios";
 import { useDetails } from "../global-state/useUserDetails";
+import { useNavigate } from "react-router-dom";
 
 const useBank = () => {
 
-    // const router = useNavigate(); 
+    const router = useNavigate(); 
     const { bankAccountName, bankAccountNumber, bankName } = useDetails((state) => state);
 
     const [bankInfoData, setData] = useState([] as any);
@@ -24,8 +25,20 @@ const useBank = () => {
             toast.error(error?.response?.data?.error?.details?.message)
         },
         onSuccess: () => { 
-            toast.success("Update Successful")
-            // router("/dashboard")
+            toast.success("Update Successful") 
+        },
+    });
+ 
+    const { mutate: pinMutate, isLoading: loadingPin } = useMutation({
+        mutationFn: (data: any) => httpService.patch(`/organizations/update-pin`, data),
+        onError: (error: any) => {
+            console.log(error?.response?.data?.error?.details?.message);
+
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: () => { 
+            toast.success("Update Successful") 
+            router("/dashboard/donation")
         },
     });
 
@@ -38,9 +51,17 @@ const useBank = () => {
         },
         validationSchema: BankValidation,
         submit: (data: any) => mutate(data)
-    });
+    }); 
 
-    console.log(bankAccountName+" heel" );
+    const { renderForm: PinForm, setValue: setPinValue} = useForm({
+        defaultValues: {
+            oldPin: "",
+            newPin: ""
+        },
+        validationSchema: BankPinValidation,
+        submit: (data: any) => pinMutate(data)
+    }); 
+    
     
 
     // react query
@@ -52,9 +73,7 @@ const useBank = () => {
                 toast.error(error.response?.data)
             },
             onSuccess: (data) => {
-                setData(data?.data?.data); 
-                console.log(data?.data?.data);
-                
+                setData(data?.data?.data);   
             },
         },
     );
@@ -66,7 +85,10 @@ const useBank = () => {
         values,
         loadingBank,
         bankInfoData,
-        setValue
+        setValue,
+        setPinValue,
+        PinForm,
+        loadingPin
     };
 }
 

@@ -60,7 +60,19 @@ const BankValidation = z.object({
     bankAccountNumber: z.string().nonempty("Required"),
     bankName: z.string().nonempty("Required"),
     sortCode: z.string().nonempty("Required"), 
+    pin: z.string().nonempty("Required"), 
+}) 
+
+const BankPinValidation = z.object({
+    oldPin: z.string(),
+    newPin: z.string().nonempty("Required"), 
 })
+
+const CommunityValidation = z.object({
+    name: z.string().nonempty("Required"),
+    description: z.string().nonempty("Required"), 
+    privacy: z.string().nonempty("Required"), 
+}) 
  
 export { 
     signInValidation, 
@@ -69,5 +81,7 @@ export {
     ProfileValidation,
     BankValidation,
     EventValidation,
-    EditEventValidation
+    EditEventValidation,
+    BankPinValidation,
+    CommunityValidation
 };

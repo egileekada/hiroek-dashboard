@@ -16,15 +16,13 @@ import { useEventDetail } from "../global-state/useEventDetails";
 import { useMap } from "../global-state/useMapStore";
 
 const useEvent = () => {
-
-    const [data, setData] = useState<Array<IEvent>>([])
     const [donationData, setDonationData] = useState<Array<any>>([])
-    const [singleData, setSingleData] = useState({} as IEvent) 
+    const [singleData, setSingleData] = useState({} as IEvent)
     const { eventImage } = useImage((state) => state)
     const { interest: interestData } = useInterest((state) => state)
     const { page, pageSize, eventFilter } = usePagintion((state) => state)
     const { event, updateEvent } = useEventDetail((state) => state)
-    const { updateMap } = useMap((state) => state); 
+    const { updateMap } = useMap((state) => state);
 
     const router = useNavigate();
     const userId = Cookies.get("user-index")
@@ -32,27 +30,35 @@ const useEvent = () => {
 
     const { id } = useParams();
 
-    // event list
-    const { isLoading: loadingEvent } = useQuery(
-        ["Event", page, pageSize, eventFilter],
-        () => httpService.get(`/organizations/events`, {
-            params: {
-                page: page,
-                pageSize: pageSize,
-                eventFilter: eventFilter
-            }
-        }),
-        {
-            onError: (error: any) => {
-                toast.error(error.response?.data)
+    // Get Event list
+    const getEventData = () => {
+        const [data, setData] = useState<Array<IEvent>>([])
+        const { isLoading } = useQuery(
+            ["Event", page, pageSize, eventFilter],
+            () => httpService.get(`/organizations/events`, {
+                params: {
+                    page: page,
+                    pageSize: pageSize,
+                    eventFilter: eventFilter
+                }
+            }),
+            {
+                onError: (error: any) => {
+                    toast.error(error.response?.data)
+                },
+                onSuccess: (data: any) => {
+                    setData(data?.data?.events?.data)
+                },
+                // enabled: history?.pathname?.includes("dashboard/event") || history?.pathname === "/dashboard"
             },
-            onSuccess: (data: any) => {
-                setData(data?.data?.events?.data)
-            },
-            enabled: history?.pathname?.includes("dashboard/event")
-        },
-    );
+        );
 
+        return {
+            data,
+            isLoading
+        }
+
+    }
     // single event by id
     const { isLoading: loadingSingleEvent } = useQuery(
         ["Event", page, pageSize, eventFilter, id],
@@ -61,26 +67,26 @@ const useEvent = () => {
             onError: (error: any) => {
                 toast.error(error.response?.data)
             },
-            onSuccess: (data: any) => { 
+            onSuccess: (data: any) => {
                 setSingleData(data?.data?.event)
                 updateEvent(data?.data?.event)
                 // updateInterest(data?.data?.event?.interests)
                 updateMap(data?.data?.event?.address)
-            }, 
-            enabled: (!event?.name && !id)? false : true
+            },
+            enabled: (!event?.name && !id) ? false : true
         },
     );
 
-    // single event by id
+    // single event donation by id
     const { isLoading: loadingDonation } = useQuery(
         ["Event_Donation", page, pageSize, eventFilter],
-        () => httpService.get(`/organizations/direct-donation-history/${id}`),
+        () => httpService.get(`/events/${id}/donations`),
         {
             onError: (error: any) => {
                 toast.error(error.response?.data)
             },
-            onSuccess: (data: any) => { 
-                setDonationData(data?.data?.donations?.data) 
+            onSuccess: (data: any) => {
+                setDonationData(data?.data?.event?.data)
             },
             enabled: (!id) ? false : true
         },
@@ -112,10 +118,10 @@ const useEvent = () => {
         },
         onSuccess: () => {
             toast.success("Updated Event Successfully")
-            router("/dashboard/event/details/"+id)
+            router("/dashboard/event/details/" + id)
         },
-    }); 
-    
+    });
+
 
     const { renderForm: eventHookForm, values, setValue, formState, reset } = useForm({
         defaultValues: {
@@ -132,8 +138,8 @@ const useEvent = () => {
             // communityId: event?.name ?? "",
         },
         validationSchema: history?.pathname?.includes("edit") ? EditEventValidation : EventValidation,
-        submit: (data: any) => { 
-            
+        submit: (data: any) => {
+
             const formData = new FormData()
 
             if (!eventImage && !history?.pathname?.includes("edit")) {
@@ -148,7 +154,7 @@ const useEvent = () => {
                     })
                 }
                 if (!history?.pathname?.includes("edit")) {
-                    formData.append("organization", userId+"")
+                    formData.append("organization", userId + "")
                 }
                 formData.append("category", data?.category ? data?.category : event?.category)
                 formData.append("privacy", data?.privacy ? data?.privacy : event?.privacy)
@@ -191,15 +197,14 @@ const useEvent = () => {
         isLoading,
         isSuccess,
         values,
-        loadingEvent, 
-        data,
+        getEventData,
         formState,
         reset,
         singleData,
         loadingSingleEvent,
         loadingEditEvent,
         loadingDonation,
-        donationData, 
+        donationData,
     };
 }
 

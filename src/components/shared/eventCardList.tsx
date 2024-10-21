@@ -25,7 +25,7 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
 
     const [searchText, setSearchText] = useState("")
 
-    const { loadingEvent, data } = useEvent()
+    const { getEventData } = useEvent()
 
     const { eventFilter, updateFilter } = usePagintion((state) => state)
     const { updateEvent } = useEventDetail((state) => state)
@@ -62,11 +62,11 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
             </div>
             {(!mobile) && (
                 <div className={` w-full overflow-x-auto flex `} >
-                    <LoadingAnimation loading={loadingEvent} length={data?.length} >
+                    <LoadingAnimation loading={getEventData().isLoading} length={getEventData().data?.length} >
                         <div className={` w-fit flex gap-4 `} >
-                            {data?.map((item, index) => {
+                            {getEventData().data?.map((item, index) => {
                                 return (
-                                    <div onClick={() => clickHandler(item)} role='button' key={index} className=' w-[346px] h-[186px] rounded-2xl bg-green-500 relative ' >
+                                    <div onClick={() => clickHandler(item)} role='button' key={index} className=' w-[346px] h-[186px] rounded-2xl bg-white shadow-sm relative ' >
                                         <img src={item?.photo} alt={item?.name} className=' w-full h-full object-cover absolute inset-0 rounded-2xl ' />
                                         <div className=' absolute bottom-2 inset-x-2 text-white flex items-center justify-between rounded-[10px] bg-[#2D264B80] py-[8px] px-3 ' >
                                             <div className=' flex-col flex gap-1 ' >
@@ -93,9 +93,9 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
                 </div>
             )}
             {(mobile) && (
-                <LoadingAnimation loading={loadingEvent} length={data?.length} >
+                <LoadingAnimation loading={getEventData()?.isLoading} length={getEventData()?.data?.length} >
                     <div className={` w-full grid grid-cols-2 gap-4 pb-6 `} >
-                        {data?.map((item, index) => {
+                        {getEventData()?.data?.map((item, index) => {
                             return (
                                 <div onClick={() => clickHandler(item)} role='button' key={index} className=' w-full rounded-2xl relative p-2 ' style={{ boxShadow: "0px 2px 10px 0px #00000014" }} >
                                     <div className=' w-full md:h-[200px] h-[102px] bg-red-500 rounded-lg ' >

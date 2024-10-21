@@ -7,16 +7,19 @@ import { TbPhoto } from "react-icons/tb";
 import { useImage } from "../../global-state/useImageData";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom"; 
+import useInterest from "../../hooks/useInterest";
+import MultipleSelect from "../shared/multipleSelect";
 
 
 export default function ProfileForm() {
 
     const { isLoading, values, setImage, image, loadingProfile } = useProfile()
-    const { logo, name, charityRegNumber, email, description } = useDetails((state) => state);
+    const { logo, name, charityRegNumber, email, description, interests } = useDetails((state) => state);
 
     const { updateImage } = useImage((state) => state) 
 
     const router = useNavigate()
+    const { isLoading: loadingInterest, data: interestData } = useInterest()
 
     const handleImageChange = (e: any) => {
 
@@ -39,6 +42,11 @@ export default function ProfileForm() {
             router("/dashboard")
         }
     }, [name])
+
+    // const { loadingMap, center, setMarkerPosition, markerPosition } = useMapLocation()
+    // const changeHandler = (item: string, name: string) => {
+    //     setValue(name, item)
+    // } 
 
     return (
         <div className=' w-full max-w-[607px] flex flex-col gap-4 lg:px-0 px-4 ' >
@@ -69,6 +77,13 @@ export default function ProfileForm() {
                 <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Organization Email</Text>
                     <CustomInput name="email" value={email} type="email" placeholder="Enter Organization" disable={true} />
+                </div>
+
+                <div className=" flex w-full flex-col gap-1 " >
+                    <Text className=" text-primary font-semibold text-sm " >Event Interest</Text>
+                    {!loadingInterest && (
+                        <MultipleSelect value={interests} placeholder="Select Interest" name="interest" interest={interestData} />
+                    )}
                 </div>
                 {/* <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Organization interests</Text>

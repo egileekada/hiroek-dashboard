@@ -34,9 +34,12 @@ export default function MultipleSelect(props: IProps) {
     } 
 
 
-    const flavorOptions = value.map(item => item._id);
+    const flavorOptions = value.map(item => item._id || item);
 
     const filteredItems = interest?.filter(item => flavorOptions.includes(item.value));
+
+    console.log(flavorOptions);
+    
 
     useEffect(() => {
 
@@ -45,7 +48,7 @@ export default function MultipleSelect(props: IProps) {
             updateInterest(filteredItems ?? [])
         }
         
-    }, [value, interest]) 
+    }, [value, interest])  
 
     return (
         <Select

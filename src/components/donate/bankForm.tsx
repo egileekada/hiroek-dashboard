@@ -1,20 +1,10 @@
 import { Text } from "@radix-ui/themes";
 import { CustomButton, CustomInput } from "../shared";
-import useBank from "../../hooks/useBank"; 
-import SelectBankType from "./SelectBankType";
+import useBank from "../../hooks/useBank";  
 
 export default function BankForm() {
 
-    const { bankForm, setValue, values, bankInfoData, loadingBank } = useBank()
-
-    console.log(values);
-    
-
-    const changeHandler =(item: any)=> {
-        console.log(item);
-        
-        setValue('bankName', item, { shouldValidate: true })
-    } 
+    const { bankForm, loadingBank } = useBank()  
 
     return bankForm(
         <div className=" w-full flex flex-col gap-4 pb-6 " >
@@ -25,7 +15,8 @@ export default function BankForm() {
                 </div>
                 <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Bank Name*</Text> 
-                    <SelectBankType value={values?.bankName ?? "Select Bank"} setValue={changeHandler} options={bankInfoData} /> 
+                    <CustomInput name="bankName" type="text" placeholder="Enter Bank Name" />
+                    {/* <SelectBankType value={values?.bankName ?? "Select Bank"} setValue={changeHandler} options={bankInfoData} />  */}
                 </div>
                 <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Account Number*</Text>
@@ -34,6 +25,10 @@ export default function BankForm() {
                 <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Sort Code*</Text>
                     <CustomInput name="sortCode" type="text" placeholder="Enter Sort Code" />
+                </div> 
+                <div className=" flex w-full flex-col gap-1 " >
+                    <Text className=" text-primary font-semibold text-sm " >Pin*</Text>
+                    <CustomInput name="pin" type="text" placeholder="Enter Sort Code" />
                 </div> 
                 <div className=" flex w-full mt-4 flex-col gap-1 " >
                     <CustomButton loading={loadingBank} type="submit" >

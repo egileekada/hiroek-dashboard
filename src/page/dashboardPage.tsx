@@ -5,11 +5,14 @@ import EventCardList from "../components/shared/eventCardList";
 import CommunityCardList from "../components/shared/communityCardList";
 import { useDetails } from "../global-state/useUserDetails";
 import { capitalizeFLetter } from "../utils/capitalLetter";
+// import useGetStats from "../hooks/useGetStats";
 
 
 export default function DashboardPage() {
 
     const { name  } = useDetails((state) => state);
+
+    // const  { } = useGetStats()
     
     return (
         <div className=' w-full flex flex-col gap-6 ' >

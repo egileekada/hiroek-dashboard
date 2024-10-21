@@ -5,12 +5,10 @@ import { useDetails } from "../global-state/useUserDetails";
 import httpService from "../utils/httpService";
 import Cookies from "js-cookie"
 import { useState } from "react";
-import { IUser } from "../model/user";
-import { useNavigate } from "react-router-dom";
+import { IUser } from "../model/user"; 
 
-const useUser = () => {
+const useUser = () => { 
 
-    const router = useNavigate(); 
     const { email } = useDetails((state) => state);  
 
     const [data, setData] = useState({} as IUser)
@@ -18,14 +16,13 @@ const useUser = () => {
     const userId = Cookies.get("user-index")
 
     // react query
-    const { isLoading } = useQuery(
+    const { isLoading, isError } = useQuery(
         ["user", userId],
         () => httpService.get(`/organizations/${userId}`),
         {
             onError: (error: any) => {
                 toast.error(error.response?.data)
                 console.log(error);
-                router("/login")
             },
             onSuccess: (data: any) => {  
                 setData(data?.data?.organization)
@@ -36,7 +33,8 @@ const useUser = () => {
 
     return { 
         isLoading,
-        data
+        data,
+        isError
     };
 }
 

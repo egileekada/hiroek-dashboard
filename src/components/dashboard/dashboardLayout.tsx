@@ -16,18 +16,20 @@ export default function DashboardLayout() {
     const { setAll } = useDetails((state) => state);
     const [loading, setLoading] = useState(true)
 
-    const { isLoading, data } = useUser()
+    const { isLoading, data, isError } = useUser()
 
     useEffect(() => {
         if (!isLoading) {
             if (data?.email) {
                 setAll({ ...data })
                 setLoading(false)
-            } else {
+            } else if(isError){ 
                 router("/login")
             }
         }
-    }, [setAll, isLoading, setLoading, loading])
+
+        
+    }, [setAll, isLoading, setLoading, loading, isError])
 
     return (
         <LoadingAnimation loading={isLoading} >
