@@ -1,17 +1,19 @@
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { useEventDetail } from '../../global-state/useEventDetails';
 
 // Register components in Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function ChartGraph() {
 
+    const { event } = useEventDetail((state) => state)
     const data = {
         labels: ["Donated", "Remaining"],
         datasets: [
             {
                 label: "Donation",
-                data: [0, 6],
+                data: [event?.fundRaised, (event?.fundraisingGoal - event.fundRaised)],
                 backgroundColor: ["#37137F", "#37137F26"],
                 circumference: 180,
                 rotation: 270,

@@ -78,7 +78,7 @@ const MapWithClickMarker = (props: Props) => {
             );
         }
         setZoom(16)
-    }, [newMarker])
+    }, [loading])
 
     const mapRef: any = React.useRef();
     const onMapLoad = React.useCallback((map: any) => {

@@ -11,6 +11,7 @@ import { textLimit } from "../../utils/textlimit";
 import ChartGraph from "../../components/shared/chartGraph";
 import { formatNumberWithK } from "../../utils/formatNumberWithK"; 
 import ViewMap from "../../components/shared/map_component/viewMap";
+import { formatNumber } from "../../utils/numberFormat";
 
 
 export default function EventDetailPage() {
@@ -19,6 +20,9 @@ export default function EventDetailPage() {
 
     const { loadingSingleEvent } = useEvent() 
     const { event } = useEventDetail((state) => state)
+
+    console.log(event);
+    
 
     return (
         <div className=' w-full flex flex-col gap-6 ' >
@@ -77,10 +81,12 @@ export default function EventDetailPage() {
                                     <Text className=" font-semibold text-sm " >{dateFormat(event?.endTime)}</Text>
                                 </div>
                                 <div className='flex items-center mt-2 text-black ' >
-                                    <div className=' w-7 h-7 rounded-full bg-blue-600 ' />
+                                    <div className=' w-7 h-7 rounded-full bg-blue-600 '>
+                                        <img />
+                                    </div>
                                     <div className=' w-7 h-7 rounded-full -ml-2 bg-green-600 ' />
                                     <div className=' w-7 h-7 rounded-full -ml-2 bg-red-600 ' />
-                                    <Text className=' ml-2 font-semibold ' >50K+ Members</Text>
+                                    <Text className=' ml-2 font-semibold ' >{formatNumberWithK(event?.members?.length)} Members</Text>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +106,7 @@ export default function EventDetailPage() {
                             <Text className=" text-xl tracking-[1%] text-primary " >Fundraising Target</Text>
                             <Text className=" text-[#858D9D] " >This is the target for this event.</Text>
                             <ChartGraph />
-                            <Text className=" text-[#667085] font-medium text-center text-sm " >You received donations of <span style={{ color: "#37137F" }} >£240</span> today, its higher than yesterday</Text>
+                            <Text className=" text-[#667085] font-medium text-center text-sm " >You received donations of <span style={{ color: "#37137F" }} >{formatNumber(event?.fundRaised)}</span></Text>
                             <div className=" w-full px-2 flex justify-between pt-2 " >
                                 <div className=" flex flex-col items-center" >
                                     <Text className=" font-medium text-[#667085] text-sm " >Target</Text>
@@ -108,7 +114,7 @@ export default function EventDetailPage() {
                                 </div>
                                 <div className=" flex flex-col items-center" >
                                     <Text className=" font-medium text-[#667085] text-sm " >Donated</Text>
-                                    <Text className=" font-semibold text-xl text-[#1D1F2C] " >£0k</Text>
+                                    <Text className=" font-semibold text-xl text-[#1D1F2C] " >{formatNumber(event?.fundRaised)}</Text>
                                 </div>
                                 <div className=" flex flex-col items-center" >
                                     <Text className=" font-medium text-[#667085] text-sm " >Today</Text>

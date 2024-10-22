@@ -70,6 +70,8 @@ const useEvent = () => {
             onSuccess: (data: any) => {
                 setSingleData(data?.data?.event)
                 updateEvent(data?.data?.event)
+                console.log(data?.data?.event);
+                
                 // updateInterest(data?.data?.event?.interests)
                 updateMap(data?.data?.event?.address)
             },
