@@ -19,8 +19,7 @@ unsecureHttpService.interceptors.response.use((data) => {
 
 httpService.interceptors.request.use(
   function (config: any) {
-    const token = Cookies.get("access_token")
-    console.log(token);
+    const token = Cookies.get("access_token") 
     
     if (token) {
       config.headers["Authorization"] = "Bearer " +token
