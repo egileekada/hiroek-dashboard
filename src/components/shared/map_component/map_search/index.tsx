@@ -4,23 +4,22 @@ import "@reach/combobox/styles.css";
 import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
-} from "use-places-autocomplete"; 
-// import { useMap } from '../../../../global-state/useMapStore';
+} from "use-places-autocomplete";  
+import { useMap } from '../../../../global-state/useMapStore'; 
 
 interface Props {
     center: any,
     panTo: any,
-    setMarker: any
+    setMarker: any, 
 }
 function MapSearch(props: Props) {
     let {
         center,
         panTo,
-        setMarker,
-    } = props
+        setMarker, 
+    } = props 
 
-
-    // const { updateMap } = useMap((state) => state); 
+    const { updateMap } = useMap((state) => state);
     const [show, setShow] = React.useState(false)
 
     const {
@@ -58,10 +57,12 @@ function MapSearch(props: Props) {
         setShow(false)
         clearSuggestions();
         try {
-            const results = await getGeocode({ address });
-            const { lat, lng } = await getLatLng(results[0]);
-            panTo({ lat, lng });
+            const results: any = await getGeocode({ address });
+            const { lat, lng } =  getLatLng(results[0]);
+            panTo({ lat, lng });  
 
+            updateMap(results[0]?.formatted_address)
+            
             setMarker({
                 lat: Number(lat),
                 lng: Number(lng),
