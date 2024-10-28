@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import EventForm from "../../components/event/eventForm";
 import { CustomButton } from "../../components/shared";
 import PageHeader from "../../components/shared/pageHeader";
-import useEvent from "../../hooks/useEvent";
+import useEvent from "../../hooks/eventHooks/useEvent";
 import { EventIcon } from "../../svg";
 import { useEventDetail } from "../../global-state/useEventDetails";
 import { useEffect } from "react";

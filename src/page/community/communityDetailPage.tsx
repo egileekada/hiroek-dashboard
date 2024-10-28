@@ -3,11 +3,14 @@ import { CommunityDetail } from "../../components/community";
 import PageHeader from "../../components/shared/pageHeader";
 import { CustomButton } from "../../components/shared";
 import { EditIcon } from "../../svg";
+import useGetCommunityById from "../../hooks/communityHooks/useGetCommunityById";
 
 
 export default function CommunityDetailPage() {
 
     const router = useNavigate()
+
+    const { } = useGetCommunityById()
 
     return (
         <div className=' w-full flex flex-col gap-6 ' >

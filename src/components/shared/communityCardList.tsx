@@ -1,7 +1,7 @@
 import { Text } from '@radix-ui/themes'
 import { textLimit } from '../../utils/textlimit'
 import { useNavigate } from 'react-router-dom';
-import useGetCommunity from '../../hooks/useGetCommunity';
+import useGetCommunity from '../../hooks/communityHooks/useGetCommunity';
 import LoadingAnimation from './loadingAnimation';
 import { formatNumberWithK } from '../../utils/formatNumberWithK';
 
@@ -23,9 +23,9 @@ export default function CommunityCardList({ title, notitle }: IProps) {
             <LoadingAnimation loading={isLoading} length={data?.length} > 
             <div className=' w-full flex overflow-x-auto  ' >
                 <div className=' w-fit flex gap-4 ' >
-                    {data?.map((item, index) => {
+                    {data?.map((item, index) => {  
                         return (
-                            <div role='button' onClick={()=> router("/dashboard/community/details")} key={index} className=' w-[346px] h-[186px] rounded-2xl relative flex justify-center items-center ' >
+                            <div role='button' onClick={()=> router(`/dashboard/community/details/${item?._id}`)} key={index} className=' w-[346px] h-[186px] rounded-2xl relative flex justify-center items-center ' >
                                 <div style={{ boxShadow: "0px 3px 3px 0px #00000038" }} className=' gap-1 w-[300px] relative z-20 h-[138px] text-white flex items-center flex-col rounded-[10px] bg-[#2D264B80] py-[8px] px-3 ' >
                                     <Text className=' text-xl tracking-[0.5%] text-center font-black ' >{item?.name}</Text>
                                     <Text className=' text-xs text-center font-semibold ' >{textLimit(item?.description, 80)}</Text>

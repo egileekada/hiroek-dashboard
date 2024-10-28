@@ -1,7 +1,7 @@
 import { Text } from "@radix-ui/themes";
 import { CustomInput } from "../shared";
 import { BackArrowIcon, SendIcon } from "../../svg";
-import useEvent from "../../hooks/useEvent";
+import useEvent from "../../hooks/eventHooks/useEvent";
 
 interface IProps {
     tab: boolean,

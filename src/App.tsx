@@ -23,7 +23,7 @@ function App() {
           </Route>
           <Route path="community" >
             <Route index element={<CommunityPage />} />
-            <Route path="details" element={<CommunityDetailPage />} />
+            <Route path="details/:id" element={<CommunityDetailPage />} />
             <Route path="member" element={<CommunityMemberPage />} />
             <Route path="create" element={<CreateCommunityPage />} />
             <Route path="post" element={<CommunityPostPage />} />

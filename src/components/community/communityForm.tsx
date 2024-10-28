@@ -1,7 +1,7 @@
 import { Text } from "@radix-ui/themes";
 import { CustomButton, CustomInput } from "../shared";
 import ImagePicker from "../shared/imagePicker";
-import useCommunity from "../../hooks/useCommunity";
+import useCommunity from "../../hooks/communityHooks/useCommunity";
 import MultipleSelect from "../shared/multipleSelect";
 import useInterest from "../../hooks/useInterest";
 import CustomSelect from "../shared/customSelect";

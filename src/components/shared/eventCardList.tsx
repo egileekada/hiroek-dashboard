@@ -8,7 +8,7 @@ import { textLimit } from '../../utils/textlimit';
 import { formatNumber } from '../../utils/numberFormat';
 import LoadingAnimation from './loadingAnimation';
 import { useEventDetail } from '../../global-state/useEventDetails';
-import useEvent from '../../hooks/useEvent';
+import useEvent from '../../hooks/eventHooks/useEvent';
 import { IEvent } from '../../model/event';
 import { useMap } from '../../global-state/useMapStore';
 

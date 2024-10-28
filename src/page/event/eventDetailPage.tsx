@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../components/shared";
 import { useEventDetail } from "../../global-state/useEventDetails";
 import { dateFormat } from "../../utils/dateFormat";
-import useEvent from "../../hooks/useEvent";
+import useEvent from "../../hooks/eventHooks/useEvent";
 import LoadingAnimation from "../../components/shared/loadingAnimation";
 import { textLimit } from "../../utils/textlimit";
 import ChartGraph from "../../components/shared/chartGraph";

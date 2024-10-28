@@ -1,13 +1,13 @@
 
 import { useMutation } from "react-query";
 // import { useNavigate } from "react-router-dom";
-import { CommunityValidation } from "../services/validation";
-import { useForm } from "./useForm";
+import { CommunityValidation } from "../../services/validation";
+import { useForm } from "../useForm";
 import toast from "react-hot-toast";
-import httpService from "../utils/httpService";
-import { useImage } from "../global-state/useImageData";
+import httpService from "../../utils/httpService";
+import { useImage } from "../../global-state/useImageData";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useInterest } from "../global-state/useInterestData";
+import { useInterest } from "../../global-state/useInterestData";
 
 const useCommunity = () => {
 

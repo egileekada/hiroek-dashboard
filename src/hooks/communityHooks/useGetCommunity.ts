@@ -1,10 +1,10 @@
 
 import { useQuery } from "react-query";
 import toast from "react-hot-toast";
-import httpService from "../utils/httpService";
+import httpService from "../../utils/httpService";
 import { useState } from "react"; 
 import Cookies from "js-cookie" 
-import { ICommunity } from "../model/community";
+import { ICommunity } from "../../model/community";
 
 const useGetCommunity = () => {
  

@@ -15,4 +15,5 @@ export interface ICommunity {
     photo: string;
     privacy: string;
     updatedAt: string;
+    _id: string
 }

@@ -1,19 +1,19 @@
 
 import { useMutation, useQuery } from "react-query";
 // import { useNavigate } from "react-router-dom";
-import { EditEventValidation, EventValidation } from "../services/validation";
-import { useForm } from "./useForm";
+import { EditEventValidation, EventValidation } from "../../services/validation";
+import { useForm } from "../useForm";
 import toast from "react-hot-toast";
-import httpService from "../utils/httpService";
+import httpService from "../../utils/httpService";
 import { useState } from "react";
-import { useImage } from "../global-state/useImageData";
+import { useImage } from "../../global-state/useImageData";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie"
-import { useInterest } from "../global-state/useInterestData";
-import { usePagintion } from "../global-state/usePagination";
-import { IEvent } from "../model/event";
-import { useEventDetail } from "../global-state/useEventDetails";
-import { useMap } from "../global-state/useMapStore";
+import { useInterest } from "../../global-state/useInterestData";
+import { usePagintion } from "../../global-state/usePagination";
+import { IEvent } from "../../model/event";
+import { useEventDetail } from "../../global-state/useEventDetails";
+import { useMap } from "../../global-state/useMapStore";
 
 const useEvent = () => {
     const [donationData, setDonationData] = useState<Array<any>>([])
