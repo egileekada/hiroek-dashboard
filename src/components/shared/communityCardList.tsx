@@ -21,7 +21,7 @@ export default function CommunityCardList({ title, notitle }: IProps) {
                 <Text className=' text-xl text-primary font-black ' >{title ?? "Communities"}</Text>
             )}
             <LoadingAnimation loading={isLoading} length={data?.length} > 
-            <div className=' w-full flex overflow-x-auto  ' >
+            <div className=' w-full h-full flex overflow-x-auto  ' >
                 <div className=' w-fit flex gap-4 ' >
                     {data?.map((item, index) => {  
                         return (
@@ -38,7 +38,7 @@ export default function CommunityCardList({ title, notitle }: IProps) {
                                         </div>
                                     </div>
                                 </div>
-                                <img src={item?.photo} alt={item?.photo} className=' object-cover absolute inset-0 rounded-2xl ' />
+                                <img src={item?.photo} alt={item?.photo} className=' object-cover h-[186px] w-full absolute inset-0 rounded-2xl ' />
                                 <div className=' absolute z-10 bg-black rounded-2xl inset-0 bg-opacity-20 ' />
                             </div>
                         )

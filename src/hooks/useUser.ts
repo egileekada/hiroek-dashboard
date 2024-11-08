@@ -29,7 +29,7 @@ const useUser = () => {
             },
             enabled: email ? false : true
         },
-    );
+    ); 
 
     return { 
         isLoading,
