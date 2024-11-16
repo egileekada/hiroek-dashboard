@@ -39,7 +39,7 @@ const useAuth = () => {
         },
         onSuccess: () => {  
             toast.success("Email Sent Successfully")
-            router("/login")
+            router("/reset-sent")
         },
     });  
 

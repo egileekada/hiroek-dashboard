@@ -1,28 +1,37 @@
 import { Text } from "@radix-ui/themes"
+import { Logo } from "../../svg"
+import { CustomButton } from "."
+import { useNavigate } from "react-router-dom"
 
 interface IProps {
     children: React.ReactNode,
     header?: string,
     body?: string,
-    hidesidebar?: boolean
+    hidesidebar?: boolean,
+    hidefooter?: boolean
 }
 
-export default function AuthLayout({ children, header, body, hidesidebar }: IProps) {
+export default function AuthLayout({ children, header, body, hidesidebar, hidefooter }: IProps) {
+
+    const navigate = useNavigate()
+
     return (
         <div className=" w-full !h-screen flex !overflow-hidden lg:bg-gradient-to-r from-[#37137F] from-[34.29%]  to-[#2E4991] to-100%  "  >
-            <div className=" w-[477px] h-[477px] fixed z-50 -top-[300px] -left-[270px] bg-[#FFFFFF26] rounded-r-full rounded-bl-full " />
-            <div className=" w-[477px] h-[477px] fixed z-50 top-[77%] -left-[270px] bg-[#FFFFFF26] rounded-r-full rounded-bl-full " />
-            <div className={` ${!hidesidebar ? "hidden" : "block"} w-[477px] h-[477px] fixed z-50 -top-[300px] -right-[270px] bg-[#FFFFFF26] rounded-l-full rounded-br-full `} />
-            <div className={` ${!hidesidebar ? "hidden" : "block"} w-[477px] h-[477px] fixed z-50 top-[80%] -right-[270px] bg-[#FFFFFF26] rounded-l-full rounded-br-full `} />
+            <div className=" w-[477px] h-[477px] fixed lg:block hidden z-50 -top-[300px] -left-[270px] bg-[#FFFFFF26] rounded-r-full rounded-bl-full " />
+            <div className=" w-[477px] h-[477px] fixedlg:block hidden  z-50 top-[77%] -left-[270px] bg-[#FFFFFF26] rounded-r-full rounded-bl-full " />
+            <div className={` ${!hidesidebar ? "hidden" : "lg:block hidden  "} w-[477px] h-[477px] fixed z-50 -top-[300px] -right-[270px] bg-[#FFFFFF26] rounded-l-full rounded-br-full `} />
+            <div className={` ${!hidesidebar ? "hidden" : "lg:block hidden  "} w-[477px] h-[477px] fixed z-50 top-[80%] -right-[270px] bg-[#FFFFFF26] rounded-l-full rounded-br-full `} />
             <div className=" w-full h-full flex flex-col justify-center relative items-center lg:px-0 px-6  " >
                 {/* <div className=" w-[477px] h-[477px] fixed -top-[0px] -left-[40%] bg-[#FFFFFF26] rounded-full " /> 
                 <div className=" w-[477px] h-[477px] absolute top-[80%] -left-[40%] bg-[#FFFFFF26] rounded-full " />  */}
                 <div className="  rounded-full absolute top-0 w-full flex justify-center " >
-                    <div className=" max-w-[450px] h-[150px] lg:hidden w-full relative " >
-                        <img src="/images/halfcircle.png" className=" w-full max-w-[450px] " />
-                        <div className=" w-full flex flex-col absolute top-0 pt-4 text-white items-center " >
-                            <Text className=" uppercase text-[32px] font-black " >Hiroek</Text>
-                            <Text className=" text-xs tracking-[1%] font-medium " >FOR CHARITIES</Text>
+                    <div className=" max-w-[450px] h-[250px] lg:hidden w-full flex justify-center relative " >
+                        <div className=" w-[600px] h-[607px] bg-primary rounded-full absolute -mt-[430px]  " />
+                        <div className=" w-full flex flex-col absolute top-0 pt-8 text-white items-center " >
+                            <Logo />
+                            <Text className=" text-[14px] font-extrabold " >FOR CHARITIES & SOCIAL<br />IMPACT ORGANISATIONS</Text>
+                            {/* <Text className=" uppercase text-[32px] font-black " >Hiroek</Text>
+                            <Text className=" text-xs tracking-[1%] font-medium " >FOR CHARITIES</Text> */}
                         </div>
                     </div>
                 </div>
@@ -34,7 +43,19 @@ export default function AuthLayout({ children, header, body, hidesidebar }: IPro
                         <Text className=" text-sm tracking-[1%] font-medium " >{body}</Text>
                     </div>
                     {children}
-                    <div className=" max-w-[389px] w-full lg:flex hidden flex-col font-medium text-sm text-primary lg:mt-0 mt-auto lg:text-[#FFFFFFBF] text-center gap-4 " >
+                    {!hidefooter && (
+                        <div className=" max-w-[389px] w-full lg:flex hidden flex-col font-medium text-sm text-primary lg:mt-0 mt-auto lg:text-[#FFFFFFBF] text-center gap-4 " >
+                            <div className=" w-full flex h-[44px] justify-between items-center " >
+                                <Text role="button" >Get In Touch</Text>
+                                <Text role="button" >Privacy Policy</Text>
+                                <Text role="button" >Terms of Use</Text>
+                            </div>
+                            <Text role="button" >Copyright MyHero Ltd © 2023. All right reserved.</Text>
+                        </div>
+                    )}
+                </div>
+                {!hidefooter ? (
+                    <div className=" absolute bottom-8 max-w-[389px] w-full flex lg:hidden flex-col font-medium text-sm px-6 text-primary lg:mt-0 mt-auto lg:text-[#FFFFFFBF] text-center gap-4 " >
                         <div className=" w-full flex h-[44px] justify-between items-center " >
                             <Text role="button" >Get In Touch</Text>
                             <Text role="button" >Privacy Policy</Text>
@@ -42,15 +63,13 @@ export default function AuthLayout({ children, header, body, hidesidebar }: IPro
                         </div>
                         <Text role="button" >Copyright MyHero Ltd © 2023. All right reserved.</Text>
                     </div>
-                </div>
-                <div className=" absolute bottom-8 max-w-[389px] w-full flex lg:hidden flex-col font-medium text-sm px-6 text-primary lg:mt-0 mt-auto lg:text-[#FFFFFFBF] text-center gap-4 " >
-                    <div className=" w-full flex h-[44px] justify-between items-center " >
-                        <Text role="button" >Get In Touch</Text>
-                        <Text role="button" >Privacy Policy</Text>
-                        <Text role="button" >Terms of Use</Text>
+                ) : (
+                    <div className=' lg:hidden absolute bottom-8 inset-x-6 ' >
+                        <CustomButton onClick={() => navigate("/login")} type="button" >
+                            Login
+                        </CustomButton>
                     </div>
-                    <Text role="button" >Copyright MyHero Ltd © 2023. All right reserved.</Text>
-                </div>
+                )}
 
             </div>
             <div className={` w-full h-full hidden ${hidesidebar ? " hidden " : " lg:block "} `} >

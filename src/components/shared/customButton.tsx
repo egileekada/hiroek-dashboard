@@ -11,6 +11,7 @@ interface IProps {
     width?: string;
     height?: string;
     rounded?: string;
+    fontSize?: string;
     type?: "submit" | "reset" | "button"
     [x:string]: any;
 }
@@ -28,11 +29,13 @@ export default function CustomButton(props: IProps) {
         height,
         rounded,
         loading,
+        fontSize,
         type,
         ...rest
     } = props
+
     return ( 
-        <button {...rest} type={type} disabled={loading} style={{boxShadow: "2px 2px 0px 0px #37137F4D", background: bgColor ?? "#37137f", color: color ?? "white", borderRadius: rounded ?? "10px", height: height ?? "50px", width: width ?? "100%" }} className=' px-3 flex gap-3 items-center text-white font-semibold justify-center' >
+        <button {...rest} type={type} disabled={loading} style={{boxShadow: "2px 2px 0px 0px #37137F4D", background: bgColor ?? "#37137f", color: color ?? "white", borderRadius: rounded ?? "10px", height: height ?? "50px", width: width ?? "100%", fontSize: fontSize ?? "16px" }} className=' px-3 flex gap-3 items-center text-white font-semibold justify-center' >
             {(hasFrontIcon && !loading) && (
                 <>
                     {icon ?? <ArrowIcon />}

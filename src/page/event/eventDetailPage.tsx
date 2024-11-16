@@ -1,15 +1,15 @@
 import { Text } from "@radix-ui/themes";
 import PageHeader from "../../components/shared/pageHeader";
-import { BackWhiteIcon, CalendarIcon, EditIcon, LocationIcon, TrashIcon, TwoChatIcon } from "../../svg";
+import { BackWhiteIcon, CalendarIcon, ClockIcon, EditIcon, EventIcon, LocationIcon, QRIcon, TrashIcon, TwoChatIcon } from "../../svg";
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../components/shared";
 import { useEventDetail } from "../../global-state/useEventDetails";
-import { dateFormat } from "../../utils/dateFormat";
+import { dateFormat, timeFormat } from "../../utils/dateFormat";
 import useEvent from "../../hooks/eventHooks/useEvent";
 import LoadingAnimation from "../../components/shared/loadingAnimation";
 import { textLimit } from "../../utils/textlimit";
 import ChartGraph from "../../components/shared/chartGraph";
-import { formatNumberWithK } from "../../utils/formatNumberWithK"; 
+import { formatNumberWithK } from "../../utils/formatNumberWithK";
 import ViewMap from "../../components/shared/map_component/viewMap";
 import { formatNumber } from "../../utils/numberFormat";
 
@@ -18,11 +18,11 @@ export default function EventDetailPage() {
 
     const router = useNavigate()
 
-    const { loadingSingleEvent } = useEvent() 
+    const { loadingSingleEvent } = useEvent()
     const { event } = useEventDetail((state) => state)
 
     console.log(event);
-    
+
 
     return (
         <div className=' w-full flex flex-col gap-6 ' >
@@ -53,48 +53,79 @@ export default function EventDetailPage() {
                     <div className=" w-full h-fit flex flex-col rounded-[44px] lg:pb-8 pb-6 lg:p-8 " style={{ boxShadow: "0px 4px 30px 0px #0000000D" }} >
                         <div className=" w-full h-[316px] bg-green-700 rounded-b-3xl lg:rounded-3xl relative " >
                             <img src={event?.photo} alt={event?.name} className=" w-full h-full rounded-b-3xl lg:rounded-3xl object-cover " />
-                            <div role="button" onClick={() => router(-1)} className=" cursor-pointer lg:hidden w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-[#FFFFFF33] flex justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
-                                <BackWhiteIcon />
+                            <div role="button" onClick={() => router(-1)} className=" cursor-pointer lg:hidden w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-white lg:bg-[#FFFFFF33] flex justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
+                                <BackWhiteIcon color="black" />
                             </div>
-                            <div role="button" onClick={() => router("/dashboard/event/support")} className=" cursor-pointer z-10 w-fit h-fit absolute top-6 right-4 " >
+                            {/* <div role="button" onClick={() => router("/dashboard/event/support")} className=" cursor-pointer z-10 w-fit h-fit absolute top-6 right-4 " >
                                 <div className=" w-11 h-11 rounded-md bg-[#FFFFFF33] relative flex justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
                                     <div className=' absolute -top-3 -left-3 w-6 h-6 text-primary bg-white rounded font-semibold text-[10px] tracking-[0.5%] flex justify-center items-center ' >
                                         6
                                     </div>
                                     <TwoChatIcon />
                                 </div>
+                            </div> */}
+                            <div role="button" onClick={() => router(-1)} className=" cursor-pointer text-xs lg:hidden w-fit px-3 h-11 absolute top-6 z-10 right-4 rounded-md bg-white lg:bg-[#FFFFFF33] flex gap-2 justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
+                                Scan Tickets
+                                <QRIcon />
                             </div>
                         </div>
                         <div className=" w-full px-4 relative z-20 -mt-[25%]  " >
-                            <div className=" p-5 text-primary w-full bg-white flex flex-col rounded-[14px] " style={{ boxShadow: "0px 3px 10px 0px #0000000D" }} >
+                            <div className=" py-5 px-4 gap-[6px] text-primary w-full bg-white flex flex-col rounded-[14px] " style={{ boxShadow: "0px 3px 10px 0px #0000000D" }} >
                                 <Text className=" font-bold " >{event?.name}</Text>
                                 <div className=" flex items-center gap-2 mt-2 " >
                                     <div className=" w-fit text-primary text-opacity-50 " >
-                                        <LocationIcon />
+                                        <LocationIcon block={true} />
                                     </div>
                                     <Text className=" font-semibold text-sm " >{textLimit(event?.address, 40)}</Text>
                                 </div>
                                 <div className=" flex items-center gap-2 " >
                                     <div className=" w-fit text-primary text-opacity-50 " >
-                                        <CalendarIcon />
+                                        <CalendarIcon block={true} />
                                     </div>
-                                    <Text className=" font-semibold text-sm " >{dateFormat(event?.endTime)}</Text>
-                                </div>
-                                <div className='flex items-center mt-2 text-black ' >
-                                    <div className=' w-7 h-7 rounded-full bg-blue-600 '>
-                                        <img />
+                                    <Text className=" font-semibold text-sm mr-2 " >{dateFormat(event?.endTime)}</Text>
+                                    <div className=" w-fit text-primary text-opacity-50 " >
+                                        <ClockIcon />
                                     </div>
-                                    <div className=' w-7 h-7 rounded-full -ml-2 bg-green-600 ' />
-                                    <div className=' w-7 h-7 rounded-full -ml-2 bg-red-600 ' />
-                                    <Text className=' ml-2 font-semibold ' >{formatNumberWithK(event?.members?.length)} Members</Text>
+                                    <Text className=" font-semibold text-sm " >{timeFormat(event?.endTime)}</Text>
                                 </div>
+                                {event?.members?.length > 0 && (
+                                    <div className='flex items-center mt-2 bg-[#37137F4D] px-3 rounded-full w-fit h-[40px] mx-auto text-black ' >
+                                        <div className=' w-7 h-7 rounded-full'>
+                                            <img src={event?.members[0]?.photo} alt={event?.members[0]?._id} className=" w-full h-full object-cover rounded-full " />
+                                        </div>
+                                        {event?.members?.length > 1 && (
+                                            <div className=' w-7 h-7 rounded-full -ml-2 ' >
+                                                <img src={event?.members[1]?.photo} alt={event?.members[1]?._id} className=" w-full h-full object-cover rounded-full " />
+                                            </div>
+                                        )}
+                                        {event?.members?.length > 2 && (
+                                            <div className=' w-7 h-7 rounded-full -ml-2 ' >
+                                                <img src={event?.members[2]?.photo} alt={event?.members[2]?._id} className=" w-full h-full object-cover rounded-full " />
+                                            </div>
+                                        )}
+                                        {/* <div className=' w-7 h-7 rounded-full -ml-2 bg-red-600 ' /> */}
+                                        <Text className=' ml-2 font-semibold text-xs text-[#37137F] ' >{formatNumberWithK(event?.members?.length)} Attending</Text>
+                                    </div>
+                                )}
                             </div>
                         </div>
-                        <div className=" w-full flex flex-col lg:px-0 px-4 lg:pt-4 pt-8 " >
-                            <Text className=" font-bold mt-5 text-lg " >Description</Text>
+                        <div className=" w-full flex gap-3 px-4 pt-5 " >
+                            <CustomButton height="44px" fontSize="12px" onClick={() => console.log("work")} hasFrontIcon={true} icon={
+                                <EventIcon />
+                            } >
+                                Event Dashboard
+                            </CustomButton>
+                            <CustomButton height="44px" fontSize="12px" onClick={() => console.log("work")} hasFrontIcon={true} icon={
+                                <TwoChatIcon />
+                            } >
+                                Event Messages
+                            </CustomButton>
+                        </div>
+                        <div className=" w-full flex flex-col lg:px-0 px-4 lg:pt-4 pt-4 " >
+                            <Text className=" font-bold mt-5 text-lg " >About Event</Text>
                             <Text className=" text-primary text-opacity-90 font-medium !leading-[18px] mt-2 " >{event?.description}</Text>
                             <Text className=" font-bold mt-5 text-lg " >Venue & Location</Text>
-                            <div className=" w-full rounded-[12px] h-auto mt-2 relative " > 
+                            <div className=" w-full rounded-[12px] h-auto mt-2 relative " >
                                 {event?.address && (
                                     <ViewMap address={event?.address} />
                                 )}

@@ -40,10 +40,10 @@ export default function DashboardLayout() {
                     </div>
                 </div>
                 <div className=" w-full flex flex-col h-screen overflow-hidden relative " >
-                    <div className={` w-full bg-white h-fit ${(history?.pathname === "/dashboard/event/details" || history?.pathname === "/dashboard/community/details") ? " lg:block hidden " : " blocl "} top-0 sticky `} >
+                    <div className={` w-full bg-white h-fit ${(history?.pathname?.includes("/dashboard/event/details") || history?.pathname?.includes("/dashboard/community/details")) ? " lg:block hidden " : " block "} top-0 sticky `} >
                         <Navbar />
                     </div>
-                    <div className={` overflow-y-auto inset-0 md:bottom-0 bottom-[90px] absolute flex ${(history?.pathname === "/dashboard/event/details" || history?.pathname === "/dashboard/community/details") ? " lg:top-[55px] lg:p-6 top-0 " : " top-[55px] lg:p-6 p-0 "} pb-8 `} >
+                    <div className={` overflow-y-auto inset-0 md:bottom-0 bottom-[90px] absolute flex ${(history?.pathname?.includes("/dashboard/event/details") || history?.pathname?.includes("/dashboard/community/details")) ? " lg:top-[55px] lg:p-6 top-0 " : " top-[55px] lg:p-6 p-0 "} pb-8 `} >
                         <Outlet />
                     </div>
                     <div className=" w-full h-[90px] fixed bottom-0 z-50 rounded-[25px] bg-primary md:hidden flex flex-row justify-around items-center px-2 " >
@@ -57,10 +57,10 @@ export default function DashboardLayout() {
                                         {item?.name === "Events" && (
                                             <MobileEventIcon />
                                         )}
-                                        {item?.name === "Community" && (
+                                        {item?.name === "Channels" && (
                                             <MobileCommunityIcon />
                                         )}
-                                        {item?.name === "Donations" && (
+                                        {item?.name === "Revenue" && (
                                             <MobileCashIcon />
                                         )}
                                         {item?.name === "Impact" && (

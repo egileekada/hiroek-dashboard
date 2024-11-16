@@ -38,17 +38,12 @@ export const menulistmobile = [
         indicator: true
     },
     {
-        name: "Donations",
+        name: "Revenue",
         link: "/dashboard/donation",
         indicator: false
     },
     {
-        name: "Impact",
-        link: "/dashboard/report",
-        indicator: false
-    },
-    {
-        name: "Community",
+        name: "Channels",
         link: "/dashboard/community",
         indicator: true
     },
