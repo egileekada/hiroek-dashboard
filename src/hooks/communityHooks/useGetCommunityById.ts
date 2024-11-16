@@ -23,7 +23,8 @@ const useGetCommunityById = () => {
             },
             onSuccess: (data: any) => {
                 console.log(data);
-                // setData(data?.data?.communities?.data)
+
+                setData(data?.data?.communities?.data)
             }
         },
     );

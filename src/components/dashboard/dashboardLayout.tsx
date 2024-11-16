@@ -52,7 +52,7 @@ export default function DashboardLayout() {
                                 <div onClick={() => router(item?.link)} role='button' key={index} className={` w-full h-fit flex flex-col items-center justify-center text-white rounded-t-[25px] `} >
                                     <div className={` w-[70%] h-8 ${history?.pathname === item?.link ? " bg-[#FFFFFF1F] " : ""} rounded-[44px] flex justify-center items-center`} >
                                         {item?.name === "Home" && (
-                                            <MobileHomeIcon />
+                                            <MobileHomeIcon active={history?.pathname === item?.link} />
                                         )}
                                         {item?.name === "Events" && (
                                             <MobileEventIcon />
