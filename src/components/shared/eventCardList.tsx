@@ -1,7 +1,7 @@
 import { Text } from '@radix-ui/themes'
 import { CalendarIcon, LocationIcon } from '../../svg'
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react'; 
+import { useState } from 'react';
 import { usePagintion } from '../../global-state/usePagination';
 import { dateFormat } from '../../utils/dateFormat';
 import { textLimit } from '../../utils/textlimit';
@@ -11,6 +11,7 @@ import { useEventDetail } from '../../global-state/useEventDetails';
 import useEvent from '../../hooks/eventHooks/useEvent';
 import { IEvent } from '../../model/event';
 import { useMap } from '../../global-state/useMapStore';
+import { CiSearch } from "react-icons/ci";
 
 interface IProps {
     title?: string;
@@ -39,17 +40,13 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
 
     return (
         <div className=' w-full flex flex-col gap-2 ' >
-            <div className={` w-full flex justify-between gap-3 lg:flex-row flex-col-reverse `} >
-                <div className=' w-full flex justify-between gap-3 items-center ' >
-                    <div className=' w-full flex flex-col ' >
-                        <Text className=' lg:text-xl text-primary font-black ' >{title ?? "Events"}</Text>
-                        {/* <Text className=' lg:text-xs text-primary font-medium ' >{details ?? ""}</Text> */}
-                    </div>
-                    <Text role='button' className=' w-[60px] lg:text-sm text-xs text-primary text-opacity-50 font-normal lg:hidden cursor-pointer ' >See all</Text>
-                </div>
+            <div className={` w-full flex justify-between gap-3 lg:flex-row flex-col `} >
                 {filter && (
-                    <div className=" w-full lg:hidden  " >
-                        <input type={"search"} placeholder={"Search"} value={searchText} onChange={(e) => setSearchText(e.target.value)} className=" h-[48px] px-3 border-[#37137F80] border-[2px] hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] outline-none rounded-[10px] bg-transparent w-full text-sm font-semibold text-primary " />
+                    <div className=" w-full lg:hidden relative  " >
+                        <div className=' w-9 h-full absolute top-0 flex text-[#37137F80] items-center justify-center '>
+                            <CiSearch size={"20px"} />
+                        </div>
+                        <input type={"search"} placeholder={"Search"} value={searchText} onChange={(e) => setSearchText(e.target.value)} className=" h-[48px] pl-8 px-3 border-[#37137F80] border-[2px] hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] outline-none rounded-[10px] bg-transparent w-full text-sm font-semibold text-primary " />
                     </div>
                 )}
                 {filter && (
@@ -59,6 +56,13 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
                         <button onClick={() => updateFilter("future")} className={` bg-primary ${eventFilter === "future" ? " text-white " : " text-primary bg-opacity-5 text-opacity-75 "}  h-[30px] rounded-[22px] lg:w-fit font-bold w-full lg:px-6 text-sm  `} >Upcoming</button>
                     </div>
                 )}
+                <div className=' w-full flex justify-between gap-3 items-center ' >
+                    <div className=' w-full flex flex-col ' >
+                        <Text className=' lg:text-xl text-primary font-black ' >{title ?? "Events"}</Text>
+                        {/* <Text className=' lg:text-xs text-primary font-medium ' >{details ?? ""}</Text> */}
+                    </div>
+                    <Text role='button' className=' w-[60px] lg:text-sm text-xs text-primary text-opacity-50 font-normal lg:hidden cursor-pointer ' >See all</Text>
+                </div>
             </div>
             {(!mobile) && (
                 <div className={` w-full overflow-x-auto flex `} >
@@ -68,7 +72,7 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
                                 return (
                                     <div onClick={() => clickHandler(item)} role='button' key={index} className=' w-[346px] h-[186px] rounded-2xl bg-white shadow-sm relative ' >
                                         <img src={item?.photo} alt={item?.name} className=' w-full h-full object-cover absolute inset-0 rounded-2xl ' />
-                                        <div className=' absolute bottom-2 inset-x-2 text-white flex items-center justify-between rounded-[10px] bg-[#2D264B80] py-[8px] px-3 ' >
+                                        <div style={{ backdropFilter: "blur(30px)" }} className=' absolute bottom-2 inset-x-2 text-white flex items-center justify-between rounded-[10px] bg-[#2D264B80] py-[8px] px-3 ' >
                                             <div className=' flex-col flex gap-1 ' >
                                                 <Text className=' text-xs font-semibold ' >{textLimit(item?.name, 20)}</Text>
                                                 <div className=' flex gap-2 items-center ' >

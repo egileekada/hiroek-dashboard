@@ -26,7 +26,7 @@ export default function ImagePicker({ defaultValue } : { defaultValue?: string }
 
     return (
         <div className=" w-full p-5 flex flex-col gap-4  " style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }}  >
-            <div className=" w-full border border-[#37137F4D] relative rounded-lg border-dashed h-[300px] gap-2 flex flex-col justify-center items-center " >
+            <div className=" w-full border border-[#37137F4D] relative rounded-lg border-dashed h-[184px] gap-2 flex flex-col justify-center items-center " >
                 <div className=" w-11 h-11 flex justify-center items-center bg-[#37137F26] rounded-lg " >
                     <GalleryIcon />
                 </div>

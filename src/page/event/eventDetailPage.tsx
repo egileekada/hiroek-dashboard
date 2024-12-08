@@ -1,6 +1,6 @@
 import { Text } from "@radix-ui/themes";
 import PageHeader from "../../components/shared/pageHeader";
-import { BackWhiteIcon, CalendarIcon, ClockIcon, EditIcon, EventIcon, LocationIcon, QRIcon, TrashIcon, TwoChatIcon } from "../../svg";
+import { BackWhiteIcon, ClockIcon, DonateIcon, EditIcon, EventIcon, LocationIcon, QRIcon, TrashIcon, TwoChatIcon } from "../../svg";
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../components/shared";
 import { useEventDetail } from "../../global-state/useEventDetails";
@@ -9,8 +9,7 @@ import useEvent from "../../hooks/eventHooks/useEvent";
 import LoadingAnimation from "../../components/shared/loadingAnimation";
 import { textLimit } from "../../utils/textlimit";
 import ChartGraph from "../../components/shared/chartGraph";
-import { formatNumberWithK } from "../../utils/formatNumberWithK";
-import ViewMap from "../../components/shared/map_component/viewMap";
+import { formatNumberWithK } from "../../utils/formatNumberWithK"; 
 import { formatNumber } from "../../utils/numberFormat";
 
 
@@ -50,8 +49,8 @@ export default function EventDetailPage() {
             </div> */}
             <LoadingAnimation loading={loadingSingleEvent} >
                 <div className=" w-full flex lg:flex-row flex-col pb-4 gap-6 text-primary " >
-                    <div className=" w-full h-fit flex flex-col rounded-[44px] lg:pb-8 pb-6 lg:p-8 " style={{ boxShadow: "0px 4px 30px 0px #0000000D" }} >
-                        <div className=" w-full h-[316px] bg-green-700 rounded-b-3xl lg:rounded-3xl relative " >
+                    <div className=" w-full h-fit flex flex-col rounded-[44px] lg:pb-8 pb-6 lg:p-8 " >
+                        <div className=" w-full h-[240px] bg-green-700 rounded-b-3xl lg:rounded-3xl relative " >
                             <img src={event?.photo} alt={event?.name} className=" w-full h-full rounded-b-3xl lg:rounded-3xl object-cover " />
                             <div role="button" onClick={() => router(-1)} className=" cursor-pointer lg:hidden w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-white lg:bg-[#FFFFFF33] flex justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
                                 <BackWhiteIcon color="black" />
@@ -80,7 +79,7 @@ export default function EventDetailPage() {
                                 </div>
                                 <div className=" flex items-center gap-2 " >
                                     <div className=" w-fit text-primary text-opacity-50 " >
-                                        <CalendarIcon block={true} />
+                                        <DonateIcon />
                                     </div>
                                     <Text className=" font-semibold text-sm mr-2 " >{dateFormat(event?.endTime)}</Text>
                                     <div className=" w-fit text-primary text-opacity-50 " >
@@ -122,18 +121,20 @@ export default function EventDetailPage() {
                             </CustomButton>
                         </div>
                         <div className=" w-full flex flex-col lg:px-0 px-4 lg:pt-4 pt-4 " >
-                            <Text className=" font-bold mt-5 text-lg " >About Event</Text>
-                            <Text className=" text-primary text-opacity-90 font-medium !leading-[18px] mt-2 " >{event?.description}</Text>
-                            <Text className=" font-bold mt-5 text-lg " >Venue & Location</Text>
-                            <div className=" w-full rounded-[12px] h-auto mt-2 relative " >
+                            <div className=" w-fit bg-[#37137F26] rounded-md px-[10px] h-[25px] flex justify-center items-center "  >
+                                <Text className=" font-extrabold text-xs " >About Event</Text>
+                            </div>
+                            <Text className=" text-primary text-opacity-90 text-xs font-medium !leading-[18px] mt-2 " >{event?.description}</Text>
+                            {/* <Text className=" font-bold mt-5 text-lg " >Venue & Location</Text> */}
+                            {/* <div className=" w-full rounded-[12px] h-auto mt-2 relative " >
                                 {event?.address && (
                                     <ViewMap address={event?.address} />
                                 )}
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className=" w-full flex flex-col gap-6 lg:px-0 px-4 " >
-                        <div style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }} className=" w-full rounded-[44px] flex flex-col p-6 " >
+                        <div className=" w-full rounded-[44px] flex flex-col lg:p-6 " >
                             <Text className=" text-xl tracking-[1%] text-primary " >Fundraising Target</Text>
                             <Text className=" text-[#858D9D] " >This is the target for this event.</Text>
                             <ChartGraph />
@@ -153,7 +154,7 @@ export default function EventDetailPage() {
                                 </div>
                             </div>
                         </div>
-                        <div style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }} className=" w-full rounded-[44px] p-6 bg-white text-primary " >
+                        {/* <div style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }} className=" w-full rounded-[44px] p-6 bg-white text-primary " >
                             <div className=" w-full flex items-center justify-between " >
                                 <div className=" flex flex-col " >
                                     <Text className=" font-bold text-lg " >Donations</Text>
@@ -163,7 +164,7 @@ export default function EventDetailPage() {
                             <div className=" w-full pt-6 flex flex-col gap-4 " >
                                 <LoadingAnimation loading={false} length={0} >
                                     <></>
-                                    {/* {data?.map((item, index) => {
+                                    {data?.map((item, index) => {
                                         return (
                                             <div key={index + item} className=" flex w-full items-center justify-between " >
                                                 <div className=" flex gap-3 " >
@@ -176,25 +177,25 @@ export default function EventDetailPage() {
                                                 <Text className=" tracking-[0.5%] font-extrabold " >£1,240</Text>
                                             </div>
                                         )
-                                    })} */}
+                                    })}
                                 </LoadingAnimation>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
+                <div className=" gap-4 flex-col w-full flex lg:hidden p-6 px-4 ">
+                    <CustomButton onClick={() => router(`/dashboard/event/edit/${event?._id}`)} hasFrontIcon={true} icon={
+                        <EditIcon />
+                    } >
+                        Edit Event
+                    </CustomButton>
+                    <CustomButton bgColor="#CE4646" onClick={() => router("/dashboard/report/post")} hasFrontIcon={true} icon={
+                        <TrashIcon />
+                    } >
+                        Delete Event
+                    </CustomButton>
+                </div>
             </LoadingAnimation>
-            <div className=" gap-4 flex-col w-full flex lg:hidden p-6 px-4 ">
-                <CustomButton onClick={() => router(`/dashboard/event/edit/${event?._id}`)} hasFrontIcon={true} icon={
-                    <EditIcon />
-                } >
-                    Edit Event
-                </CustomButton>
-                <CustomButton bgColor="#CE4646" onClick={() => router("/dashboard/report/post")} hasFrontIcon={true} icon={
-                    <TrashIcon />
-                } >
-                    Delete Event
-                </CustomButton>
-            </div>
         </div>
     )
 }

@@ -19,7 +19,7 @@ export default function EventPage() {
     return (
         <div className=' w-full flex flex-col gap-6 flex-1 relative ' >
             <div className=" w-full flex items-center justify-between " >
-                <PageHeader header="Events" body="Create and Manage Events Seamlessly. Send Push Notifications For Important Updates, Changes, or Reminders Directly to Participants." />
+                <PageHeader header="Events" body="Effortless Event Creation and Community Engagement." />
                 <div className=" w-fit lg:block hidden text-white ">
                     <CustomButton className=" px-3 " width="200px" onClick={clickHandler} hasFrontIcon={true} icon={
                         <EventIcon />
@@ -37,7 +37,7 @@ export default function EventPage() {
                     <EventCardList title="Events created by members"  />
                 </div>
             </div>
-            <div className=" w-fit lg:hidden sticky bottom-2 ml-auto mr-6 right-0 ">
+            <div className=" w-fit lg:hidden fixed bottom-28 ml-auto mr-6 right-0 ">
                 <CustomButton rounded="44px" bgColor="linear-gradient(180deg, #4C49ED 0%, rgba(55, 19, 127, 0.9) 100%)" onClick={clickHandler} hasFrontIcon={true} icon={
                     <EventIcon />
                 } >

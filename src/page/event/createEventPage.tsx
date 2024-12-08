@@ -26,7 +26,7 @@ export default function CreateEventPage() {
     return eventHookForm(
         <div className=' w-full flex flex-col gap-6 ' >
             <div className=" w-full flex items-center justify-between " >
-                <PageHeader back={true} header={history?.pathname?.includes("edit") ? "Edit Event" : "Create New Event"} body="Effortless Event Creation and Community Engagement." />
+                <PageHeader back={true} header={history?.pathname?.includes("edit") ? "Edit Event" : "Create New Event"} body={history?.pathname?.includes("edit") ? "" : "Effortless Event Creation and Community Engagement."} />
                 <div className=" w-fit lg:block hidden text-white ">
                     <CustomButton loading={isLoading || loadingEditEvent} className=" px-3 " width="200px" type="submit" hasFrontIcon={true} icon={
                         <EventIcon />

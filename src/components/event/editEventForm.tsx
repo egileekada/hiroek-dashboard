@@ -1,10 +1,8 @@
 import { Text } from "@radix-ui/themes";
 import { CustomButton, CustomInput } from "../shared";
-import ImagePicker from "../shared/imagePicker";
-import useInterest from "../../hooks/useInterest";
+import ImagePicker from "../shared/imagePicker"; 
 import useCategory from "../../hooks/useCategory";
-import CustomSelect from "../shared/customSelect";
-import MultipleSelect from "../shared/multipleSelect";
+import CustomSelect from "../shared/customSelect"; 
 import CustomDatePicker from "../shared/customDatePicker";
 import { IEvent } from "../../model/event";
 import CustomAddress from "../shared/customAddress";
@@ -24,12 +22,11 @@ export default function EditEventForm(props: IProps) {
         setValue,
         formState,
         isLoading,
-        values,
-        interest,
+        values, 
         defaultdata
     } = props
 
-    const { isLoading: loadingInterest, data: interestData } = useInterest()
+    // const { isLoading: loadingInterest, data: interestData } = useInterest()
     const { isLoading: loadingCategory, data: categoryData } = useCategory()
 
     const changeHandler = (item: string, name: string) => {
@@ -38,6 +35,7 @@ export default function EditEventForm(props: IProps) {
 
     return (
         <div className=" w-full flex flex-col gap-4 lg:pb-6 " >
+            <ImagePicker defaultValue={defaultdata?.photo} />
             <div className=" w-full p-4 lg:p-5 flex flex-col gap-4 " style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }}  >
                 <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Event Name</Text>
@@ -52,12 +50,12 @@ export default function EditEventForm(props: IProps) {
                     <Text className=" text-primary font-semibold text-sm " >Event Venue</Text>
                     <CustomAddress name="address" type="text" setValue={setValue} placeholder="Type or search for venue..." />
                 </div>
-                <div className=" flex w-full flex-col gap-1 " >
+                {/* <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Event Interest</Text>
                     {!loadingInterest && (
                         <MultipleSelect value={interest} placeholder="Select Interest" name="interest" changeHandler={(e) => changeHandler(e, "interest")} interest={interestData} />
                     )}
-                </div>
+                </div> */}
                 <div className=" w-full flex gap-4 lg:flex-row flex-col " >
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Event Category</Text>
@@ -91,7 +89,6 @@ export default function EditEventForm(props: IProps) {
                     </div>
                 </div>
             </div>
-            <ImagePicker defaultValue={defaultdata?.photo} />
             <div className=" w-full py-6 lg:hidden px-4 " >
                 <CustomButton loading={isLoading} className=" px-3 " width="100%" type="submit" >
                     Edit Event
