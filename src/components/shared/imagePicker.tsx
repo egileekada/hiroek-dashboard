@@ -1,4 +1,3 @@
-import { Text } from '@radix-ui/themes'
 import { GalleryIcon } from '../../svg'
 import { useState } from 'react'
 import { useImage } from '../../global-state/useImageData'
@@ -30,10 +29,10 @@ export default function ImagePicker({ defaultValue } : { defaultValue?: string }
                 <div className=" w-11 h-11 flex justify-center items-center bg-[#37137F26] rounded-lg " >
                     <GalleryIcon />
                 </div>
-                <Text className=" tracking-[0.5%] text-sm text-[#858D9D] " >Drag and drop image here, or click add image</Text>
+                {/* <Text className=" tracking-[0.5%] text-sm text-[#858D9D] " >Drag and drop image here, or click add image</Text> */}
                 {/* <label> */}
-                <label role='button' className={` px-3 h-[40px] relative z-20 ${image || defaultValue ? "bg-primary text-white " : "bg-[#37137F26] text-[#37137F80] " }  flex justify-center items-center rounded-lg font-bold text-sm tracking-[0.5%]  `} >
-                    {(image || defaultValue) ? "Change Image" : "Add Image"}
+                <label role='button' className={` px-3 h-[31px] relative z-20 ${image || defaultValue ? "bg-white text-[#B00062] " : "bg-primary text-white " }  flex justify-center items-center rounded-[44px] font-extrabold text-[10px] tracking-[0.5%]  `} >
+                    {(image || defaultValue) ? "Change Event Image" : " Upload Event Image"}
                     <input style={{ display: 'none' }} type="file" accept="image/*" id="input" onChange={handleImageChange} />
                 </label>
                 {/* </lab/el> */}

@@ -109,12 +109,12 @@ export default function EventDetailPage() {
                             </div>
                         </div>
                         <div className=" w-full flex gap-3 px-4 pt-5 " >
-                            <CustomButton height="44px" fontSize="12px" onClick={() => console.log("work")} hasFrontIcon={true} icon={
+                            <CustomButton height="44px" fontSize="12px" onClick={() => router("/dashboard/event/dashboard")} hasFrontIcon={true} icon={
                                 <EventIcon />
                             } >
                                 Event Dashboard
                             </CustomButton>
-                            <CustomButton height="44px" fontSize="12px" onClick={() => console.log("work")} hasFrontIcon={true} icon={
+                            <CustomButton height="44px" fontSize="12px" onClick={() =>  router("/dashboard/event/support")} hasFrontIcon={true} icon={
                                 <TwoChatIcon />
                             } >
                                 Event Messages

@@ -40,7 +40,7 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
 
     return (
         <div className=' w-full flex flex-col gap-2 ' >
-            <div className={` w-full flex justify-between gap-3 lg:flex-row flex-col `} >
+            <div className={` w-full flex justify-between gap-3 flex-col `} >
                 {filter && (
                     <div className=" w-full lg:hidden relative  " >
                         <div className=' w-9 h-full absolute top-0 flex text-[#37137F80] items-center justify-center '>

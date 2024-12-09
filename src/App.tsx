@@ -1,6 +1,7 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ProfileInfoPage, ResetPasswordPage, ResetSentPage, WithDrawalPin } from "./page";
 import { DashboardLayout } from "./components/dashboard";
+import EventDashboardPage from "./page/event/eventDashboardPage";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path="create" element={<CreateEventPage />} />
             <Route path="edit/:id" element={<CreateEventPage />} />
             <Route path="support" element={<EventSupportPage />} />
+            <Route path="dashboard" element={<EventDashboardPage />} />
           </Route>
           <Route path="community" >
             <Route index element={<CommunityPage />} />

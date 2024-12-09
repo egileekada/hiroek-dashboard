@@ -19,11 +19,11 @@ export const menulist = [
         link: "/dashboard/donation",
         indicator: false
     },
-    {
-        name: "Impact Report",
-        link: "/dashboard/report",
-        indicator: false
-    },
+    // {
+    //     name: "Impact Report",
+    //     link: "/dashboard/report",
+    //     indicator: false
+    // },
 ]
 
 export const menulistmobile = [

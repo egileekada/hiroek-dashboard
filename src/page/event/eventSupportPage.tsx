@@ -10,7 +10,7 @@ export default function EventSupportPage() {
     return (
         <div className=' w-full h-full flex flex-col gap-6 ' >
             {!tab && (
-                <PageHeader back={true} header="Event Support" body="Effortless Event Creation and Community Engagement." />
+                <PageHeader back={true} header="Event Messages" body="View & respond to messages from your supporters" />
             )}
             <EventSupport tab={tab} setTab={setTab} />
         </div>

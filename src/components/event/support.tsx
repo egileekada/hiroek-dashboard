@@ -15,7 +15,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
     return supportHookForm (
         <div className=' w-full flex gap-4 h-full' >
             <div className={` w-full px-4 ${!tab ? " lg:flex flex " : " lg:flex hidden "} flex-col gap-4 `} >
-                <div role="button" onClick={() => setTab(true)} className=" w-full flex items-center gap-2  " >
+                {/* <div role="button" onClick={() => setTab(true)} className=" w-full flex items-center gap-2  " >
                     <div className=" w-11 h-11 rounded-full border-2 border-primary " >
 
                     </div>
@@ -29,7 +29,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
                             0
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div role="button" onClick={() => setTab(true)} className=" w-full flex items-center gap-2  " >
                     <div className=" w-11 h-11 rounded-full border-2 border-primary " >
 
@@ -108,7 +108,10 @@ export default function EventSupport({ tab, setTab }: IProps) {
                             <Text className=" text-xs font-semibold " >Can we get this event started?</Text>
                         </div>
                     </div>
-                    <div className=" w-full mt-auto sticky bottom-0 p-3 bg-white " >
+                    <div className=" w-full mt-auto lg:block hidden sticky bottom-0 p-3 bg-white " >
+                        <CustomInput borderRadius="9999px" placeholder="Type your message..." name="chat" type="text" hasIcon={true} icon={<SendIcon />} />
+                    </div>
+                    <div className=" w-full fixed lg:hidden bottom-0 p-3 bg-white " >
                         <CustomInput borderRadius="9999px" placeholder="Type your message..." name="chat" type="text" hasIcon={true} icon={<SendIcon />} />
                     </div>
                 </div>
