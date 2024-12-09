@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { CommunityDetail } from "../../components/community";
 import PageHeader from "../../components/shared/pageHeader";
 import { CustomButton } from "../../components/shared";
-import { EditIcon } from "../../svg";
+import { ChatWhiteIcon, EditIcon } from "../../svg";
 import useGetCommunityById from "../../hooks/communityHooks/useGetCommunityById";
 import LoadingAnimation from "../../components/shared/loadingAnimation";
 
@@ -31,11 +31,11 @@ export default function CommunityDetailPage() {
             <LoadingAnimation loading={isLoading} >
                 <CommunityDetail item={data} />
             </LoadingAnimation>
-            <div className=" w-fit lg:hidden mt-auto sticky bottom-2 ml-auto mr-6 z-10 right-0 ">
+            <div className=" w-fit lg:hidden fixed bottom-28 ml-auto mr-6 right-0  ">
                 <CustomButton rounded="44px" bgColor="linear-gradient(180deg, #4C49ED 0%, rgba(55, 19, 127, 0.9) 100%)" onClick={() => router("/dashboard/community/create")} hasFrontIcon={true} icon={
-                    <EditIcon />
+                    <ChatWhiteIcon />
                 } >
-                    Edit Community
+                   Add New Post
                 </CustomButton>
             </div>
         </div>
