@@ -1,10 +1,10 @@
 import { Text } from "@radix-ui/themes";
 import { CustomButton, CustomInput } from "../shared";
 import ImagePicker from "../shared/imagePicker";
-import useInterest from "../../hooks/useInterest";
+// import useInterest from "../../hooks/useInterest";
 import useCategory from "../../hooks/useCategory";
 import CustomSelect from "../shared/customSelect";
-import MultipleSelect from "../shared/multipleSelect";
+// import MultipleSelect from "../shared/multipleSelect";
 import CustomDatePicker from "../shared/customDatePicker"; 
 import CustomAddress from "../shared/customAddress";
 
@@ -24,13 +24,13 @@ export default function EventForm(props: IProps) {
         values
     } = props
 
-    const { isLoading: loadingInterest, data: interestData } = useInterest()
+    // const { isLoading: loadingInterest, data: interestData } = useInterest()
     const { isLoading: loadingCategory, data: categoryData } = useCategory() 
 
     // const { loadingMap, center, setMarkerPosition, markerPosition } = useMapLocation()
-    const changeHandler = (item: string, name: string) => {
-        setValue(name, item)
-    } 
+    // const changeHandler = (item: string, name: string) => {
+    //     setValue(name, item)
+    // } 
 
     return (
         <div className=" w-full flex flex-col gap-4 lg:pb-6 " >
@@ -48,12 +48,12 @@ export default function EventForm(props: IProps) {
                     <Text className=" text-primary font-semibold text-sm " >Event Venue</Text>
                     <CustomAddress name="address" type="text" setValue={setValue} placeholder="Type or search for venue..." />
                 </div>
-                <div className=" flex w-full flex-col gap-1 " >
+                {/* <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Event Interest</Text>
                     {!loadingInterest && (
                         <MultipleSelect value={[]} placeholder="Select Interest" name="interest" changeHandler={(e) => changeHandler(e, "interest")} interest={interestData} />
                     )}
-                </div>
+                </div> */}
                 <div className=" w-full flex gap-4 lg:flex-row flex-col " >
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Event Category</Text>
@@ -61,10 +61,10 @@ export default function EventForm(props: IProps) {
                             <CustomSelect value={values?.category} formState={formState} placeholder="Select Categories" name="category" changeHandler={setValue} list={categoryData} />
                         )}
                     </div>
-                    <div className=" flex w-full flex-col gap-1 " >
+                    {/* <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Event Privacy</Text>
                         <CustomSelect value={values?.privacy} formState={formState} placeholder="Select Privacy" name="privacy" changeHandler={setValue} list={["public", "invite-only"]} />
-                    </div>
+                    </div> */}
                 </div>
                 <div className=" w-full flex gap-4 lg:flex-row flex-col " >
                     <div className=" flex w-full flex-col gap-1 " >

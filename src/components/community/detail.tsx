@@ -1,9 +1,10 @@
 import { Text } from "@radix-ui/themes";
 import { BackWhiteIcon, ChatIcon, ChatWhiteIcon, HeartColorlessIcon, MoreIcon, SendTopIcon } from "../../svg";
 import { useNavigate } from "react-router-dom";
+import { ICommunity } from "../../model/community";
 
 
-export default function CommunityDetail() {
+export default function CommunityDetail({item} : { item: ICommunity }) {
 
     const data = ["media", "", "", "media"]
     const router = useNavigate()
@@ -15,11 +16,12 @@ export default function CommunityDetail() {
                     <div onClick={()=> router(-1)} role="button" className=" cursor-pointer w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-[#FFFFFF33] flex justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
                         <BackWhiteIcon />
                     </div>
+                    <img alt="image" src={item?.photo} className=" w-full h-full object-cover lg:rounded-[44px] " />
                 </div>
                 <div className=" w-full px-4 lg:px-6 z-20 -mt-[25%]  " >
                     <div className=" p-5 text-primary w-full gap-2 bg-white flex flex-col rounded-[14px] items-center " style={{ boxShadow: "0px 3px 10px 0px #0000000D" }} >
-                        <Text className=" font-black text-2xl " >Hope Harvesters</Text>
-                        <Text className=" text-xs text-primary text-opacity-75 font-semibold text-center " >Hope Harvesters is A Community dedicated to uplifting underprivileged communities through sustainable development programs, educational initiatives, and health services. Our mission is to harvest hope and create opportunities for a brighter future.</Text>
+                        <Text className=" font-black text-2xl " >{item?.name}</Text>
+                        <Text className=" text-xs text-primary text-opacity-75 font-semibold text-center " >{item?.description}</Text>
                         <div className=" w-fit px-4  h-[30px] bg-primary bg-opacity-15 font-bold text-sm flex justify-center items-center rounded-[44px] " style={{ boxShadow: "0px 2px 4px 0px #0000001A" }} >
                             Causes & Interest
                         </div>

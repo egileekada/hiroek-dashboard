@@ -37,13 +37,17 @@ function LoadingAnimation(props: Props) {
 
     return (
         <div className=' w-full bg-white ' >
-            {(!loading) && (
+            {(!loading && !isLoading) && (
                 <div className=' w-full ' >
                     {children}
-                    {((!loading) && refeching) && (
+                    {((!loading) && refeching && length) && (
                         <div className=' w-full  flex ' >
                             <div className=' w-full flex justify-center text-lg ' >
-                                <Spinner size={"3"} className=' !text-primary ' />
+                                {length > 0 ? (
+                                    <Spinner size={"3"} className=' !text-primary ' />
+                                ): (
+                                    <img className=' w-16 h-16 ' alt='loading' src='/images/loading.gif' />
+                                )}
                             </div>
                         </div>
                     )}
@@ -64,7 +68,8 @@ function LoadingAnimation(props: Props) {
                 <div className=' w-full flex ' >
                     {!customLoader && (
                         <div className=' w-full flex justify-center  py-4 text-lg ' >
-                            <Spinner size={"3"} className=' !text-primary ' />
+
+                            <img className=' w-16 h-16 ' alt='loading' src='/images/loading.gif' />
                         </div>
                     )}
                     {customLoader}

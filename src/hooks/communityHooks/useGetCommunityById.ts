@@ -8,23 +8,21 @@ import { useParams } from "react-router-dom";
 
 const useGetCommunityById = () => {
 
-    const [data, setData] = useState<Array<ICommunity>>()
+    const [data, setData] = useState({} as ICommunity)
     const { id } = useParams();
 
 
     // react query
     const { isLoading, isRefetching } = useQuery(
-        ["communities-by-id"],
+        ["communities-by-id", id],
         () => httpService.get(`/communities/${id}`),
         {
             onError: (error: any) => {
                 toast.error(error.response?.data)
                 // console.log(error);
             },
-            onSuccess: (data: any) => {
-                console.log(data);
-
-                setData(data?.data?.communities?.data)
+            onSuccess: (data: any) => { 
+                setData(data?.data?.community)
             }
         },
     );

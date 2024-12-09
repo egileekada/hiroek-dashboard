@@ -23,8 +23,8 @@ export default function CommunityPage() {
             </div>
             {/* <PageHeader header="Communities" body="Effortless Event Creation and Community Engagement." /> */}
             <div className=" w-full flex flex-col gap-6 lg:px-0 px-4 " >
-                <CommunityCardList notitle={true} />
-                <CommunityCardList title="Communities Curated By Members" />
+                <CommunityCardList title="Recent Channels" />
+                <CommunityCardList title="All Channels" mobile={true} />
             </div>
             <div className=" w-fit mt-auto lg:hidden sticky bottom-2 ml-auto mr-6 right-0 ">
                 <CustomButton rounded="44px" bgColor="linear-gradient(180deg, #4C49ED 0%, rgba(55, 19, 127, 0.9) 100%)" onClick={() => router("/dashboard/community/create")} hasFrontIcon={true} icon={
