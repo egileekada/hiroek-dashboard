@@ -21,7 +21,7 @@ export default function EventPage() {
             <div className=" w-full flex items-center justify-between " >
                 <PageHeader header="Events" body="Effortless Event Creation and Community Engagement." />
                 <div className=" w-fit lg:block hidden text-white ">
-                    <CustomButton className=" px-3 " width="200px" onClick={clickHandler} hasFrontIcon={true} icon={
+                    <CustomButton className=" px-3 " width="230px" onClick={clickHandler} hasFrontIcon={true} icon={
                         <EventIcon />
                     } >
                         Create New Event

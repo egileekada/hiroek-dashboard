@@ -1,6 +1,7 @@
 import { GalleryIcon } from '../../svg'
 import { useState } from 'react'
 import { useImage } from '../../global-state/useImageData'
+import toast from 'react-hot-toast'
 
 export default function ImagePicker({ defaultValue } : { defaultValue?: string }) {
 
@@ -9,7 +10,8 @@ export default function ImagePicker({ defaultValue } : { defaultValue?: string }
 
     const handleImageChange = (e: any) => {
 
-        const selected = e.target.files[0];
+        const selected = e.target.files[0]; 
+        
         const TYPES = ["image/png", "image/jpg", "image/jpeg"];
         if (selected && TYPES.includes(selected.type)) {
             const reader: any = new FileReader();
@@ -17,14 +19,14 @@ export default function ImagePicker({ defaultValue } : { defaultValue?: string }
                 setImage(reader.result)
             }
             reader.readAsDataURL(selected)
+        } else {
+            toast.error("Invalid Image Type")
         }
-
-        updateEventImage(selected)
-
+        updateEventImage(selected) 
     } 
 
     return (
-        <div className=" w-full p-5 flex flex-col gap-4  " style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }}  >
+        <div className=" w-full px-4 flex flex-col gap-4  " style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }}  >
             <div className=" w-full border border-[#37137F4D] relative rounded-lg border-dashed h-[184px] gap-2 flex flex-col justify-center items-center " >
                 <div className=" w-11 h-11 flex justify-center items-center bg-[#37137F26] rounded-lg " >
                     <GalleryIcon />

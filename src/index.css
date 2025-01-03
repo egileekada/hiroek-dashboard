@@ -8,10 +8,41 @@
     src: url("/font/Inter.ttf");
 }
 
+@font-face {
+  font-family: 'Axiforma-Thin';
+  src: url("./assets/font/fonnts.com-Axiforma-Thin.ttf");
+} 
+
+@font-face {
+  font-family: 'Axiforma-Light';
+  src: url("./assets/font/fonnts.com-Axiforma_Light.ttf");
+}
+
+@font-face {
+  font-family: 'Axiforma-Medium';
+  src: url("./assets/font/fonnts.com-Axiforma_Medium.ttf");
+}
+
+@font-face {
+  font-family: 'Axiforma-Regular';
+  src: url("./assets/font/fonnts.com-Axiforma_Regular.ttf");
+}
+
+@font-face {
+  font-family: 'Axiforma-Black';
+  src: url("./assets/font/fonnts.com-Axiforma-Black.ttf");
+}
+
+@font-face {
+  font-family: 'Axiforma-Heavy';
+  src: url("./assets/font/fonnts.com-Axiforma-Heavy.ttf");
+} 
+
+
 html,
 body {
     overflow-x: hidden !important;
-    font-family: "Inter", sans-serif !important;
+    font-family: "Axiforma-Regular" !important;
     scroll-behavior: smooth;
 }
 
@@ -19,6 +50,31 @@ body {
     font-family: "Inter";
     font-weight: 800;
     font-style: normal;
+}
+
+.font-bold{
+  font-family: "Axiforma-Black" !important;
+  font-weight: 700;
+}
+
+.font-semibold{
+  font-family: "Axiforma-Medium" !important;
+  font-weight: 600;
+}
+
+.font-meduim{
+  font-family: "Axiforma-Medium" !important;
+  font-weight: 500;
+}
+
+.font-regular{
+  font-family: "Axiforma-Regular" !important;
+  font-weight: 400;
+}
+
+.font-black{
+  font-family: "Axiforma-Black" !important;
+  font-weight: 900;
 }
 
 .pincode-input-container {
@@ -45,6 +101,7 @@ body {
     position: fixed;
     inset: 0;
     animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 20 !important;
   }
   
   .DialogContent {
@@ -57,6 +114,7 @@ body {
     transform: translate(-50%, -50%);
     width: 90vw; 
     max-height: 85vh;
+    z-index: 30 !important;
     padding: 10px;
     animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }

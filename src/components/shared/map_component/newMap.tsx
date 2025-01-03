@@ -119,7 +119,7 @@ const MapWithClickMarker = (props: Props) => {
     };
 
     if (loadError) return <div>Error loading maps</div>;
-    if (!isLoaded && loading) return <div>Loading maps...</div>;
+    if (!isLoaded && loading) return <div className=' w-full flex justify-center items-center ' >Loading maps...</div>;
 
 
 

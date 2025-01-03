@@ -23,9 +23,12 @@ interface IProps {
     onclick?: () => void,
     edit?: boolean,
     setValue?: any
+    color?: string,
+    borderColor?: string,
+    borderWidth?: string
 }
 
-export default function CustomInput({ isPassword = false, name, textarea, type, placeholder, disable, value, icon, hasIcon, hasLeftIcon, borderRadius, onclick, edit, setValue }: IProps) {
+export default function CustomInput({ isPassword = false, name, textarea, type, placeholder, disable, value, icon, hasIcon, hasLeftIcon, borderRadius, onclick, edit, setValue, color, borderColor, borderWidth }: IProps) {
 
     const [showText, setShowText] = useState(type)
     const [defaultValue, setDefaultValue] = useState(value+"")
@@ -35,7 +38,7 @@ export default function CustomInput({ isPassword = false, name, textarea, type, 
         setShowText((prev) => prev === "text" ? "password" : "text")
     }
 
-    const changeHandler = (item: string) => {
+    const changeHandler = (item: any) => {
         setValue(name, item)
         setDefaultValue(item)
     }
@@ -60,7 +63,7 @@ export default function CustomInput({ isPassword = false, name, textarea, type, 
                                     required: true,
                                     pattern: /^[A-Za-z]+$/i
                                 })}
-                                type={showText} style={{ borderRadius: borderRadius ?? "5px" }} placeholder={placeholder} disabled={disable} value={type === "date" ? new Date(value).toISOString().split('T')[0] : value} name={name} className={` ${hasLeftIcon ? " pl-[40px] " : " "} h-[54px] px-3 border-[#37137F] border-opacity-30 border-[2px] outline-none hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] bg-transparent w-full text-sm font-medium text-primary `} />
+                                type={showText} style={{ borderRadius: borderRadius ?? "5px", color: color ?? "#37137f", borderColor: borderColor ?? "#37137F80", borderWidth: borderWidth ?? "2px" }} placeholder={placeholder} disabled={disable} value={type === "date" ? new Date(value).toISOString().split('T')[0] : value} name={name} className={` ${hasLeftIcon ? " pl-[40px] " : " "} h-[54px] px-3 outline-none bg-transparent w-full text-sm font-medium `} />
                             {(isPassword) && (
                                 <div role="button" onClick={clickHandler} className={` ${showText === "password" ? "" : "opacity-20"} w-[30px] pr-2 h-[54px] flex justify-center items-center absolute right-0 top-0 `} >
                                     <EyeIcon />
@@ -97,7 +100,7 @@ export default function CustomInput({ isPassword = false, name, textarea, type, 
                         <div className=" w-full h-[54px] relative " >
                             <input
                                 onChange={(e) => changeHandler(e.target?.value)}
-                                type={showText} style={{ borderRadius: borderRadius ?? "5px" }} placeholder={placeholder} disabled={disable} value={defaultValue} name={name} className=" h-[54px] px-3 border-[#37137F] border-opacity-30 border-[2px] outline-none hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] bg-transparent w-full text-sm font-medium text-primary " />
+                                type={showText} style={{ borderRadius: borderRadius ?? "5px", color: color ?? "#37137f", borderColor: borderColor ?? "#37137F80", borderWidth: borderWidth ?? "2px" }} placeholder={placeholder} disabled={disable} value={type === "date" ? new Date(value).toISOString().split('T')[0] : value} name={name} className={` ${hasLeftIcon ? " pl-[40px] " : " "} h-[54px] px-3 outline-none bg-transparent w-full text-sm font-medium `} />
                             {(isPassword) && (
                                 <div role="button" onClick={clickHandler} className=" w-[30px] pr-2 h-[54px] flex justify-center items-center absolute right-0 top-0 " >
                                     <EyeIcon />

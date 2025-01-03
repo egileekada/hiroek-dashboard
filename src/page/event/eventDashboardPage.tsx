@@ -2,57 +2,67 @@ import { Text } from '@radix-ui/themes'
 import PageHeader from '../../components/shared/pageHeader'
 import { CashIcon, EventIcon, CommunityIcon } from '../../svg'
 import { formatNumber } from '../../utils/numberFormat'
+import useEvent from '../../hooks/eventHooks/useEvent'
+import LoadingAnimation from '../../components/shared/loadingAnimation'
 
 export default function EventDashboardPage() {
+
+    const { getEventDashboardData } = useEvent()
+
+    console.log(getEventDashboardData()?.data);
+
+
     return (
         <div className=' w-full flex flex-col gap-4 lg:gap-6 ' >
             <PageHeader back={true} header={"Event Dashboard"} body="" />
-            <div className=" w-full grid grid-cols-2 lg:flex gap-2 lg:gap-4 px-4 lg:px-0 " >
-                <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-primary h-[136px] lg:h-[170px] relative flex items-center  " >
-                    <div className=" px-4 flex flex-col text-white " >
-                        <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
-                            <CashIcon />
+            <LoadingAnimation loading={getEventDashboardData()?.isLoading} >
+                <div className=" w-full grid grid-cols-2 lg:flex gap-2 lg:gap-4 px-4 lg:px-0 " >
+                    <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-primary h-[136px] lg:h-[170px] relative flex items-center  " >
+                        <div className=" px-4 flex flex-col text-white " >
+                            <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
+                                <CashIcon />
+                            </div>
+                            <Text className=" relative z-10 font-semibold mt-1 lg:text-base text-xs " >Total Pledged Amount</Text>
+                            <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(getEventDashboardData()?.data?.pledges)}</Text>
                         </div>
-                        <Text className=" relative z-10 font-semibold mt-1 lg:text-base text-xs " >Total Pledged Amount</Text>
-                        <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(2500)}</Text>
+                        <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                     </div>
-                    <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
-                </div>
-                <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-secondary h-[136px] lg:h-[170px] relative flex items-center  " >
-                    <div className=" px-4 flex flex-col text-white " >
-                        <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
-                            <EventIcon />
+                    <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-secondary h-[136px] lg:h-[170px] relative flex items-center  " >
+                        <div className=" px-4 flex flex-col text-white " >
+                            <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
+                                <EventIcon />
+                            </div>
+                            <Text className=" relative z-10 font-semibold mt-1 lg:text-base text-xs " >Tickets Sold</Text>
+                            <div className=" flex gap-2 items-center " >
+                                <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(getEventDashboardData()?.data?.tickets)}</Text>
+                            </div>
                         </div>
-                        <Text className=" relative z-10 font-semibold mt-1 lg:text-base text-xs " >Tickets Sold</Text>
-                        <div className=" flex gap-2 items-center " >
-                            <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(100)}</Text>
-                        </div>
+                        <img src="/images/two.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                     </div>
-                    <img src="/images/two.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
-                </div>
-                <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-primary h-[136px] lg:h-[170px] relative flex items-center  " >
-                    <div className=" px-4 flex flex-col text-white " >
-                        <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
-                            <EventIcon />
+                    <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-primary h-[136px] lg:h-[170px] relative flex items-center  " >
+                        <div className=" px-4 flex flex-col text-white " >
+                            <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
+                                <EventIcon />
+                            </div>
+                            <Text className=" relative z-10 font-semibold mt-1 lg:text-base text-xs " >Total Ticket Revenue</Text>
+                            <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(getEventDashboardData()?.data?.ticketValues)}</Text>
                         </div>
-                        <Text className=" relative z-10 font-semibold mt-1 lg:text-base text-xs " >Total Ticket Revenue</Text>
-                        <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(50000)}</Text>
+                        <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                     </div>
-                    <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
-                </div>
-                <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-secondary h-[136px] lg:h-[170px] relative flex items-center  " >
-                    <div className=" px-4 flex flex-col text-white " >
-                        <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
-                            <CommunityIcon />
+                    <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-secondary h-[136px] lg:h-[170px] relative flex items-center  " >
+                        <div className=" px-4 flex flex-col text-white " >
+                            <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
+                                <CommunityIcon />
+                            </div>
+                            <Text className=" relative z-10 font-semibold mt-1 lg:text-base text-xs " >Event Sign-Ups</Text>
+                            <div className=" flex gap-2 items-center " >
+                                <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(getEventDashboardData()?.data?.members, "")}</Text>
+                            </div>
                         </div>
-                        <Text className=" relative z-10 font-semibold mt-1 lg:text-base text-xs " >Event Sign-Ups</Text>
-                        <div className=" flex gap-2 items-center " >
-                            <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(0, "")}</Text>
-                        </div>
+                        <img src="/images/two.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                     </div>
-                    <img src="/images/two.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                 </div>
-            </div>
+            </LoadingAnimation>
             <div className=' w-full flex flex-col px-4 lg:px-0 gap-4 pb-8 ' >
                 <div className=' w-full flex items-center ' >
                     <div className=' flex flex-col ' >

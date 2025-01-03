@@ -7,7 +7,7 @@ import { Text } from "@radix-ui/themes"
 import { useDetails } from "../../global-state/useUserDetails"
 import { useEffect, useState } from "react"
 import useUser from "../../hooks/useUser"
-import LoadingAnimation from "../shared/loadingAnimation"
+// import LoadingAnimation from "../shared/loadingAnimation"
 
 export default function DashboardLayout() {
 
@@ -32,7 +32,7 @@ export default function DashboardLayout() {
     }, [setAll, isLoading, setLoading, loading, isError])
 
     return (
-        <LoadingAnimation loading={isLoading} >
+        // <LoadingAnimation loading={isLoading} >
             <div className=" w-screen h-screen flex overflow-hidden " >
                 <div className=" w-fit md:block hidden " >
                     <div className=" md:w-[60px] lg:w-[300px] h-screen border-r border-r-[#F0F1F3] " style={{ boxShadow: "4px 0px 30px 0px #8362EA0D" }} >
@@ -43,10 +43,10 @@ export default function DashboardLayout() {
                     <div className={` w-full bg-white h-fit ${(history?.pathname?.includes("/dashboard/event/details") || history?.pathname?.includes("/dashboard/community/details")) ? " lg:block hidden " : " block "} top-0 sticky `} >
                         <Navbar />
                     </div>
-                    <div className={` overflow-y-auto inset-0 md:bottom-0 bottom-[90px] absolute flex ${(history?.pathname?.includes("/dashboard/event/details") || history?.pathname?.includes("/dashboard/community/details")) ? " lg:top-[55px] lg:p-6 top-0 " : " top-[55px] lg:p-6 p-0 "} pb-8 `} >
+                    <div className={` overflow-y-auto inset-0 md:bottom-0 ${history?.pathname?.includes("/dashboard/event/create") ? "" : "bottom-[90px]"} absolute flex ${(history?.pathname?.includes("/dashboard/event/details") || history?.pathname?.includes("/dashboard/community/details") ) ? " lg:top-[55px] lg:p-6 top-0 " : " top-[55px] lg:p-6 p-0 "} pb-8 `} >
                         <Outlet />
                     </div>
-                    {!history?.pathname?.includes("/event/support") && (
+                    {(!history?.pathname?.includes("/event/support") && !history?.pathname?.includes("/dashboard/event/create")) && (
                         <div className=" w-full h-[90px] fixed bottom-0 z-50 rounded-[25px] bg-primary md:hidden flex flex-row justify-around items-center px-2 " >
                             {menulistmobile?.map((item, index) => {
                                 return (
@@ -77,6 +77,6 @@ export default function DashboardLayout() {
                 </div>
             </div>
 
-        </LoadingAnimation>
+        // </LoadingAnimation>
     )
 }

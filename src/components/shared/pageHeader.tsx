@@ -21,7 +21,7 @@ export default function PageHeader({ header, body, back }: IProps) {
                     </div>
                 </div>
             )}
-            <div className=' flex flex-col gap-2 ' >
+            <div className=' flex flex-col gap-2 lg:mt-0 mt-4 ' >
                 <Text className=' text-[28px] !leading-7 font-black tracking-[1%] text-primary ' >{header}</Text>
                 <Text className=' !leading-5 font-semibold text-primary text-opacity-50 ' >{body}</Text>
             </div>

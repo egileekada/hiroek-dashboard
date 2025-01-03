@@ -22,7 +22,7 @@ function App() {
             <Route path="create" element={<CreateEventPage />} />
             <Route path="edit/:id" element={<CreateEventPage />} />
             <Route path="support" element={<EventSupportPage />} />
-            <Route path="dashboard" element={<EventDashboardPage />} />
+            <Route path="dashboard/:id" element={<EventDashboardPage />} />
           </Route>
           <Route path="community" >
             <Route index element={<CommunityPage />} />

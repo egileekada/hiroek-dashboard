@@ -1,6 +1,9 @@
 
 export interface IEvent {
-    address: string
+    fundRaiser: IFundRaiser;
+    eventTicket: IEventTicket;
+    minimumPledge: number;
+    address: string;
     admin: string
     adminType: string
     category: string
@@ -8,7 +11,6 @@ export interface IEvent {
     description: string
     endTime: string
     eventEndDate: string
-    fundRaised: number
     fundraisingGoal: number
     goalReached: boolean
     interests: Array<string>
@@ -23,3 +25,27 @@ export interface IEvent {
     __v: number
     _id: string
 }
+
+interface IFundRaiser {
+    organizations: Array<IOrganization>,
+    fundRaised: number,
+    goalReached: boolean,
+    fundRaisingGoal: number
+}
+
+interface IOrganization {
+    "fundRaised": number,
+    "totalDonations": number,
+    "_id": string,
+    "name": string,
+    "charityRegNumber": string,
+    "email": string,
+    "description": string,
+    "logo": string
+}
+
+interface IEventTicket {
+    "availableTickets": number,
+    "totalTicket": number,
+    "ticketPrice": number
+} 

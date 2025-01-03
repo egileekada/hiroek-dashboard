@@ -19,6 +19,7 @@ export const useForm = ({submit, defaultValues, validationSchema}: IProps) => {
         event.preventDefault();
         submit(data)
     }
+
     const renderForm = React.useCallback((children: ReactNode) => {
         return (
             <FormProvider {...methods}>
@@ -34,6 +35,7 @@ export const useForm = ({submit, defaultValues, validationSchema}: IProps) => {
         values: methods.getValues(),
         formState: methods.formState,
         watch: methods.watch,
-        reset: methods?.reset
+        reset: methods?.reset,
+        submit: methods?.handleSubmit
     }
 }
