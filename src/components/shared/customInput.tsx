@@ -100,7 +100,7 @@ export default function CustomInput({ isPassword = false, name, textarea, type, 
                         <div className=" w-full h-[54px] relative " >
                             <input
                                 onChange={(e) => changeHandler(e.target?.value)}
-                                type={showText} style={{ borderRadius: borderRadius ?? "5px", color: color ?? "#37137f", borderColor: borderColor ?? "#37137F80", borderWidth: borderWidth ?? "2px" }} placeholder={placeholder} disabled={disable} value={type === "date" ? new Date(value).toISOString().split('T')[0] : value} name={name} className={` ${hasLeftIcon ? " pl-[40px] " : " "} h-[54px] px-3 outline-none bg-transparent w-full text-sm font-medium `} />
+                                type={showText} style={{ borderRadius: borderRadius ?? "5px", color: color ?? "#37137f", borderColor: borderColor ?? "#37137F80", borderWidth: borderWidth ?? "2px" }} placeholder={placeholder} disabled={disable} value={type === "date" ? new Date(defaultValue).toISOString().split('T')[0] : defaultValue} name={name} className={` ${hasLeftIcon ? " pl-[40px] " : " "} h-[54px] px-3 outline-none bg-transparent w-full text-sm font-medium `} />
                             {(isPassword) && (
                                 <div role="button" onClick={clickHandler} className=" w-[30px] pr-2 h-[54px] flex justify-center items-center absolute right-0 top-0 " >
                                     <EyeIcon />

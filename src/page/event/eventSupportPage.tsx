@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { EventSupport } from "../../components/event";
-import PageHeader from "../../components/shared/pageHeader";
+import PageHeader from "../../components/shared/pageHeader"; 
+import { useParams } from "react-router-dom";
 
 
 export default function EventSupportPage() {
 
-    const [tab, setTab] = useState(false)
+    const [tab, setTab] = useState(false) 
+    const { id } = useParams();
 
     return (
         <div className=' w-full h-full flex flex-col gap-6 ' >
-            {!tab && (
-                <PageHeader back={true} header="Event Messages" body="View & respond to messages from your supporters" />
-            )}
+            <div className={` w-full ${tab ? " lg:block hidden " : ""} `} > 
+                <PageHeader back={true} path={tab ? "" : `/dashboard/event/details/${id}`} header="Event Messages" body="View & respond to messages from your supporters" /> 
+            </div>
             <EventSupport tab={tab} setTab={setTab} />
         </div>
     )

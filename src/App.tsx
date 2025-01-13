@@ -2,6 +2,7 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ProfileInfoPage, ResetPasswordPage, ResetSentPage, WithDrawalPin } from "./page";
 import { DashboardLayout } from "./components/dashboard";
 import EventDashboardPage from "./page/event/eventDashboardPage";
+import EventScanner from "./page/event/eventScanner";
 
 
 function App() {
@@ -21,7 +22,9 @@ function App() {
             <Route path="details/:id" element={<EventDetailPage />} />
             <Route path="create" element={<CreateEventPage />} />
             <Route path="edit/:id" element={<CreateEventPage />} />
-            <Route path="support" element={<EventSupportPage />} />
+            <Route path="support/:id" element={<EventSupportPage />} />
+            <Route path="scanner" element={<EventScanner />} />
+            <Route path="scan/history" element={<EventScanner />} />
             <Route path="dashboard/:id" element={<EventDashboardPage />} />
           </Route>
           <Route path="community" >

@@ -8,6 +8,7 @@ interface Props {
     children: React.ReactNode,
     length?: number,
     customLoader?: React.ReactNode,
+    width?: string
 }
 
 function LoadingAnimation(props: Props) {
@@ -18,6 +19,7 @@ function LoadingAnimation(props: Props) {
         length,
         refeching,
         customLoader,
+        width
     } = props
 
     const [isLoading, setLoading] = useState(true)
@@ -36,7 +38,7 @@ function LoadingAnimation(props: Props) {
     }, [loading])
 
     return (
-        <div className=' w-full bg-white ' >
+        <div className={` ${width ? width : "w-full"}  bg-white `} >
             {(!loading && !isLoading) && (
                 <div className=' w-full ' >
                     {children}

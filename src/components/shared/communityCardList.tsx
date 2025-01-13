@@ -17,7 +17,7 @@ export default function CommunityCardList({ title, notitle, mobile }: IProps) {
     const { data, isLoading } = useGetCommunity()
 
     console.log(data);
-    
+
 
     return (
         <div className=' w-full flex pb-6 flex-col gap-2 ' >
@@ -31,14 +31,27 @@ export default function CommunityCardList({ title, notitle, mobile }: IProps) {
                             if (!mobile) {
                                 return (
                                     <div role='button' onClick={() => router(`/dashboard/community/details/${item?._id}`)} key={index} className=' w-[346px] h-[186px] rounded-2xl relative flex justify-center items-center ' >
-                                        <div style={{ boxShadow: "0px 3px 3px 0px #00000038" }} className=' gap-1 w-[300px] relative z-20 h-[138px] text-white flex items-center flex-col rounded-[10px] bg-[#2D264B80] py-[8px] px-3 ' >
+                                        <div style={{ boxShadow: "0px 3px 3px 0px #00000038" }} className=' gap-1 w-[300px] relative z-20 h-[138px] text-primary flex items-center flex-col rounded-[10px] bg-[#FFFFFFBF] py-[8px] px-3 ' >
                                             <Text className=' text-xl tracking-[0.5%] text-center font-black ' >{item?.name}</Text>
                                             <Text className=' text-xs text-center font-semibold ' >{textLimit(item?.description, 80)}</Text>
                                             <div className=' mt-auto w-fit ' >
                                                 <div className='flex items-center ' >
-                                                    <div className=' w-7 h-7 rounded-full bg-blue-600 ' />
+                                                    {item?.members?.map((item: {
+                                                        photo: string
+                                                    }, index: number) => {
+                                                        if (index === 0) {
+                                                            return (
+                                                                <img key={index} alt={item?.photo} src={item?.photo} className=' w-7 h-7 rounded-full ' />
+                                                            )
+                                                        } else {
+                                                            return (
+                                                                <img key={index} alt={item?.photo} src={item?.photo} className=' w-7 h-7 -ml-2 rounded-full ' />
+                                                            )
+                                                        }
+                                                    })}
+                                                    {/* <div className=' w-7 h-7 rounded-full bg-blue-600 ' />
                                                     <div className=' w-7 h-7 rounded-full -ml-2 bg-green-600 ' />
-                                                    <div className=' w-7 h-7 rounded-full -ml-2 bg-red-600 ' />
+                                                    <div className=' w-7 h-7 rounded-full -ml-2 bg-red-600 ' /> */}
                                                     {item?.members?.length > 0 && (
                                                         <Text className=' ml-4 text-opacity-90 text-xs font-semibold ' >{formatNumberWithK(item?.members?.length)} Members</Text>
                                                     )}
@@ -55,9 +68,29 @@ export default function CommunityCardList({ title, notitle, mobile }: IProps) {
                                         <div className=' w-[75px] h-[75px] rounded-lg ' >
                                             <img src={item?.photo} alt={item?.photo} className=' object-cover h-full w-full rounded-lg ' />
                                         </div>
+                                        <div className=' flex flex-col ' >
                                         <div className=' flex-col flex text-left ' >
                                             <Text className=' text-sm font-extrabold ' >{textLimit(item?.name, 30)}</Text>
                                             <Text className=' text-xs font-semibold ' >{textLimit(item?.description, 80)}</Text>
+                                        </div>
+                                        <div className=' bg-[#B00062] w-fit px-2 mt-1 h-[28px] rounded-[44px] flex items-center justify-center ' >
+                                            {item?.members?.map((item: {
+                                                photo: string
+                                            }, index: number) => {
+                                                if (index === 0) {
+                                                    return (
+                                                        <img key={index} alt={item?.photo} src={item?.photo} className=' w-4 h-4 rounded-full ' />
+                                                    )
+                                                } else {
+                                                    return (
+                                                        <img key={index} alt={item?.photo} src={item?.photo} className=' w-4 h-4 -ml-2 rounded-full ' />
+                                                    )
+                                                }
+                                            })}
+                                            {item?.members?.length > 0 && (
+                                                <Text className=' ml-2 text-white text-[9px] font-bold ' >{formatNumberWithK(item?.members?.length)} Members</Text>
+                                            )}
+                                        </div>
                                         </div>
                                     </div>
                                 )

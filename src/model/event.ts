@@ -15,7 +15,11 @@ export interface IEvent {
     goalReached: boolean
     interests: Array<string>
     invitees: Array<any>
-    members: Array<any>
+    members: Array<{
+        fullname: string
+        photo: string
+        _id: string
+    }>
     name: string
     organization: string
     photo: string
@@ -24,6 +28,15 @@ export interface IEvent {
     updatedAt: string
     __v: number
     _id: string
+}
+
+export interface IEventDashboard {
+    "fundRaised": number;
+    "todayDonations": number;
+    "members": number;
+    "tickets": number;
+    "ticketValues": number;
+    "pledges": number
 }
 
 interface IFundRaiser {

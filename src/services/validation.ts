@@ -35,7 +35,7 @@ const EventValidation = z.object(
         fundRaiser: z.any(),
         eventTicket: z.any(),
         address: z.string().nonempty("Required"),
-        signUpLimit: z.string().nonempty("Required")
+        signUpLimit: z.string()
     }
 )
 

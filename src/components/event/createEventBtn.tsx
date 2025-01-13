@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CalendarIcon, EventIcon, LocationIcon } from "../../svg";
+import { CalendarIcon, LocationIcon, ShareIcon } from "../../svg";
 import { CustomButton } from "../shared";
 import ModalLayout from "../shared/modalLayout";
 import { Text } from "@radix-ui/themes";
@@ -18,34 +18,32 @@ export default function CreateEventBtn({ loading, submit, open, setOpen, isSucce
     const { createdEvent } = useEventDetail((state) => state)
     const navigate = useNavigate()
 
-    useEffect(()=> {
-        if(isSuccess){
+    useEffect(() => {
+        if (isSuccess) {
             setTab(1)
         }
-    },[isSuccess])
+    }, [isSuccess])
 
     return (
         <div>
-            <CustomButton className=" px-3 items-center " width="230px" type="submit" hasFrontIcon={true} icon={
-                <EventIcon />
-            } >
+            <CustomButton className=" items-center " width="100%" type="submit" hasIcon={true} >
                 {history?.pathname?.includes("edit") ? "Edit Event" : "Create New Event"}
             </CustomButton>
-            <ModalLayout onIcon={true} width={tab === 0 ? "361px" : "100%"} height={tab === 1 ? "100%" : ""} rounded="44px" open={open} setOpen={setOpen} >
+            <ModalLayout onIcon={true} width={tab === 0 ? " max-w-[361px] " : " max-w-[361px] max-w-[100%] "} height={tab === 1 ? "100%" : ""} rounded="44px" open={open} setOpen={setOpen} >
                 {/* <div className=" w-full h-full flex bg-green-200 " > */}
                 {tab === 0 && (
                     <div className=" w-full flex flex-col gap-2 items-center pb-4 " >
-                        <Text className=" text-lg font-bold text-primary " >Create New Event</Text>
-                        <Text className=" text-primary text-opacity-50 text-xs mb-4 " >Are you sure you want to create this new event?</Text>
+                        <Text className=" text-lg font-bold text-primary " >{history?.pathname?.includes("edit") ? "Edit Event" : "Create New Event"}</Text>
+                        <Text className=" text-primary text-opacity-50 text-xs mb-4 " >{history?.pathname?.includes("edit") ? "Are you sure you want to edit this event?" : "Are you sure you want to create this new event?"}</Text>
                         <CustomButton type="button" onClick={submit} loading={loading} width="200px" rounded="999px" >Yes, Proceed</CustomButton>
                         <CustomButton onClick={() => setOpen(false)} color="#CC1B1B" width="200px" bgColor="white" rounded="999px" >Cancel</CustomButton>
                     </div>
                 )}
                 {tab === 1 && (
-                    <div className=" w-full flex flex-col relative h-full gap-2 items-center pt-[20%] pb-4 text-primary  " >
+                    <div className=" w-full flex flex-col relative h-full gap-2 items-center lg:pt-0 pt-[20%] pb-4 text-primary  " >
                         <Text className=" text-2xl font-black" >🎉 Cheers! 🎉</Text>
                         <Text className=" text-sm font-semibold " >You have successfully created your event</Text>
-                        <Text className=" text-lg font-bold text-center " >Run for a Cause: 5K Charity Challenge</Text>
+                        <Text className=" text-lg font-bold text-center " >{createdEvent?.name}</Text>
 
                         <div role='button' className=' w-full h-[186px] rounded-2xl bg-blue-500 shadow-sm relative ' >
                             <img src={createdEvent?.photo} alt={createdEvent?.name} className=' w-full h-full object-cover absolute inset-0 rounded-2xl ' />
@@ -70,7 +68,13 @@ export default function CreateEventBtn({ loading, submit, open, setOpen, isSucce
                         <div className=" absolute bottom-4 w-full flex flex-col gap-1 " >
                             <Text className=" font-semibold text-xs text-center " >Share the event and start gathering support and awareness</Text>
 
-                            <CustomButton onClick={()=> navigate("/dashboard/event")} bgColor={"#B00062"} className=" px-3 " width="100%" type="submit" >
+
+                            <CustomButton bgColor={"#B00062"} className=" px-3 " width="100%" type="button" hasIcon={true} icon={
+                                <ShareIcon />
+                            } >
+                                Share
+                            </CustomButton>
+                            <CustomButton onClick={() => navigate("/dashboard/event")} className=" px-3 " width="100%" type="submit" >
                                 Done
                             </CustomButton>
                         </div>

@@ -2,14 +2,16 @@ import { Text } from '@radix-ui/themes'
 import PageHeader from '../../components/shared/pageHeader'
 import { CashIcon, EventIcon, CommunityIcon } from '../../svg'
 import { formatNumber } from '../../utils/numberFormat'
-import useEvent from '../../hooks/eventHooks/useEvent'
 import LoadingAnimation from '../../components/shared/loadingAnimation'
+import useGetEventData from '../../hooks/eventHooks/useGetEventData'
+import { dateFormatDashboad } from '../../utils/dateFormat'
+import { numberFormat } from '../../utils/formatNumberWithK'
 
 export default function EventDashboardPage() {
 
-    const { getEventDashboardData } = useEvent()
+    const { getEventDashboardData, getEventDashboardTicketData } = useGetEventData()
 
-    console.log(getEventDashboardData()?.data);
+    console.log(getEventDashboardTicketData()?.data);
 
 
     return (
@@ -23,7 +25,7 @@ export default function EventDashboardPage() {
                                 <CashIcon />
                             </div>
                             <Text className=" relative z-10 font-semibold mt-1 lg:text-base text-xs " >Total Pledged Amount</Text>
-                            <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(getEventDashboardData()?.data?.pledges)}</Text>
+                            <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(getEventDashboardData()?.data?.pledges)}</Text>
                         </div>
                         <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                     </div>
@@ -34,7 +36,7 @@ export default function EventDashboardPage() {
                             </div>
                             <Text className=" relative z-10 font-semibold mt-1 lg:text-base text-xs " >Tickets Sold</Text>
                             <div className=" flex gap-2 items-center " >
-                                <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(getEventDashboardData()?.data?.tickets)}</Text>
+                                <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 inter-all " >{numberFormat(getEventDashboardData()?.data?.tickets)}</Text>
                             </div>
                         </div>
                         <img src="/images/two.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
@@ -45,7 +47,7 @@ export default function EventDashboardPage() {
                                 <EventIcon />
                             </div>
                             <Text className=" relative z-10 font-semibold mt-1 lg:text-base text-xs " >Total Ticket Revenue</Text>
-                            <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(getEventDashboardData()?.data?.ticketValues)}</Text>
+                            <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(getEventDashboardData()?.data?.ticketValues)}</Text>
                         </div>
                         <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                     </div>
@@ -56,7 +58,7 @@ export default function EventDashboardPage() {
                             </div>
                             <Text className=" relative z-10 font-semibold mt-1 lg:text-base text-xs " >Event Sign-Ups</Text>
                             <div className=" flex gap-2 items-center " >
-                                <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(getEventDashboardData()?.data?.members, "")}</Text>
+                                <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(getEventDashboardData()?.data?.members, "")}</Text>
                             </div>
                         </div>
                         <img src="/images/two.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
@@ -70,66 +72,27 @@ export default function EventDashboardPage() {
                         <p className=' text-xs text-[#37137F80] font-medium ' >Event Tickets Sold So Far</p>
                     </div>
                 </div>
-                <div className=' mt-4 flex w-full items-center justify-between ' >
-                    <div className=' flex items-center gap-2 ' >
-                        <div className=' w-8 h-8 rounded-lg bg-slate-400 ' >
 
-                        </div>
-                        <div className=' flex flex-col ' >
-                            <p className=' text-xs font-bold text-primary ' >Carlos Suárez</p>
-                            <p className=' text-[10px] font-medium text-[#37137F80] ' >24 days ago | Tickets: 1</p>
-                        </div>
-                    </div>
-                    <p className=' text-sm font-extrabold text-primary ' >£100</p>
-                </div>
-                <div className=' flex w-full items-center justify-between ' >
-                    <div className=' flex items-center gap-2 ' >
-                        <div className=' w-8 h-8 rounded-lg bg-slate-400 ' >
-
-                        </div>
-                        <div className=' flex flex-col ' >
-                            <p className=' text-xs font-bold text-primary ' >Carlos Suárez</p>
-                            <p className=' text-[10px] font-medium text-[#37137F80] ' >24 days ago | Tickets: 1</p>
-                        </div>
-                    </div>
-                    <p className=' text-sm font-extrabold text-primary ' >£100</p>
-                </div>
-                <div className=' flex w-full items-center justify-between ' >
-                    <div className=' flex items-center gap-2 ' >
-                        <div className=' w-8 h-8 rounded-lg bg-slate-400 ' >
-
-                        </div>
-                        <div className=' flex flex-col ' >
-                            <p className=' text-xs font-bold text-primary ' >Carlos Suárez</p>
-                            <p className=' text-[10px] font-medium text-[#37137F80] ' >24 days ago | Tickets: 1</p>
-                        </div>
-                    </div>
-                    <p className=' text-sm font-extrabold text-primary ' >£100</p>
-                </div>
-                <div className=' flex w-full items-center justify-between ' >
-                    <div className=' flex items-center gap-2 ' >
-                        <div className=' w-8 h-8 rounded-lg bg-slate-400 ' >
-
-                        </div>
-                        <div className=' flex flex-col ' >
-                            <p className=' text-xs font-bold text-primary ' >Carlos Suárez</p>
-                            <p className=' text-[10px] font-medium text-[#37137F80] ' >24 days ago | Tickets: 1</p>
-                        </div>
-                    </div>
-                    <p className=' text-sm font-extrabold text-primary ' >£100</p>
-                </div>
-                <div className=' flex w-full items-center justify-between ' >
-                    <div className=' flex items-center gap-2 ' >
-                        <div className=' w-8 h-8 rounded-lg bg-slate-400 ' >
-
-                        </div>
-                        <div className=' flex flex-col ' >
-                            <p className=' text-xs font-bold text-primary ' >Carlos Suárez</p>
-                            <p className=' text-[10px] font-medium text-[#37137F80] ' >24 days ago | Tickets: 1</p>
-                        </div>
-                    </div>
-                    <p className=' text-sm font-extrabold text-primary ' >£100</p>
-                </div>
+                <LoadingAnimation loading={getEventDashboardTicketData()?.isLoading} >
+                    <>
+                        {getEventDashboardTicketData()?.data?.map((item, index) => {
+                            return (
+                                <div key={index} className=' mt-4 flex w-full items-center justify-between ' >
+                                    <div className=' flex items-center gap-2 ' >
+                                        <div className=' w-8 h-8 rounded-lg bg-slate-400 ' >
+                                            <img className=' w-full h-full rounded-lg ' src={item?.user?.photo} alt={item?.user?.photo} />
+                                        </div>
+                                        <div className=' flex flex-col ' >
+                                            <p className=' text-xs font-bold text-primary ' >{item?.user?.fullname}</p>
+                                            <p className=' text-[10px] font-medium text-[#37137F80] ' >{dateFormatDashboad(item?.createdAt)} | Tickets: {item?.tickets?.length}</p>
+                                        </div>
+                                    </div>
+                                    <p className=' text-sm font-extrabold text-primary ' >{ }</p>
+                                </div>
+                            )
+                        })}
+                    </>
+                </LoadingAnimation>
             </div>
         </div>
     )

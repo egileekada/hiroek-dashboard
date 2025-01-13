@@ -12,9 +12,9 @@ import { formatNumber } from "../utils/numberFormat";
 
 export default function DashboardPage() {
 
-    const { name  } = useDetails((state) => state);
-
-    const  { data } = useGetStats()
+    const { name  } = useDetails((state) => state); 
+    const  { data } = useGetStats() 
+    
     
     return (
         <div className=' w-full flex flex-col gap-6 ' >
@@ -25,8 +25,8 @@ export default function DashboardPage() {
                         <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
                             <CashIcon />
                         </div>
-                        <Text className=" relative z-10 font-semibold mt-1 " >Direct Donations</Text>
-                        <Text className=" relative z-10 text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(data?.directDonations)}</Text>
+                        <Text className=" relative z-10 font-semibold mt-1 " >Ticket Sales</Text>
+                        <Text className=" relative z-10 text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(data?.eventDonations)}</Text>
                     </div>
                     <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                 </div>
@@ -37,9 +37,9 @@ export default function DashboardPage() {
                         </div>
                         <Text className=" relative z-10 font-semibold mt-1 " >Event Donations</Text>
                         <div className=" flex gap-2 items-center " >
-                            <Text className=" relative z-10 text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(data?.eventDonations)}</Text>
+                            <Text className=" relative z-10 text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(data?.eventDonations)}</Text>
                             <div className=" h-[22px] bg-[#FFFFFF26] rounded-[4px] px-[6px] flex justify-center items-center " >
-                                <Text className=" relative z-10 tracking-[0.5%] text-xs font-semibold " >{formatNumberWithK(data?.totalDonors)} Donors</Text>
+                                <Text className=" relative z-10 tracking-[0.5%] text-xs inter-all " >{formatNumberWithK(data?.totalDonors)} Donors</Text>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@ export default function DashboardPage() {
                             <EventIcon />
                         </div>
                         <Text className=" relative z-10 font-semibold mt-1 " >Hosted Events</Text>
-                        <Text className=" relative z-10 text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(data?.eventsCreated, "")}</Text>
+                        <Text className=" relative z-10 text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(data?.eventsCreated, "")}</Text>
                     </div>
                     <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                 </div>
@@ -62,7 +62,7 @@ export default function DashboardPage() {
                         </div>
                         <Text className=" relative z-10 font-semibold mt-1 " >Communities</Text>
                         <div className=" flex gap-2 items-center " >
-                            <Text className=" relative z-10 text-[28px] tracking-[1%] -mt-1 font-semibold " >{formatNumber(data?.walletBalance, "")}</Text>
+                            <Text className=" relative z-10 text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(data?.totalCreatedCommunities, "")}</Text>
                         </div>
                     </div>
                     <img src="/images/two.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />

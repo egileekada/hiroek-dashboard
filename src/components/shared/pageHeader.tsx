@@ -6,6 +6,7 @@ interface IProps {
     header: string;
     body: string;
     back?: boolean;
+    path?: string
 }
 
 export default function PageHeader({ header, body, back }: IProps) {

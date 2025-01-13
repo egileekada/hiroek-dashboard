@@ -1,5 +1,5 @@
 import { Switch, Text } from "@radix-ui/themes";
-import { CustomButton, CustomInput } from "../shared";
+import { CustomInput } from "../shared";
 import ImagePicker from "../shared/imagePicker";
 import useCategory from "../../hooks/useCategory";
 import CustomSelect from "../shared/customSelect";
@@ -11,15 +11,19 @@ import { AiOutlineMinusCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 import { LuSearch } from "react-icons/lu";
+import CreateEventBtn from "./createEventBtn";
 
 interface IProps {
     setValue: any;
     formState: any;
     isLoading: boolean,
-    values: any,
-    interest: Array<string>,
+    values: any, 
     defaultdata: IEvent
-}
+    submit: any
+    open: boolean, 
+    setOpen: any,
+    isSuccess: boolean
+} 
 
 export default function EditEventForm(props: IProps) {
 
@@ -28,7 +32,11 @@ export default function EditEventForm(props: IProps) {
         formState,
         isLoading,
         values,
-        defaultdata
+        defaultdata,
+        open,
+        submit,
+        setOpen,
+        isSuccess
     } = props
 
     // const { isLoading: loadingInterest, data: interestData } = useInterest()
@@ -48,6 +56,10 @@ export default function EditEventForm(props: IProps) {
         setPaidEvent(defaultdata?.eventTicket?.ticketPrice > 0 ? true : false)
         setIsFundraising(defaultdata?.fundRaiser?.fundRaisingGoal > 0 ? true : false)
     }, [])
+
+    console.log(defaultdata);
+    console.log(values);
+    
 
     useEffect(() => {
         if (!values?.name) {
@@ -76,7 +88,7 @@ export default function EditEventForm(props: IProps) {
         }
     }
 
-    const clickTicket = (type: "remove" | "add") => {
+    const clickTicket = (type: "remove" | "add") => { 
         if (ticketNo > 0 && type === "remove") {
             setTicketNo((prev) => prev - 1)
             setValue("eventTicket.totalTicket", ticketNo - 1)
@@ -146,15 +158,15 @@ export default function EditEventForm(props: IProps) {
                         <div className=" w-full flex lg:flex-row flex-col gap-3 text-primary " >
                             <div className=" flex w-full flex-col gap-1 " >
                                 <Text className=" text-primary font-semibold text-sm " >Event Ticket Price</Text>
-                                <CustomInput value={values?.eventTicket?.ticketPrice ? values?.eventTicket?.ticketPrice : defaultdata?.eventTicket?.ticketPrice} borderRadius="8px" name="eventTicket.ticketPrice" type="number" placeholder="" icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} />
+                                <CustomInput disable={true} value={values?.eventTicket?.ticketPrice ? values?.eventTicket?.ticketPrice/100  : defaultdata?.eventTicket?.ticketPrice} borderRadius="8px" name="eventTicket.ticketPrice" type="number" placeholder="" icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} />
                             </div>
                             <div className=" flex w-full flex-col gap-1 " >
                                 <Text className=" text-primary font-semibold text-sm " >No Of Avaliable Ticket</Text>
-                                <div className=" w-full h-[54px] text-primary border-2 px-2 border-[#37137F4D] flex justify-between items-center rounded-lg " >
+                                <div className=" w-full h-[54px] text-opacity-30 text-primary border-2 px-2 border-[#37137F4D] flex justify-between items-center rounded-lg " >
                                     <div role="button" onClick={() => clickTicket("remove")} >
                                         <AiOutlineMinusCircle size={"30px"} />
                                     </div>
-                                    {ticketNo}
+                                    {values?.eventTicket?.totalTicket+""}
                                     <div role="button" onClick={() => clickTicket("add")} >
                                         <IoMdAddCircleOutline size={"30px"} />
                                     </div>
@@ -195,9 +207,7 @@ export default function EditEventForm(props: IProps) {
                 </div>
             </div>
             <div className=" w-full py-6 lg:hidden px-4 " >
-                <CustomButton loading={isLoading} className=" px-3 " width="100%" type="submit" >
-                    Edit Event
-                </CustomButton>
+                <CreateEventBtn isSuccess={isSuccess} open={open} setOpen={setOpen} submit={submit} loading={isLoading} />
             </div>
         </div>
     )

@@ -29,7 +29,7 @@ export default function EventPage() {
                 </div>
             </div>
             <div className=" w-full flex flex-col lg:px-0 px-5 gap-6 " >
-                <EventCardList title="Curated Events" details="View Events Created By Your Supporters In Aid of Your Mission. Chat With The Event Creators To Support Their Effort." filter={true} />
+                <EventCardList title="Created Events" details="View Events Created By Your Supporters In Aid of Your Mission. Chat With The Event Creators To Support Their Effort." filter={true} />
                 <div className=" w-full lg:hidden " >
                     <EventCardList mobile={true} title="Events created by members" />
                 </div>
@@ -37,7 +37,7 @@ export default function EventPage() {
                     <EventCardList title="Events created by members"  />
                 </div>
             </div>
-            <div className=" w-fit lg:hidden fixed bottom-28 ml-auto mr-6 right-0 ">
+            <div className=" w-fit lg:hidden md:bottom-6 fixed bottom-28 ml-auto mr-6 right-0 ">
                 <CustomButton rounded="44px" bgColor="linear-gradient(180deg, #4C49ED 0%, rgba(55, 19, 127, 0.9) 100%)" onClick={clickHandler} hasFrontIcon={true} icon={
                     <EventIcon />
                 } >

@@ -47,7 +47,7 @@ export default function DashboardLayout() {
                         <Outlet />
                     </div>
                     {(!history?.pathname?.includes("/event/support") && !history?.pathname?.includes("/dashboard/event/create")) && (
-                        <div className=" w-full h-[90px] fixed bottom-0 z-50 rounded-[25px] bg-primary md:hidden flex flex-row justify-around items-center px-2 " >
+                        <div className=" w-full h-[90px] fixed bottom-0 z-50 rounded-t-[25px] bg-primary md:hidden flex flex-row justify-around items-center px-2 " >
                             {menulistmobile?.map((item, index) => {
                                 return (
                                     <div onClick={() => router(item?.link)} role='button' key={index} className={` w-full h-fit flex flex-col items-center justify-center text-white rounded-t-[25px] `} >

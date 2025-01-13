@@ -7,11 +7,11 @@ import { dateFormat } from '../../utils/dateFormat';
 import { textLimit } from '../../utils/textlimit';
 import { formatNumber } from '../../utils/numberFormat';
 import LoadingAnimation from './loadingAnimation';
-import { useEventDetail } from '../../global-state/useEventDetails';
-import useEvent from '../../hooks/eventHooks/useEvent';
+import { useEventDetail } from '../../global-state/useEventDetails'; 
 import { IEvent } from '../../model/event';
 import { useMap } from '../../global-state/useMapStore';
 import { CiSearch } from "react-icons/ci";
+import useGetEventData from '../../hooks/eventHooks/useGetEventData';
 
 interface IProps {
     title?: string;
@@ -26,7 +26,7 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
 
     const [searchText, setSearchText] = useState("")
 
-    const { getEventData } = useEvent()
+    const { getEventData } = useGetEventData()
 
     const { eventFilter, updateFilter } = usePagintion((state) => state)
     const { updateEvent } = useEventDetail((state) => state)
@@ -70,7 +70,7 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
                         <div className={` w-fit flex gap-4 `} >
                             {getEventData().data?.map((item, index) => {
                                 return (
-                                    <div onClick={() => clickHandler(item)} role='button' key={index} className=' w-[346px] h-[186px] rounded-2xl bg-white shadow-sm relative ' >
+                                    <div onClick={() => clickHandler(item)} role='button' key={index} className=' w-[300px] h-[186px] rounded-2xl bg-white shadow-sm relative ' >
                                         <img src={item?.photo} alt={item?.name} className=' w-full h-full object-cover absolute inset-0 rounded-2xl ' />
                                         <div style={{ backdropFilter: "blur(30px)" }} className=' absolute bottom-2 inset-x-2 text-white flex items-center justify-between rounded-[10px] bg-[#2D264B80] py-[8px] px-3 ' >
                                             <div className=' flex-col flex gap-1 ' >
@@ -84,10 +84,15 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
                                                     <Text className=' text-xs font-medium ' >{dateFormat(item.endTime)}</Text>
                                                 </div>
                                             </div>
-                                            <div className=' flex flex-col ' >
-                                                <Text className=' text-[10px] font-medium ' >Tickets</Text>
-                                                <Text className=' font-semibold ' >{formatNumber(item?.fundraisingGoal)}</Text>
-                                            </div>
+                                            {(Number(item?.eventTicket?.ticketPrice) <= 0 || !item?.eventTicket?.ticketPrice) ?
+                                                <div className=' bg-[#FFFFFF80] text-white text-xs flex justify-center items-center font-medium h-[24px] px-2 rounded-[4px] ' >
+                                                    Free Event
+                                                </div> :
+                                                <div className=' flex flex-col ' >
+                                                    <Text className=' text-[10px] font-medium ' >Tickets</Text>
+                                                    <Text className=' inter-all ' >{formatNumber(item?.eventTicket?.ticketPrice/100)}</Text>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 )
@@ -109,13 +114,14 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
                                         <Text className=' text-[10px] font-semibold ' >{textLimit(item?.name, 20)}</Text>
                                         <div className=' mt-2 flex gap-2 items-center ' >
                                             <LocationIcon />
-                                            <Text className=' text-[10px] font-medium ' >{textLimit(item?.address, 20)}</Text>
+                                            <Text className=' text-[10px] font-medium ' >{textLimit(item?.address, 18)}</Text>
                                         </div>
                                         <div className=' flex gap-2 items-center ' >
                                             <CalendarIcon />
                                             <Text className=' text-[10px] font-medium ' >{dateFormat(item.endTime)}</Text>
                                         </div>
                                     </div>
+                                    <div className=' w-full h-2 ' />
                                 </div>
                             )
                         })}
