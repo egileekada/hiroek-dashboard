@@ -14,13 +14,7 @@ createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
       <Theme>
         <App />
-        <Toaster 
-        toastOptions={{
-          style: {
-            zIndex: 9999,
-            position: 'fixed' // Set a very high z-index
-          },
-        }} />
+        <Toaster />
       </Theme>
     </QueryClientProvider>
   </StrictMode>,

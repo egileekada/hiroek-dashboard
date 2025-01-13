@@ -11,8 +11,8 @@ import { useState, useEffect } from "react";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { IoCloseCircle } from "react-icons/io5";
-import { LuSearch } from "react-icons/lu";
-import CreateEventBtn from "./createEventBtn";
+import { LuSearch } from "react-icons/lu"; 
+import CreateEventBtnMobile from "./createEventBtnmobile";
 
 interface IProps {
     setValue: any;
@@ -20,7 +20,7 @@ interface IProps {
     isLoading: boolean,
     values: any,
     submit: any
-    open: boolean, 
+    open: boolean,
     setOpen: any,
     isSuccess: boolean
 }
@@ -41,11 +41,11 @@ export default function EventForm(props: IProps) {
     // const { isLoading: loadingInterest, data: interestData } = useInterest()
     const { isLoading: loadingCategory, data: categoryData } = useCategory()
     const [signupCount, setSignupCount] = useState(0)
-    const [ticketNo, setTicketNo] = useState(0)
+    // const [ticketNo, setTicketNo] = useState(0)
     const [paidEvent, setPaidEvent] = useState(false)
     const [isFundraising, setIsFundraising] = useState(false)
     console.log(values);
-    
+
 
     useEffect(() => {
         setSignupCount(values?.signUpLimit ? values?.signUpLimit : 0)
@@ -59,17 +59,17 @@ export default function EventForm(props: IProps) {
             setSignupCount((prev) => prev + 1)
             setValue("signUpLimit", (signupCount + 1)?.toString())
         }
-    } 
-
-    const clickTicket = (type: "remove" | "add") => {
-        if (ticketNo > 0 && type === "remove") {
-            setTicketNo((prev) => prev - 1)
-            setValue("eventTicket.totalTicket", ticketNo - 1)
-        } else {
-            setTicketNo((prev) => prev + 1)
-            setValue("eventTicket.totalTicket", ticketNo + 1)
-        }
     }
+
+    // const clickTicket = (type: "remove" | "add") => {
+    //     if (ticketNo > 0 && type === "remove") {
+    //         setTicketNo((prev) => prev - 1)
+    //         setValue("eventTicket.totalTicket", ticketNo - 1)
+    //     } else {
+    //         setTicketNo((prev) => prev + 1)
+    //         setValue("eventTicket.totalTicket", ticketNo + 1)
+    //     }
+    // }
 
     return (
         <div className=" w-full flex flex-col gap-4 lg:pb-6 " >
@@ -92,15 +92,27 @@ export default function EventForm(props: IProps) {
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Event Sign-up Limit</Text>
                         <div className=" w-full h-[54px] text-primary border-2 px-2 border-[#37137F4D] flex justify-between items-center rounded-lg " >
-                            <div role="button" onClick={() => clickSignUp("remove")} >
+                            <button onClick={() => clickSignUp("remove")} >
+                                <AiOutlineMinusCircle size={"30px"} />
+                            </button>
+                            {signupCount}
+                            <button onClick={() => clickSignUp("add")} >
+                                <IoMdAddCircleOutline size={"30px"} />
+                            </button>
+                        </div>
+                    </div>
+                    {/* <div className=" flex w-full flex-col gap-1 " >
+                        <Text className=" text-primary font-semibold text-sm " >No Of Avaliable Ticket</Text>
+                        <div className=" w-full h-[54px] text-primary border-2 px-2 border-[#37137F4D] flex justify-between items-center rounded-lg " >
+                            <div role="button" onClick={() => clickTicket("remove")} >
                                 <AiOutlineMinusCircle size={"30px"} />
                             </div>
-                            {signupCount}
-                            <div role="button" onClick={() => clickSignUp("add")} >
+                            {ticketNo}
+                            <div role="button" onClick={() => clickTicket("add")} >
                                 <IoMdAddCircleOutline size={"30px"} />
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Event Category</Text>
                         {!loadingCategory && (
@@ -129,7 +141,7 @@ export default function EventForm(props: IProps) {
                                 <Text className=" text-primary font-semibold text-sm " >Event Ticket Price</Text>
                                 <CustomInput borderRadius="8px" name="eventTicket.ticketPrice" type="number" placeholder="" icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} />
                             </div>
-                            <div className=" flex w-full flex-col gap-1 " >
+                            {/* <div className=" flex w-full flex-col gap-1 " >
                                 <Text className=" text-primary font-semibold text-sm " >No Of Avaliable Ticket</Text>
                                 <div className=" w-full h-[54px] text-primary border-2 px-2 border-[#37137F4D] flex justify-between items-center rounded-lg " >
                                     <div role="button" onClick={() => clickTicket("remove")} >
@@ -140,7 +152,7 @@ export default function EventForm(props: IProps) {
                                         <IoMdAddCircleOutline size={"30px"} />
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     )}
                     {!isFundraising && (
@@ -176,7 +188,7 @@ export default function EventForm(props: IProps) {
                 </div>
             </div>
             <div className=" w-full py-6 lg:hidden px-4 " >
-                <CreateEventBtn isSuccess={isSuccess} open={open} setOpen={setOpen} submit={submit} loading={isLoading} />
+                <CreateEventBtnMobile isSuccess={isSuccess} open={open} setOpen={setOpen} submit={submit} loading={isLoading} />
             </div>
         </div>
     )

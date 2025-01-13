@@ -39,7 +39,7 @@ export default function CustomAddress({ name, type, placeholder, disable, value,
     return (
         // <TextField.Root size="3" placeholder={placeholder} name={name} type={type} disabled={disable} value={value} />
         <>
-            <div>
+            <div >
                 <div className=" w-full h-[54px] relative " >
                     <input
                         onClick={() => setOpen(true)}
@@ -49,7 +49,7 @@ export default function CustomAddress({ name, type, placeholder, disable, value,
                 {errors[name] && <Text className=" text-left text-xs text-red-500 font-medium -mt-1 " >{errors[name]?.message as string}</Text>}
 
                 <ModalLayout width="600px" open={open} setOpen={setOpen} > 
-                        <MapWithClickMarker setOpen={setOpen} /> 
+                    <MapWithClickMarker setOpen={setOpen} /> 
                 </ModalLayout>
             </div>
         </>

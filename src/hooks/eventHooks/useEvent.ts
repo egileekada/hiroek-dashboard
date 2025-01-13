@@ -42,9 +42,7 @@ const useEvent = () => {
         mutationFn: (data: any) => httpService.patch(`/organizations/update-event/${event?._id}`, data, {
             headers: { 'Content-Type': eventImage ? eventImage.type : "" }
         }),
-        onError: (error: any) => {
-            console.log(error?.response?.data?.error?.details?.message);
-
+        onError: (error: any) => { 
             toast.error(error?.response?.data?.error?.details?.message)
         },
         onSuccess: () => {
@@ -76,22 +74,13 @@ const useEvent = () => {
             // communityId: event?.name ?? "",
         },
         validationSchema: history?.pathname?.includes("edit") ? EditEventValidation : EventValidation,
-        submit: (data: any) => {
-
-            // const formData = new FormData()
-
+        submit: () => {
+ 
             if (!eventImage && !history?.pathname?.includes("edit")) {
                 toast.error("Add Image")
-            } else if (!data.eventTicket.ticketPrice && data.eventTicket.totalTicket) {
-                toast.error("Enter Ticket Information")
-            } else if (data.eventTicket.ticketPrice < 0 || data.eventTicket.totalTicket < 0) {
-                toast.error("Enter Ticket Information can not be less than zero")
-            } else if (data.eventTicket.totalTicket === "0") {
-                toast.error("Enter Ticket Information can not be less than zero")
-            } else {
+            } else { 
 
-                if (history?.pathname?.includes("edit")) {
-
+                if (history?.pathname?.includes("edit")) { 
                     setOpen(true) 
                 } else {
                     setOpen(true)
@@ -117,10 +106,8 @@ const useEvent = () => {
 
         if (!eventImage && !history?.pathname?.includes("edit")) {
             toast.error("Add Image")
-        } else {
-
-            console.log(values); 
-
+        } else { 
+            
             formData.append("name", values?.name ? values?.name : event?.name)
             formData.append("description", values?.description ? values?.description : event?.description)
 

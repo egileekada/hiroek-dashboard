@@ -20,7 +20,7 @@ const libraries: ("places")[] = ['places']; // Libraries to load for Google Maps
 
 const mapContainerStyle = {
     width: '100%',
-    height: '400px'
+    height: '60vh'
 };
 
 const defaultCenter: LatLngLiteral = {
@@ -42,6 +42,10 @@ const MapWithClickMarker = (props: Props) => {
         googleMapsApiKey: API_KEY,
         libraries,
     });
+
+    useEffect(()=> {
+        updateMap("")
+    }, [])
 
 
     const options = {
@@ -124,7 +128,7 @@ const MapWithClickMarker = (props: Props) => {
 
 
     return (
-        <div>
+        <div className=' mt-1 ' >
 
             <GoogleMap
                 mapContainerStyle={mapContainerStyle}

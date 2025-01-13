@@ -10,8 +10,8 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
-import { LuSearch } from "react-icons/lu";
-import CreateEventBtn from "./createEventBtn";
+import { LuSearch } from "react-icons/lu"; 
+import CreateEventBtnMobile from "./createEventBtnmobile";
 
 interface IProps {
     setValue: any;
@@ -56,10 +56,6 @@ export default function EditEventForm(props: IProps) {
         setPaidEvent(defaultdata?.eventTicket?.ticketPrice > 0 ? true : false)
         setIsFundraising(defaultdata?.fundRaiser?.fundRaisingGoal > 0 ? true : false)
     }, [])
-
-    console.log(defaultdata);
-    console.log(values);
-    
 
     useEffect(() => {
         if (!values?.name) {
@@ -207,7 +203,7 @@ export default function EditEventForm(props: IProps) {
                 </div>
             </div>
             <div className=" w-full py-6 lg:hidden px-4 " >
-                <CreateEventBtn isSuccess={isSuccess} open={open} setOpen={setOpen} submit={submit} loading={isLoading} />
+                <CreateEventBtnMobile isSuccess={isSuccess} open={open} setOpen={setOpen} submit={submit} loading={isLoading} />
             </div>
         </div>
     )
