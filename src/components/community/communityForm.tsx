@@ -16,7 +16,7 @@ export default function CommunityForm() {
     //     setValue(item, name)
     // }
 
-    console.log(values);
+    // console.log(values);
 
 
     return communityHookForm(

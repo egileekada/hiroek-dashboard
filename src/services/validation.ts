@@ -70,7 +70,7 @@ const BankPinValidation = z.object({
 const CommunityValidation = z.object({
     name: z.string().nonempty("Required"),
     description: z.string().nonempty("Required"),
-    privacy: z.string().nonempty("Required"),
+    // privacy: z.string().nonempty("Required"),
 })
 
 export {

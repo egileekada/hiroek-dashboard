@@ -7,6 +7,7 @@ import { useMap } from "../../global-state/useMapStore";
 import { usePagintion } from "../../global-state/usePagination";
 import { IEvent, IEventDashboard } from "../../model/event";
 import httpService from "../../utils/httpService";
+import { IMessage } from "../../model/chat";
 
 const useGetEventData = () => {
 
@@ -74,9 +75,7 @@ const useGetEventData = () => {
                 onError: (error: any) => {
                     toast.error(error.response?.data)
                 },
-                onSuccess: (data: any) => {
-
-                    console.log(data);
+                onSuccess: (data: any) => { 
 
                     setData(data?.data?.tickets?.data)
                 },
@@ -164,16 +163,15 @@ const useGetEventData = () => {
 
     // Get Event list
     const getConversationMessageData = () => {
-        const [data, setData] = useState<any>()
+        const [data, setData] = useState<Array<IMessage>>()
         const { isLoading, refetch } = useQuery(
-            ["ConversationMessage"],
+            ["Conversation-Message", conversationId],
             () => httpService.get(`/conversations/${conversationId}/messages`),
             {
                 onError: (error: any) => {
                     toast.error(error.response?.data)
                 },
-                onSuccess: (data: any) => {
-                    console.log(data);
+                onSuccess: (data: any) => { 
                     setData(data?.data?.messages?.data)
                 },
                 enabled: conversationId ? true : false

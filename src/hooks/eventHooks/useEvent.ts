@@ -26,9 +26,7 @@ const useEvent = () => {
         mutationFn: (data: any) => httpService.post(`/organizations/create-event`, data, {
             headers: { 'Content-Type': eventImage ? eventImage.type : "" }
         }),
-        onError: (error: any) => {
-            console.log(error?.response?.data?.error?.details?.message);
-
+        onError: (error: any) => { 
             toast.error(error?.response?.data?.error?.details?.message)
         },
         onSuccess: (data) => {
@@ -107,7 +105,7 @@ const useEvent = () => {
         if (!eventImage && !history?.pathname?.includes("edit")) {
             toast.error("Add Image")
         } else { 
-            
+
             formData.append("name", values?.name ? values?.name : event?.name)
             formData.append("description", values?.description ? values?.description : event?.description)
 

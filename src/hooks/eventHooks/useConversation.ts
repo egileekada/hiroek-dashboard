@@ -1,8 +1,8 @@
 import { useMutation } from "react-query";
 import httpService from "../../utils/httpService";
 import toast from "react-hot-toast"; 
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { useConversationHook } from "../../global-state/useConversationHook";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom"; 
+import { useState } from "react";
 
 
 
@@ -13,21 +13,20 @@ const useConversation = () => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate()
     const id = searchParams.get("id");  
-    const { id: eventId } = useParams();
-    const { data: condata } = useConversationHook((state) => state) 
- 
+    const { id: eventId } = useParams();  
+    const [inputMessage, setInputMessage] = useState("");
+
+    
     const { mutate: createConversation, isLoading: loadingConversation } = useMutation({
         mutationFn: (data: {
             userTwo: string,
             userType: 'User' | 'Organization' | 'EventPartner'
         }) => httpService.post(`/conversations`, data),
-        onError: (error: any) => {
-            console.log(error?.response?.data?.error?.details?.message);
-
+        onError: (error: any) => {  
             toast.error(error?.response?.data?.error?.details?.message)
         },
         onSuccess: (data) => {  
-            navigate(`/dashboard/event/support/${eventId}?id=${data?.data?.conversation?._id}&name=${condata?.name}&photo=${condata?.photo}`)
+            navigate(`/dashboard/event/support/${eventId}?id=${data?.data?.conversation?._id}`)
  
         },
     });
@@ -37,15 +36,11 @@ const useConversation = () => {
             message: string,
             replying?: string  
         }) => httpService.post(`/conversations/${id}/messages`, data),
-        onError: (error: any) => {
-            console.log(error?.response?.data?.error?.details?.message);
-
+        onError: (error: any) => { 
             toast.error(error?.response?.data?.error?.details?.message)
         },
-        onSuccess: (data) => {
-
-            console.log(data);
-            
+        onSuccess: () => {
+            setInputMessage("")
             // setConversationId(data?.data?.conversation?._id) 
         },
     });
@@ -56,7 +51,9 @@ const useConversation = () => {
         loadingConversation, 
         createChat,
         loadingChat,
-        searchParams
+        searchParams,
+        setInputMessage,
+        inputMessage
     };
 
 }

@@ -1,7 +1,7 @@
 import { Text } from "@radix-ui/themes";
 import PageHeader from "../../components/shared/pageHeader";
 import { BackWhiteIcon, ClockIcon, DonateIcon, EditIcon, EventIcon, LocationIcon, QRIcon, ShareIcon, TrashIcon, TwoChatIcon } from "../../svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CustomButton } from "../../components/shared";
 import { useEventDetail } from "../../global-state/useEventDetails";
 import { dateFormat, timeFormat } from "../../utils/dateFormat";
@@ -17,6 +17,7 @@ export default function EventDetailPage() {
     const router = useNavigate()
     const { getSingleEventData } = useGetEventData()
     const { event } = useEventDetail((state) => state)
+    const { id } = useParams();
 
     return (
         <div className=' w-full flex flex-col gap-6 ' >
@@ -47,9 +48,12 @@ export default function EventDetailPage() {
                             <div role="button" onClick={() => router(-1)} className=" cursor-pointer lg:hidden w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-white lg:bg-[#FFFFFF33] flex justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
                                 <BackWhiteIcon color="black" />
                             </div>
-                            <div role="button" onClick={() => router(-1)} className=" cursor-pointer text-xs lg:hidden w-fit px-3 h-11 absolute top-6 z-10 right-4 rounded-md bg-white lg:bg-[#FFFFFF33] flex gap-2 justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
+                            <div role="button" onClick={() => router(`/dashboard/event/scanner/${id}`)} className=" cursor-pointer text-xs lg:hidden w-fit px-3 h-11 absolute top-6 z-10 right-4 rounded-md bg-white lg:bg-[#FFFFFF33] flex gap-2 justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
                                 Scan Tickets
                                 <QRIcon />
+                            </div>
+                            <div role="button" onClick={() => router(-1)} className=" cursor-pointer text-xs lg:flex hidden w-fit px-3 h-11 absolute top-6 z-10 right-4 rounded-md bg-white gap-2 justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
+                                Scan History 
                             </div>
                         </div>
                         <div className=" w-full px-4 relative z-20 -mt-[80px]  " >

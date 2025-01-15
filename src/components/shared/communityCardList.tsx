@@ -41,11 +41,11 @@ export default function CommunityCardList({ title, notitle, mobile }: IProps) {
                                                     }, index: number) => {
                                                         if (index === 0) {
                                                             return (
-                                                                <img key={index} alt={item?.photo} src={item?.photo} className=' w-7 h-7 rounded-full ' />
+                                                                <img key={index} alt={item?.photo} src={item?.photo} className=' w-7 h-7 rounded-full object-cover ' />
                                                             )
                                                         } else {
                                                             return (
-                                                                <img key={index} alt={item?.photo} src={item?.photo} className=' w-7 h-7 -ml-2 rounded-full ' />
+                                                                <img key={index} alt={item?.photo} src={item?.photo} className=' w-7 h-7 -ml-2 rounded-full object-cover ' />
                                                             )
                                                         }
                                                     })}

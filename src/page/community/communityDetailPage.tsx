@@ -32,7 +32,7 @@ export default function CommunityDetailPage() {
                 <CommunityDetail item={data} />
             </LoadingAnimation>
             <div className=" w-fit lg:hidden fixed bottom-28 ml-auto mr-6 right-0  ">
-                <CustomButton rounded="44px" bgColor="linear-gradient(180deg, #4C49ED 0%, rgba(55, 19, 127, 0.9) 100%)" onClick={() => router("/dashboard/community/create")} hasFrontIcon={true} icon={
+                <CustomButton rounded="44px" bgColor="linear-gradient(180deg, #4C49ED 0%, rgba(55, 19, 127, 0.9) 100%)" onClick={() => router("/dashboard/community/post")} hasFrontIcon={true} icon={
                     <ChatWhiteIcon />
                 } >
                    Add New Post

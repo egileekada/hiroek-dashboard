@@ -7,5 +7,6 @@
     eventsCreated: 0, 
     directDonations: 0,
     eventDonations: 0, 
-    totalCreatedCommunities: number
+    totalCreatedCommunities: number,
+    ticketSales: number
 }

@@ -3,6 +3,7 @@ import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetai
 import { DashboardLayout } from "./components/dashboard";
 import EventDashboardPage from "./page/event/eventDashboardPage";
 import EventScanner from "./page/event/eventScanner";
+import EventScanHistory from "./page/event/eventScanHistory";
 
 
 function App() {
@@ -23,8 +24,8 @@ function App() {
             <Route path="create" element={<CreateEventPage />} />
             <Route path="edit/:id" element={<CreateEventPage />} />
             <Route path="support/:id" element={<EventSupportPage />} />
-            <Route path="scanner" element={<EventScanner />} />
-            <Route path="scan/history" element={<EventScanner />} />
+            <Route path="scanner/:id" element={<EventScanner />} />
+            <Route path="scan/history/:id" element={<EventScanHistory />} />
             <Route path="dashboard/:id" element={<EventDashboardPage />} />
           </Route>
           <Route path="community" >

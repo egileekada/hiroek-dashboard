@@ -40,13 +40,13 @@ export default function DashboardLayout() {
                     </div>
                 </div>
                 <div className=" w-full flex flex-col h-screen overflow-hidden relative " >
-                    <div className={` w-full bg-white h-fit ${(history?.pathname?.includes("/dashboard/event/details") || history?.pathname?.includes("/dashboard/community/details")) ? " lg:block hidden " : " block "} top-0 sticky `} >
+                    <div className={` w-full bg-white h-fit ${(history?.pathname?.includes("/dashboard/event/details") || history?.pathname?.includes("/dashboard/community/details") || history?.pathname?.includes("scan") || history?.pathname?.includes("support"))  ? " lg:block hidden " : " block "} top-0 sticky `} >
                         <Navbar />
                     </div>
-                    <div className={` overflow-y-auto inset-0 md:bottom-0 ${history?.pathname?.includes("/dashboard/event/create") ? "" : "bottom-[90px]"} absolute flex ${(history?.pathname?.includes("/dashboard/event/details") || history?.pathname?.includes("/dashboard/community/details") ) ? " lg:top-[55px] lg:p-6 top-0 " : " top-[55px] lg:p-6 p-0 "} pb-8 `} >
+                    <div className={` overflow-y-auto inset-0 md:bottom-0 ${(history?.pathname?.includes("/dashboard/event/create") || history?.pathname?.includes("scan") )? "" : "bottom-[90px] pb-8"} absolute flex ${(history?.pathname?.includes("/dashboard/event/details") || history?.pathname?.includes("/dashboard/community/details") || history?.pathname?.includes("scan") || history?.pathname?.includes("support")) ? " lg:top-[55px] lg:p-6 top-0 " : " top-[55px] lg:p-6 p-0 "} `} >
                         <Outlet />
                     </div>
-                    {(!history?.pathname?.includes("/event/support") && !history?.pathname?.includes("/dashboard/event/create")) && (
+                    {(!history?.pathname?.includes("/event/support") && !history?.pathname?.includes("/dashboard/event/create") && !history?.pathname?.includes("scan")) && (
                         <div className=" w-full h-[90px] fixed bottom-0 z-50 rounded-t-[25px] bg-primary md:hidden flex flex-row justify-around items-center px-2 " >
                             {menulistmobile?.map((item, index) => {
                                 return (

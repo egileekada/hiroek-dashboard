@@ -1,17 +1,22 @@
 import { useFormContext } from "react-hook-form";
 import { Text } from "@radix-ui/themes";
 import { useState } from "react";
+import DatePicker from "react-datepicker";
+import { dateFormat, timeFormat } from "../../utils/dateFormat";
+import "react-datepicker/dist/react-datepicker.css";
+import { CalendarIcon2 } from "../../svg";
 
 
 interface IProps {
-    name: string;
+    name: "endTime" | "eventEndDate";
     disable?: boolean;
     value?: any;
-    borderRadius?: string; 
-    setValue: any; 
+    borderRadius?: string;
+    setValue: any;
+    payload?: any
 }
 
-export default function CustomDatePicker({ name, disable, value, setValue, borderRadius }: IProps) {
+export default function CustomDatePicker({ name, payload, value, setValue }: IProps) {
 
 
     const { formState: { errors } } = useFormContext();
@@ -23,16 +28,35 @@ export default function CustomDatePicker({ name, disable, value, setValue, borde
         setValue(name, item)
     }
 
-    return (
-        <div>
-            <div className=" w-full h-[54px] relative " >
-                <input
-                    onChange={(e) => changeHandler(e.target?.value)}
-                    style={{ borderRadius: borderRadius ?? "16px" }}
-                    type={"date"} disabled={disable} value={(date || value) ? new Date(date ? date : value).toISOString().split('T')[0] : ""} name={name} className=" h-[54px] px-3 border-[#37137F] border-opacity-30 border-[2px] rounded-2xl outline-none hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] bg-transparent w-full text-sm font-medium text-primary " />
 
+
+    const CustomInput = ({ value, onClick }: any) => {
+
+        console.log(value);
+        
+
+        return ( 
+            <div onClick={onClick} className=" w-full flex flex-1 justify-between items-center text-sm text-primary px-3 gap-2 border-[2px] border-opacity-30 rounded-[8px] h-[54px] border-[#37137F] " >
+                {date ? dateFormat(date)+" "+timeFormat(date) : "Select Date And Time"}
+                <CalendarIcon2 />
             </div>
-                {errors[name] && <Text className=" text-left text-xs text-red-500 font-semibold -mt-1 " >{errors[name]?.message as string}</Text>}
+        )
+    }
+
+    return (
+        <div className=" w-full flex flex-col " > 
+            <DatePicker
+                id={name}
+                // value={}
+                // disabled={name === "End" && !eventdata.startDate}
+                selected={value ? new Date(value) : new Date()}
+                dateFormat="MMM d, yyyy h:mm aa"
+                showTimeSelect
+                minDate={(name === "eventEndDate") ? (payload.endTime ? new Date(payload.endTime) : new Date()) : new Date()}
+                onChange={changeHandler}
+                customInput={<CustomInput />}
+            />
+            {errors[name] && <Text className=" text-left text-xs text-red-500 font-semibold -mt-1 " >{errors[name]?.message as string}</Text>}
         </div>
     )
 }
