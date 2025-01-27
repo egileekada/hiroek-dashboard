@@ -1,25 +1,15 @@
 import { Text } from "@radix-ui/themes";
 import { CustomButton, CustomInput } from "../shared";
-import ImagePicker from "../shared/imagePicker";
-import useCommunity from "../../hooks/communityHooks/useCommunity";
-// import MultipleSelect from "../shared/multipleSelect";
-// import useInterest from "../../hooks/useInterest";
-// import CustomSelect from "../shared/customSelect";
+import ImagePicker from "../shared/imagePicker"; 
 
 
-export default function CommunityForm() {
+export default function CommunityForm({values, setValue, isLoading}: {
+    values: any;
+    setValue: any;
+    isLoading: boolean
+}) { 
 
-    const { communityHookForm, setValue, values, isLoading } = useCommunity()
-    // const { isLoading: loadingInterest, data: interestData } = useInterest()
-
-    // const changeHandler = (item: string, name: string) => {
-    //     setValue(item, name)
-    // }
-
-    // console.log(values);
-
-
-    return communityHookForm(
+    return (
         <div className=" w-full flex flex-col gap-4 pb-6 " >
             <ImagePicker />
             <div className=" w-full py-5 px-4 lg:px-5 lg:p-5 flex flex-col gap-4 " style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }}  >

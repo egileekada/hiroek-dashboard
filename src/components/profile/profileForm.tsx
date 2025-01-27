@@ -6,20 +6,18 @@ import { useDetails } from "../../global-state/useUserDetails";
 import { TbPhoto } from "react-icons/tb";
 import { useImage } from "../../global-state/useImageData";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
-import useInterest from "../../hooks/useInterest";
-import MultipleSelect from "../shared/multipleSelect";
+import { useNavigate } from "react-router-dom";  
 
 
 export default function ProfileForm() {
 
-    const { isLoading, values, setImage, image, loadingProfile } = useProfile()
-    const { logo, name, charityRegNumber, email, description, interests } = useDetails((state) => state);
+    const { isLoading, values, setImage, image, loadingProfile, profileForm } = useProfile()
+    const { logo, name, charityRegNumber, email, description } = useDetails((state) => state);
 
     const { updateImage } = useImage((state) => state) 
 
     const router = useNavigate()
-    const { isLoading: loadingInterest, data: interestData } = useInterest()
+    // const { isLoading: loadingInterest, data: interestData } = useInterest()
 
     const handleImageChange = (e: any) => {
 
@@ -41,14 +39,9 @@ export default function ProfileForm() {
         if (name !== values?.name || charityRegNumber !== values?.charityRegNumber || description !== values?.description) {
             router("/dashboard")
         }
-    }, [name])
+    }, [name]) 
 
-    // const { loadingMap, center, setMarkerPosition, markerPosition } = useMapLocation()
-    // const changeHandler = (item: string, name: string) => {
-    //     setValue(name, item)
-    // } 
-
-    return (
+    return profileForm (
         <div className=' w-full max-w-[607px] flex flex-col gap-4 lg:px-0 px-4 ' >
             <div className=' w-full h-[200px] lg:h-[300px] rounded-[24px]  relative ' >
                 {image ?
@@ -77,31 +70,12 @@ export default function ProfileForm() {
                 <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Organization Email</Text>
                     <CustomInput name="email" value={email} type="email" placeholder="Enter Organization" disable={true} />
-                </div>
-
-                <div className=" flex w-full flex-col gap-1 " >
-                    <Text className=" text-primary font-semibold text-sm " >Event Interest</Text>
-                    {!loadingInterest && (
-                        <MultipleSelect value={interests} placeholder="Select Interest" name="interest" interest={interestData} />
-                    )}
-                </div>
-                {/* <div className=" flex w-full flex-col gap-1 " >
-                    <Text className=" text-primary font-semibold text-sm " >Organization interests</Text>
-                    <CustomInput name="interests" type="number" placeholder="Enter Organization interests" />
-                </div> */}
-                {/* <div className=" flex w-full flex-col gap-1 " >
-                    <Text className=" text-primary font-semibold text-sm " >Organization Address</Text>
-                    <CustomInput name="email" type="email" placeholder="Type or search for venue..." />
-                </div> */}
-                {/* <div className=" flex w-full flex-col gap-1 " >
-                    <Text className=" text-primary font-semibold text-sm " >Organization Contact No.</Text>
-                    <CustomInput name="email" type="email" placeholder="Type or search for venue..." />
-                </div> */}
+                </div> 
                 <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Organization Reg No.</Text>
                     <CustomInput name="charityRegNumber" type="number" placeholder="Enter Organization Reg No" />
                 </div>
-                <div className=" w-full mt-4 lg:hidden ">
+                <div className=" w-full mt-4 ">
                     <CustomButton loading={isLoading || loadingProfile} hasFrontIcon={true} icon={
                         <EventIcon />
                     } >

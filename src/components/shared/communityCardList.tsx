@@ -64,7 +64,7 @@ export default function CommunityCardList({ title, notitle, mobile }: IProps) {
                                 )
                             } else {
                                 return (
-                                    <div key={index} style={{ boxShadow: "0px 3px 6px 0px #00000026" }} className=' text-white lg:max-w-[361px] w-full flex p-[10px] rounded-[12px] gap-4 bg-[#37137FCC] ' >
+                                    <div role='button' onClick={() => router(`/dashboard/community/details/${item?._id}`)} key={index} style={{ boxShadow: "0px 3px 6px 0px #00000026" }} className=' text-white lg:max-w-[361px] w-full flex p-[10px] rounded-[12px] gap-4 bg-[#37137FCC] ' >
                                         <div className=' w-[75px] h-[75px] rounded-lg ' >
                                             <img src={item?.photo} alt={item?.photo} className=' object-cover h-full w-full rounded-lg ' />
                                         </div>

@@ -30,8 +30,8 @@ const EventValidation = z.object(
         description: z.string().nonempty("Required"), 
         category: z.string().nonempty("Required"),
         privacy: z.string().nonempty("Required"),
-        eventEndDate: z.string().nonempty("Required"),
-        endTime: z.string().nonempty("Required"),
+        eventEndDate: z.any(),
+        endTime: z.any(),
         fundRaiser: z.any(),
         eventTicket: z.any(),
         address: z.string().nonempty("Required"),
@@ -70,7 +70,7 @@ const BankPinValidation = z.object({
 const CommunityValidation = z.object({
     name: z.string().nonempty("Required"),
     description: z.string().nonempty("Required"),
-    // privacy: z.string().nonempty("Required"),
+    privacy: z.string().nonempty("Required"),
 })
 
 export {

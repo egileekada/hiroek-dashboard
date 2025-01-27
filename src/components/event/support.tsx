@@ -1,4 +1,4 @@
-import { Spinner, Text } from "@radix-ui/themes"; 
+import { Spinner, Text } from "@radix-ui/themes";
 import { BackArrowIcon, SendIcon } from "../../svg";
 import useEvent from "../../hooks/eventHooks/useEvent";
 import { io } from "socket.io-client";
@@ -9,8 +9,9 @@ import useConversation from "../../hooks/eventHooks/useConversation";
 import useGetEventData from "../../hooks/eventHooks/useGetEventData";
 import { useSearchParams } from "react-router-dom";
 import { useConversationHook } from "../../global-state/useConversationHook";
-import lodash from 'lodash'; 
-import ChatInput from "../shared/chatInput";
+import lodash from 'lodash';
+import ChatInput from "../shared/chatInput"; 
+import moment from "moment";
 
 interface IProps {
     tab: boolean,
@@ -19,10 +20,10 @@ interface IProps {
 
 export default function EventSupport({ tab, setTab }: IProps) {
 
-    const { supportHookForm } = useEvent()  
+    const { supportHookForm } = useEvent()
     const [searchParams] = useSearchParams();
-    const token = Cookies.get("access_token") 
-    const index = searchParams.get("id"); 
+    const token = Cookies.get("access_token")
+    const index = searchParams.get("id");
     const { updateConversation, data: condata } = useConversationHook((state) => state)
 
 
@@ -42,7 +43,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
         // Establish connection
         if (index) {
             // Listen for incoming messages
-            socket.on(`conversation-${index}`, () => { 
+            socket.on(`conversation-${index}`, () => {
                 refetch()
             });
         }
@@ -65,9 +66,9 @@ export default function EventSupport({ tab, setTab }: IProps) {
         setTab(true)
     }
 
-    const changeHandler = (value: any) => { 
+    const changeHandler = (value: any) => {
         setInputMessage(value);
-    } 
+    }
 
     return supportHookForm(
         <div className=' w-full flex gap-4 h-full' >
@@ -117,38 +118,14 @@ export default function EventSupport({ tab, setTab }: IProps) {
                             </div>
                         </div>
                         <div className=" w-full lg:relative fixed lg:bottom-0 bottom-20 h-[65vh]  lg:h-[35vh] flex flex-col-reverse overflow-y-auto mt-auto gap-3 pb-[10px] lg:px-3 px-6 " >
-                            {/* <div className=" max-w-[70%] w-fit bg-primary text-primary bg-opacity-10 flex justify-center items-center px-4 py-4 rounded-3xl rounded-bl " >
-                                <Text className=" text-xs font-semibold " >Can we get this event started?</Text>
-                            </div>
-                            <div className=" max-w-[70%] w-fit bg-primary text-primary bg-opacity-10 flex justify-center items-center px-4 py-4 rounded-3xl rounded-bl " >
-                                <Text className=" text-xs font-semibold " >Can we get this event started?</Text>
-                            </div>
-                            <div className=" max-w-[70%] w-fit bg-primary text-primary bg-opacity-10 flex justify-center items-center px-4 py-4 rounded-3xl rounded-bl " >
-                                <Text className=" text-xs font-semibold " >Can we get this event started? Can we get this event started? Can we get this event started? Can we get this event started?</Text>
-                            </div>
-                            <div className=" max-w-[70%] w-fit bg-primary text-primary bg-opacity-10 flex justify-center items-center px-4 py-4 ml-auto rounded-3xl rounded-br " >
-                                <Text className=" text-xs font-semibold " >Can we get this event started?</Text>
-                            </div>
-                            <div className=" max-w-[70%] w-fit bg-primary text-primary bg-opacity-10 flex justify-center items-center px-4 py-4 ml-auto rounded-3xl rounded-br " >
-                                <Text className=" text-xs font-semibold " >Can we get this event started?</Text>
-                            </div>
-                            <div className=" max-w-[70%] w-fit bg-primary text-primary bg-opacity-10 flex justify-center items-center px-4 py-4 ml-auto rounded-3xl rounded-br " >
-                                <Text className=" text-xs font-semibold " >Can we get this event started?</Text>
-                            </div>
-                            <div className=" max-w-[70%] w-fit bg-primary text-primary bg-opacity-10 flex justify-center items-center px-4 py-4 ml-auto rounded-3xl rounded-br " >
-                                <Text className=" text-xs font-semibold " >Can we get this event started?</Text>
-                            </div>
-                            <div className=" max-w-[70%] w-fit bg-primary text-primary bg-opacity-10 flex justify-center items-center px-4 py-4 ml-auto rounded-3xl rounded-br " >
-                                <Text className=" text-xs font-semibold " >Can we get this event started?</Text>
-                            </div>
-                            <div className=" max-w-[70%] w-fit bg-primary text-primary bg-opacity-10 flex justify-center items-center px-4 py-4 ml-auto rounded-3xl rounded-br " >
-                                <Text className=" text-xs font-semibold " >Can we get this event started?</Text>
-                            </div> */}
                             {conversation?.map((item, index) => {
                                 if (item?.senderType)
                                     return (
-                                        <div key={index} className={item?.sender?._id === userId ? " max-w-[70%] w-fit bg-primary text-primary bg-opacity-10 flex justify-center items-center px-4 py-4 ml-auto rounded-3xl rounded-br " : " max-w-[70%] w-fit bg-primary text-primary bg-opacity-10 flex justify-center items-center px-4 py-4 rounded-3xl rounded-bl "} >
-                                            <Text className=" text-xs font-semibold " >{item?.message}</Text>
+                                        <div className=" w-full flex flex-col " >
+                                            <div key={index} className={item?.sender?._id === userId ? " max-w-[70%] w-fit bg-primary text-primary bg-opacity-10 flex justify-center items-center px-4 py-4 ml-auto rounded-3xl rounded-br " : " max-w-[70%] w-fit bg-primary text-primary bg-opacity-10 flex justify-center items-center px-4 py-4 rounded-3xl rounded-bl "} >
+                                                <Text className=" text-xs font-semibold " >{item?.message}</Text>
+                                            </div>
+                                            <Text className={` ${item?.sender?._id === userId ? " ml-auto" : ""} text-[8px] text-primary  `} >{moment(item?.createdAt)?.fromNow()}</Text>
                                         </div>
                                     )
                             })}

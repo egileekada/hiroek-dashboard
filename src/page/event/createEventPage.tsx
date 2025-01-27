@@ -11,7 +11,7 @@ import useGetEventData from "../../hooks/eventHooks/useGetEventData";
 
 export default function CreateEventPage() {
 
-    const { eventHookForm, isLoading, setValue, formState, values, loadingEditEvent, submitHandler, open, setOpen, isSuccess } = useEvent()
+    const { eventHookForm, isLoading, setValue, formState, values, loadingEditEvent, submitHandler, open, setOpen, isSuccess, control } = useEvent()
     const { getSingleEventData } = useGetEventData()
     const history = useLocation() 
     const { event, updateEvent } = useEventDetail((state) => state)
@@ -31,7 +31,7 @@ export default function CreateEventPage() {
                 </div>
             </div>
             {!history?.pathname.includes("edit") && (
-                <EventForm open={open} setOpen={setOpen} submit={submitHandler} setValue={setValue} values={values} formState={formState} isLoading={isLoading} isSuccess={isSuccess} />
+                <EventForm control={control} open={open} setOpen={setOpen} submit={submitHandler} setValue={setValue} values={values} formState={formState} isLoading={isLoading} isSuccess={isSuccess} />
             )}
             {(history?.pathname.includes("edit") && event?.endTime) && (
                 <LoadingAnimation loading={getSingleEventData()?.isLoading} >

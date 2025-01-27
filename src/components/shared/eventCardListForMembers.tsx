@@ -20,26 +20,22 @@ interface IProps {
     details?: string;
 }
 
-export default function EventCardList({ title, filter, mobile }: IProps) {
+export default function EventCardMembersList({ title, filter, mobile }: IProps) {
 
     const router = useNavigate()
 
     const [searchText, setSearchText] = useState("")
 
-    const { getEventData } = useGetEventData()
+    const { data, isLoading } = useGetEventData().getEventMemberData()
 
     const { eventFilter, updateFilter } = usePagintion((state) => state)
     const { updateEvent } = useEventDetail((state) => state)
     const { updateMap } = useMap((state) => state);
 
-    const clickHandler = (item: IEvent, member?: boolean) => {
+    const clickHandler = (item: IEvent) => {
         updateEvent(item)
         updateMap(item?.address)
-        if(member) {
-            router(`/dashboard/event/details/bymembers/${item?._id}`)
-        } else {
-            router(`/dashboard/event/details/${item?._id}`)
-        }
+        router(`/dashboard/event/details/bymembers/${item?._id}`)
     }
 
     return (
@@ -70,9 +66,9 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
             </div>
             {(!mobile) && (
                 <div className={` w-full overflow-x-auto flex `} >
-                    <LoadingAnimation loading={getEventData().isLoading} length={getEventData().data?.length} >
+                    <LoadingAnimation loading={isLoading} length={data?.length} >
                         <div className={` w-fit flex gap-4 `} >
-                            {getEventData().data?.map((item, index) => {
+                            {data?.map((item, index) => {
                                 return (
                                     <div onClick={() => clickHandler(item)} role='button' key={index} className=' w-[300px] h-[186px] rounded-2xl bg-white shadow-sm relative ' >
                                         <img src={item?.photo} alt={item?.name} className=' w-full h-full object-cover absolute inset-0 rounded-2xl ' />
@@ -106,11 +102,11 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
                 </div>
             )}
             {(mobile) && (
-                <LoadingAnimation loading={getEventData()?.isLoading} length={getEventData()?.data?.length} >
+                <LoadingAnimation loading={isLoading} length={data?.length} >
                     <div className={` w-full grid grid-cols-2 gap-4 pb-6 `} >
-                        {getEventData()?.data?.map((item, index) => {
+                        {data?.map((item, index) => {
                             return (
-                                <div onClick={() => clickHandler(item, true)} role='button' key={index} className=' w-full rounded-2xl relative p-2 ' style={{ boxShadow: "0px 2px 10px 0px #00000014" }} >
+                                <div onClick={() => clickHandler(item)} role='button' key={index} className=' w-full rounded-2xl relative p-2 ' style={{ boxShadow: "0px 2px 10px 0px #00000014" }} >
                                     <div className=' w-full md:h-[200px] h-[102px] bg-red-500 rounded-lg ' >
                                         <img src={item?.photo} alt={item?.name} className=' w-full h-full object-cover rounded-lg ' />
                                     </div>

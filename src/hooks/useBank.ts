@@ -42,12 +42,13 @@ const useBank = () => {
         },
     });
 
-    const { renderForm: bankForm, values, setValue } = useForm({
+    const { renderForm: bankForm, values, setValue, control } = useForm({
         defaultValues: {
             bankAccountName: bankAccountName,
             bankAccountNumber: bankAccountNumber,
             bankName: bankName,
             sortCode: "",
+            pin: ""
         },
         validationSchema: BankValidation,
         submit: (data: any) => mutate(data)
@@ -88,7 +89,8 @@ const useBank = () => {
         setValue,
         setPinValue,
         PinForm,
-        loadingPin
+        loadingPin,
+        control
     };
 }
 

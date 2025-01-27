@@ -23,4 +23,5 @@ export interface IUser {
     totalDonations: number;
     updatedAt: string;
     userId: string; 
+    _id: string
 }

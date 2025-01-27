@@ -4,7 +4,7 @@ export interface IEvent {
     eventTicket: IEventTicket;
     minimumPledge: number;
     address: string;
-    admin: string
+    admin: any
     adminType: string
     category: string
     createdAt: string

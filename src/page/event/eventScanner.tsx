@@ -17,19 +17,21 @@ function EventScanner() {
                 </CustomButton>
             </div>
 
-            <div className=' w-full px-4 bg-primary  rounded-2xl flex flex-col justify-center items-center ' >
-                <div className=' w-fit rounded-[44px] text-primary bg-white flex justify-center items-center px-3 h-[40px] ' >
-                    <p className=' font-bold ' >Start Scanning</p>
-                </div>
-                <div className=' w-full -mt-2 ' >
-                    <QrReader
+            <div className=' w-full px-4 bg-primary h-full rounded-2xl flex flex-col justify-center items-center ' >
+                <div className=' w-full max-w-[250px] border-8 border-white rounded-2xl h-[250px] bg-white ' >
+                    <QrReader 
                         onResult={(result: any) => {
                             if (!!result) {
                                 console.log(result);
                             }
                         }}
-                        constraints={{ facingMode: "user" }}
-                        videoStyle={{ width: '100%', innerHeight: "150px" }}
+                        constraints={{ facingMode: "user" }}  // Set container style
+                        videoStyle={{
+                          width: "100%",
+                          height: "100%",
+                          borderRadius: "16px",
+                          objectFit: "cover", // Makes the video fill the div
+                        }}
                     />
                 </div>
             </div>

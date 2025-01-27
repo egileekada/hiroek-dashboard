@@ -34,7 +34,6 @@ export default function CustomDatePicker({ name, payload, value, setValue }: IPr
 
         console.log(value);
         
-
         return ( 
             <div onClick={onClick} className=" w-full flex flex-1 justify-between items-center text-sm text-primary px-3 gap-2 border-[2px] border-opacity-30 rounded-[8px] h-[54px] border-[#37137F] " >
                 {date ? dateFormat(date)+" "+timeFormat(date) : "Select Date And Time"}
@@ -56,7 +55,7 @@ export default function CustomDatePicker({ name, payload, value, setValue }: IPr
                 onChange={changeHandler}
                 customInput={<CustomInput />}
             />
-            {errors[name] && <Text className=" text-left text-xs text-red-500 font-semibold -mt-1 " >{errors[name]?.message as string}</Text>}
+            {errors[name] && <Text className=" text-left text-xs text-red-500 font-semibold mt-1 " >{errors[name]?.message as string}</Text>}
         </div>
     )
 }

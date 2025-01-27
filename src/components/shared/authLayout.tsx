@@ -26,10 +26,10 @@ export default function AuthLayout({ children, header, body, hidesidebar, hidefo
                 <div className=" w-[477px] h-[477px] absolute top-[80%] -left-[40%] bg-[#FFFFFF26] rounded-full " />  */}
                 <div className="  rounded-full absolute top-0 w-full flex justify-center " >
                     <div className=" max-w-[450px] h-[250px] lg:hidden w-full flex justify-center relative " >
-                        <div className=" w-[600px] h-[607px] bg-primary rounded-full absolute -mt-[430px]  " />
+                        <div className=" w-[500px] h-[507px] bg-primary rounded-full absolute -mt-[365px]  " />
                         <div className=" w-full flex flex-col absolute top-0 pt-8 text-white items-center " >
                             <Logo />
-                            <Text className=" text-[14px] font-extrabold " >FOR CHARITIES & SOCIAL<br />IMPACT ORGANISATIONS</Text>
+                            <Text className=" text-[12px] font-extrabold " >FOR CHARITIES & SOCIAL<br />IMPACT ORGANISATIONS</Text>
                             {/* <Text className=" uppercase text-[32px] font-black " >Hiroek</Text>
                             <Text className=" text-xs tracking-[1%] font-medium " >FOR CHARITIES</Text> */}
                         </div>
@@ -55,8 +55,8 @@ export default function AuthLayout({ children, header, body, hidesidebar, hidefo
                     )}
                 </div>
                 {!hidefooter ? (
-                    <div className=" absolute bottom-8 max-w-[389px] w-full flex lg:hidden flex-col font-medium text-sm px-6 text-primary lg:mt-0 mt-auto lg:text-[#FFFFFFBF] text-center gap-4 " >
-                        <div className=" w-full flex h-[44px] justify-between items-center " >
+                    <div className=" absolute bottom-4 max-w-[389px] w-full flex lg:hidden flex-col font-medium text-sm px-6 text-primary lg:mt-0 mt-auto lg:text-[#FFFFFFBF] text-center gap-2 " >
+                        <div className=" w-full flex h-[24px] justify-between items-center " >
                             <Text role="button" >Get In Touch</Text>
                             <Text role="button" >Privacy Policy</Text>
                             <Text role="button" >Terms of Use</Text>

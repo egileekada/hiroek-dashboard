@@ -1,9 +1,10 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
-import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ProfileInfoPage, ResetPasswordPage, ResetSentPage, WithDrawalPin } from "./page";
+import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ProfileInfoPage, ResetPasswordPage, ResetSentPage, SettingsPage, SupportPage, TransactionHistory, WithDrawalPin, WithdrawPage } from "./page";
 import { DashboardLayout } from "./components/dashboard";
 import EventDashboardPage from "./page/event/eventDashboardPage";
 import EventScanner from "./page/event/eventScanner";
 import EventScanHistory from "./page/event/eventScanHistory";
+import EventDetailByMemberPage from "./page/event/eventDetailBymemberPage"; 
 
 
 function App() {
@@ -16,11 +17,12 @@ function App() {
         <Route path="/forgot-password" element={<ResetPasswordPage />} />
         <Route path="/reset-password" element={<ChangePasswordPage />} />
         <Route path="/reset-sent" element={<ResetSentPage />} />
-        <Route path="/dashboard" element={<DashboardLayout />} >
+        <Route path="/dashboard" element={<DashboardLayout  />} >
           <Route index element={<DashboardPage />} />
           <Route path="event" >
             <Route index element={<EventPage />} />
             <Route path="details/:id" element={<EventDetailPage />} />
+            <Route path="details/bymembers/:id" element={<EventDetailByMemberPage />} />
             <Route path="create" element={<CreateEventPage />} />
             <Route path="edit/:id" element={<CreateEventPage />} />
             <Route path="support/:id" element={<EventSupportPage />} />
@@ -33,15 +35,20 @@ function App() {
             <Route path="details/:id" element={<CommunityDetailPage />} />
             <Route path="member" element={<CommunityMemberPage />} />
             <Route path="create" element={<CreateCommunityPage />} />
-            <Route path="post" element={<CommunityPostPage />} />
+            <Route path="post/:id" element={<CommunityPostPage />} />
           </Route>
           <Route path="donation" >
             <Route index element={<DonatePage />} />
             <Route path="bankinfo" element={<AddBankDetailPage />} />
             <Route path="pin" element={<WithDrawalPin />} />
+            <Route path="history" element={<TransactionHistory />} />
+            <Route path="withdraw" element={<WithdrawPage />} />
           </Route>
           <Route path="notification" element={<NotificationPage />} />
           <Route path="profile" element={<ProfileInfoPage />} />
+          {/* <Route path="profile" element={<ProfileInfoPage />} /> */}
+          <Route path="settings" element={<SettingsPage />} />
+          <Route path="support" element={<SupportPage />} />
           <Route path="report" >
             <Route index element={<ImpactReportPage />} />
             <Route path="details" element={<ImpactReportDetailPage />} />

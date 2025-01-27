@@ -49,7 +49,7 @@ const useEvent = () => {
         },
     });
 
-    const { renderForm: eventHookForm, values, setValue, formState, reset } = useForm({
+    const { renderForm: eventHookForm, values, setValue, formState, reset, control } = useForm({
         defaultValues: {
             name: "",
             description: "",
@@ -72,10 +72,14 @@ const useEvent = () => {
             // communityId: event?.name ?? "",
         },
         validationSchema: history?.pathname?.includes("edit") ? EditEventValidation : EventValidation,
-        submit: () => {
+        submit: (data) => {
  
             if (!eventImage && !history?.pathname?.includes("edit")) {
                 toast.error("Add Image")
+            } else if(!data?.endTime) {
+                toast.error("Add Start Date")
+            }  else if(!data?.eventEndDate) {
+                toast.error("Add End Date")
             } else { 
 
                 if (history?.pathname?.includes("edit")) { 
@@ -173,6 +177,7 @@ const useEvent = () => {
         loadingEditEvent, 
         open,
         setOpen, 
+        control
     };
 }
 

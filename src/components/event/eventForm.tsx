@@ -10,9 +10,9 @@ import CustomAddress from "../shared/customAddress";
 import { useState, useEffect } from "react";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import { IoCloseCircle } from "react-icons/io5";
-import { LuSearch } from "react-icons/lu"; 
-import CreateEventBtnMobile from "./createEventBtnmobile";
+import { IoCloseCircle } from "react-icons/io5"; 
+import CreateEventBtnMobile from "./createEventBtnmobile"; 
+import GetOrganization from "./getOrganization";
 
 interface IProps {
     setValue: any;
@@ -22,6 +22,7 @@ interface IProps {
     submit: any
     open: boolean,
     setOpen: any,
+    control: any,
     isSuccess: boolean
 }
 
@@ -35,6 +36,7 @@ export default function EventForm(props: IProps) {
         submit,
         open,
         setOpen,
+        control,
         isSuccess
     } = props
 
@@ -43,9 +45,7 @@ export default function EventForm(props: IProps) {
     const [signupCount, setSignupCount] = useState(0)
     // const [ticketNo, setTicketNo] = useState(0)
     const [paidEvent, setPaidEvent] = useState(false)
-    const [isFundraising, setIsFundraising] = useState(false)
-    console.log(values);
-
+    const [isFundraising, setIsFundraising] = useState(false) 
 
     useEffect(() => {
         setSignupCount(values?.signUpLimit ? values?.signUpLimit : 0)
@@ -60,16 +60,6 @@ export default function EventForm(props: IProps) {
             setValue("signUpLimit", (signupCount + 1)?.toString())
         }
     }
-
-    // const clickTicket = (type: "remove" | "add") => {
-    //     if (ticketNo > 0 && type === "remove") {
-    //         setTicketNo((prev) => prev - 1)
-    //         setValue("eventTicket.totalTicket", ticketNo - 1)
-    //     } else {
-    //         setTicketNo((prev) => prev + 1)
-    //         setValue("eventTicket.totalTicket", ticketNo + 1)
-    //     }
-    // }
 
     return (
         <div className=" w-full flex flex-col gap-4 lg:pb-6 " >
@@ -120,7 +110,7 @@ export default function EventForm(props: IProps) {
                         )}
                     </div>
                 </div>
-                <div className=" w-full flex gap-4 flex-row " >
+                <div className=" w-full flex gap-4 flex-col lg:flex-row " >
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Start Date</Text>
                         <CustomDatePicker borderRadius="8px" payload={values} name="endTime" value={values?.endTime} setValue={setValue} />
@@ -171,18 +161,13 @@ export default function EventForm(props: IProps) {
 
                                 <div className=" flex flex-col w-full gap-1 " >
                                     <div className=" w-full flex justify-between items-center " >
-                                        <p className=" text-sm font-bold " >Set Minimum Pledge</p>
+                                        <p className=" text-sm font-bold " >Fundraising Goal</p>
                                     </div>
                                     <div className=" flex w-full flex-col gap-1 " >
                                         <CustomInput icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} borderRadius="8px" color="white" borderWidth="1px" borderColor="white" name="fundRaiser.fundRaisingGoal" type="number" placeholder="Enter Amount" />
                                     </div>
                                 </div>
-                                <div className=" flex w-full flex-col gap-1 " >
-                                    <Text className=" text-white font-semibold text-sm " >Add Charity Partners</Text>
-                                    <div className=" flex w-full flex-col gap-1 " >
-                                        <CustomInput icon={<LuSearch size={"20px"} className=" ml-3 " />} hasLeftIcon={true} borderRadius="8px" color="white" borderWidth="1px" borderColor="white" name="fundRaiser.organisation[1]" type="text" placeholder="Search Charity Partners" />
-                                    </div>
-                                </div>
+                                <GetOrganization value={values} control={control} />
                             </div>
                         </div>
                     )}

@@ -8,6 +8,8 @@ import { usePagintion } from "../../global-state/usePagination";
 import { IEvent, IEventDashboard } from "../../model/event";
 import httpService from "../../utils/httpService";
 import { IMessage } from "../../model/chat";
+import Cookies from "js-cookie"
+import { IUser } from "../../model/user";
 
 const useGetEventData = () => {
 
@@ -15,8 +17,10 @@ const useGetEventData = () => {
     const { updateEvent } = useEventDetail((state) => state)
     const { updateMap } = useMap((state) => state);
 
+    const userId = Cookies.get("user-index")
+
     const [search, setSearch] = useState("")
-    const [searchParams] = useSearchParams(); 
+    const [searchParams] = useSearchParams();
     const conversationId = searchParams.get("id");
 
 
@@ -40,6 +44,9 @@ const useGetEventData = () => {
                 },
                 onSuccess: (data: any) => {
                     setData(data?.data?.events?.data)
+
+                    console.log(userId);
+
                 },
                 // enabled: history?.pathname?.includes("dashboard/event") || history?.pathname === "/dashboard"
             },
@@ -48,6 +55,91 @@ const useGetEventData = () => {
         return {
             data,
             isLoading
+        }
+    }
+
+    // Get Event list From Members
+    const getEventMemberData = () => {
+        const [data, setData] = useState<Array<IEvent>>([])
+        const { isLoading } = useQuery(
+            ["Event-member", page, pageSize, eventFilter],
+            () => httpService.get(`/organizations/fundraiser-events/${userId}`, {
+                // params: {
+                //     page: page,
+                //     pageSize: pageSize,
+                //     eventFilter: eventFilter
+                // }
+            }),
+            {
+                onError: (error: any) => {
+                    toast.error(error.response?.data)
+                },
+                onSuccess: (data: any) => {
+                    setData(data?.data?.events?.data)
+                },
+                // enabled: history?.pathname?.includes("dashboard/event") || history?.pathname === "/dashboard"
+            },
+        );
+
+        return {
+            data,
+            isLoading
+        }
+    }
+
+
+    //  Get Organization
+    const getOrganization = () => {
+        const [data, setData] = useState<Array<IUser>>([])
+        const [search, setSearch] = useState("")
+        const { isLoading } = useQuery(
+            ["Organization", search],
+            () => httpService.get(`/organizations`, {
+                params: {
+                    searchQuery: search,
+                }
+            }),
+            {
+                onError: (error: any) => {
+                    toast.error(error.response?.data)
+                },
+                onSuccess: (data: any) => {
+                    setData(data?.data?.data)
+                },
+                // enabled: history?.pathname?.includes("dashboard/event") || history?.pathname === "/dashboard"
+            },
+        );
+
+        return {
+            data,
+            isLoading,
+            setSearch,
+            search
+        }
+    }
+
+    //  Get Organization
+    const getOrganizationById = (index: string) => {
+        const [data, setData] = useState<IUser>({} as any)
+        const [search, setSearch] = useState("")
+        const { isLoading } = useQuery(
+            ["Organization-by-id", index],
+            () => httpService.get(`/organizations/${index}`),
+            {
+                onError: (error: any) => {
+                    toast.error(error.response?.data)
+                },
+                onSuccess: (data: any) => {
+                    setData(data?.data?.organization)
+                },
+            },
+        );
+
+        return {
+            data,
+            isLoading,
+            setSearch,
+            search
         }
     }
 
@@ -75,7 +167,7 @@ const useGetEventData = () => {
                 onError: (error: any) => {
                     toast.error(error.response?.data)
                 },
-                onSuccess: (data: any) => { 
+                onSuccess: (data: any) => {
 
                     setData(data?.data?.tickets?.data)
                 },
@@ -108,7 +200,7 @@ const useGetEventData = () => {
             data,
             isLoading
         }
-    } 
+    }
 
     // Get Event list
     const getEventConversationData = () => {
@@ -171,7 +263,7 @@ const useGetEventData = () => {
                 onError: (error: any) => {
                     toast.error(error.response?.data)
                 },
-                onSuccess: (data: any) => { 
+                onSuccess: (data: any) => {
                     setData(data?.data?.messages?.data)
                 },
                 enabled: conversationId ? true : false
@@ -193,7 +285,10 @@ const useGetEventData = () => {
         setSearch,
         search,
         getEventConversationData,
-        getConversationMessageData
+        getConversationMessageData,
+        getEventMemberData,
+        getOrganization,
+        getOrganizationById
     };
 }
 

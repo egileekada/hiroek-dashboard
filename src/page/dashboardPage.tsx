@@ -8,68 +8,71 @@ import { capitalizeFLetter } from "../utils/capitalLetter";
 import useGetStats from "../hooks/useGetStats";
 import { formatNumberWithK } from "../utils/formatNumberWithK";
 import { formatNumber } from "../utils/numberFormat";
+import LoadingAnimation from "../components/shared/loadingAnimation";
 
 
 export default function DashboardPage() {
 
-    const { name  } = useDetails((state) => state); 
-    const  { data } = useGetStats()  
-    
+    const { name } = useDetails((state) => state);
+    const { data, isLoading } = useGetStats()
+
     return (
         <div className=' w-full flex flex-col gap-6 ' >
-            <PageHeader header={"Welcome "+capitalizeFLetter(name)} body="Effortlessly Create Events and Engage With Your Supporters In Real Time." />
-            <div className=" w-full grid grid-cols-2 lg:flex gap-4 px-4 lg:px-0 " >
-                <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-primary h-[170px] relative flex items-center  " >
-                    <div className=" px-4 flex flex-col text-white " >
-                        <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
-                            <CashIcon />
+            <PageHeader header={"Welcome " + capitalizeFLetter(name)} body="Effortlessly Create Events and Engage With Your Supporters In Real Time." />
+            <LoadingAnimation loading={isLoading} >
+                <div className=" w-full grid grid-cols-2 lg:flex gap-4 px-4 lg:px-0 " >
+                    <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-primary h-[170px] relative flex items-center  " >
+                        <div className=" px-4 flex flex-col text-white " >
+                            <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
+                                <CashIcon />
+                            </div>
+                            <Text className=" relative z-10 font-bold mt-1 lg:text-base text-sm " >Ticket Sales</Text>
+                            <Text className=" relative z-10 text-[20px] lg:text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(data?.ticketSales / 100)}</Text>
                         </div>
-                        <Text className=" relative z-10 font-bold mt-1 lg:text-base text-sm " >Ticket Sales</Text>
-                        <Text className=" relative z-10 text-[20px] lg:text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(data?.ticketSales/100)}</Text>
+                        <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                     </div>
-                    <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
-                </div>
-                <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-secondary h-[170px] relative flex items-center  " >
-                    <div className=" px-4 flex flex-col text-white " >
-                        <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
-                            <EventIcon />
-                        </div>
-                        <Text className=" relative z-10 font-bold mt-1 lg:text-base text-sm " >Event Donations</Text>
-                        <div className=" flex gap-1 lg:flex-row lg:items-center " >
-                            <Text className=" relative z-10 text-[20px] lg:text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(data?.eventDonations/100)}</Text>
-                            <div className=" h-[22px] bg-[#FFFFFF26] rounded-[4px] w-fit px-[6px] flex justify-center items-center " >
-                                <Text className=" relative z-10 tracking-[0.5%] inter-all lg:text-xs text-[10px] " >{formatNumberWithK(data?.totalDonors)} Donors</Text>
+                    <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-secondary h-[170px] relative flex items-center  " >
+                        <div className=" px-4 flex flex-col text-white " >
+                            <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
+                                <EventIcon />
+                            </div>
+                            <Text className=" relative z-10 font-bold mt-1 lg:text-base text-sm " >Event Donations</Text>
+                            <div className=" flex gap-1 lg:flex-row lg:items-center " >
+                                <Text className=" relative z-10 text-[20px] lg:text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(data?.eventDonations / 100)}</Text>
+                                <div className=" h-[22px] bg-[#FFFFFF26] rounded-[4px] w-fit px-[6px] flex justify-center items-center " >
+                                    <Text className=" relative z-10 tracking-[0.5%] inter-all lg:text-xs text-[10px] " >{formatNumberWithK(data?.totalDonors)} Donors</Text>
+                                </div>
                             </div>
                         </div>
+                        <img src="/images/two.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                     </div>
-                    <img src="/images/two.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
-                </div>
-                <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-primary h-[170px] relative flex items-center  " >
-                    <div className=" px-4 flex flex-col text-white " >
-                        <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
-                            <EventIcon />
+                    <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-primary h-[170px] relative flex items-center  " >
+                        <div className=" px-4 flex flex-col text-white " >
+                            <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
+                                <EventIcon />
+                            </div>
+                            <Text className=" relative z-10 font-bold mt-1 lg:text-base text-sm " >Hosted Events</Text>
+                            <Text className=" relative z-10 text-[20px] lg:text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(data?.eventsCreated, "")}</Text>
                         </div>
-                        <Text className=" relative z-10 font-bold mt-1 lg:text-base text-sm " >Hosted Events</Text>
-                        <Text className=" relative z-10 text-[20px] lg:text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(data?.eventsCreated, "")}</Text>
+                        <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                     </div>
-                    <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
-                </div>
-                <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-secondary h-[170px] relative flex items-center  " >
-                    <div className=" px-4 flex flex-col text-white " >
-                        <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
-                            <CommunityIcon />
+                    <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-secondary h-[170px] relative flex items-center  " >
+                        <div className=" px-4 flex flex-col text-white " >
+                            <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
+                                <CommunityIcon />
+                            </div>
+                            <Text className=" relative z-10 font-bold mt-1 lg:text-base text-sm " >Communities</Text>
+                            <div className=" flex gap-2 items-center " >
+                                <Text className=" relative z-10 text-[20px] lg:text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(data?.totalCreatedCommunities, "")}</Text>
+                            </div>
                         </div>
-                        <Text className=" relative z-10 font-bold mt-1 lg:text-base text-sm " >Communities</Text>
-                        <div className=" flex gap-2 items-center " >
-                            <Text className=" relative z-10 text-[20px] lg:text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(data?.totalCreatedCommunities, "")}</Text>
-                        </div>
+                        <img src="/images/two.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                     </div>
-                    <img src="/images/two.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                 </div>
-            </div>
+            </LoadingAnimation>
             <div className=" w-full flex flex-col px-4 lg:px-0 gap-6 " >
-            <EventCardList />
-            <CommunityCardList />
+                <EventCardList />
+                <CommunityCardList />
             </div>
         </div>
     )

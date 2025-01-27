@@ -1,39 +1,54 @@
 import { Text } from '@radix-ui/themes';
-import { BackArrowIcon } from '../../svg';
+import { BackArrowIcon, NotificationIcon } from '../../svg';
 import { useNavigate } from 'react-router-dom';
 
 interface IProps {
     header: string;
     body: string;
     back?: boolean;
-    path?: any; 
+    path?: any;
+    second?: boolean;
+    notification?: boolean
 }
 
-export default function PageHeader({ header, body, back, path = "/" }: IProps) {
+export default function PageHeader({ header, body, back, path, second, notification }: IProps) {
 
     const router = useNavigate()
 
-    const clickHandler  =()=> {
-        if(path){
-            router(path)
+    const clickHandler = () => { 
+        
+        if (!path) {
+            console.log("hello");
+            console.log(path);
+            router(-1) 
         } else {
-            router(-1)
+            router(path) 
         }
     }
 
     return (
-        <div className=' w-auto flex lg:flex-row flex-col lg:items-center lg:px-0 px-4 gap-2 ' >
+        <div className={` ${second ? " lg:w-auto w-full flex-row lg:items-center items-center lg:justify-start justify-between " : " w-auto lg:flex-row flex-col "} relative flex lg:items-center lg:px-0 px-4 gap-3 `} >
             {back && (
-                <div className=' w-fit ' >
-                    <div onClick={clickHandler} role='button' className=' w-11 h-11 lg:w-[62px] lg:h-[62px] flex justify-center bg-primary bg-opacity-15 rounded-[6px] items-center cursor-pointer ' style={{boxShadow: "0px 2px 4px 0px #0000000D"}} >
+                <div className=' w-fit relative z-20 ' >
+                    <div onClick={clickHandler} role='button' className=' w-11 h-11 lg:w-[62px] lg:h-[62px] flex justify-center bg-primary bg-opacity-15 rounded-[6px] items-center cursor-pointer ' style={{ boxShadow: "0px 2px 4px 0px #0000000D" }} >
                         <BackArrowIcon />
                     </div>
                 </div>
             )}
-            <div className=' flex flex-col gap-2 lg:mt-0 mt-4 ' >
-                <Text className=' text-[28px] !leading-7 font-black tracking-[1%] text-primary ' >{header}</Text>
-                <Text className=' !leading-5 font-semibold text-primary text-opacity-50 ' >{body}</Text>
+            <div className={` ${second ? " lg:relative absolute inset-0 lg:pl-0 pl-4 w-full flex flex-row justify-center " : " flex flex-col "}  gap-2 lg:mt-0 mt-3 `} >
+                <Text className=' lg:text-[28px] lg:!leading-7 font-black tracking-[1%] text-primary ' >{header}</Text>
+                {body && (
+                    <Text className=' !leading-5 font-semibold text-primary text-opacity-50 ' >{body}</Text>
+                )}
             </div>
+            {notification && (
+                <div onClick={() => router("/dashboard/notification")} role="button" className=" w-10 h-10 relative lg:hidden mt-2 z-10 flex justify-center items-center " >
+                    <div className=' absolute top-0 right-0 w-5 h-5 text-white bg-primary rounded font-semibold text-[10px] tracking-[0.5%] flex justify-center items-center ' >
+                        0
+                    </div>
+                    <NotificationIcon />
+                </div>
+            )}
         </div>
     )
 }

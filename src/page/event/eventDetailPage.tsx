@@ -1,6 +1,6 @@
 import { Text } from "@radix-ui/themes";
 import PageHeader from "../../components/shared/pageHeader";
-import { BackWhiteIcon, ClockIcon, DonateIcon, EditIcon, EventIcon, LocationIcon, QRIcon, ShareIcon, TrashIcon, TwoChatIcon } from "../../svg";
+import { BackWhiteIcon, ClockIcon, DonateIcon, EditIcon, EventIcon, HistoryIcon, LocationIcon, QRIcon, TrashIcon, TwoChatIcon } from "../../svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { CustomButton } from "../../components/shared";
 import { useEventDetail } from "../../global-state/useEventDetails";
@@ -22,7 +22,7 @@ export default function EventDetailPage() {
     return (
         <div className=' w-full flex flex-col gap-6 ' >
             <div className=" w-full lg:flex hidden items-center justify-between " >
-                <PageHeader back={true} header="Event Details" body="Effortless Event Creation and Community Engagement." />
+                <PageHeader path={"/dashboard/event"} back={true} header="Event Details" body="Effortless Event Creation and Community Engagement." />
                 <div className=" gap-3 w-fit flex ">
                     <div className=" w-[160px] " >
                         <CustomButton onClick={() => router(`/dashboard/event/edit/${event?._id}`)} hasFrontIcon={true} icon={
@@ -52,8 +52,9 @@ export default function EventDetailPage() {
                                 Scan Tickets
                                 <QRIcon />
                             </div>
-                            <div role="button" onClick={() => router(-1)} className=" cursor-pointer text-xs lg:flex hidden w-fit px-3 h-11 absolute top-6 z-10 right-4 rounded-md bg-white gap-2 justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
-                                Scan History 
+                            <div role="button" onClick={() => router(`/dashboard/event/scan/history/${id}`)} className=" cursor-pointer text-xs lg:flex hidden w-fit px-3 h-11 absolute top-6 z-10 right-4 rounded-md bg-white gap-2 justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
+                                <HistoryIcon />
+                                Scan History
                             </div>
                         </div>
                         <div className=" w-full px-4 relative z-20 -mt-[80px]  " >
@@ -147,11 +148,11 @@ export default function EventDetailPage() {
                     } >
                         Edit Event
                     </CustomButton>
-                    <CustomButton bgColor={"#B00062"} className=" px-3 " width="100%" type="button" hasFrontIcon={true} icon={
+                    {/* <CustomButton bgColor={"#B00062"} className=" px-3 " width="100%" type="button" hasFrontIcon={true} icon={
                         <ShareIcon />
                     } >
                         Share
-                    </CustomButton>
+                    </CustomButton> */}
                     <CustomButton bgColor="#CE4646" onClick={() => router("/dashboard/report/post")} hasFrontIcon={true} icon={
                         <TrashIcon />
                     } >

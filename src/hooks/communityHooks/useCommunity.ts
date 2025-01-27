@@ -37,7 +37,7 @@ const useCommunity = () => {
         defaultValues: {
             name: "",
             description: "",
-            // privacy: "",
+            privacy: "public",
         },
         validationSchema: CommunityValidation,
         submit: (data: any) => {

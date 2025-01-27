@@ -26,7 +26,7 @@ export default function PinInputForm() {
                         onChange={(e)=> setPinValue("oldPin", e)}
                         inputStyle={{
                             marginRight: '10px', // Adjust the gap here
-                            width: '82px',
+                            width: '60px',
                             height: '60px',
                             textAlign: 'center',
                             border: '1px solid transparent',
@@ -51,7 +51,7 @@ export default function PinInputForm() {
                         }}
                         inputStyle={{
                             marginRight: '10px', // Adjust the gap here
-                            width: '82px',
+                            width: '60px',
                             height: '60px',
                             textAlign: 'center',
                             border: '1px solid transparent',
