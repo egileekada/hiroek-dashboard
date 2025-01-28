@@ -26,7 +26,7 @@ export default function CommunityCardList({ title, notitle, mobile }: IProps) {
             )}
             <LoadingAnimation loading={isLoading} length={data?.length} >
                 <div className=' w-full h-full flex overflow-x-auto  ' >
-                    <div className={` ${mobile ? " w-full " : " w-fit "} flex gap-4 `} >
+                    <div className={` ${mobile ? " w-full flex-col " : " w-fit "} flex gap-4 `} >
                         {data?.map((item, index) => {
                             if (!mobile) {
                                 return (
@@ -34,6 +34,7 @@ export default function CommunityCardList({ title, notitle, mobile }: IProps) {
                                         <div style={{ boxShadow: "0px 3px 3px 0px #00000038" }} className=' gap-1 w-[300px] relative z-20 h-[138px] text-primary flex items-center flex-col rounded-[10px] bg-[#FFFFFFBF] py-[8px] px-3 ' >
                                             <Text className=' text-xl tracking-[0.5%] text-center font-black ' >{item?.name}</Text>
                                             <Text className=' text-xs text-center font-semibold ' >{textLimit(item?.description, 80)}</Text>
+
                                             <div className=' mt-auto w-fit ' >
                                                 <div className='flex items-center ' >
                                                     {item?.members?.map((item: {
@@ -65,32 +66,36 @@ export default function CommunityCardList({ title, notitle, mobile }: IProps) {
                             } else {
                                 return (
                                     <div role='button' onClick={() => router(`/dashboard/community/details/${item?._id}`)} key={index} style={{ boxShadow: "0px 3px 6px 0px #00000026" }} className=' text-white lg:max-w-[361px] w-full flex p-[10px] rounded-[12px] gap-4 bg-[#37137FCC] ' >
-                                        <div className=' w-[75px] h-[75px] rounded-lg ' >
-                                            <img src={item?.photo} alt={item?.photo} className=' object-cover h-full w-full rounded-lg ' />
+                                        <div className=' w-fit ' >
+                                            <div className=' w-[75px] h-[75px] rounded-lg ' >
+                                                <img src={item?.photo} alt={item?.photo} className=' object-cover h-full w-full rounded-lg ' />
+                                            </div>
                                         </div>
                                         <div className=' flex flex-col ' >
-                                        <div className=' flex-col flex text-left ' >
-                                            <Text className=' text-sm font-extrabold ' >{textLimit(item?.name, 30)}</Text>
-                                            <Text className=' text-xs font-semibold ' >{textLimit(item?.description, 80)}</Text>
-                                        </div>
-                                        <div className=' bg-[#B00062] w-fit px-2 mt-1 h-[28px] rounded-[44px] flex items-center justify-center ' >
-                                            {item?.members?.map((item: {
-                                                photo: string
-                                            }, index: number) => {
-                                                if (index === 0) {
-                                                    return (
-                                                        <img key={index} alt={item?.photo} src={item?.photo} className=' w-4 h-4 rounded-full ' />
-                                                    )
-                                                } else {
-                                                    return (
-                                                        <img key={index} alt={item?.photo} src={item?.photo} className=' w-4 h-4 -ml-2 rounded-full ' />
-                                                    )
-                                                }
-                                            })}
+                                            <div className=' flex-col flex text-left ' >
+                                                <Text className=' text-sm font-extrabold ' >{textLimit(item?.name, 30)}</Text>
+                                                <Text className=' text-xs font-semibold ' >{textLimit(item?.description, 30)}</Text>
+                                            </div>
                                             {item?.members?.length > 0 && (
-                                                <Text className=' ml-2 text-white text-[9px] font-bold ' >{formatNumberWithK(item?.members?.length)} Members</Text>
+                                                <div className=' bg-[#B00062] w-fit px-2 mt-1 h-[28px] rounded-[44px] flex items-center justify-center ' >
+                                                    {item?.members?.map((item: {
+                                                        photo: string
+                                                    }, index: number) => {
+                                                        if (index === 0) {
+                                                            return (
+                                                                <img key={index} alt={item?.photo} src={item?.photo} className=' w-4 h-4 rounded-full ' />
+                                                            )
+                                                        } else {
+                                                            return (
+                                                                <img key={index} alt={item?.photo} src={item?.photo} className=' w-4 h-4 -ml-2 rounded-full ' />
+                                                            )
+                                                        }
+                                                    })}
+                                                    {item?.members?.length > 0 && (
+                                                        <Text className=' ml-2 text-white text-[9px] font-bold ' >{formatNumberWithK(item?.members?.length)} Members</Text>
+                                                    )}
+                                                </div>
                                             )}
-                                        </div>
                                         </div>
                                     </div>
                                 )

@@ -73,6 +73,12 @@ const CommunityValidation = z.object({
     privacy: z.string().nonempty("Required"),
 })
 
+
+const CommunityPostValidation = z.object({
+    content: z.string().nonempty("Required"),
+    communityId: z.string().nonempty("Required"), 
+})
+
 export {
     signInValidation,
     resetPasswordValidation,
@@ -82,5 +88,6 @@ export {
     EventValidation,
     EditEventValidation,
     BankPinValidation,
-    CommunityValidation
+    CommunityValidation,
+    CommunityPostValidation
 };

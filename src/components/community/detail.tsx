@@ -5,16 +5,20 @@ import { ICommunity } from "../../model/community";
 import { formatNumberWithK } from "../../utils/formatNumberWithK";
 import useGetCommunityPost from "../../hooks/communityHooks/useGetCommunityPost";
 import moment from "moment";
+import LoadingAnimation from "../shared/loadingAnimation";
+// import { useState } from "react";
 
 
 export default function CommunityDetail({ item }: { item: ICommunity }) {
 
     const router = useNavigate()
 
-    const { data: post } = useGetCommunityPost()
+    const { data: post, isLoading } = useGetCommunityPost()
     const [searchParams] = useSearchParams();
     const index = searchParams.get("tab");
     const { id } = useParams();
+
+    // const [open, setOpen] = useState(false)
 
     return (
         <div className=" w-full flex lg:flex-row flex-col gap-4 overflow-hidden lg:gap-6 text-primary pb-6 " >
@@ -51,114 +55,115 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
                                         <img src={item?.members[2]?.photo} alt={item?.members[2]?._id} className=" w-full h-full object-cover rounded-full " />
                                     </div>
                                 )}
-                                {/* <div className=' w-7 h-7 rounded-full -ml-2 bg-red-600 ' /> */}
                                 <Text className=' ml-2 font-semibold text-xs text-[#37137F] ' >{formatNumberWithK(item?.members?.length)} Attending</Text>
                             </div>
                         )}
                     </div>
                 </div>
             </div>
-            <div className=" w-full flex flex-col gap-6 overflow-y-auto " >
-                <div className=" w-full flex gap-2 px-2 justify-center " >
-                    <button onClick={()=> router(`/dashboard/community/details/${id}`)} className={` ${!index ? " text-white " : " text-primary bg-opacity-10 "} bg-primary text-xs font-bold h-[40px] rounded-[44px] px-4 w-fit `} >Recent Posts</button>
-                    <button onClick={()=> router(`/dashboard/community/details/${id}?tab=true`)} className={` ${index ? " text-white " : " text-primary bg-opacity-10 "}  text-xs font-bold h-[40px] rounded-[44px] px-4 w-fit bg-primary `} >Announcements</button>
-                </div>
-                {!index && (
-                    <div className=" w-full rounded-[44px] p-4 lg:p-6 flex flex-col gap-6 lg:pb-0 pb-24 " >
-                        {post?.map((item, index) => {
-                            return (
-                                <div key={index} className=" w-full flex flex-col gap-3 " >
-                                    <div className=" flex items-center w-full justify-between " >
-                                        <div className=" flex items-center gap-2 " >
-                                            <div className=" w-10 h-10 rounded-full border border-primary border-opacity-50 " >
-                                                <img className=" w-full h-full object-cover rounded-full " src={item?.user?.logo} alt={item?.attachments[0]} />
-                                            </div>
-                                            <div className=" flex flex-col " >
-                                                <Text className=" text-xs font-bold " >{item?.user?.name}</Text>
-                                                <Text className=" text-[10px] italic font-bold text-primary text-opacity-50 " >{moment(item?.createdAt)?.fromNow()}</Text>
-                                            </div>
-                                        </div>
-                                        <div className=" flex gap-3 items-center " >
-                                            <div role="button" className=" cursor-pointer w-fit " >
-                                                <SendTopIcon />
-                                            </div>
-                                            <div role="button" className=" cursor-pointer w-fit " >
-                                                <MoreIcon />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className=" w-full flex flex-col px-3 gap-3 " >
-                                        <Text className=" text-xs font-medium " >{item?.content}</Text>
-                                        {item?.attachments?.length > 0 && (
-                                            <div className=" w-full h-[200px] rounded-2xl " >
-                                                <img className=" w-full h-full rounded-2xl " src={item?.attachments[0]} alt={item?.attachments[0]} />
-                                            </div>
-                                        )}
-                                        <div className=" flex items-center gap-4 " >
-                                            <div role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
-                                                <HeartColorlessIcon size="24px" />
-                                                <Text className=" font-black text-xs " >{item?.likes?.length}</Text>
-                                            </div>
-                                            <div role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
-                                                <ChatIcon />
-                                                <Text className=" font-black text-xs " >{item?.comments?.length}</Text>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })}
+            <LoadingAnimation loading={isLoading} length={post?.length} > 
+                <div className=" w-full flex flex-col gap-6 overflow-y-auto " >
+                    <div className=" w-full flex gap-2 px-2 justify-center " >
+                        <button onClick={() => router(`/dashboard/community/details/${id}`)} className={` ${!index ? " text-white " : " text-primary bg-opacity-10 "} bg-primary text-xs font-bold h-[40px] rounded-[44px] px-4 w-fit `} >Recent Posts</button>
+                        <button onClick={() => router(`/dashboard/community/details/${id}?tab=true`)} className={` ${index ? " text-white " : " text-primary bg-opacity-10 "}  text-xs font-bold h-[40px] rounded-[44px] px-4 w-fit bg-primary `} >Announcements</button>
                     </div>
-                )}
+                    {!index && (
+                        <div className=" w-full rounded-[44px] p-4 lg:p-6 flex flex-col gap-6 lg:pb-0 pb-24 " >
+                            {post?.map((item, index) => {
+                                return (
+                                    <div key={index} className=" w-full flex flex-col gap-3 " >
+                                        <div className=" flex items-center w-full justify-between " >
+                                            <div className=" flex items-center gap-2 " >
+                                                <div className=" w-10 h-10 rounded-full border border-primary border-opacity-50 " >
+                                                    <img className=" w-full h-full object-cover rounded-full " src={item?.user?.logo} alt={item?.attachments[0]} />
+                                                </div>
+                                                <div className=" flex flex-col " >
+                                                    <Text className=" text-xs font-bold " >{item?.user?.name}</Text>
+                                                    <Text className=" text-[10px] italic font-bold text-primary text-opacity-50 " >{moment(item?.createdAt)?.fromNow()}</Text>
+                                                </div>
+                                            </div>
+                                            <div className=" flex gap-3 items-center " >
+                                                <div role="button" className=" cursor-pointer w-fit " >
+                                                    <SendTopIcon />
+                                                </div>
+                                                <div role="button" className=" cursor-pointer w-fit " >
+                                                    <MoreIcon />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className=" w-full flex flex-col px-3 gap-3 " >
+                                            <Text className=" text-xs font-medium " >{item?.content}</Text>
+                                            {item?.attachments?.length > 0 && (
+                                                <div className=" w-full h-[200px] rounded-2xl " >
+                                                    <img className=" w-full h-full rounded-2xl " src={item?.attachments[0]} alt={item?.attachments[0]} />
+                                                </div>
+                                            )}
+                                            <div className=" flex items-center gap-4 " >
+                                                <div role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
+                                                    <HeartColorlessIcon size="24px" />
+                                                    <Text className=" font-black text-xs " >{item?.likes?.length}</Text>
+                                                </div>
+                                                <div role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
+                                                    <ChatIcon />
+                                                    <Text className=" font-black text-xs " >{item?.comments?.length}</Text>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    )}
 
-                {index && (
-                    <div className=" w-full rounded-[44px] p-4 lg:p-6 flex flex-col gap-6 lg:pb-0 pb-24 " >
-                        {post?.map((item, index) => {
-                            return (
-                                <div key={index} className=" w-full flex flex-col gap-3 " >
-                                    <div className=" flex items-center w-full justify-between " >
-                                        <div className=" flex items-center gap-2 " >
-                                            <div className=" w-10 h-10 rounded-full border border-primary border-opacity-50 " >
-                                                <img className=" w-full h-full object-cover rounded-full " src={item?.user?.logo} alt={item?.attachments[0]} />
+                    {index && (
+                        <div className=" w-full rounded-[44px] p-4 lg:p-6 flex flex-col gap-6 lg:pb-0 pb-24 " >
+                            {post?.map((item, index) => {
+                                return (
+                                    <div key={index} className=" w-full flex flex-col gap-3 " >
+                                        <div className=" flex items-center w-full justify-between " >
+                                            <div className=" flex items-center gap-2 " >
+                                                <div className=" w-10 h-10 rounded-full border border-primary border-opacity-50 " >
+                                                    <img className=" w-full h-full object-cover rounded-full " src={item?.user?.logo} alt={item?.attachments[0]} />
+                                                </div>
+                                                <div className=" flex flex-col " >
+                                                    <Text className=" text-xs font-bold " >{item?.user?.name}</Text>
+                                                    <Text className=" text-[10px] italic font-bold text-primary text-opacity-50 " >{moment(item?.createdAt)?.fromNow()}</Text>
+                                                </div>
                                             </div>
-                                            <div className=" flex flex-col " >
-                                                <Text className=" text-xs font-bold " >{item?.user?.name}</Text>
-                                                <Text className=" text-[10px] italic font-bold text-primary text-opacity-50 " >{moment(item?.createdAt)?.fromNow()}</Text>
+                                            <div className=" flex gap-3 items-center " >
+                                                <div role="button" className=" cursor-pointer w-fit " >
+                                                    <SendTopIcon />
+                                                </div>
+                                                <div role="button" className=" cursor-pointer w-fit " >
+                                                    <MoreIcon />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className=" flex gap-3 items-center " >
-                                            <div role="button" className=" cursor-pointer w-fit " >
-                                                <SendTopIcon />
-                                            </div>
-                                            <div role="button" className=" cursor-pointer w-fit " >
-                                                <MoreIcon />
+                                        <div className=" w-full flex flex-col px-3 gap-3 " >
+                                            <Text className=" text-xs font-medium " >{item?.content}</Text>
+                                            {item?.attachments?.length > 0 && (
+                                                <div className=" w-full h-[200px] rounded-2xl " >
+                                                    <img className=" w-full h-full rounded-2xl " src={item?.attachments[0]} alt={item?.attachments[0]} />
+                                                </div>
+                                            )}
+                                            <div className=" flex items-center gap-4 " >
+                                                <div role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
+                                                    <HeartColorlessIcon size="24px" />
+                                                    <Text className=" font-black text-xs " >{item?.likes?.length}</Text>
+                                                </div>
+                                                <div role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
+                                                    <ChatIcon />
+                                                    <Text className=" font-black text-xs " >{item?.comments?.length}</Text>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className=" w-full flex flex-col px-3 gap-3 " >
-                                        <Text className=" text-xs font-medium " >{item?.content}</Text>
-                                        {item?.attachments?.length > 0 && (
-                                            <div className=" w-full h-[200px] rounded-2xl " >
-                                                <img className=" w-full h-full rounded-2xl " src={item?.attachments[0]} alt={item?.attachments[0]} />
-                                            </div>
-                                        )}
-                                        <div className=" flex items-center gap-4 " >
-                                            <div role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
-                                                <HeartColorlessIcon size="24px" />
-                                                <Text className=" font-black text-xs " >{item?.likes?.length}</Text>
-                                            </div>
-                                            <div role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
-                                                <ChatIcon />
-                                                <Text className=" font-black text-xs " >{item?.comments?.length}</Text>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </div>
-                )}
-            </div>
+                                )
+                            })}
+                        </div>
+                    )}
+                </div>
+            </LoadingAnimation>
         </div>
     )
 }

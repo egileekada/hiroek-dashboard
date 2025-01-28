@@ -21,20 +21,7 @@ export default function CommunityForm({values, setValue, isLoading}: {
                     <Text className=" text-primary font-semibold text-sm " >Community Description</Text>
                     <CustomInput edit={true} setValue={setValue} value={values?.description} name="description" type="text" textarea={true} placeholder="Type event description here. . ." />
                     {/* <textarea placeholder="Type community description here. . ." className=" h-[156px] p-3 outline-none border-[#37137F80] border-[1.5px] hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] rounded-[10px] bg-transparent w-full text-sm font-semibold text-primary " /> */}
-                </div>
-                {/* <div className=" w-full flex lg:flex-row flex-col gap-4 " >
-                    <div className=" flex w-full flex-col gap-1 " >
-                        <Text className=" text-primary font-semibold text-sm " >Select Cause or Interest</Text>
-                        {!loadingInterest && (
-                            <MultipleSelect value={[]} placeholder="Select Interest" name="interest" interest={interestData} />
-                        )}
-                    </div>
-                    <div className=" flex w-full flex-col gap-1 " >
-                        <Text className=" text-primary font-semibold text-sm " >Community Access</Text>
-                        <CustomSelect formState={formState} placeholder="Community Access Type" name="privacy" changeHandler={changeHandler} list={["public", "invite-only"]} />
-                        <CustomInput name="name" type="text" placeholder="Community Access Type" />
-                    </div>
-                </div> */}
+                </div> 
             </div>
             <div className=" w-full py-6 lg:hidden px-4 " >
                 <CustomButton loading={isLoading} className=" px-3 " width="100%" type="submit" >
