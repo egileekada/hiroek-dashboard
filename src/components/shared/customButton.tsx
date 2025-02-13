@@ -14,7 +14,8 @@ interface IProps {
     fontSize?: string;
     type?: "submit" | "reset" | "button";
     borderWidth?: string;
-    borderColor?: string
+    borderColor?: string;
+    noshadow?: boolean;
     [x:string]: any;
 }
 
@@ -35,11 +36,12 @@ export default function CustomButton(props: IProps) {
         type,
         borderWidth,
         borderColor,
+        noshadow,
         ...rest
     } = props
 
     return ( 
-        <button {...rest} type={type} disabled={loading} style={{boxShadow: "2px 2px 0px 0px #37137F4D", background: bgColor ?? "#37137f", color: color ?? "white", borderRadius: rounded ?? "10px", height: height ?? "50px", width: width ?? "100%", fontSize: fontSize ?? "16px", borderWidth: borderWidth ?? "0px", borderColor: borderColor ?? "transparent" }} className=' px-3 flex gap-2 items-center text-white font-semibold justify-center' >
+        <button {...rest} type={type} disabled={loading} style={{boxShadow: noshadow  ? "" :"2px 2px 0px 0px #37137F4D", background: bgColor ?? "#37137f", color: color ?? "white", borderRadius: rounded ?? "10px", height: height ?? "50px", width: width ?? "100%", fontSize: fontSize ?? "16px", borderWidth: borderWidth ?? "0px", borderColor: borderColor ?? "transparent" }} className=' px-3 flex gap-2 items-center text-white font-semibold justify-center' >
             {(hasFrontIcon && !loading) && (
                 <>
                     {icon ?? <ArrowIcon />}

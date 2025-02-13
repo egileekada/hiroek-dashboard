@@ -5,7 +5,7 @@ import httpService from "../../utils/httpService";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { ICommunity } from "../../model/community";
-import { IMember, IUser } from "../../model/user";
+import { IUser } from "../../model/user";
 
 export interface IPost {
     "userType": string,
@@ -21,34 +21,22 @@ export interface IPost {
     "updatedAt": string,
 }
 
-export interface IComment{
-    "likes": Array<string>,
-    "replies": Array<string>,
-    "_id": string,
-    "user": IMember,
-    "post": string,
-    "content": string,
-    "createdAt": string,
-    "updatedAt": string,
-    "__v": number
-}
-
-const useGetCommunityPost = () => {
+const useGetCommunityPostBoardCast = () => {
 
     const [data, setData] = useState<Array<IPost>>()
     const { id } = useParams();
 
     // react query
     const { isLoading, isRefetching } = useQuery(
-        ["post-communities"],
-        () => httpService.get(`/posts/community/${id}`),
+        ["post-announcements"],
+        () => httpService.get(`/posts/community-announcements/${id}`),
         {
             onError: (error: any) => {
                 toast.error(error.response?.data)
                 // console.log(error);
             },
-            onSuccess: (data: any) => {
-                setData(data?.data?.posts?.data);
+            onSuccess: (data: any) => { 
+                setData(data?.data?.announcements?.data);
             }
         },
     );
@@ -60,4 +48,4 @@ const useGetCommunityPost = () => {
     };
 }
 
-export default useGetCommunityPost
+export default useGetCommunityPostBoardCast

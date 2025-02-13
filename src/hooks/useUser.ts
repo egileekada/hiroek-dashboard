@@ -29,6 +29,8 @@ const useUser = () => {
                 console.log(error);
             },
             onSuccess: (data: any) => {  
+                console.log(data);
+                
                 setData(data?.data?.organization)
             },
             enabled: email ? false : true

@@ -1,5 +1,5 @@
 
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 // import { useNavigate } from "react-router-dom";
 import { CommunityPostValidation, CommunityValidation } from "../../services/validation";
 import { useForm } from "../useForm";
@@ -18,7 +18,18 @@ const useCommunity = () => {
     const [images, setImages] = useState<File[]>([]);
     const { id } = useParams();
 
+    const query = useQueryClient()
+
+    const [open, setOpen] = useState(false)
+    const [openReport, setOpenReport] = useState(false)
+    const [openDelete, setOpenDelete] = useState(false)
+    const [openBroadcast, setOpenBroadcast] = useState(false)
+    const [openPin, setOpenPin] = useState(false)
+
+    const [reason, setReason] = useState("")
+
     const [content, setContent] = useState("")
+    const [contentComment, setContentComment] = useState("")
 
     const [searchParams] = useSearchParams();
     const index = searchParams.get("tab");
@@ -51,21 +62,30 @@ const useCommunity = () => {
         onSuccess: (data) => {
             toast.success("Created Post Successfully")
             // router("/dashboard/community") 
-            if(index) {
-
-            console.log("worked");
+            if(index) { 
                 createAnnocement(data?.data?.post?._id)
             } else {
                 router("/dashboard/community/details/"+id)
             }
 
         },
+    }); 
+
+    const createAnnocementPost = useMutation({
+        mutationFn: (postId: any) => httpService.post(`/organizations/posts/${postId}/make-announcement`, {}),
+        onError: (error: any) => {
+            console.log(error?.response?.data?.error?.details?.message);
+
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: () => { 
+            setOpenBroadcast(false)
+            toast?.success("successful")
+        },
     });
 
-
-
     const { mutate: createAnnocement, isLoading: loadingCreateAnnocement } = useMutation({
-        mutationFn: (data: any) => httpService.post(`/organizations/posts/${data}/make-announcement`, {}),
+        mutationFn: (postId: any) => httpService.post(`/organizations/posts/${postId}/make-announcement`, {}),
         onError: (error: any) => {
             console.log(error?.response?.data?.error?.details?.message);
 
@@ -75,6 +95,142 @@ const useCommunity = () => {
             router("/dashboard/community/details/"+id)
         },
     });
+
+    const deleteChannelPost = useMutation({
+        mutationFn: (postId: any) => httpService.delete(`/posts/${postId}`),
+        onError: (error: any) => {
+            console.log(error?.response?.data?.error?.details?.message);
+
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: (data) => {
+            console.log(data);
+            query.invalidateQueries("post-communities")
+            setOpenDelete(false) 
+            toast.success("post deleted successfully")
+        },
+    });
+
+
+    const unLikeChannelPost = useMutation({
+        mutationFn: (postId: any) => httpService.post(`/posts/${postId}/unlike`, {}),
+        onError: (error: any) => {
+            console.log(error?.response?.data?.error?.details?.message);
+
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: () => { 
+            query?.invalidateQueries("post-communities") 
+            query?.invalidateQueries("postssingle") 
+            query?.invalidateQueries("comments")  
+            
+        },
+    });
+
+
+    const likeChannelPost = useMutation({
+        mutationFn: (postId: any) => httpService.post(`/posts/${postId}/like`, {}),
+        onError: (error: any) => {
+            console.log(error?.response?.data?.error?.details?.message);
+
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: () => { 
+            query?.invalidateQueries("post-communities") 
+            query?.invalidateQueries("postssingle") 
+            query?.invalidateQueries("comments")  
+        },
+    });
+
+
+    const unLikeChannelComment = useMutation({
+        mutationFn: (commentId: any) => httpService.post(`/posts/comments/${commentId}/unlike`, {}),
+        onError: (error: any) => {
+            console.log(error?.response?.data?.error?.details?.message);
+
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: () => { 
+            query?.invalidateQueries("post-communities") 
+            query?.invalidateQueries("postssingle") 
+            query?.invalidateQueries("comments")  
+        },
+    });
+
+
+    const likeChannelComment = useMutation({
+        mutationFn: (commentId: any) => httpService.post(`/posts/comments/${commentId}/like`, {}),
+        onError: (error: any) => {
+            console.log(error?.response?.data?.error?.details?.message);
+
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: () => { 
+            query?.invalidateQueries("post-communities") 
+            query?.invalidateQueries("postssingle") 
+            query?.invalidateQueries("comments")  
+        },
+    });
+
+    const reportChannelPost = useMutation({
+        mutationFn: (data: {
+            postId: string,
+            reason: string
+        }) => httpService.post(`/posts/${data?.postId}/report`, {
+            reason: data?.reason
+        }),
+        onError: (error: any) => {
+            console.log(error?.response?.data?.error?.details?.message);
+
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: () => {
+            toast?.success("successful")
+            setOpenReport(false)
+            setReason("")
+        },
+    });
+
+    const replyChannelPost = useMutation({
+        mutationFn: (data: {
+            postId: string,
+            content: string
+        }) => httpService.post(`/posts/comments/${data?.postId}/reply`, {
+            content: data?.content
+        }),
+        onError: (error: any) => {
+            console.log(error?.response?.data?.error?.details?.message);
+
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: (data) => {
+            // router("/dashboard/community/details/"+id)
+            console.log(data);
+            
+        },
+    });
+
+
+
+    const createCommentPost = useMutation({
+        mutationFn: (data: {
+            postId: string 
+        }) => httpService.post(`/posts/${data?.postId}/comment`, {
+            content: contentComment
+        }),
+        onError: (error: any) => {
+            console.log(error?.response?.data?.error?.details?.message);
+
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: () => {
+            query?.invalidateQueries("post-communities") 
+            query?.invalidateQueries("postssingle") 
+            query?.invalidateQueries("comments")  
+            setContentComment("")
+            
+        },
+    }); 
 
     const { renderForm: communityHookForm, values, setValue, formState } = useForm({
         defaultValues: {
@@ -157,7 +313,30 @@ const useCommunity = () => {
         submit,
         content,
         setContent,
-        postformState
+        postformState,
+        deleteChannelPost,
+        reportChannelPost,
+        unLikeChannelPost,
+        likeChannelPost,
+        replyChannelPost,
+        openBroadcast,
+        openPin,
+        openDelete,
+        openReport,
+        open,
+        setOpen,
+        setOpenBroadcast,
+        setOpenDelete,
+        setOpenPin,
+        setOpenReport,
+        reason, 
+        setReason,
+        createAnnocementPost,
+        unLikeChannelComment,
+        likeChannelComment,
+        createCommentPost,
+        setContentComment,
+        contentComment
     };
 }
 

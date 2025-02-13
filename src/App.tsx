@@ -5,6 +5,7 @@ import EventDashboardPage from "./page/event/eventDashboardPage";
 import EventScanner from "./page/event/eventScanner";
 import EventScanHistory from "./page/event/eventScanHistory";
 import EventDetailByMemberPage from "./page/event/eventDetailBymemberPage"; 
+import CommunitySinglePostPage from "./page/community/communitySinglePostPage";
 
 
 function App() {
@@ -33,9 +34,10 @@ function App() {
           <Route path="community" >
             <Route index element={<CommunityPage />} />
             <Route path="details/:id" element={<CommunityDetailPage />} />
-            <Route path="member" element={<CommunityMemberPage />} />
+            <Route path="member/:id" element={<CommunityMemberPage />} />
             <Route path="create" element={<CreateCommunityPage />} />
             <Route path="post/:id" element={<CommunityPostPage />} />
+            <Route path="post-comment/:id" element={<CommunitySinglePostPage />} />
           </Route>
           <Route path="donation" >
             <Route index element={<DonatePage />} />

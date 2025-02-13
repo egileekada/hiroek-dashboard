@@ -39,10 +39,8 @@ export default function CustomInputWithoutForm({ isPassword = false, textarea, t
         setDefaultValue(item)
     }
 
-    return (
-        // <TextField.Root size="3" placeholder={placeholder} name={name} type={type} disabled={disable} value={value} />
-        <>
-            <div>
+    return ( 
+            <div className=" w-full " >
                 {textarea && (
                     <textarea
                         onChange={(e) => changeHandler(e.target?.value)}
@@ -75,8 +73,7 @@ export default function CustomInputWithoutForm({ isPassword = false, textarea, t
                         )}
                     </div>
                 }
-            </div>
-        </>
+            </div> 
     )
 }
 

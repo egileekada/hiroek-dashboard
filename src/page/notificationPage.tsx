@@ -1,7 +1,6 @@
 import { Text } from '@radix-ui/themes'
 import PageHeader from '../components/shared/pageHeader'
-import { DonateIcon } from '../svg'
-import { textLimit } from '../utils/textlimit'
+import { DonateIcon } from '../svg' 
 import useNotification from '../hooks/useNotification'
 import LoadingAnimation from '../components/shared/loadingAnimation'
 import moment from 'moment'
@@ -31,10 +30,12 @@ export default function NotificationPage() {
                                         )}
                                         <div className=' flex flex-col ' >
                                             <Text className=' text-sm tracking-[-0.5px] font-bold text-primary ' >{item?.title}</Text>
-                                            <Text className=' text-[11px] text-primary text-opacity-75 ' ><span className=' font-bold ' >James Dean</span> {textLimit(item?.message, 30)}</Text>
+                                            <Text className=' text-[10px] text-primary text-opacity-75 ' ><span className=' font-bold ' >James Dean</span> {item?.message}</Text>
                                         </div>
                                     </div>
-                                    <Text className=' text-[10px] font-extrabold text-primary text-opacity-50 ml-auto ' >{moment(item?.createdAt)?.fromNow()}</Text>
+                                    <div className=' w-fit ml-auto  ' > 
+                                    <Text className=' text-[10px] font-extrabold text-primary text-opacity-50' >{moment(item?.createdAt)?.fromNow()}</Text>
+                                        </div>
                                 </div>
                             )
                         }
