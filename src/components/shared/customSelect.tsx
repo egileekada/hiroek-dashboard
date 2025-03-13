@@ -90,7 +90,7 @@ export default function CustomSelect(props: IProps) {
                         <div className=' h-auto flex flex-col gap-1 w-full ' >
                             {list?.map((item: string, index: number) => {
                                 return (
-                                    <div className=' w-full flex flex-col px-2 ' >
+                                    <div key={index} className=' w-full flex flex-col px-2 ' >
                                         {item?.includes("(") ?
                                             <div role='button' onClick={() => setSelected((prev) => prev === extractActivities(item)[0]?.name ? "" : extractActivities(item)[0]?.name)} className=' text-sm flex items-center h-[54px] w-full justify-between font-semibold ' key={index} >
                                                 {extractActivities(item)[0]?.name + ""}
@@ -107,9 +107,9 @@ export default function CustomSelect(props: IProps) {
                                             <>
                                                 {selected === extractActivities(item)[0]?.name && (
                                                     <div className=' flex flex-col px-4 gap-2 ' >
-                                                        {extractActivities(item)[0]?.values?.map((subitem, index) => {
+                                                        {extractActivities(item)[0]?.values?.map((subitem, subindex) => {
                                                             return (
-                                                                <div role='button' onClick={() => clickhandler((extractActivities(item)[0]?.name).toString() + " " + subitem)} key={index} className=' text-sm w-full py-2  ' >
+                                                                <div role='button' onClick={() => clickhandler((extractActivities(item)[0]?.name).toString() + " " + subitem)} key={subindex} className=' text-sm w-full py-2  ' >
                                                                     {subitem}
                                                                 </div>
                                                             )
@@ -133,7 +133,7 @@ export default function CustomSelect(props: IProps) {
                         <div className=' h-auto flex flex-col gap-1 w-full ' >
                             {list?.map((item: string, index: number) => {
                                 return (
-                                    <div className=' w-full flex flex-col px-2 ' >
+                                    <div key={index} className=' w-full flex flex-col px-2 ' >
                                         {item?.includes("(") ?
                                             <div role='button' onClick={() => setSelected((prev) => prev === extractActivities(item)[0]?.name ? "" : extractActivities(item)[0]?.name)} className=' text-sm flex items-center h-[54px] w-full justify-between font-semibold ' key={index} >
                                                 {extractActivities(item)[0]?.name + ""}
@@ -150,9 +150,9 @@ export default function CustomSelect(props: IProps) {
                                             <>
                                                 {selected === extractActivities(item)[0]?.name && (
                                                     <div className=' flex flex-col px-4 gap-2 ' >
-                                                        {extractActivities(item)[0]?.values?.map((subitem, index) => {
+                                                        {extractActivities(item)[0]?.values?.map((subitem, subindex) => {
                                                             return (
-                                                                <div role='button' onClick={() => clickhandler(extractActivities(item)[0]?.name + " " + subitem)} key={index} className={`  text-sm w-full py-2  `} >
+                                                                <div role='button' onClick={() => clickhandler(extractActivities(item)[0]?.name + " " + subitem)} key={subindex} className={`  text-sm w-full py-2  `} >
                                                                     {subitem}
                                                                 </div>
                                                             )

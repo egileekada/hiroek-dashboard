@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { DownArrowIcon, NotificationIcon } from "../../svg";
+import { DownArrowIcon, MessageIcon, NotificationIcon } from "../../svg";
 import { Text } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
 import { useDetails } from "../../global-state/useUserDetails";
 import { capitalizeFLetter } from "../../utils/capitalLetter";
+// import useNotificationCount from "../../hooks/useNotificationCount";
 
 
 export default function Navbar() {
@@ -13,6 +14,8 @@ export default function Navbar() {
     const router = useNavigate()
     const { name, logo } = useDetails((state) => state);
 
+    // const {  } = useNotificationCount()
+
     return (
         <div className=" w-full h-[55px] flex justify-between items-center px-4 " >
             <div className=" w-[300px] lg:block hidden " >
@@ -20,7 +23,13 @@ export default function Navbar() {
             </div>
             <div className=" flex items-center ml-auto " >
                 <div onClick={() => router("/dashboard/notification")} role="button" className=" w-10 h-10 relative flex justify-center items-center " >
-                    <div className=' absolute top-0 right-0 w-5 h-5 text-white bg-primary rounded font-semibold text-[10px] tracking-[0.5%] flex justify-center items-center ' >
+                    <div className=' absolute top-0 right-0 w-5 h-5 text-white bg-[#B00062] rounded-full pt-[2px] font-semibold text-[10px] tracking-[0.5%] flex justify-center items-center ' >
+                        0
+                    </div>
+                    <MessageIcon />
+                </div>
+                <div onClick={() => router("/dashboard/notification")} role="button" className=" w-10 h-10 relative flex justify-center items-center " >
+                    <div className=' absolute top-0 right-0 w-5 h-5 text-white bg-[#B00062] rounded-full pt-[2px] font-semibold text-[10px] tracking-[0.5%] flex justify-center items-center ' >
                         0
                     </div>
                     <NotificationIcon />

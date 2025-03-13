@@ -29,6 +29,7 @@ const useCommunity = () => {
     const [reason, setReason] = useState("")
 
     const [content, setContent] = useState("")
+    const [contentReply, setContentReply] = useState("")
     const [contentComment, setContentComment] = useState("")
 
     const [searchParams] = useSearchParams();
@@ -203,9 +204,11 @@ const useCommunity = () => {
 
             toast.error(error?.response?.data?.error?.details?.message)
         },
-        onSuccess: (data) => {
-            // router("/dashboard/community/details/"+id)
-            console.log(data);
+        onSuccess: () => {
+            query?.invalidateQueries("post-communities") 
+            query?.invalidateQueries("postssingle") 
+            query?.invalidateQueries("comments")  
+            setContentReply("")
             
         },
     });
@@ -336,7 +339,10 @@ const useCommunity = () => {
         likeChannelComment,
         createCommentPost,
         setContentComment,
-        contentComment
+        contentComment,
+        setContentReply,
+        contentReply,
+        index
     };
 }
 

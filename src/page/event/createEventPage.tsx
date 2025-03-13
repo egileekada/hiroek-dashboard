@@ -12,7 +12,7 @@ import useGetEventData from "../../hooks/eventHooks/useGetEventData";
 export default function CreateEventPage() {
 
     const { eventHookForm, isLoading, setValue, formState, values, loadingEditEvent, submitHandler, open, setOpen, isSuccess, control } = useEvent()
-    const { getSingleEventData } = useGetEventData()
+    const { data, isLoading: loadingEvent } = useGetEventData().getSingleEventData()
     const history = useLocation() 
     const { event, updateEvent } = useEventDetail((state) => state)
 
@@ -21,7 +21,7 @@ export default function CreateEventPage() {
             updateEvent({} as any)
         }  
     }, [])  
-
+ 
     return eventHookForm(
         <div className=' w-full flex flex-col gap-6 ' >
             <div className=" w-full flex items-center justify-between " >
@@ -34,8 +34,8 @@ export default function CreateEventPage() {
                 <EventForm control={control} open={open} setOpen={setOpen} submit={submitHandler} setValue={setValue} values={values} formState={formState} isLoading={isLoading} isSuccess={isSuccess} />
             )}
             {(history?.pathname.includes("edit") && event?.endTime) && (
-                <LoadingAnimation loading={getSingleEventData()?.isLoading} >
-                    <EditEventForm isSuccess={isSuccess} submit={submitHandler} open={open} setOpen={setOpen} defaultdata={event} setValue={setValue} values={values} formState={formState} isLoading={isLoading || loadingEditEvent} />
+                <LoadingAnimation loading={loadingEvent} >
+                    <EditEventForm isSuccess={isSuccess} submit={submitHandler} open={open} setOpen={setOpen} defaultdata={data} setValue={setValue} values={values} formState={formState} isLoading={isLoading || loadingEditEvent} />
                 </LoadingAnimation>
             )}
         </div>

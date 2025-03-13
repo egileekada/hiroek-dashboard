@@ -50,6 +50,9 @@ export default function EditEventForm(props: IProps) {
     const [paidEvent, setPaidEvent] = useState(false)
     const [isFundraising, setIsFundraising] = useState(false)
 
+    console.log(defaultdata);
+    
+
     useEffect(() => {
         setSignupCount(values?.signUpLimit ? values?.signUpLimit : defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
         // setTicketNo(values?.eventTicket?.totalTicket ? values?.eventTicket?.totalTicket : defaultdata?.eventTicket?.totalTicket ? defaultdata?.eventTicket?.totalTicket : 0)
@@ -82,20 +85,8 @@ export default function EditEventForm(props: IProps) {
             setSignupCount((prev) => prev + 1)
             setValue("signUpLimit", (signupCount + 1)?.toString())
         }
-    }
-
-    // const clickTicket = (type: "remove" | "add") => { 
-    //     if (ticketNo > 0 && type === "remove") {
-    //         setTicketNo((prev) => prev - 1)
-    //         setValue("eventTicket.totalTicket", ticketNo - 1)
-    //     } else {
-    //         setTicketNo((prev) => prev + 1)
-    //         setValue("eventTicket.totalTicket", ticketNo + 1)
-    //     }
-    // }
-
-    // console.log(values);
-
+    }  
+    
 
     return (
         <div className=" w-full flex flex-col gap-4 lg:pb-6 " >
@@ -141,7 +132,7 @@ export default function EditEventForm(props: IProps) {
                     </div>
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >End Date</Text>
-                        <CustomDatePicker name="eventEndDate" value={values?.eventEndDate ? values?.eventEndDate : defaultdata?.eventEndDate} setValue={setValue} />
+                        <CustomDatePicker name="eventEndDate" payload={values} value={values?.eventEndDate ? values?.eventEndDate : defaultdata?.eventEndDate} setValue={setValue} />
                     </div>
                 </div>
 

@@ -6,9 +6,10 @@ import LikePostBtn from "../../components/community/likePostBtn";
 import { useNavigate } from "react-router-dom";
 import useGetMembers from "../../hooks/communityHooks/useGetMembers";
 import LoadingAnimation from "../../components/shared/loadingAnimation";
-import LikeCommentBtn from "../../components/community/likeCommentBtn"; 
+import LikeCommentBtn from "../../components/community/likeCommentBtn";
 import useCommunity from "../../hooks/communityHooks/useCommunity";
 import PageHeader from "../../components/shared/pageHeader";
+import { useState } from "react";
 
 
 export default function CommunitySinglePostPage() {
@@ -17,14 +18,20 @@ export default function CommunitySinglePostPage() {
 
     const { data: item, isLoading } = useGetMembers().getSinglePostData()
     const { data, isLoading: loading } = useGetMembers().getPostCommentsData()
-    const { contentComment, setContentComment, createCommentPost } = useCommunity()
+    const { contentComment, setContentComment, createCommentPost, replyChannelPost, setContentReply, contentReply } = useCommunity()
+    const [reply, setReply] = useState("")
+
+    const [limit, setLimit] = useState({
+        id: "",
+        limit: 1
+    })
 
     return (
-        <div className=' w-full flex flex-col h-full items-center gap-6 pt-3  ' >
-            <div className=" w-full " > 
+        <div className=' w-full flex flex-col h-full gap-6 pt-3  ' >
+            <div className=" w-full " >
                 <PageHeader back={true} header={""} body={""} />
             </div>
-            <div className=" max-w-[500px] w-full flex flex-col h-full gap-3 px-3 pb-3 relative" >
+            <div className=" max-w-[full] w-full flex flex-col h-full gap-3 px-3 pb-3 relative" >
                 <LoadingAnimation loading={isLoading} >
                     <div style={{ boxShadow: "0px 4px 4px 0px #0000000D" }} className=" w-full sticky top-0 rounded-lg p-4 flex flex-col gap-3 " >
                         <div className=" flex items-center w-full justify-between " >
@@ -83,8 +90,70 @@ export default function CommunitySinglePostPage() {
                                             <Text className=" text-xs font-medium " >{item?.content}</Text>
                                             <div className=" flex items-center gap-4 " >
                                                 <LikeCommentBtn item={item} />
-                                                <button className=" h-[20px] w-fit bg-primary30 rounded-full text-[10px] font-bold px-2 " >Reply</button>
+                                                {/* <div onClick={() => setOpen(item?._id)} role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
+                                                    <ChatIcon />
+                                                    <Text className=" font-black text-xs " >{item?.replies?.length}</Text>
+                                                </div> */}
+                                                <button onClick={() => setReply((prev) => prev !== item?._id ? item?._id : "")} className=" h-[20px] w-fit bg-primary30 rounded-full text-[10px] font-bold px-2 " >Reply</button>
                                             </div>
+                                        </div>
+                                        {item?._id === reply && (
+                                            <div className=" w-full bg-white flex " >
+                                                <div className=" w-full h-[54px] relative " >
+                                                    <input
+                                                        onChange={(e) => setContentReply(e.target?.value)}
+                                                        type={"text"} style={{ borderRadius: "5px", color: "#37137f", borderColor: "#37137F80", borderWidth: "2px" }} placeholder={"Reply your comment here"} value={contentReply} className={` pr-[40px] h-[50px] px-3 outline-none bg-transparent w-full text-sm font-medium `} />
+
+                                                    <div role="button" className=" absolute w-fit cursor-pointer right-0 top-0 pr-2 " >
+                                                        <div className=" w-[30px] h-[54px] flex justify-center items-center " >
+                                                            {replyChannelPost?.isLoading ? <Spinner size={"2"} /> :
+                                                                <div onClick={() => replyChannelPost?.mutate({
+                                                                    postId: item?._id,
+                                                                    content: contentReply
+                                                                })} >
+                                                                    <SendIcon color={contentReply ? "#37137FBF" : "#37137F80"} />
+                                                                </div>}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                        <div className=" ml-3 flex flex-col gap-3 " >
+                                            {item?.replies?.slice(0, limit?.id === item?._id ? limit?.limit : 1)?.map((subitem, subindex) => {
+                                                return (
+                                                    <div key={subindex} className=" flex flex-col gap-2 " >
+                                                        <div className=" flex items-center w-full justify-between " >
+                                                            <div className=" flex items-center gap-2 " >
+                                                                <div className=" w-10 h-10 rounded-full border border-primary border-opacity-50 " >
+                                                                    <img className=" w-full h-full object-cover rounded-full " src={item?.user?.photo} alt={item?.user?.phone} />
+                                                                </div>
+                                                                <div className=" flex flex-col " >
+                                                                    <Text className=" text-xs font-bold " >{item?.user?.fullname}</Text>
+                                                                    <Text className=" text-[10px] italic font-bold text-primary text-opacity-50 " >{moment(subitem?.createdAt)?.fromNow()}</Text>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className=" w-full flex flex-col px-2 gap-3 " >
+                                                            <Text className=" text-xs font-medium " >{subitem?.content}</Text>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })}
+                                            {item?.replies?.length > 1 && (
+                                                <div className=" w-full flex  " >
+                                                    {limit?.id === item?._id ? (
+                                                        <Text className=" text-sm " role="button" onClick={() => setLimit({
+                                                            id: "",
+                                                            limit: 1
+                                                        })} >show less</Text>
+                                                    ) : (
+                                                        <Text className=" text-sm " role="button" onClick={() => setLimit({
+                                                            id: item?._id,
+                                                            limit: item?.replies?.length
+                                                        })} >show more</Text>
+                                                    )}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 )
@@ -93,12 +162,12 @@ export default function CommunitySinglePostPage() {
                     </LoadingAnimation>
                     <div className=" w-full h-[60px] " />
                 </div>
-                <div className=" w-full sticky bg-white mt-auto bottom-0 inset-x-0 flex " > 
+                <div className=" w-full sticky bg-white mt-auto bottom-0 inset-x-0 flex " >
                     <div className=" w-full h-[54px] relative " >
                         <input
                             onChange={(e) => setContentComment(e.target?.value)}
                             type={"text"} style={{ borderRadius: "5px", color: "#37137f", borderColor: "#37137F80", borderWidth: "2px" }} placeholder={"Type your comment here"} value={contentComment} className={` pr-[40px] h-[54px] px-3 outline-none bg-transparent w-full text-sm font-medium `} />
-                        
+
                         <div role="button" className=" absolute w-fit cursor-pointer right-0 top-0 pr-2 " >
                             <div className=" w-[30px] h-[54px] flex justify-center items-center " >
                                 {createCommentPost?.isLoading ? <Spinner size={"2"} /> :

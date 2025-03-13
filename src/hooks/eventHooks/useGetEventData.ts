@@ -230,7 +230,7 @@ const useGetEventData = () => {
 
     // Get Event list
     const getSingleEventData = () => {
-        const [data, setData] = useState<IEvent>()
+        const [data, setData] = useState<IEvent | any>()
         const { isLoading } = useQuery(
             ["Event", page, pageSize, eventFilter, id],
             () => httpService.get(`/events/${id}`),
@@ -240,10 +240,10 @@ const useGetEventData = () => {
                 },
                 onSuccess: (data: any) => {
                     setData(data?.data?.event)
-                    updateEvent(data?.data?.event)
-                    // updateInterest(data?.data?.event?.interests)
+                    updateEvent(data?.data?.event) 
                     updateMap(data?.data?.event?.address)
-                }
+                },
+                enabled: id ? true : false
             },
         );
 

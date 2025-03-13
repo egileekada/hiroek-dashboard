@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { Text } from "@radix-ui/themes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { dateFormat, timeFormat } from "../../utils/dateFormat";
 import "react-datepicker/dist/react-datepicker.css";
@@ -28,12 +28,13 @@ export default function CustomDatePicker({ name, payload, value, setValue }: IPr
         setValue(name, item)
     }
 
+    useEffect(()=> { 
+        setDate(value)
+    }, [])  
 
 
-    const CustomInput = ({ value, onClick }: any) => {
-
+    const CustomInput = ({ value, onClick }: any) => { 
         console.log(value);
-        
         return ( 
             <div onClick={onClick} className=" w-full flex flex-1 justify-between items-center text-sm text-primary px-3 gap-2 border-[2px] border-opacity-30 rounded-[8px] h-[54px] border-[#37137F] " >
                 {date ? dateFormat(date)+" "+timeFormat(date) : "Select Date And Time"}
@@ -51,7 +52,7 @@ export default function CustomDatePicker({ name, payload, value, setValue }: IPr
                 selected={value ? new Date(value) : new Date()}
                 dateFormat="MMM d, yyyy h:mm aa"
                 showTimeSelect
-                minDate={(name === "eventEndDate") ? (payload.endTime ? new Date(payload.endTime) : new Date()) : new Date()}
+                minDate={(name === "eventEndDate") ? (payload?.endTime ? new Date(payload?.endTime) : new Date()) : new Date()}
                 onChange={changeHandler}
                 customInput={<CustomInput />}
             />

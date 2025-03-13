@@ -30,6 +30,19 @@ const useConversation = () => {
  
         },
     });
+    
+    const { mutate: verifyTicket, isLoading: verifing } = useMutation({
+        mutationFn: (data: string) => httpService.get(`/api/events/user-event-ticket-verification/${data}`),
+        onError: (error: any) => {  
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: (data) => {  
+            console.log(data);
+            
+            // navigate(`/dashboard/event/support/${eventId}?id=${data?.data?.conversation?._id}`)
+ 
+        },
+    });
  
     const { mutate: createChat, isLoading: loadingChat } = useMutation({
         mutationFn: (data: {
@@ -53,7 +66,9 @@ const useConversation = () => {
         loadingChat,
         searchParams,
         setInputMessage,
-        inputMessage
+        inputMessage,
+        verifyTicket,
+        verifing
     };
 
 }

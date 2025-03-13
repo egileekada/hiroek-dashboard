@@ -1,11 +1,11 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
-import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ProfileInfoPage, ResetPasswordPage, ResetSentPage, SettingsPage, SupportPage, TransactionHistory, WithDrawalPin, WithdrawPage } from "./page";
+import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ProfileInfoPage, ResetPasswordPage, ResetSentPage, SelectUpdate, SettingsPage, SupportPage, TransactionHistory, WithDrawalPin, WithdrawPage } from "./page";
 import { DashboardLayout } from "./components/dashboard";
 import EventDashboardPage from "./page/event/eventDashboardPage";
 import EventScanner from "./page/event/eventScanner";
 import EventScanHistory from "./page/event/eventScanHistory";
 import EventDetailByMemberPage from "./page/event/eventDetailBymemberPage"; 
-import CommunitySinglePostPage from "./page/community/communitySinglePostPage";
+import CommunitySinglePostPage from "./page/community/communitySinglePostPage"; 
 
 
 function App() {
@@ -18,6 +18,10 @@ function App() {
         <Route path="/forgot-password" element={<ResetPasswordPage />} />
         <Route path="/reset-password" element={<ChangePasswordPage />} />
         <Route path="/reset-sent" element={<ResetSentPage />} />
+          <Route path="message" element={
+            <>
+            </>
+          } />
         <Route path="/dashboard" element={<DashboardLayout  />} >
           <Route index element={<DashboardPage />} />
           <Route path="event" >
@@ -41,6 +45,7 @@ function App() {
           </Route>
           <Route path="donation" >
             <Route index element={<DonatePage />} />
+            <Route path="setup" element={<SelectUpdate />} />
             <Route path="bankinfo" element={<AddBankDetailPage />} />
             <Route path="pin" element={<WithDrawalPin />} />
             <Route path="history" element={<TransactionHistory />} />

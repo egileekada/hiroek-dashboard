@@ -21,9 +21,18 @@ export interface IPost {
     "updatedAt": string,
 }
 
-export interface IComment{
+export interface IComment {
     "likes": Array<string>,
-    "replies": Array<string>,
+    "replies": Array<{
+        "likes": Array<string>,
+        "replies": Array<string>,
+        "_id": string,
+        "user": string,
+        "post": string,
+        "content": string,
+        "createdAt": string,
+        "updatedAt": string
+    }>,
     "_id": string,
     "user": IMember,
     "post": string,

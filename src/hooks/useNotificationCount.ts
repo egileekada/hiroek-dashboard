@@ -9,7 +9,7 @@ interface IProps {
     "isRead": boolean,
     "_id": string,
     "recipient": string,
-    "message":string,
+    "message": string,
     "title": string,
     "type": string,
     "actionId": string,
@@ -19,14 +19,14 @@ interface IProps {
 }
 
 
-const useNotification = () => {
+const useNotificationCount = () => {
 
-    const [data, setData] = useState<Array<IProps>>([]) 
+    const [data, setData] = useState<Array<IProps>>([])
 
     // react query
     const { isLoading } = useQuery(
         ["Notification"],
-        () => httpService.get(`/notifications`),
+        () => httpService.get(`/notifications/unread-messages-count`),
         {
             onError: (error: any) => {
                 toast.error(error.response?.data)
@@ -35,14 +35,15 @@ const useNotification = () => {
 
                 console.log(data);
 
-                setData(data?.data?.notifications?.data)
+                // setData(data?.data?.notifications?.data)
             }
         },
-    ); 
+    );
+
     return {
         isLoading,
-        data 
+        data,
     };
 }
 
-export default useNotification
+export default useNotificationCount

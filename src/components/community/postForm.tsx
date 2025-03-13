@@ -11,7 +11,7 @@ import PageHeader from "../shared/pageHeader";
 
 export default function PostForm() {
 
-    const { images, setImages, loadingCreatePost, loadingCreateAnnocement, content, setContent, submit } = useCommunity()
+    const { images, setImages, loadingCreatePost, loadingCreateAnnocement, content, setContent, submit, index } = useCommunity()
 
     function onChange(item: any) {
         setContent(item?.target?.value)
@@ -31,14 +31,16 @@ export default function PostForm() {
 
     return (
         <div className=" w-full  flex flex-col gap-4" >
-            <div className=" w-full flex justify-between items-center " >
+            <div className=" w-full flex justify-between items-center pr-2 " >
                 <PageHeader back={true} header="" body="" />
 
-                <CustomButton loading={loadingCreatePost || loadingCreateAnnocement} type="button" onClick={() => submit()} className=" items-center " width="170px" rounded="999px" hasFrontIcon={true} >
-                    {"Publish Post"}
+                <div className=" -mt-5 lg:mt-0 " >
+                <CustomButton loading={loadingCreatePost || loadingCreateAnnocement} type="button" onClick={() => submit()} className=" items-center " width={index ? "200px" : "170px"} rounded="999px" hasFrontIcon={true} >
+                    {index? "Publish Broadcast" : "Publish Post"}
                 </CustomButton>
+                </div>
             </div>
-            <div className=" w-full max-w-[600px] flex flex-col gap-1 lg:px-0 px-4  " >
+            <div className=" w-full max-w-[full] flex flex-col gap-1 lg:px-0 px-4  " >
                 <div className=" w-full h-full relative flex flex-col gap-4 !text-primary pb-6 " >
                     {/* <Editor value={content} className=" w-full h-[50vh] " onChange={onChange} />  */}
                     <TextArea value={content} className=" w-full h-[50vh] " onChange={onChange} placeholder="What's on your mind?" />

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Text } from '@radix-ui/themes';
 import { CustomButton } from '../../components/shared';
 import ModalLayout from '../../components/shared/modalLayout';
+import { useDetails } from '../../global-state/useUserDetails';
 
 export default function TransactionHistory() {
 
@@ -16,6 +17,8 @@ export default function TransactionHistory() {
 
     const [amount, setAmount] = useState("")
     const [open, setOpen] = useState(false)
+
+    const { bankAccountNumber, bankName } = useDetails((state) => state);
 
     return (
         <div className=' w-full h-full flex flex-col gap-6 ' >
@@ -29,15 +32,15 @@ export default function TransactionHistory() {
                     <div className=' flex flex-col w-full gap-1 ' >
                         <Text className=' text-sm font-bold ' >Bank Details</Text>
                         <div className=' w-full h-[54px] rounded-lg mb-2 flex justify-between items-center bg-primary px-4 text-white ' >
-                            <Text className=' font-bold text-xs ' >{`Barclay's Bank (xxxx-xxxx-xxxx-5478)`}</Text>
+                            <Text className=' font-bold text-xs ' >{bankName+" (*****"+bankAccountNumber?.slice(bankAccountNumber?.length-3, bankAccountNumber?.length)+")"}</Text>
                             <div className=' w-6 h-6 rounded-full border-[6px] border-white ' />
                         </div>
                         <CustomButton bgColor='white' borderWidth='2px' borderColor='#37137f' fontSize='14px' color='#37137f' >
                             + Choose Another Bank Account
                         </CustomButton>
                     </div>
-                    <div className=' mt-auto w-full lg:pb-4 ' >
-                        <CustomButton onClick={()=> setOpen(true)} >
+                    <div className=' mt-auto mb-4 w-full ' >
+                        <CustomButton isDisabled={amount ? false : true } onClick={()=> setOpen(true)} >
                             Withdraw Funds
                         </CustomButton>
                     </div>

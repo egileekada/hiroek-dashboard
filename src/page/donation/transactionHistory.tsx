@@ -4,18 +4,24 @@ import { CustomButton } from '../../components/shared'
 import PageHeader from '../../components/shared/pageHeader'
 import { Text } from '@radix-ui/themes';
 import { CashIcon } from '../../svg';
+import useGetRevenue from '../../hooks/revenueHooks/getHistory';
+import { useDetails } from '../../global-state/useUserDetails';
 
 export default function TransactionHistory() {
 
     const [searchParams] = useSearchParams();
     const index = searchParams.get("type");
+    const {  } = useDetails((state) => state);
 
+
+    const { } = useGetRevenue().getDonationData()
+    const { } = useGetRevenue().getWithdrawalData()
     const navigate = useNavigate()
 
     return (
         <div className=' w-full flex flex-col gap-6 ' >
             <PageHeader path={"/dashboard/donation"} back={true} header="Transaction History" body="" />
-            <div className=' w-full flex justify-center px-4 ' >
+            <div className=' w-full flex lg:px-0 px-4 ' >
                 <div className=' w-fit py-2 lg:flex hidden justify-center items-center rounded-lg bg-[#37137F1A] h-[54px] ' >
                     <CustomButton noshadow={true} onClick={() => navigate("/dashboard/donation/history")} fontSize='14px' width='180px' bgColor={!index ? "#37137F" : "transparent"} color={index ? "#37137F" : "white"}  >Donations</CustomButton>
                     <CustomButton noshadow={true} onClick={() => navigate("/dashboard/donation/history?type=Withdrawals")} fontSize='14px' width='180px' bgColor={index === "Withdrawals" ? "#37137F" : "transparent"} color={index !== "Withdrawals" ? "#37137F" : "white"} >Withdrawals</CustomButton>
@@ -28,8 +34,8 @@ export default function TransactionHistory() {
                 </div>
             </div>
             {!index && (
-                <div className=' w-full flex items-center flex-col gap-3 mt-2 ' >
-                    <div className=' max-w-[450px] w-full justify-between pb-3 border-b border-[#2E2D740D] px-3 flex items-center ' >
+                <div className=' w-full flex flex-col gap-3 mt-2 ' >
+                    <div className=' max-w-[550px] w-full justify-between pb-3 border-b border-[#2E2D740D] px-3 flex items-center ' >
                         <div className=' flex gap-2 items-center ' >
                             <div className=' w-10 h-10 bg-red-400 rounded-full ' />
                             <div className=' flex flex-col ' >
@@ -46,8 +52,8 @@ export default function TransactionHistory() {
                 </div>
             )}
             {index === "Withdrawals" && (
-                <div className=' w-full flex items-center flex-col gap-3 mt-2 ' >
-                    <div className=' max-w-[450px] w-full justify-between pb-3 border-b border-[#2E2D740D] px-3 flex items-center ' >
+                <div className=' w-full flex flex-col gap-3 mt-2 ' >
+                    <div className=' max-w-[550px] w-full justify-between pb-3 border-b border-[#2E2D740D] px-3 flex items-center ' >
                         <div className=' flex gap-2 items-center ' >
                             <div className=' w-fit text-primary ' >
                                 <CashIcon />
@@ -64,8 +70,8 @@ export default function TransactionHistory() {
                 </div>
             )}
             {index === "Sales" && (
-                <div className=' w-full flex items-center flex-col gap-3 mt-2 ' >
-                    <div className=' max-w-[450px] w-full justify-between pb-3 border-b border-[#2E2D740D] px-3 flex items-center ' >
+                <div className=' w-full flex flex-col gap-3 mt-2 ' >
+                    <div className=' max-w-[550px] w-full justify-between pb-3 border-b border-[#2E2D740D] px-3 flex items-center ' >
                         <div className=' flex gap-2 items-center ' >
                             <div className=' w-10 h-10 bg-red-400 rounded-full ' />
                             <div className=' flex flex-col ' >
