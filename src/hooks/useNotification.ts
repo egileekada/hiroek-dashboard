@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import httpService from "../utils/httpService";
 import { useState } from "react";
 

@@ -75,7 +75,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
             <div className={` w-full ${!tab ? " flex " : " lg:flex hidden "} `} >
                 <LoadingAnimation loading={isLoading || loadingMessage} >
                     <div className={` w-full px-4 flex-col flex gap-4 `} >
-                        {lodash.uniqBy(data?.members, "_id")?.map((item, index) => {
+                        {lodash.uniqBy(data?.members, "_id")?.map((item: any, index) => {
                             return (
                                 <div key={index} role="button" onClick={() => clickHandler(item)} className=" w-full flex items-center gap-2  " >
                                     <div className=" w-11 h-11 rounded-full border-2 border-primary " >
