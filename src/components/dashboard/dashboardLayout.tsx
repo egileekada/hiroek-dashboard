@@ -21,6 +21,8 @@ export default function DashboardLayout() {
     useEffect(() => {
         if (!isLoading) {
             if (data?.email) {
+                console.log(data);
+                
                 setAll({ ...data })
                 setLoading(false)
             } else if (isError) {

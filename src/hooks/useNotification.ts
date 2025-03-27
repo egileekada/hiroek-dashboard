@@ -25,7 +25,7 @@ const useNotification = () => {
 
     // react query
     const { isLoading } = useQuery(
-        ["Notification"],
+        ["Notification-List"],
         () => httpService.get(`/notifications`),
         {
             onError: (error: any) => {

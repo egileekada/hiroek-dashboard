@@ -17,9 +17,7 @@ export default function PageHeader({ header, body, back, path, second, notificat
 
     const clickHandler = () => { 
         
-        if (!path) {
-            console.log("hello");
-            console.log(path);
+        if (!path) {  
             router(-1) 
         } else {
             router(path) 

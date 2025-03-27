@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useEventDetail } from "../../global-state/useEventDetails";
 import { useMap } from "../../global-state/useMapStore";
 import { usePagintion } from "../../global-state/usePagination";
-import { IEvent, IEventDashboard } from "../../model/event";
+import { IEvent, IEventDashboard, IScanEvent } from "../../model/event";
 import httpService from "../../utils/httpService";
 import { IMessage } from "../../model/chat";
 import Cookies from "js-cookie"
@@ -229,6 +229,32 @@ const useGetEventData = () => {
     }
 
     // Get Event list
+    const getScanEventTicket = () => {
+        const [data, setData] = useState<Array<IScanEvent>>()
+        const { isLoading } = useQuery(
+            ["Event", page, pageSize, eventFilter, id],
+            () => httpService.get(`/events/ticket-scan-logs`, {
+                params:{
+                    eventId: id
+                }
+            }),
+            {
+                onError: (error: any) => {
+                    toast.error(error.response?.data)
+                },
+                onSuccess: (data: any) => {
+                    setData(data?.data?.result?.data); 
+                }
+            },
+        );
+
+        return {
+            data,
+            isLoading
+        }
+    }
+
+    // Get Event list
     const getSingleEventData = () => {
         const [data, setData] = useState<IEvent | any>()
         const { isLoading } = useQuery(
@@ -288,7 +314,8 @@ const useGetEventData = () => {
         getConversationMessageData,
         getEventMemberData,
         getOrganization,
-        getOrganizationById
+        getOrganizationById, 
+        getScanEventTicket
     };
 }
 

@@ -1,7 +1,7 @@
 import { useMutation } from "react-query";
 import httpService from "../../utils/httpService";
 import toast from "react-hot-toast"; 
-import { useNavigate, useParams, useSearchParams } from "react-router-dom"; 
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom"; 
 import { useState } from "react";
 
 
@@ -13,33 +13,41 @@ const useConversation = () => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate()
     const id = searchParams.get("id");  
+    const history = useLocation()
     const { id: eventId } = useParams();  
     const [inputMessage, setInputMessage] = useState("");
 
     
     const { mutate: createConversation, isLoading: loadingConversation } = useMutation({
         mutationFn: (data: {
-            userTwo: string,
+            userTwo: string,  
+            ownEvent: string,
             userType: 'User' | 'Organization' | 'EventPartner'
         }) => httpService.post(`/conversations`, data),
         onError: (error: any) => {  
             toast.error(error?.response?.data?.error?.details?.message)
         },
-        onSuccess: (data) => {  
+        onSuccess: (data) => { 
+            
+            console.log(data);
+            
             navigate(`/dashboard/event/support/${eventId}?id=${data?.data?.conversation?._id}`)
  
         },
     });
     
     const { mutate: verifyTicket, isLoading: verifing } = useMutation({
-        mutationFn: (data: string) => httpService.get(`/api/events/user-event-ticket-verification/${data}`),
+        mutationFn: (data: string) => httpService.get(`/events/user-event-ticket-verification/${data}`),
         onError: (error: any) => {  
             toast.error(error?.response?.data?.error?.details?.message)
         },
-        onSuccess: (data) => {  
-            console.log(data);
-            
-            // navigate(`/dashboard/event/support/${eventId}?id=${data?.data?.conversation?._id}`)
+        onSuccess: (data) => {
+
+            console.log(data?.data?.isTicketValid);
+            if(data?.data?.isTicketValid && history?.pathname?.includes("/dashboard/event/scanner")){
+                toast.success("ticket is valid")
+                navigate(`/dashboard/event/scan/history/${eventId}`)
+            }
  
         },
     });

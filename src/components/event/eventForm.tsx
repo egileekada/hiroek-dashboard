@@ -7,7 +7,7 @@ import CustomSelect from "../shared/customSelect";
 // import MultipleSelect from "../shared/multipleSelect";
 import CustomDatePicker from "../shared/customDatePicker";
 import CustomAddress from "../shared/customAddress";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { IoCloseCircle } from "react-icons/io5"; 
@@ -42,22 +42,34 @@ export default function EventForm(props: IProps) {
 
     // const { isLoading: loadingInterest, data: interestData } = useInterest()
     const { isLoading: loadingCategory, data: categoryData } = useCategory()
-    const [signupCount, setSignupCount] = useState(0)
+    // const [signupCount, setSignupCount] = useState(0)
     // const [ticketNo, setTicketNo] = useState(0)
     const [paidEvent, setPaidEvent] = useState(false)
     const [isFundraising, setIsFundraising] = useState(false) 
+    const [ticketNo, setTicketNo] = useState(0)
 
-    useEffect(() => {
-        setSignupCount(values?.signUpLimit ? values?.signUpLimit : 0)
-    }, [])
+    // useEffect(() => {
+    //     setSignupCount(values?.signUpLimit ? values?.signUpLimit : 0)
+    // }, [])
 
-    const clickSignUp = (type: "remove" | "add") => {
-        if (signupCount > 0 && type === "remove") {
-            setSignupCount((prev) => prev - 1)
-            setValue("signUpLimit", (signupCount - 1)?.toString())
+    // const clickSignUp = (type: "remove" | "add") => {
+    //     if (signupCount > 0 && type === "remove") {
+    //         setSignupCount((prev) => prev - 1)
+    //         setValue("signUpLimit", (signupCount - 1)?.toString())
+    //     } else {
+    //         setSignupCount((prev) => prev + 1)
+    //         setValue("signUpLimit", (signupCount + 1)?.toString())
+    //     }
+    // }
+
+
+    const clickTicket = (type: "remove" | "add") => {
+        if (ticketNo > 0 && type === "remove") {
+            setTicketNo((prev) => prev - 1)
+            setValue("eventTicket.totalTicket", ticketNo - 1)
         } else {
-            setSignupCount((prev) => prev + 1)
-            setValue("signUpLimit", (signupCount + 1)?.toString())
+            setTicketNo((prev) => prev + 1)
+            setValue("eventTicket.totalTicket", ticketNo + 1)
         }
     }
 
@@ -79,7 +91,7 @@ export default function EventForm(props: IProps) {
                     <CustomAddress borderRadius="8px" name="address" type="text" setValue={setValue} placeholder="Type or search for venue..." />
                 </div>
                 <div className=" w-full flex gap-4 lg:flex-row flex-col " >
-                    <div className=" flex w-full flex-col gap-1 " >
+                    {/* <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Event Sign-up Limit</Text>
                         <div className=" w-full h-[54px] text-primary border-2 px-2 border-[#37137F4D] flex justify-between items-center rounded-lg " >
                             <button onClick={() => clickSignUp("remove")} >
@@ -90,8 +102,8 @@ export default function EventForm(props: IProps) {
                                 <IoMdAddCircleOutline size={"30px"} />
                             </button>
                         </div>
-                    </div>
-                    {/* <div className=" flex w-full flex-col gap-1 " >
+                    </div> */}
+                    <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >No Of Avaliable Ticket</Text>
                         <div className=" w-full h-[54px] text-primary border-2 px-2 border-[#37137F4D] flex justify-between items-center rounded-lg " >
                             <div role="button" onClick={() => clickTicket("remove")} >
@@ -102,7 +114,7 @@ export default function EventForm(props: IProps) {
                                 <IoMdAddCircleOutline size={"30px"} />
                             </div>
                         </div>
-                    </div> */}
+                    </div>
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Event Category</Text>
                         {!loadingCategory && (

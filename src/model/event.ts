@@ -1,3 +1,4 @@
+import { IMember, IUser } from "./user";
 
 export interface IEvent {
     fundRaiser: IFundRaiser;
@@ -28,6 +29,28 @@ export interface IEvent {
     updatedAt: string
     __v: number
     _id: string
+}
+
+export interface IScanEvent {
+    "callerType": string,
+    "createAt": string,
+    "_id": string,
+    "event": string,
+    "user": {
+        "_id": string,
+        "fullname": string,
+        "photo": string
+    },
+    "attendee": string,
+    "ticketId": string,
+    "caller": {
+        "_id": string,
+        "name": string,
+        "logo": string
+    },
+    "createdAt": string ,
+    "updatedAt": string,
+    "__v": string
 }
 
 export interface IEventDashboard {
@@ -61,4 +84,16 @@ interface IEventTicket {
     "availableTickets": number,
     "totalTicket": number,
     "ticketPrice": number
+}
+
+export interface ITicketHistory {
+    "_id": string,
+    "tickets": Array<any>,
+    "createAt": string,
+    "event": IEvent,
+    "user": IMember,
+    "totalTickets": number,
+    "createdAt": string,
+    "updatedAt": string,
+    "__v": number
 } 

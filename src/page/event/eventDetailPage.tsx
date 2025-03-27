@@ -45,7 +45,7 @@ export default function EventDetailPage() {
                     <div className=" w-full h-fit flex flex-col rounded-[44px] lg:pb-8 pb-6 lg:p-8 " >
                         <div className=" w-full h-[240px] bg-green-700 rounded-b-3xl lg:rounded-3xl relative " >
                             <img src={event?.photo} alt={event?.name} className=" w-full h-full rounded-b-3xl lg:rounded-3xl object-cover " />
-                            <div role="button" onClick={() => router(-1)} className=" cursor-pointer lg:hidden w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-white lg:bg-[#FFFFFF33] flex justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
+                            <div role="button" onClick={() => router("/dashboard/event")} className=" cursor-pointer lg:hidden w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-white lg:bg-[#FFFFFF33] flex justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
                                 <BackWhiteIcon color="black" />
                             </div>
                             <div role="button" onClick={() => router(`/dashboard/event/scanner/${id}`)} className=" cursor-pointer text-xs lg:hidden w-fit px-3 h-11 absolute top-6 z-10 right-4 rounded-md bg-white lg:bg-[#FFFFFF33] flex gap-2 justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >

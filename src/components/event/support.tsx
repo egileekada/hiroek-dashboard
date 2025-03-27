@@ -7,7 +7,7 @@ import Cookies from "js-cookie"
 import LoadingAnimation from "../shared/loadingAnimation";
 import useConversation from "../../hooks/eventHooks/useConversation";
 import useGetEventData from "../../hooks/eventHooks/useGetEventData";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useConversationHook } from "../../global-state/useConversationHook";
 import lodash from 'lodash';
 import ChatInput from "../shared/chatInput"; 
@@ -24,6 +24,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
     const [searchParams] = useSearchParams();
     const token = Cookies.get("access_token")
     const index = searchParams.get("id");
+    const { id: eventId } = useParams();  
     const { updateConversation, data: condata } = useConversationHook((state) => state)
 
 
@@ -56,7 +57,8 @@ export default function EventSupport({ tab, setTab }: IProps) {
     }) => {
         createConversation({
             userTwo: item?._id,
-            userType: "User"
+            userType: "User",
+            ownEvent: eventId+""
         })
         updateConversation({
             ...condata,
@@ -73,7 +75,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
     return supportHookForm(
         <div className=' w-full flex gap-4 h-full' >
             <div className={` w-full ${!tab ? " flex " : " lg:flex hidden "} `} >
-                <LoadingAnimation loading={isLoading || loadingMessage} >
+                <LoadingAnimation loading={isLoading || loadingMessage} length={lodash.uniqBy(data?.members, "_id")?.length} >
                     <div className={` w-full px-4 flex-col flex gap-4 `} >
                         {lodash.uniqBy(data?.members, "_id")?.map((item: any, index) => {
                             return (

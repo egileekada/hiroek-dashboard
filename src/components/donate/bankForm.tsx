@@ -12,8 +12,9 @@ export default function BankForm() {
     const { bankForm, loadingBank, setValue, values } = useBank()
     const [searchParams] = useSearchParams();
     const index = searchParams.get("pin");
+    const type = searchParams.get("type");
 
-    const [sortCode, setSortCode] = useState("") 
+    const [sortCode, setSortCode] = useState("")
 
     const { bankAccountName, bankAccountNumber, bankName } = useDetails((state) => state);
 
@@ -22,17 +23,21 @@ export default function BankForm() {
     const clickHandler = () => {
 
         console.log(values);
-        
-        if(!values?.bankAccountName) {
+
+        if (!values?.bankAccountName) {
             toast.error("Please Enter Bank Account Name")
-        } else if(!values?.bankName) {
+        } else if (!values?.bankName) {
             toast.error("Please Enter Bank Name")
-        } else if(!values?.bankAccountNumber) {
+        } else if (!values?.bankAccountNumber) {
             toast.error("Please Enter Account Number")
-        } else if(!sortCode) {
+        } else if (!sortCode) {
             toast.error("Please Enter Sort Code")
-        }  else{
-            navigate("/dashboard/donation/bankInfo?pin=true")
+        } else {
+            if (type) {
+                navigate("/dashboard/donation/bankInfo?pin=true&type=change")
+            } else {
+                navigate("/dashboard/donation/bankInfo?pin=true")
+            }
         }
     }
 
@@ -40,16 +45,16 @@ export default function BankForm() {
         if (!values?.bankAccountName) {
             setValue("bankAccountName", bankAccountName)
             setValue("bankAccountNumber", bankAccountNumber)
-            setValue("bankName", bankName) 
+            setValue("bankName", bankName)
             // changeHandler("address", defaultdata?.address)
             // changeHandler("address", defaultdata?.address)
         }
     }, [values])
 
-    const SortHandler = (name: string, item: string) =>{
+    const SortHandler = (name: string, item: string) => {
         setValue(name, item)
         setSortCode(item)
-    } 
+    }
 
     return bankForm(
         <div className=" w-full flex flex-col gap-4 pb-6 " >
@@ -57,21 +62,21 @@ export default function BankForm() {
                 <div className=" w-full p-5 flex flex-col gap-4 " style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }}  >
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Account Holder Name*</Text>
-                        <CustomInput value={values.bankAccountName} edit={true}  setValue={setValue} name="bankAccountName" type="text" placeholder="Enter Account Name" />
+                        <CustomInput value={values.bankAccountName} edit={true} setValue={setValue} name="bankAccountName" type="text" placeholder="Enter Account Name" />
                     </div>
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Bank Name*</Text>
-                        <CustomInput value={values.bankName} edit={true}  setValue={setValue}  name="bankName" type="text" placeholder="Enter Bank Name" />
+                        <CustomInput value={values.bankName} edit={true} setValue={setValue} name="bankName" type="text" placeholder="Enter Bank Name" />
                         {/* <SelectBankType value={values?.bankName ?? "Select Bank"} setValue={changeHandler} options={bankInfoData} />  */}
                     </div>
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Account Number*</Text>
-                        <CustomInput value={values.bankAccountNumber} edit={true}  setValue={setValue}  name="bankAccountNumber" type="text" placeholder="Enter Account No." />
+                        <CustomInput value={values.bankAccountNumber} edit={true} setValue={setValue} name="bankAccountNumber" type="text" placeholder="Enter Account No." />
                     </div>
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Sort Code*</Text>
                         <CustomInput value={values.sortCode} name="sortCode" edit={true} setValue={SortHandler} type="text" placeholder="Enter Sort Code" />
-                    </div> 
+                    </div>
                     <div className=" flex w-full mt-4 flex-col gap-1 " >
                         <CustomButton onClick={clickHandler} type="button" >
                             Proceed

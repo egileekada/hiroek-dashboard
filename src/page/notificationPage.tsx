@@ -9,6 +9,9 @@ import { textLimit } from '../utils/textlimit'
 import ModalLayout from '../components/shared/modalLayout'
 import { useState } from 'react'
 import { CustomButton } from '../components/shared'
+import { io } from "socket.io-client";
+import Cookies from "js-cookie"
+import { useQueryClient } from 'react-query'
 
 export default function NotificationPage() {
 
@@ -16,60 +19,82 @@ export default function NotificationPage() {
 
     const { isLoading, data } = useNotification()
     const [open, setOpen] = useState(false)
+
+    const query = useQueryClient()
     const { name } = useDetails((state) => state);
+    const token = Cookies.get("access_token")
     const [detail, setDetail] = useState({
         name: "",
-        message: ""
+        message: "",
+        id: ""
     })
+
+
+    const socket: any = io("https://staging.hiroek.io", {
+        auth: {
+            token: token
+        }
+    });
 
     const clickHandler = (item: {
         name: string,
-        message: string
+        message: string,
+        id: string
     }) => {
         setDetail(item)
         setOpen(true)
     }
 
+    const closeHandler = (item: string) => {
+        socket.emit('notification-opened', {
+            notificationId: item
+        });
+
+        query.invalidateQueries("Notification-List")
+        query.invalidateQueries("Notification-counting")
+
+        setOpen(false)
+    }
+
     return (
         <div className=' w-full flex flex-col gap-6 ' >
-            <PageHeader back={true} header="Notifications" body="Get Notification On Donations To Your Organisation, On Events Set Up In Aid of Your Mission And More…" />
+            <PageHeader back={true} header="Notifications" body="Manage your platform effectively with hiroek." />
             <LoadingAnimation loading={isLoading} length={data?.length} >
-                <div className=' max-w-[400px] w-full flex flex-col gap-3 lg:px-0 px-4 pb-6 ' >
+                <div className=' lg:max-w-[400px] w-full flex flex-col lg:px-0pb-6 ' >
                     {data?.map((item, index) => {
-                        if (item?.title === "New Event Donation") {
-                            return (
-                                <div onClick={()=> clickHandler({
-                                    name: item?.title, 
-                                    message: item?.message
-                                })} style={{boxShadow: "0px 2px 4px 0px #0000000D"}} key={index} className=' py-2 w-full flex items-center gap-4 lg:border-b-0 border-b pb-6 lg:pb-2 lg:px-3  ' >
-                                    <div className=' flex gap-2 items-center ' >
-                                        {item?.title === "New Event Donation" && (
-                                            <div className=' w-fit' >
-                                                <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
-                                                    <DonateIcon />
-                                                </div>
+                        return (
+                            <div onClick={() => clickHandler({
+                                name: item?.title,
+                                message: item?.message,
+                                id: item?._id
+                            })} style={{ boxShadow: "0px 2px 4px 0px #0000000D" }} key={index} className={` ${item?.isRead ? " bg-black bg-opacity-10 "  : ""} h-[80px] px-2 w-full flex items-center gap-4 lg:border-b-0 border-b `} >
+                                <div className=' flex gap-2 items-center ' >
+                                    {item?.title === "New Event Donation" && (
+                                        <div className=' w-fit' >
+                                            <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
+                                                <DonateIcon />
                                             </div>
-                                        )}
-                                        <div className=' flex flex-col ' >
-                                            <Text className=' text-sm tracking-[-0.5px] font-bold text-primary ' >{item?.title}</Text>
-                                            <Text className=' text-[10px] text-primary text-opacity-75 ' ><span className=' font-bold ' >{name}</span> {textLimit(item?.message, 20)}</Text>
                                         </div>
-                                    </div>
-                                    <div className=' w-fit ml-auto  ' >
-                                        <Text className=' text-[10px] font-extrabold text-primary text-opacity-50' >{moment(item?.createdAt)?.fromNow()}</Text>
+                                    )}
+                                    <div className=' flex flex-col ' >
+                                        <Text className=' text-sm tracking-[-0.5px] font-bold text-primary ' >{item?.title}</Text>
+                                        <Text className=' text-[10px] text-primary text-opacity-75 ' ><span className=' font-bold ' >{name}</span> {textLimit(item?.message, 20)}</Text>
                                     </div>
                                 </div>
-                            )
-                        }
+                                <div className=' w-fit ml-auto  ' >
+                                    <Text className=' text-[10px] font-extrabold text-primary text-opacity-50' >{moment(item?.createdAt)?.fromNow()}</Text>
+                                </div>
+                            </div>
+                        )
                     })}
                 </div>
             </LoadingAnimation>
             <ModalLayout open={open} width='max-w-[350px]' setOpen={setOpen} >
                 <div className=' w-full flex flex-col gap-3 ' >
                     <p className=' text-xl font-semibold text-center ' >{detail?.name}</p>
-                    <p className=' text-sm ' >{detail?.message}</p>
-                    <div className=' my-3 w-full flex justify-center ' > 
-                        <CustomButton height='40px' width='200px' >Close</CustomButton>
+                    <p className=' text-sm text-center ' >{detail?.message}</p>
+                    <div className=' my-3 w-full flex justify-center ' >
+                        <CustomButton onClick={()=> closeHandler(detail?.id)} height='35px' fontSize='14px' width='150px' >Close</CustomButton>
                     </div>
                 </div>
             </ModalLayout>

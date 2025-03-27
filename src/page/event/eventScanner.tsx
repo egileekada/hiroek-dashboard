@@ -2,14 +2,23 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { CustomButton } from '../../components/shared'
 import { CloseIcon, HistoryIcon } from '../../svg'
 import { QrReader } from 'react-qr-reader'
-// import useConversation from '../../hooks/eventHooks/useConversation'
+import useConversation from '../../hooks/eventHooks/useConversation'
+import { useEffect, useState } from 'react'
 
 function EventScanner() {
 
     const navigate = useNavigate()
     const { id } = useParams();
 
-    // const { verifyTicket } = useConversation()
+    const { verifyTicket } = useConversation()
+
+    const [index, setIndex] = useState("")
+
+    useEffect(()=> {
+        if(index){
+            verifyTicket(index)
+        }
+    }, [index])
 
     return (
         <div className=' w-full flex relative h-full justify-center bg-primary items-center  ' >
@@ -25,8 +34,8 @@ function EventScanner() {
                     <QrReader 
                         onResult={(result: any) => {
                             if (!!result) {
-                                console.log(result);
-                                // verifyTicket(result)
+                                if(index !== result?.text)
+                                setIndex(result?.text);
                             }
                         }}
                         constraints={{ facingMode: "user" }}  // Set container style

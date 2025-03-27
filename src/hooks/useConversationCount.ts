@@ -4,20 +4,19 @@ import httpService from "../utils/httpService";
 import { useState } from "react";
 
 
-const useNotificationCount = () => {
+const useConversationCount = () => {
 
     const [data, setData] = useState(null)
 
     // react query
     const { isLoading } = useQuery(
-        ["Notification-counting"],
-        () => httpService.get(`/notifications/unread-notifications-count`),
+        ["Conversations"],
+        () => httpService.get(`/conversations/unread-messages-count`),
         {
             onError: (error: any) => {
                 toast.error(error.response?.data)
             },
-            onSuccess: (data: any) => {
-
+            onSuccess: (data: any) => { 
                 setData(data?.data?.count);
  
             }
@@ -30,4 +29,4 @@ const useNotificationCount = () => {
     };
 }
 
-export default useNotificationCount
+export default useConversationCount

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { DownArrowIcon, MessageIcon, NotificationIcon } from "../../svg";
-import { Text } from "@radix-ui/themes";
+import { Spinner, Text } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
 import { useDetails } from "../../global-state/useUserDetails";
 import { capitalizeFLetter } from "../../utils/capitalLetter";
-// import useNotificationCount from "../../hooks/useNotificationCount";
+import useNotificationCount from "../../hooks/useNotificationCount";
+import useConversationCount from "../../hooks/useConversationCount";
 
 
 export default function Navbar() {
@@ -14,7 +15,9 @@ export default function Navbar() {
     const router = useNavigate()
     const { name, logo } = useDetails((state) => state);
 
-    // const {  } = useNotificationCount()
+    const { data, isLoading: loading } = useNotificationCount()
+
+    const { data: count, isLoading } = useConversationCount()
 
     return (
         <div className=" w-full h-[55px] flex justify-between items-center px-4 " >
@@ -24,13 +27,23 @@ export default function Navbar() {
             <div className=" flex items-center ml-auto " >
                 <div onClick={() => router("/dashboard/notification")} role="button" className=" w-10 h-10 relative flex justify-center items-center " >
                     <div className=' absolute top-0 right-0 w-5 h-5 text-white bg-[#B00062] rounded-full pt-[2px] font-semibold text-[10px] tracking-[0.5%] flex justify-center items-center ' >
-                        0
+                    {isLoading && (
+                            <Spinner size={"1"} />
+                        )}
+                        {!isLoading && (
+                            count
+                        )}
                     </div>
                     <MessageIcon />
                 </div>
                 <div onClick={() => router("/dashboard/notification")} role="button" className=" w-10 h-10 relative flex justify-center items-center " >
                     <div className=' absolute top-0 right-0 w-5 h-5 text-white bg-[#B00062] rounded-full pt-[2px] font-semibold text-[10px] tracking-[0.5%] flex justify-center items-center ' >
-                        0
+                        {loading && (
+                            <Spinner size={"1"} />
+                        )}
+                        {!loading && (
+                            data
+                        )}
                     </div>
                     <NotificationIcon />
                 </div>

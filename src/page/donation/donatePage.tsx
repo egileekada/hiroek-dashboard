@@ -1,4 +1,4 @@
-import { Text } from "@radix-ui/themes";
+import { Spinner, Text } from "@radix-ui/themes";
 import PageHeader from "../../components/shared/pageHeader";
 import { WalletIcon } from "../../svg";
 import { CustomButton } from "../../components/shared";
@@ -6,24 +6,21 @@ import { useNavigate } from "react-router-dom";
 import { useDetails } from "../../global-state/useUserDetails";
 import { formatNumber } from "../../utils/numberFormat";
 import InfoGraph from "../../components/donate/infoGraph";
-import { useState } from "react"; 
+import { useState } from "react";
+import useBankBal from "../../hooks/useBankBal";
 
 
 export default function DonatePage() {
     const router = useNavigate()
-    const { fundRaised, bankAccountNumber, bankName } = useDetails((state) => state);
+    const { bankAccountNumber, bankName } = useDetails((state) => state);
 
     const [tab, setTab] = useState(false)
+    const { data, isLoading } = useBankBal()
 
     return (
         <div className=' w-full flex flex-col gap-6 ' >
             <div className=" w-full flex items-center justify-between " >
                 <PageHeader header="Manage Your Donations." body="Manage Your Donation." />
-                {/* <div className=" w-fit lg:block hidden text-white ">
-                    <CustomButton className=" px-3 " width="200px" onClick={() => router("/dashboard/donation/pin")} >
-                        Update Pin
-                    </CustomButton>
-                </div> */}
             </div>
             <div className=" w-full flex flex-col lg:flex-row gap-6 lg:px-0 px-4 " >
                 <div className=" lg:w-fit w-full flex gap-4 items-center flex-col  " >
@@ -31,7 +28,9 @@ export default function DonatePage() {
                         <div className=" w-full flex items-center justify-between px-6 " >
                             <div className=" flex flex-col " >
                                 <Text className=" text-sm font-bold " >Donations Account Balance</Text>
-                                <Text className=" text-[22px] font-semibold -mt-1 "  >{formatNumber(fundRaised / 100)}</Text>
+                                {isLoading ? <Spinner size={"2"} /> :
+                                    <Text className=" text-[22px] font-semibold -mt-1 "  >{formatNumber(data?.balance / 100)}</Text>
+                                }
                             </div>
                             <WalletIcon />
                         </div>

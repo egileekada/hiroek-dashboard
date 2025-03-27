@@ -17,13 +17,13 @@ interface IProps {
     setValue: any;
     formState: any;
     isLoading: boolean,
-    values: any, 
+    values: any,
     defaultdata: IEvent
     submit: any
-    open: boolean, 
+    open: boolean,
     setOpen: any,
     isSuccess: boolean
-} 
+}
 
 export default function EditEventForm(props: IProps) {
 
@@ -45,16 +45,17 @@ export default function EditEventForm(props: IProps) {
     const changeHandler = (item: string, name: string) => {
         setValue(name, item)
     }
-    const [signupCount, setSignupCount] = useState(0)
+    // const [signupCount, setSignupCount] = useState(0)
     // const [ticketNo, setTicketNo] = useState(0)
     const [paidEvent, setPaidEvent] = useState(false)
     const [isFundraising, setIsFundraising] = useState(false)
+    const [ticketNo, setTicketNo] = useState(0)
 
     console.log(defaultdata);
-    
+
 
     useEffect(() => {
-        setSignupCount(values?.signUpLimit ? values?.signUpLimit : defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
+        // setSignupCount(values?.signUpLimit ? values?.signUpLimit : defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
         // setTicketNo(values?.eventTicket?.totalTicket ? values?.eventTicket?.totalTicket : defaultdata?.eventTicket?.totalTicket ? defaultdata?.eventTicket?.totalTicket : 0)
         setPaidEvent(defaultdata?.eventTicket?.ticketPrice > 0 ? true : false)
         setIsFundraising(defaultdata?.fundRaiser?.fundRaisingGoal > 0 ? true : false)
@@ -77,16 +78,25 @@ export default function EditEventForm(props: IProps) {
         }
     }, [values])
 
-    const clickSignUp = (type: "remove" | "add") => {
-        if (signupCount > 0 && type === "remove") {
-            setSignupCount((prev) => prev - 1)
-            setValue("signUpLimit", (signupCount - 1)?.toString())
+    // const clickSignUp = (type: "remove" | "add") => {
+    //     if (signupCount > 0 && type === "remove") {
+    //         setSignupCount((prev) => prev - 1)
+    //         setValue("signUpLimit", (signupCount - 1)?.toString())
+    //     } else {
+    //         setSignupCount((prev) => prev + 1)
+    //         setValue("signUpLimit", (signupCount + 1)?.toString())
+    //     }
+    // }
+
+    const clickTicket = (type: "remove" | "add") => {
+        if (ticketNo > 0 && type === "remove") {
+            setTicketNo((prev) => prev - 1)
+            setValue("eventTicket.totalTicket", ticketNo - 1)
         } else {
-            setSignupCount((prev) => prev + 1)
-            setValue("signUpLimit", (signupCount + 1)?.toString())
+            setTicketNo((prev) => prev + 1)
+            setValue("eventTicket.totalTicket", ticketNo + 1)
         }
-    }  
-    
+    }
 
     return (
         <div className=" w-full flex flex-col gap-4 lg:pb-6 " >
@@ -107,13 +117,13 @@ export default function EditEventForm(props: IProps) {
                 </div>
                 <div className=" w-full flex gap-4 lg:flex-row flex-col " >
                     <div className=" flex w-full flex-col gap-1 " >
-                        <Text className=" text-primary font-semibold text-sm " >Event Sign-up Limit</Text>
-                        <div className=" w-full h-[54px] text-primary border-2 px-2 border-[#37137F4D] flex justify-between items-center rounded-lg " >
-                            <div role="button" onClick={() => clickSignUp("remove")} >
+                        <Text className=" text-primary font-semibold text-sm " >No Of Avaliable Ticket</Text>
+                        <div className=" w-full h-[54px] text-opacity-30 text-primary border-2 px-2 border-[#37137F4D] flex justify-between items-center rounded-lg " >
+                            <div role="button" onClick={() => clickTicket("remove")} >
                                 <AiOutlineMinusCircle size={"30px"} />
                             </div>
-                            {signupCount}
-                            <div role="button" onClick={() => clickSignUp("add")} >
+                            {values?.eventTicket?.totalTicket + ""}
+                            <div role="button" onClick={() => clickTicket("add")} >
                                 <IoMdAddCircleOutline size={"30px"} />
                             </div>
                         </div>
@@ -145,7 +155,7 @@ export default function EditEventForm(props: IProps) {
                         <div className=" w-full flex lg:flex-row flex-col gap-3 text-primary " >
                             <div className=" flex w-full flex-col gap-1 " >
                                 <Text className=" text-primary font-semibold text-sm " >Event Ticket Price</Text>
-                                <CustomInput disable={true} value={values?.eventTicket?.ticketPrice ? values?.eventTicket?.ticketPrice/100  : defaultdata?.eventTicket?.ticketPrice} borderRadius="8px" name="eventTicket.ticketPrice" type="number" placeholder="" icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} />
+                                <CustomInput disable={true} value={values?.eventTicket?.ticketPrice ? values?.eventTicket?.ticketPrice / 100 : defaultdata?.eventTicket?.ticketPrice} borderRadius="8px" name="eventTicket.ticketPrice" type="number" placeholder="" icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} />
                             </div>
                             {/* <div className=" flex w-full flex-col gap-1 " >
                                 <Text className=" text-primary font-semibold text-sm " >No Of Avaliable Ticket</Text>
