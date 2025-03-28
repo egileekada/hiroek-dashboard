@@ -60,14 +60,14 @@ const useCommunity = () => {
 
             toast.error(error?.response?.data?.error?.details?.message)
         },
-        onSuccess: (data) => {
+        onSuccess: () => {
             toast.success("Created Post Successfully")
             // router("/dashboard/community") 
-            if(index) { 
-                createAnnocement(data?.data?.post?._id)
-            } else {
+            // if(index) { 
+            //     createAnnocement(data?.data?.post?._id)
+            // } else {
                 router("/dashboard/community/details/"+id)
-            }
+            // }
 
         },
     }); 
@@ -271,6 +271,9 @@ const useCommunity = () => {
 
             const formData = new FormData()
             formData.append("content", data?.content)
+            if(index) {
+                formData.append("isAnnouncement", "true")
+            }
             formData.append("communityId", data?.communityId)
             if (images?.length > 0) {
                 images?.map((item) => (
@@ -288,9 +291,12 @@ const useCommunity = () => {
             const formData = new FormData()
             formData.append("content", content)
             formData.append("communityId", id+"")
+            if(index) {
+                formData.append("isAnnouncement", "true")
+            }
             if (images?.length > 0) {
                 images?.map((item) => (
-                    formData.append("attachments[]", item)
+                    formData.append("attachment", item)
                 ))
             }
             createPost(formData)

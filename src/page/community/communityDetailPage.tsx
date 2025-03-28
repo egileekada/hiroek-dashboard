@@ -24,7 +24,7 @@ export default function CommunityDetailPage() {
 
 
     return (
-        <div className=' w-full flex flex-col gap-6 ' >
+        <div className=' w-full flex flex-col gap-6 absolute inset-0 px-4 ' >
             <div className=" w-full lg:flex hidden items-center justify-between " >
                 <PageHeader path={"/dashboard/community"} back={true} header="Community Details" body="Effortless Event Creation and Community Engagement." />
                 <div className=" gap-3 w-fit flex ">
@@ -40,14 +40,7 @@ export default function CommunityDetailPage() {
             </div> */}
             <LoadingAnimation loading={isLoading} >
                 <CommunityDetail item={data} />
-            </LoadingAnimation>
-            {/* <div className=" w-fit lg:hidden fixed bottom-8 ml-auto mr-6 right-0  ">
-                <CustomButton rounded="44px" bgColor="linear-gradient(180deg, #4C49ED 0%, rgba(55, 19, 127, 0.9) 100%)" onClick={() => router(`/dashboard/community/post/${id}`)} hasFrontIcon={true} icon={
-                    <ChatWhiteIcon />
-                } >
-                   Add New Post
-                </CustomButton>
-            </div> */}
+            </LoadingAnimation> 
             <div className="fixed bottom-4 w-[240px] right-4 flex flex-col justify-end items-center">
                 {/* Animated Buttons */}
                 {isOpen && (

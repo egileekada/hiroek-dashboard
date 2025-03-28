@@ -55,7 +55,7 @@ export default function CommunitySinglePostPage() {
                             <Text className=" text-xs font-medium " >{item?.content}</Text>
                             {item?.attachments?.length > 0 && (
                                 <div className=" w-full h-[200px] rounded-2xl " >
-                                    <img className=" w-full h-full rounded-2xl " src={item?.attachments[0]} alt={item?.attachments[0]} />
+                                    <img className=" w-full h-full rounded-2xl " src={item?.attachments[0]?.image} alt={item?.attachments[0]?.image} />
                                 </div>
                             )}
                             <div className=" flex items-center gap-4 " >

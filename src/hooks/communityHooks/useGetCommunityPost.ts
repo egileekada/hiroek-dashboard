@@ -9,7 +9,12 @@ import { IMember, IUser } from "../../model/user";
 
 export interface IPost {
     "userType": string,
-    "attachments": Array<any>,
+    "attachments": Array<{
+        "_id": string,
+        "image": string,
+        "createdAt": string,
+        "updatedAt": string, 
+    }>,
     "likes": Array<string>,
     "comments": Array<any>,
     "isAnnouncement": boolean,

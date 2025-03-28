@@ -1,4 +1,4 @@
-import { IMember, IUser } from "./user";
+import { IMember } from "./user";
 
 export interface IEvent {
     fundRaiser: IFundRaiser;

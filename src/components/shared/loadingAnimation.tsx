@@ -38,9 +38,9 @@ function LoadingAnimation(props: Props) {
     }, [loading])
 
     return (
-        <div className={` ${width ? width : "w-full"}  bg-white `} >
+        <div className={` ${width ? width : "w-full h-full "}  bg-white `} >
             {(!loading && !isLoading) && (
-                <div className=' w-full ' >
+                <div className=' w-full h-full ' >
                     {children}
                     {((!loading) && refeching && length) && (
                         <div className=' w-full  flex ' >
