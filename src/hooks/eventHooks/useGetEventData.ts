@@ -43,9 +43,7 @@ const useGetEventData = () => {
                     toast.error(error.response?.data)
                 },
                 onSuccess: (data: any) => {
-                    setData(data?.data?.events?.data)
-
-                    console.log(userId);
+                    setData(data?.data?.events?.data) 
 
                 },
                 // enabled: history?.pathname?.includes("dashboard/event") || history?.pathname === "/dashboard"
@@ -63,12 +61,7 @@ const useGetEventData = () => {
         const [data, setData] = useState<Array<IEvent>>([])
         const { isLoading } = useQuery(
             ["Event-member", page, pageSize, eventFilter],
-            () => httpService.get(`/organizations/fundraiser-events/${userId}`, {
-                // params: {
-                //     page: page,
-                //     pageSize: pageSize,
-                //     eventFilter: eventFilter
-                // }
+            () => httpService.get(`/organizations/fundraiser-events/${userId}`, { 
             }),
             {
                 onError: (error: any) => {
@@ -76,8 +69,7 @@ const useGetEventData = () => {
                 },
                 onSuccess: (data: any) => {
                     setData(data?.data?.events?.data)
-                },
-                // enabled: history?.pathname?.includes("dashboard/event") || history?.pathname === "/dashboard"
+                }, 
             },
         );
 
@@ -281,7 +273,7 @@ const useGetEventData = () => {
 
     // Get Event list
     const getConversationMessageData = () => {
-        const [data, setData] = useState<Array<IMessage>>()
+        const [data, setData] = useState<Array<IMessage>>([])
         const { isLoading, refetch } = useQuery(
             ["Conversation-Message", conversationId],
             () => httpService.get(`/conversations/${conversationId}/messages`),

@@ -40,11 +40,11 @@ Sidebar() {
                                 )}
                             </div>
                             <Text className=' md:hidden lg:block text-sm font-bold leading-5 ' >{item?.name}</Text>
-                            {item?.indicator && (
+                            {/* {item?.indicator && (
                                 <div className=' w-5  md:hidden lg:flex ml-auto h-5 text-white bg-primary rounded font-semibold text-[10px] tracking-[0.5%] flex justify-center items-center ' >
                                     0
                                 </div>
-                            )}
+                            )} */}
                         </div>
                     )
                 })}

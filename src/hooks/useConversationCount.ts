@@ -10,7 +10,7 @@ const useConversationCount = () => {
 
     // react query
     const { isLoading } = useQuery(
-        ["Conversations"],
+        ["Conversations-count"],
         () => httpService.get(`/conversations/unread-messages-count`),
         {
             onError: (error: any) => {

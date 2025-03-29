@@ -10,8 +10,9 @@ import useGetEventData from "../../hooks/eventHooks/useGetEventData";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useConversationHook } from "../../global-state/useConversationHook";
 import lodash from 'lodash';
-import ChatInput from "../shared/chatInput"; 
+import ChatInput from "../shared/chatInput";
 import moment from "moment";
+import { useQueryClient } from "react-query";
 
 interface IProps {
     tab: boolean,
@@ -24,8 +25,9 @@ export default function EventSupport({ tab, setTab }: IProps) {
     const [searchParams] = useSearchParams();
     const token = Cookies.get("access_token")
     const index = searchParams.get("id");
-    const { id: eventId } = useParams();  
+    const { id: eventId } = useParams();
     const { updateConversation, data: condata } = useConversationHook((state) => state)
+    const query = useQueryClient()
 
 
     const userId = Cookies.get("user-index")
@@ -58,7 +60,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
         createConversation({
             userTwo: item?._id,
             userType: "User",
-            ownEvent: eventId+""
+            ownEvent: eventId + ""
         })
         updateConversation({
             ...condata,
@@ -71,6 +73,22 @@ export default function EventSupport({ tab, setTab }: IProps) {
     const changeHandler = (value: any) => {
         setInputMessage(value);
     }
+
+    // socket.emit('conversation-opened', {
+    //     conversationId: 'CONVERSATION_ID'
+    //   });
+    useEffect(() => {
+        if (conversation?.length > 0) { 
+            conversation?.map((item) => {
+                if (item?.status === "unread") {
+                    socket.emit('conversation-opened', {
+                        conversationId: item?._id
+                    });
+                }
+            })
+            query?.invalidateQueries("Conversations-count")
+        }
+    }, [conversation])
 
     return supportHookForm(
         <div className=' w-full flex gap-4 h-full' >
@@ -88,10 +106,6 @@ export default function EventSupport({ tab, setTab }: IProps) {
                                         {/* <Text className=" text-xs font-medium text-[#000000BF] tracking-[1%] " >Can we get this event started?</Text> */}
                                     </div>
                                     <div className=" flex flex-col ml-auto text-right gap-1 " >
-                                        {/* <Text className=" text-[8px] font-extrabold text-[#6D6D6D] " >{item?.fullname}</Text> */}
-                                        {/* <div className=" w-[22px] h-[22px] text-xs font-black text-white bg-primary tracking-[1.2%] ml-auto rounded-full flex justify-center items-center " style={{ boxShadow: "0px 2px 2px 0px #00000026" }} >
-                                            0
-                                        </div> */}
                                     </div>
                                 </div>
                             )

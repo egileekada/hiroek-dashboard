@@ -1,5 +1,5 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
-import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, NotificationPage, PostReportPage, ProfileInfoPage, ResetPasswordPage, ResetSentPage, SelectUpdate, SettingsPage, SupportPage, TransactionHistory, WithDrawalPin, WithdrawPage } from "./page";
+import { AddBankDetailPage, ChangePasswordPage, ClaimAccountPage, CommunityDetailPage, CommunityMemberPage, CommunityPage, CommunityPostPage, CreateCommunityPage, CreateEventPage, DashboardPage, DonatePage, EventDetailPage, EventPage, EventSupportPage, ImpactReportDetailPage, ImpactReportPage, LoginPage, MessagePage, NotificationPage, PostReportPage, ProfileInfoPage, ResetPasswordPage, ResetSentPage, SelectUpdate, SettingsPage, SupportPage, TransactionHistory, WithDrawalPin, WithdrawPage } from "./page";
 import { DashboardLayout } from "./components/dashboard";
 import EventDashboardPage from "./page/event/eventDashboardPage";
 import EventScanner from "./page/event/eventScanner";
@@ -18,10 +18,6 @@ function App() {
         <Route path="/forgot-password" element={<ResetPasswordPage />} />
         <Route path="/reset-password" element={<ChangePasswordPage />} />
         <Route path="/reset-sent" element={<ResetSentPage />} />
-          <Route path="message" element={
-            <>
-            </>
-          } />
         <Route path="/dashboard" element={<DashboardLayout  />} >
           <Route index element={<DashboardPage />} />
           <Route path="event" >
@@ -52,6 +48,7 @@ function App() {
             <Route path="withdraw" element={<WithdrawPage />} />
           </Route>
           <Route path="notification" element={<NotificationPage />} />
+          <Route path="message" element={<MessagePage />} />
           <Route path="profile" element={<ProfileInfoPage />} />
           {/* <Route path="profile" element={<ProfileInfoPage />} /> */}
           <Route path="settings" element={<SettingsPage />} />

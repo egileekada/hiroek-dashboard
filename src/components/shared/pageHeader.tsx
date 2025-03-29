@@ -28,13 +28,13 @@ export default function PageHeader({ header, body, back, path, second, notificat
         <div className={` ${second ? " lg:w-auto w-full flex-row lg:items-center items-center lg:justify-start justify-between " : " w-auto lg:flex-row flex-col "} relative flex lg:items-center lg:px-0 px-4 gap-3 `} >
             {back && (
                 <div className=' w-fit relative z-20 ' >
-                    <div onClick={clickHandler} role='button' className=' w-11 h-11 lg:w-[62px] lg:h-[62px] flex justify-center bg-primary bg-opacity-15 rounded-[6px] items-center cursor-pointer ' style={{ boxShadow: "0px 2px 4px 0px #0000000D" }} >
+                    <div onClick={clickHandler} role='button' className=' w-11 h-11 lg:w-[45px] lg:h-[45px] flex justify-center bg-primary bg-opacity-15 rounded-[6px] items-center cursor-pointer ' style={{ boxShadow: "0px 2px 4px 0px #0000000D" }} >
                         <BackArrowIcon />
                     </div>
                 </div>
             )}
-            <div className={` ${second ? " lg:relative absolute inset-0 lg:pl-0 pl-4 w-full flex flex-row justify-center " : " flex flex-col "}  gap-2 lg:mt-0 mt-3 `} >
-                <Text className=' lg:text-[28px] lg:!leading-7 font-black tracking-[1%] text-primary ' >{header}</Text>
+            <div className={` ${second ? " lg:relative absolute inset-0 lg:pl-0 pl-4 w-full flex flex-row justify-center " : " flex flex-col "}  lg:mt-0 mt-3 `} >
+                <Text className=' lg:text-[24px] lg:!leading-7 font-black tracking-[1%] text-primary ' >{header}</Text>
                 {body && (
                     <Text className=' !leading-5 font-semibold text-primary text-opacity-50 ' >{body}</Text>
                 )}

@@ -679,7 +679,7 @@ export const WalletIcon = () => (
 )
 
 export const BackArrowIcon = () => (
-    <svg className=" lg:w-[14px] w-2 " viewBox="0 0 14 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className=" lg:w-[10px] w-2 " viewBox="0 0 14 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M10.6667 21.1666L7.4346 17.9632C4.85705 15.4085 3.56828 14.1312 3.36984 12.5744C3.32122 12.1929 3.32122 11.8069 3.36984 11.4255C3.56828 9.86862 4.85705 8.5913 7.4346 6.03665L10.6667 2.83325" stroke="#37137F" strokeWidth="5" strokeLinecap="round" />
     </svg>
 )
