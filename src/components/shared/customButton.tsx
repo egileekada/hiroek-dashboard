@@ -17,6 +17,7 @@ interface IProps {
     borderColor?: string;
     noshadow?: boolean;
     isDisabled?: boolean;
+    hasIcon?: boolean;
     [x:string]: any;
 }
 
@@ -43,13 +44,13 @@ export default function CustomButton(props: IProps) {
     } = props
 
     return ( 
-        <button {...rest} type={type} disabled={loading || isDisabled} style={{boxShadow: noshadow  ? "" :"2px 2px 0px 0px #37137F4D", background: bgColor ?? "#37137f", color: color ?? "white", borderRadius: rounded ?? "10px", height: height ?? "50px", width: width ?? "100%", fontSize: fontSize ?? "16px", borderWidth: borderWidth ?? "0px", borderColor: borderColor ?? "transparent" }} className=' px-3 flex gap-2 items-center text-white font-semibold justify-center' >
+        <button {...rest} type={type} disabled={loading || isDisabled} style={{background: bgColor ?? "#37137f", color: color ?? "white", borderRadius: rounded ?? "8px", height: height ?? "54px", width: width ?? "100%", fontSize: fontSize ?? "14px", borderWidth: borderWidth ?? "0px", borderColor: borderColor ?? "transparent" }} className=' px-3 flex gap-2 !items-center text-white font-semibold !justify-center' >
             {(hasFrontIcon && !loading) && (
                 <>
                     {icon ?? <ArrowIcon />}
                 </>
             )}
-            {loading ? "Loading..." : children}
+            <p className=' mt-[3px] ' >{loading ? "Loading..." : children}</p>
             {(hasIcon && !loading) && (
                 <>
                     {icon ?? <ArrowIcon />}

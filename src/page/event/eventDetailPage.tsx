@@ -1,6 +1,6 @@
 import { Text } from "@radix-ui/themes";
 import PageHeader from "../../components/shared/pageHeader";
-import { BackWhiteIcon, ClockIcon, DonateIcon, EditIcon, EventIcon, HistoryIcon, LocationIcon, QRIcon, TrashIcon, TwoChatIcon } from "../../svg";
+import { BackWhiteIcon, CalendarIcon2, CashIcon, ClockIcon, EditIcon, HistoryIcon, LocationIcon, QRIcon, TicketIcon, TrashIcon, TwoChatIcon } from "../../svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { CustomButton } from "../../components/shared";
 import { useEventDetail } from "../../global-state/useEventDetails";
@@ -59,47 +59,52 @@ export default function EventDetailPage() {
                         </div>
                         <div className=" w-full px-4 relative z-20 -mt-[80px]  " >
                             <div className=" py-5 px-4 gap-[6px] text-primary w-full bg-white flex flex-col rounded-[14px] " style={{ boxShadow: "0px 3px 10px 0px #0000000D" }} >
-                                <Text className=" font-bold " >{event?.name}</Text>
+                                <Text className=" !font-bold " >{event?.name}</Text>
                                 <div className=" flex gap-2 mt-2 " >
                                     <div className=" w-fit text-primary text-opacity-50 mt-[2px] " >
                                         <LocationIcon block={true} />
                                     </div>
-                                    <Text className=" font-semibold text-sm " >{event?.address}</Text>
+                                    <Text className="!font-semibold text-xs " >{event?.address}</Text>
                                 </div>
                                 <div className=" flex items-center gap-2 " >
                                     <div className=" w-fit text-primary text-opacity-50 " >
-                                        <DonateIcon />
+                                        <CalendarIcon2 />
                                     </div>
-                                    <Text className=" font-semibold text-sm mr-2 " >{dateFormat(event?.endTime)}</Text>
+                                    <Text className="!font-semibold text-xs mr-2 " >{dateFormat(event?.endTime)}</Text>
                                     <div className=" w-fit text-primary text-opacity-50 " >
                                         <ClockIcon />
                                     </div>
-                                    <Text className=" font-semibold text-sm " >{timeFormat(event?.endTime)}</Text>
+                                    <Text className=" !font-semibold text-xs " >{timeFormat(event?.endTime)}</Text>
                                 </div>
-                                {event?.members?.length > 0 && (
-                                    <div className='flex items-center mt-2 bg-[#37137F4D] px-3 rounded-full w-fit h-[40px] mx-auto text-black ' >
-                                        <div className=' w-7 h-7 rounded-full'>
-                                            <img src={event?.members[0]?.photo} alt={event?.members[0]?._id} className=" w-full h-full object-cover rounded-full " />
+                                <div className=" w-full flex justify-between items-center " > 
+                                    {event?.members?.length > 0 && (
+                                        <div className='flex items-center mt-2 bg-[#37137F4D] px-3 rounded-full w-fit h-[40px] text-black ' >
+                                            <div className=' w-7 h-7 rounded-full'>
+                                                <img src={event?.members[0]?.photo} alt={event?.members[0]?._id} className=" w-full h-full object-cover rounded-full " />
+                                            </div>
+                                            {event?.members?.length > 1 && (
+                                                <div className=' w-7 h-7 rounded-full -ml-2 ' >
+                                                    <img src={event?.members[1]?.photo} alt={event?.members[1]?._id} className=" w-full h-full object-cover rounded-full " />
+                                                </div>
+                                            )}
+                                            {event?.members?.length > 2 && (
+                                                <div className=' w-7 h-7 rounded-full -ml-2 ' >
+                                                    <img src={event?.members[2]?.photo} alt={event?.members[2]?._id} className=" w-full h-full object-cover rounded-full " />
+                                                </div>
+                                            )} 
+                                            <Text className=' ml-2 font-semibold text-xs text-[#37137F] ' >{formatNumberWithK(event?.members?.length)} Attending</Text>
                                         </div>
-                                        {event?.members?.length > 1 && (
-                                            <div className=' w-7 h-7 rounded-full -ml-2 ' >
-                                                <img src={event?.members[1]?.photo} alt={event?.members[1]?._id} className=" w-full h-full object-cover rounded-full " />
-                                            </div>
-                                        )}
-                                        {event?.members?.length > 2 && (
-                                            <div className=' w-7 h-7 rounded-full -ml-2 ' >
-                                                <img src={event?.members[2]?.photo} alt={event?.members[2]?._id} className=" w-full h-full object-cover rounded-full " />
-                                            </div>
-                                        )}
-                                        {/* <div className=' w-7 h-7 rounded-full -ml-2 bg-red-600 ' /> */}
-                                        <Text className=' ml-2 font-semibold text-xs text-[#37137F] ' >{formatNumberWithK(event?.members?.length)} Attending</Text>
+                                    )}
+                                    <div className=" flex gap-2 items-center " >
+                                        <TicketIcon />
+                                        <Text className=" text-xs font-semibold " >{event?.eventTicket?.totalTicket} Spots Available</Text>
                                     </div>
-                                )}
+                                </div>
                             </div>
                         </div>
                         <div className=" w-full flex gap-3 px-4 pt-5 " >
                             <CustomButton height="44px" fontSize="11px" onClick={() => router(`/dashboard/event/dashboard/${event?._id}`)} hasFrontIcon={true} icon={
-                                <EventIcon />
+                                <CashIcon />
                             } >
                                 Event Dashboard
                             </CustomButton>
@@ -148,11 +153,6 @@ export default function EventDetailPage() {
                     } >
                         Edit Event
                     </CustomButton>
-                    {/* <CustomButton bgColor={"#B00062"} className=" px-3 " width="100%" type="button" hasFrontIcon={true} icon={
-                        <ShareIcon />
-                    } >
-                        Share
-                    </CustomButton> */}
                     <CustomButton bgColor="#CE4646" onClick={() => router("/dashboard/report/post")} hasFrontIcon={true} icon={
                         <TrashIcon />
                     } >

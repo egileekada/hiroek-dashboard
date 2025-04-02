@@ -112,7 +112,7 @@ export default function EventCardMembersList({ title, filter, mobile }: IProps) 
                                     </div>
                                     <div className=' flex mt-3 flex-col gap-1 ' >
                                         <Text className=' text-[10px] font-semibold ' >{textLimit(item?.name, 20)}</Text>
-                                        <div className=' mt-2 flex gap-2 items-center ' >
+                                        <div className=' mt-1 flex gap-2 items-center ' >
                                             <LocationIcon />
                                             <Text className=' text-[10px] font-medium ' >{textLimit(item?.address, 18)}</Text>
                                         </div>

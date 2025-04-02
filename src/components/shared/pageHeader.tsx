@@ -34,9 +34,9 @@ export default function PageHeader({ header, body, back, path, second, notificat
                 </div>
             )}
             <div className={` ${second ? " lg:relative absolute inset-0 lg:pl-0 pl-4 w-full flex flex-row justify-center " : " flex flex-col "}  lg:mt-0 mt-3 `} >
-                <Text className=' lg:text-[24px] lg:!leading-7 font-black tracking-[1%] text-primary ' >{header}</Text>
+                <Text className=' lg:text-[24px] text-[18px] lg:!leading-7 font-black tracking-[1%] text-primary ' >{header}</Text>
                 {body && (
-                    <Text className=' !leading-5 font-semibold text-primary text-opacity-50 ' >{body}</Text>
+                    <Text className=' !leading-4 text-xs font-bold text-primary text-opacity-50 ' >{body}</Text>
                 )}
             </div>
             {notification && (

@@ -55,9 +55,9 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
                 )}
                 {filter && (
                     <div className=' lg:w-auto w-full flex gap-3 ' >
-                        <button onClick={() => updateFilter("past")} className={` bg-primary ${eventFilter === "past" ? " text-white " : " text-primary bg-opacity-5 text-opacity-75 "} h-[30px] rounded-[22px] lg:w-fit font-bold w-full lg:px-6 text-sm  `} >Past</button>
-                        <button onClick={() => updateFilter("present")} className={` bg-primary ${eventFilter === "present" ? " text-white " : " text-primary bg-opacity-5 text-opacity-75 "}  h-[30px] rounded-[22px] lg:w-fit font-bold w-full lg:px-6 text-sm  `} >Ongoing</button>
-                        <button onClick={() => updateFilter("future")} className={` bg-primary ${eventFilter === "future" ? " text-white " : " text-primary bg-opacity-5 text-opacity-75 "}  h-[30px] rounded-[22px] lg:w-fit font-bold w-full lg:px-6 text-sm  `} >Upcoming</button>
+                        <button onClick={() => updateFilter("past")} className={` bg-primary ${eventFilter === "past" ? " text-white font-bold " : " text-primary bg-opacity-5 text-opacity-75 font-regular "} h-[30px] rounded-[22px] lg:w-fit w-full lg:px-6 text-sm  `} >Past</button>
+                        <button onClick={() => updateFilter("present")} className={` bg-primary ${eventFilter === "present" ? " text-white font-bold " : " text-primary bg-opacity-5 text-opacity-75 font-regular "}  h-[30px] rounded-[22px] lg:w-fit w-full lg:px-6 text-sm  `} >Ongoing</button>
+                        <button onClick={() => updateFilter("future")} className={` bg-primary ${eventFilter === "future" ? " text-white font-bold " : " text-primary bg-opacity-5 text-opacity-75 font-regular "}  h-[30px] rounded-[22px] lg:w-fit w-full lg:px-6 text-sm  `} >Upcoming</button>
                     </div>
                 )}
                 <div className=' w-full flex justify-between gap-3 items-center ' >

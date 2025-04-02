@@ -39,8 +39,8 @@ export default function EventPage() {
                 </div>
             </div>
             <div className=" w-fit lg:hidden md:bottom-6 fixed bottom-28 ml-auto mr-6 right-0 ">
-                <CustomButton rounded="44px" bgColor="linear-gradient(180deg, #4C49ED 0%, rgba(55, 19, 127, 0.9) 100%)" onClick={clickHandler} hasFrontIcon={true} icon={
-                    <EventIcon />
+                <CustomButton rounded="44px" height="45px" fontSize="14px" bgColor="linear-gradient(180deg, #4C49ED 0%, rgba(55, 19, 127, 0.9) 100%)" onClick={clickHandler} hasFrontIcon={true} icon={
+                    <EventIcon size="18px" />
                 } >
                     Create New Event
                 </CustomButton>

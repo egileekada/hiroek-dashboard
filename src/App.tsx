@@ -63,7 +63,7 @@ function App() {
     )
   );
   return (
-    <div className=" inter-all w-full " >
+    <div className=" w-full "  style={{ fontFamily: "Axiforma-Medium" }} >
       <RouterProvider router={router} />
     </div>
   )

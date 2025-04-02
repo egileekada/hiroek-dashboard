@@ -23,8 +23,12 @@ function EventScanner() {
     return (
         <div className=' w-full flex relative h-full justify-center bg-primary items-center  ' >
             <div className=" absolute top-6 right-4 flex px-2 items-center gap-2 "  >
-                <CustomButton onClick={()=> navigate(`/dashboard/event/scan/history/${id}`)} bgColor='white' rounded='44px' color='#37137F' width='fit-content' height='46px' >
-                    <HistoryIcon />
+                <CustomButton onClick={()=> navigate(`/dashboard/event/scan/history/${id}`)} bgColor='white' rounded='44px' color='#37137F' width='fit-content' height='46px'
+                    icon={
+                        <HistoryIcon />
+                    }
+                    hasFrontIcon={true}
+                >
                     <p className=' font-bold text-sm ' >Ticket Scan History</p>
                 </CustomButton>
             </div>
@@ -37,8 +41,8 @@ function EventScanner() {
                                 if(index !== result?.text)
                                 setIndex(result?.text);
                             }
-                        }}
-                        constraints={{ facingMode: "user" }}  // Set container style
+                        }} 
+                        constraints={{ facingMode: "environment" }}  // Set container style
                         videoStyle={{
                           width: "100%",
                           height: "100%",
@@ -48,9 +52,14 @@ function EventScanner() {
                     />
                 </div>
             </div>
-            <div className=' absolute bottom-8 ' >
-                <CustomButton onClick={() => navigate(`/dashboard/event/details/${id}`)} bgColor='#FF5151' rounded='44px' color='white' width='fit-content' >
-                    <CloseIcon />
+            <div className=' fixed bottom-8 ' >
+                <CustomButton onClick={() => navigate(`/dashboard/event/details/${id}`)} bgColor='#FF5151' height='44px' rounded='44px' color='white' width='fit-content'
+                    icon={
+                        <CloseIcon />
+                    }
+                    hasIcon={true}
+                >
+                    
                     <p className=' font-bold ' >Close</p>
                 </CustomButton>
             </div>
