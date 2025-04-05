@@ -1,8 +1,11 @@
-import moment from "moment"
+import moment from "moment" 
 
-export function dateFormat(date: any) {
+export function dateFormat(item: any) {
+
+  const isoDateString = item;
+  const date = moment(isoDateString);
   return moment(date).format("ddd, MMMM Do YYYY")
-} 
+}
 
 export function dateFormatDashboad(date: any) {
   return moment(date).format("ddd, MM/DD/YY")
@@ -20,5 +23,6 @@ export function dateFormatDay(date: any) {
   return moment(date).format("Do")
 }
 
-export const timeFormat = (isoString: any) =>
-  moment(isoString).format("h.mm A")
+export const timeFormat = (item: any) => { 
+  return moment.utc(item).format('hh:mm a'); 
+}

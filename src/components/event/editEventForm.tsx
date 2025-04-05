@@ -135,7 +135,7 @@ export default function EditEventForm(props: IProps) {
                         )}
                     </div>
                 </div>
-                <div className=" w-full flex !gap-4 flex-row " >
+                <div className=" w-full flex !gap-4 lg:flex-row flex-col " >
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Start Date</Text>
                         <CustomDatePicker name="endTime" value={values?.endTime ? values?.endTime : defaultdata?.endTime} setValue={setValue} />
