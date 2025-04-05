@@ -8,19 +8,31 @@ import EditEventForm from "../../components/event/editEventForm";
 import LoadingAnimation from "../../components/shared/loadingAnimation";
 import CreateEventBtn from "../../components/event/createEventBtn"; 
 import useGetEventData from "../../hooks/eventHooks/useGetEventData"; 
+import { useDatePicker } from "../../global-state/useDatePicker";
 
 export default function CreateEventPage() {
 
     const { eventHookForm, isLoading, setValue, formState, values, loadingEditEvent, submitHandler, open, setOpen, isSuccess, control } = useEvent()
     const { data, isLoading: loadingEvent } = useGetEventData().getSingleEventData()
     const history = useLocation() 
-    const { event, updateEvent } = useEventDetail((state) => state)
-
+    const { event, updateEvent } = useEventDetail((state) => state) 
+    const { updateEndDate, updateStartDate } = useDatePicker((state) => state)
+    
     useEffect(() => {
         if (!history?.pathname.includes("edit")) {
             updateEvent({} as any)
         }  
     }, [])  
+
+    useEffect(()=> {
+        if (history?.pathname.includes("edit")){
+            updateStartDate(data?.endTime)
+            updateEndDate(data?.eventEndDate)
+        } else {
+            updateStartDate("")
+            updateEndDate("")
+        }
+    }, [data])
  
     return eventHookForm(
         <div className=' w-full flex flex-col gap-6 ' >

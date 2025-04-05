@@ -11,8 +11,7 @@ import { AiOutlineMinusCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 // import { LuSearch } from "react-icons/lu"; 
-import CreateEventBtnMobile from "./createEventBtnmobile";
-import { useDatePicker } from "../../global-state/useDatePicker";
+import CreateEventBtnMobile from "./createEventBtnmobile"; 
 
 interface IProps {
     setValue: any;
@@ -60,7 +59,7 @@ export default function EditEventForm(props: IProps) {
     }, [])
 
 
-    const { updateEndDate, updateStartDate } = useDatePicker((state) => state)
+    // const { updateEndDate, updateStartDate } = useDatePicker((state) => state)
 
     useEffect(() => {
         if (!values?.name) {
@@ -72,8 +71,8 @@ export default function EditEventForm(props: IProps) {
             setValue("eventTicket.ticketPrice", defaultdata?.eventTicket?.ticketPrice)
             setValue("eventTicket.totalTicket", defaultdata?.eventTicket?.totalTicket)
             setValue("fundRaiser.fundRaisingGoal", defaultdata?.fundRaiser?.fundRaisingGoal) 
-            updateStartDate(defaultdata?.endTime)
-            updateEndDate(defaultdata?.eventEndDate)
+            // updateStartDate(defaultdata?.endTime)
+            // updateEndDate(defaultdata?.eventEndDate)
         }
     }, [values])  
 

@@ -128,7 +128,7 @@ export default function EventDetailPage() {
                                 <Text className=" text-xl tracking-[1%] text-primary " >Fundraising Target</Text>
                                 <Text className=" text-[#858D9D] " >This is the target for this event.</Text>
                                 <ChartGraph />
-                                <Text className=" text-[#667085] font-medium text-center text-sm " >You received donations of <span style={{ color: "#37137F" }} >{formatNumber(event?.fundRaiser?.fundRaised)}</span></Text>
+                                <Text className=" text-[#667085] font-medium text-center text-sm " >This event received donations of <span style={{ color: "#37137F" }} >{formatNumber(event?.fundRaiser?.fundRaised/100)}</span> so far</Text>
                                 <div className=" w-full px-2 flex justify-between pt-2 " >
                                     <div className=" flex flex-col items-center" >
                                         <Text className=" font-medium text-[#667085] text-sm " >Target</Text>
@@ -136,12 +136,8 @@ export default function EventDetailPage() {
                                     </div>
                                     <div className=" flex flex-col items-center" >
                                         <Text className=" font-medium text-[#667085] text-sm " >Donated</Text>
-                                        <Text className=" font-semibold text-xl text-[#1D1F2C] " >{formatNumber(event?.fundRaiser?.fundRaised)}</Text>
-                                    </div>
-                                    <div className=" flex flex-col items-center" >
-                                        <Text className=" font-medium text-[#667085] text-sm " >Today</Text>
-                                        <Text className=" font-semibold text-xl text-[#1D1F2C] " >£0k</Text>
-                                    </div>
+                                        <Text className=" font-semibold text-xl text-[#1D1F2C] " >{formatNumber(event?.fundRaiser?.fundRaised/ 100)}</Text>
+                                    </div> 
                                 </div>
                             </div>
                         </div>
