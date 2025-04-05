@@ -50,10 +50,7 @@ export default function EditEventForm(props: IProps) {
     // const [ticketNo, setTicketNo] = useState(0)
     const [paidEvent, setPaidEvent] = useState(false)
     const [isFundraising, setIsFundraising] = useState(false)
-    const [ticketNo, setTicketNo] = useState(0)
-
-    console.log(defaultdata);
-
+    const [ticketNo, setTicketNo] = useState(0) 
 
     useEffect(() => {
         // setSignupCount(values?.signUpLimit ? values?.signUpLimit : defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
@@ -74,11 +71,7 @@ export default function EditEventForm(props: IProps) {
             setValue("category", defaultdata?.category)
             setValue("eventTicket.ticketPrice", defaultdata?.eventTicket?.ticketPrice)
             setValue("eventTicket.totalTicket", defaultdata?.eventTicket?.totalTicket)
-            setValue("fundRaiser.fundRaisingGoal", defaultdata?.fundRaiser?.fundRaisingGoal)
-            // changeHandler("address", defaultdata?.address)
-            // changeHandler("address", defaultdata?.address)
-            console.log(defaultdata?.endTime);
-            
+            setValue("fundRaiser.fundRaisingGoal", defaultdata?.fundRaiser?.fundRaisingGoal) 
             updateStartDate(defaultdata?.endTime)
             updateEndDate(defaultdata?.eventEndDate)
         }
