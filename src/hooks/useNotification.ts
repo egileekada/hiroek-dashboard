@@ -4,7 +4,7 @@ import httpService from "../utils/httpService";
 import { useState } from "react";
 
 
-interface IProps {
+export interface IProps {
     "recipientType": string,
     "isRead": boolean,
     "_id": string,

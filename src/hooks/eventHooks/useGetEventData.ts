@@ -247,11 +247,13 @@ const useGetEventData = () => {
     }
 
     // Get Event list
-    const getSingleEventData = () => {
+    const getSingleEventData = (index?: string) => {
         const [data, setData] = useState<IEvent | any>()
+
+        const newIndex = index ? index : id
         const { isLoading } = useQuery(
-            ["Event", page, pageSize, eventFilter, id],
-            () => httpService.get(`/events/${id}`),
+            ["Event", page, pageSize, eventFilter, newIndex],
+            () => httpService.get(`/events/${newIndex}`),
             {
                 onError: (error: any) => {
                     toast.error(error.response?.data)
@@ -261,7 +263,7 @@ const useGetEventData = () => {
                     updateEvent(data?.data?.event) 
                     updateMap(data?.data?.event?.address)
                 },
-                enabled: id ? true : false
+                enabled: newIndex ? true : false
             },
         );
 

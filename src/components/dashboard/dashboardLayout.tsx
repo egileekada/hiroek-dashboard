@@ -46,12 +46,10 @@ export default function DashboardLayout() {
                     <div className={` w-full bg-white h-fit ${(history?.pathname?.includes("/dashboard/event/details") || history?.pathname?.includes("/dashboard/community/details") || history?.pathname?.includes("scan") || history?.pathname?.includes("support") || history?.pathname?.includes("/dashboard/settings") || history?.pathname?.includes("/dashboard/support") || history?.pathname?.includes("/dashboard/community/details") || history?.pathname?.includes("/dashboard/community/post-comment")) ? " lg:block hidden " : " block "} top-0 sticky z-10 `} >
                         <Navbar />
                     </div>
-                    <div className={` overflow-y-auto inset-x-0 absolute flex-1 flex h-full lg:pb-0 pb-32
+                    <div className={` overflow-y-auto inset-0 absolute flex h-auto lg:pb-0 pb-32
                         ${(history?.pathname?.includes("/dashboard/event/create") || history?.pathname?.includes("/dashboard/donation/withdraw") || history?.pathname?.includes("scan") || history?.pathname?.includes("event/details/bymembers") || history?.pathname?.includes("/dashboard/settings") || history?.pathname?.includes("/dashboard/support") || history?.pathname?.includes("/dashboard/community/details") || history?.pathname?.includes("/dashboard/community/post-comment")) ? "" : " botton-[80px] "}
                         ${(history?.pathname?.includes("/dashboard/event/details") || history?.pathname?.includes("/dashboard/community/details") || history?.pathname?.includes("scan") || history?.pathname?.includes("support") || history?.pathname?.includes("/dashboard/settings") || history?.pathname?.includes("/dashboard/support") || history?.pathname?.includes("/dashboard/community/post-comment")) ? " lg:top-[55px] lg:p-6 top-0 " : " top-[55px] lg:p-6 p-0 "} `} >
-                        <div className=" w-full h-fit flex flex-col " >
-                            <Outlet />
-                        </div>
+                            <Outlet /> 
                     </div>
 
                 </div>

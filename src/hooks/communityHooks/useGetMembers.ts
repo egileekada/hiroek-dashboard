@@ -36,11 +36,11 @@ const useGetMembers = () => {
         }
     }
 
-    const getSinglePostData = () => {
+    const getSinglePostData = (index?: string) => {
         const [data, setData] = useState<IPost>({} as IPost)
         const { isLoading } = useQuery(
-            ["postssingle", id],
-            () => httpService.get(`/posts/${id}`),
+            ["postssingle", index ? index : id],
+            () => httpService.get(`/posts/${index ? index : id}`),
             {
                 onError: (error: any) => {
                     toast.error(error.response?.data)
