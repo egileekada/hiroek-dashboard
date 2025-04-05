@@ -144,7 +144,7 @@ export default function NotificationPage() {
                     </div>
                     <div className=' lg:max-w-[400px] w-full flex flex-col gap-3 lg:px-0 px-3 ' >
                         <p className=' text-sm ' >{detail?.message}</p>
-                        {(detail?.type === "COMMUNITY_REPORT" || detail?.type === "COMMUNITY_INVITE" || detail?.type === "POST_REPORT" || detail?.type === "NEW_POST" || detail?.type === "NEW_COMMENT") && (
+                        {(detail?.type === "COMMUNITY_REPORT" || detail?.type === "COMMUNITY_INVITE" || detail?.type === "POST_REPORT" || detail?.type === "NEW_POST" || detail?.type === "NEW_COMMENT" || detail?.type === "NEW_LIKE") && (
                             <ViewPost item={detail?.actionId} />
                         )}
                         {(detail?.type === "NEW_DONATION") && (
