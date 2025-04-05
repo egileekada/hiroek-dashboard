@@ -46,23 +46,8 @@ export default function EventForm(props: IProps) {
     // const [ticketNo, setTicketNo] = useState(0)
     const [paidEvent, setPaidEvent] = useState(false)
     const [isFundraising, setIsFundraising] = useState(false) 
-    const [ticketNo, setTicketNo] = useState(0)
-
-    // useEffect(() => {
-    //     setSignupCount(values?.signUpLimit ? values?.signUpLimit : 0)
-    // }, [])
-
-    // const clickSignUp = (type: "remove" | "add") => {
-    //     if (signupCount > 0 && type === "remove") {
-    //         setSignupCount((prev) => prev - 1)
-    //         setValue("signUpLimit", (signupCount - 1)?.toString())
-    //     } else {
-    //         setSignupCount((prev) => prev + 1)
-    //         setValue("signUpLimit", (signupCount + 1)?.toString())
-    //     }
-    // }
-
-
+    const [ticketNo, setTicketNo] = useState(0) 
+    
     const clickTicket = (type: "remove" | "add") => {
         if (ticketNo > 0 && type === "remove") {
             setTicketNo((prev) => prev - 1)

@@ -25,7 +25,7 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
 
     return (
         <div className=" w-full relative h-full  " > 
-            <div className=" w-full flex h-full absolute inset-0 lg:flex-row flex-col gap-4 overflow-hidden lg:gap-6 text-primary pb-6 " >
+            <div className=" w-full flex h-full absolute inset-0 lg:flex-row flex-col gap-4 overflow-y-auto lg:overflow-y-hidden lg:gap-6 text-primary pb-6 lg:px-0 px-4 " >
                 <div className=" w-full h-fit flex flex-col rounded-b-[44px] lg:rounded-[44px] lg:p-8 pb-2 " >
                     <div className=" w-full h-[240px] bg-green-700 relative rounded-b-[44px] lg:rounded-[44px] " >
                         <div role="button" onClick={() => router(-1)} className=" cursor-pointer lg:hidden w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-[#FFFFFF26] lg:bg-[#FFFFFF33] flex justify-center items-center " >
@@ -65,7 +65,7 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
                         </div>
                     </div>
                 </div>
-                <div className=" w-full flex flex-col gap-6 overflow-y-auto " >
+                <div className=" w-full flex flex-col gap-6 lg:overflow-y-auto " >
                     <div className=" w-full flex flex-col h-auto " >
                         <div className=" w-full flex gap-2 px-2 justify-center " >
                             <button onClick={() => router(`/dashboard/community/details/${id}`)} className={` ${!index ? " text-white " : " text-primary bg-opacity-10 "} bg-primary text-xs font-bold h-[40px] rounded-[44px] px-4 w-fit `} >Recent Posts</button>
@@ -159,7 +159,7 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
                                 </div>
                             </LoadingAnimation>
                         )}
-                        <div className=" w-[200px] h-[100px] " />
+                        <div className=" w-[200px] h-[50px] " />
                     </div>
                 </div>
             </div >
