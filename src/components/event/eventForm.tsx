@@ -122,14 +122,14 @@ export default function EventForm(props: IProps) {
                         )}
                     </div>
                 </div>
-                <div className=" w-full flex gap-4 flex-col lg:flex-row " >
+                <div className=" w-full flex gap-4 flex-col lg:flex-row relative " >
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Start Date</Text>
-                        <CustomDatePicker borderRadius="8px" payload={values} name="endTime" value={values?.endTime} setValue={setValue} />
+                        <CustomDatePicker borderRadius="8px" name="endTime"  />
                     </div>
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >End Date</Text>
-                        <CustomDatePicker borderRadius="8px" payload={values} name="eventEndDate" value={values?.endTime} setValue={setValue} />
+                        <CustomDatePicker borderRadius="8px" name="eventEndDate"  />
                     </div>
                 </div>
                 <div className=" w-full flex gap-4 flex-col " >

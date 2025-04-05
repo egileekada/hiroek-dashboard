@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 // import { LuSearch } from "react-icons/lu"; 
 import CreateEventBtnMobile from "./createEventBtnmobile";
+import { useDatePicker } from "../../global-state/useDatePicker";
 
 interface IProps {
     setValue: any;
@@ -61,6 +62,9 @@ export default function EditEventForm(props: IProps) {
         setIsFundraising(defaultdata?.fundRaiser?.fundRaisingGoal > 0 ? true : false)
     }, [])
 
+
+    const { updateEndDate, updateStartDate } = useDatePicker((state) => state)
+
     useEffect(() => {
         if (!values?.name) {
             setValue("address", defaultdata?.address)
@@ -68,25 +72,17 @@ export default function EditEventForm(props: IProps) {
             setValue("description", defaultdata?.description)
             setValue("signUpLimit", defaultdata?.signUpLimit)
             setValue("category", defaultdata?.category)
-            setValue("endTime", defaultdata?.endTime)
-            setValue("eventEndDate", defaultdata?.eventEndDate)
             setValue("eventTicket.ticketPrice", defaultdata?.eventTicket?.ticketPrice)
             setValue("eventTicket.totalTicket", defaultdata?.eventTicket?.totalTicket)
             setValue("fundRaiser.fundRaisingGoal", defaultdata?.fundRaiser?.fundRaisingGoal)
             // changeHandler("address", defaultdata?.address)
             // changeHandler("address", defaultdata?.address)
+            console.log(defaultdata?.endTime);
+            
+            updateStartDate(defaultdata?.endTime)
+            updateEndDate(defaultdata?.eventEndDate)
         }
-    }, [values])
-
-    // const clickSignUp = (type: "remove" | "add") => {
-    //     if (signupCount > 0 && type === "remove") {
-    //         setSignupCount((prev) => prev - 1)
-    //         setValue("signUpLimit", (signupCount - 1)?.toString())
-    //     } else {
-    //         setSignupCount((prev) => prev + 1)
-    //         setValue("signUpLimit", (signupCount + 1)?.toString())
-    //     }
-    // }
+    }, [values])  
 
     const clickTicket = (type: "remove" | "add") => {
         if (ticketNo > 0 && type === "remove") {
@@ -138,11 +134,11 @@ export default function EditEventForm(props: IProps) {
                 <div className=" w-full flex !gap-4 lg:flex-row flex-col " >
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Start Date</Text>
-                        <CustomDatePicker name="endTime" value={values?.endTime ? values?.endTime : defaultdata?.endTime} setValue={setValue} />
+                        <CustomDatePicker name="endTime" />
                     </div>
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >End Date</Text>
-                        <CustomDatePicker name="eventEndDate" payload={values} value={values?.eventEndDate ? values?.eventEndDate : defaultdata?.eventEndDate} setValue={setValue} />
+                        <CustomDatePicker name="eventEndDate" />
                     </div>
                 </div>
 

@@ -10,11 +10,13 @@ import { useImage } from "../../global-state/useImageData";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie" 
 import { useEventDetail } from "../../global-state/useEventDetails"; 
+import { useDatePicker } from "../../global-state/useDatePicker";
 
 const useEvent = () => { 
     const { eventImage } = useImage((state) => state) 
     const { event, updateCreateEvent } = useEventDetail((state) => state) 
     const [open, setOpen] = useState(false)
+    const { endDate, startData } = useDatePicker((state) => state) 
 
     const router = useNavigate();
     const userId = Cookies.get("user-index")
@@ -64,21 +66,19 @@ const useEvent = () => {
                 "ticketPrice": "0"
             },
             category: "",
-            privacy: "public",
-            eventEndDate: "",
-            endTime: "",
+            privacy: "public", 
             address: "",
             signUpLimit: "",
             // communityId: event?.name ?? "",
         },
         validationSchema: history?.pathname?.includes("edit") ? EditEventValidation : EventValidation,
-        submit: (data) => {
+        submit: () => {
  
             if (!eventImage && !history?.pathname?.includes("edit")) {
                 toast.error("Add Image")
-            } else if(!data?.endTime) {
+            } else if(!startData) {
                 toast.error("Add Start Date")
-            }  else if(!data?.eventEndDate) {
+            }  else if(!endDate) {
                 toast.error("Add End Date")
             } else { 
 
@@ -118,8 +118,8 @@ const useEvent = () => {
             if(values?.signUpLimit){
                 formData.append("signUpLimit", values?.signUpLimit ? values?.signUpLimit : event?.signUpLimit)
             }
-            formData.append("eventEndDate", new Date(values?.eventEndDate ? values?.eventEndDate : event?.endTime)?.toISOString())
-            formData.append("endTime", new Date(values?.endTime ? values?.endTime : event?.endTime)?.toISOString())
+            formData.append("eventEndDate", new Date(endDate)?.toISOString())
+            formData.append("endTime", new Date(startData)?.toISOString())
             formData.append("address", values?.address ? values?.address : event?.address)
 
             if (!history?.pathname?.includes("edit")) {
