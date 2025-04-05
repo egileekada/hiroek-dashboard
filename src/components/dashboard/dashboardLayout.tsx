@@ -61,7 +61,7 @@ export default function DashboardLayout() {
                     </div>
                 </div>
                 <div className=" w-full h-full overflow-y-auto ">
-                    <div className=" w-full h-auto flex flex-col gap-3 " >
+                    <div className=" w-full h-full flex flex-col gap-3 " >
                         <Outlet />
                     </div>
                 </div>

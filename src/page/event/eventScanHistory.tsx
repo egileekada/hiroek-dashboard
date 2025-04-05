@@ -18,7 +18,7 @@ export default function EventScanHistory() {
     const { data, isLoading } = useGetEventData().getScanEventTicket()
 
     return (
-        <div className=' w-full py-4 flex flex-col' >
+        <div className=' w-full py-4 h-full flex flex-col' >
             <div className=" w-full bg-white flex sticky top-0 flex-col gap-1 rounded-t-3xl pt-3 lg:px-3 px-4  " >
                 <div className=" w-full flex items-center justify-center " >
                     <div className=' w-fit absolute left-4 ' >
