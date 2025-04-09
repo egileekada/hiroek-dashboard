@@ -7,12 +7,12 @@ import { IPost } from "../../hooks/communityHooks/useGetCommunityPost";
 import { Text, TextArea } from "@radix-ui/themes";
 import useCommunity from "../../hooks/communityHooks/useCommunity";
 import LoadingAnimation from "../shared/loadingAnimation";
-import Cookies from "js-cookie" 
+import Cookies from "js-cookie"
 
 
-export default function MoreOptionBtn({ item }: { item: IPost }) {
+export default function MoreOptionBtn({ item, post, pinned }: { item: IPost, post?: boolean, pinned?: boolean }) {
 
-    const { reportChannelPost, open, setOpen, openReport, setOpenReport, openDelete, setOpenDelete, openBroadcast, setOpenBroadcast, openPin, setOpenPin, reason, setReason, deleteChannelPost, createAnnocementPost } = useCommunity()
+    const { reportChannelPost, open, setOpen, openReport, setOpenReport, openDelete, setOpenDelete, openBroadcast, setOpenBroadcast, openPin, setOpenPin, reason, setReason, deleteChannelPost, createAnnocementPost, pinPost, loadingPinPost } = useCommunity(pinned)
     const userId = Cookies.get("user-index")
 
     const self = item?.user?._id === userId
@@ -30,10 +30,16 @@ export default function MoreOptionBtn({ item }: { item: IPost }) {
                             <p className=" text-xs font-bold text-primary " >Edit Post</p>
                         </div>
                     )}
-                    {self && (
+                    {(self && post && !pinned) && (
                         <div onClick={() => { setOpen(false), setOpenPin(true) }} role="button" className=" w-full pb-5 flex gap-2 items-center border-b border-primary30  " >
                             <TbFlagFilled size={"16px"} color="#37137f" />
                             <p className=" text-xs font-bold text-primary " >Pin Post</p>
+                        </div>
+                    )} 
+                    {(pinned) && (
+                        <div onClick={() => { setOpen(false), setOpenPin(true) }} role="button" className=" w-full pb-5 flex gap-2 items-center border-b border-primary30  " >
+                            <TbFlagFilled size={"16px"} color="#37137f" />
+                            <p className=" text-xs font-bold text-primary " >UnPin Post</p>
                         </div>
                     )}
                     <div onClick={() => { setOpen(false), setOpenReport(true) }} role="button" className=" w-full pb-5 flex gap-2 items-center border-b border-primary30  " >
@@ -98,14 +104,16 @@ export default function MoreOptionBtn({ item }: { item: IPost }) {
                 </LoadingAnimation>
             </ModalLayout>
             <ModalLayout width=" max-w-[295px] w-full " onIcon={true} open={openPin} setOpen={setOpenPin}  >
-                <div className=" flex w-full flex-col py-3 gap-4 items-center " >
-                    <Text className=" text-center font-bold text-primary " >Pin Post</Text>
-                    <Text className=" text-sm font-semibold w-[80%] text-center text-primary30 " >Are you sure you want to pin this post?</Text>
-                    <div className=" w-[75%] flex mt-2 px-3 justify-between " >
-                        <button onClick={() => { setOpen(true), setOpenPin(false) }} className=" text-[#CA072E] outline-none font-medium text-sm " >Cancel</button>
-                        <button className=" text-[#328330] font-medium text-sm " >Accept</button>
+                <LoadingAnimation loading={loadingPinPost} >
+                    <div className=" flex w-full flex-col py-3 gap-4 items-center " >
+                        <Text className=" text-center font-bold text-primary " >{pinned ? "UnPin Post" : "Pin Post"}</Text>
+                        <Text className=" text-sm font-semibold w-[80%] text-center text-primary30 " >Are you sure you want to {pinned ? "unPin" : "pin"}this post?</Text>
+                        <div className=" w-[75%] flex mt-2 px-3 justify-between " >
+                            <button onClick={() => { setOpen(true), setOpenPin(false) }} className=" text-[#CA072E] outline-none font-medium text-sm " >Cancel</button>
+                            <button onClick={() => pinPost(item?._id)} className=" text-[#328330] font-medium text-sm " >Accept</button>
+                        </div>
                     </div>
-                </div>
+                </LoadingAnimation>
             </ModalLayout>
         </div>
     )

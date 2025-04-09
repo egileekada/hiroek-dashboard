@@ -1,15 +1,15 @@
-import { create } from 'zustand'; 
-import { IEvent } from '../model/event';
+import { create } from 'zustand';  
+import { ICommunity } from '../model/community';
  
 type CommunityState = {   
-    community: IEvent
+    community: ICommunity
 }
 
 type Action = {  
     updateCommunity: (data: CommunityState['community']) => void  
 }
 
-export const useEventDetail = create<CommunityState & Action>((set) => ({ 
+export const useCommunityData = create<CommunityState & Action>((set) => ({ 
     community: {} as any, 
     updateCommunity: (data: any) => set(() => ({ community: data })), 
 }));

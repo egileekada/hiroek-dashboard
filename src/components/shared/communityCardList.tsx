@@ -14,9 +14,7 @@ interface IProps {
 export default function CommunityCardList({ title, notitle, mobile }: IProps) {
 
     const router = useNavigate()
-    const { data, isLoading } = useGetCommunity()
-
-    console.log(data);
+    const { data, isLoading } = useGetCommunity() 
 
 
     return (

@@ -9,6 +9,7 @@ import LoadingAnimation from "../shared/loadingAnimation";
 import MoreOptionBtn from "./moreOptionBtn";
 import useGetCommunityPostBoardCast from "../../hooks/communityHooks/useGetCommunityPostBoardCast";
 import LikePostBtn from "./likePostBtn";
+import useGetCommunityPostPin from "../../hooks/communityHooks/useGetCommunityPostPin";
 // import { useState } from "react";
 
 
@@ -17,6 +18,8 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
     const router = useNavigate()
 
     const { data: post, isLoading } = useGetCommunityPost()
+
+    const { data: pinnedData, isLoading: loadingPin } = useGetCommunityPostPin()
     const { data, isLoading: loading } = useGetCommunityPostBoardCast()
 
     const [searchParams] = useSearchParams();
@@ -24,16 +27,16 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
     const { id } = useParams();
 
     return (
-        <div className=" w-full relative h-full  " > 
-            <div className=" w-full flex h-full absolute inset-0 lg:flex-row flex-col gap-4 overflow-y-auto lg:overflow-y-hidden lg:gap-6 text-primary pb-6 lg:px-0 px-4 " >
+        <div className=" w-full relative h-full  " >
+            <div className=" w-full flex h-full absolute inset-0 lg:flex-row flex-col gap-4 overflow-y-auto lg:overflow-y-hidden lg:gap-6 text-primary pb-6 lg:px-0 " >
                 <div className=" w-full h-fit flex flex-col rounded-b-[44px] lg:rounded-[44px] lg:p-8 pb-2 " >
                     <div className=" w-full h-[240px] bg-green-700 relative rounded-b-[44px] lg:rounded-[44px] " >
-                        <div role="button" onClick={() => router(-1)} className=" cursor-pointer lg:hidden w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-[#FFFFFF26] lg:bg-[#FFFFFF33] flex justify-center items-center " >
+                        <div role="button" onClick={() => router("/dashboard/community")} className=" cursor-pointer lg:hidden w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-[#FFFFFF26] lg:bg-[#FFFFFF33] flex justify-center items-center " >
                             <BackWhiteIcon color="white" />
                         </div>
                         <img alt="image" src={item?.photo} className=" w-full h-full object-cover lg:rounded-[44px] " />
                         <div className=" absolute inset-0 bg-black bg-opacity-40 z-[5] lg:rounded-[44px] " />
-                        <div role="button" onClick={() => router(-1)} className=" text-white cursor-pointer text-xs lg:hidden w-fit px-3 h-11 absolute top-6 z-10 right-4 rounded-[44px] bg-[#FFFFFF26] lg:bg-[#FFFFFF33] flex gap-2 justify-center items-center " >
+                        <div role="button" onClick={() => router(`/dashboard/community/edit/${id}`)} className=" text-white cursor-pointer text-xs lg:hidden w-fit px-3 h-11 absolute top-6 z-10 right-4 rounded-[44px] bg-[#FFFFFF26] lg:bg-[#FFFFFF33] flex gap-2 justify-center items-center " >
                             <EditIcon color="" />
                             Edit Community
                             {/* <QRIcon /> */}
@@ -72,8 +75,46 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
                             <button onClick={() => router(`/dashboard/community/details/${id}?tab=true`)} className={` ${index ? " text-white " : " text-primary bg-opacity-10 "}  text-xs font-bold h-[40px] rounded-[44px] px-4 w-fit bg-primary `} >Announcements</button>
                         </div>
                         {!index && (
-                            <LoadingAnimation loading={isLoading} length={post?.length} >
+                            <LoadingAnimation loading={isLoading || loadingPin} length={post?.length} >
                                 <div className=" w-full max-h-auto overflow-y-auto rounded-[44px] p-4 lg:p-6 flex flex-col gap-6 lg:pb-0 pb-24 " >
+                                    {pinnedData?.map((item, index) => {
+                                        return (
+                                            <div key={index} className=" w-full flex flex-col gap-3 " >
+                                                <div className=" flex items-center w-full justify-between " >
+                                                    <div className=" flex items-center gap-2 " >
+                                                        <div className=" w-10 h-10 rounded-full border border-primary border-opacity-50 " >
+                                                            <img className=" w-full h-full object-cover rounded-full " src={item?.user?.logo} alt={item?.user?.logo} />
+                                                        </div>
+                                                        <div className=" flex flex-col " >
+                                                            <Text className=" text-xs font-bold " >{item?.user?.name}</Text>
+                                                            <Text className=" text-[10px] italic font-bold text-primary text-opacity-50 " >{moment(item?.createdAt)?.fromNow()}</Text>
+                                                        </div>
+                                                    </div>
+                                                    <div className=" flex gap-3 items-center " >
+                                                        <div role="button" className=" cursor-pointer w-fit " >
+                                                            <SendTopIcon />
+                                                        </div>
+                                                        <MoreOptionBtn pinned={true} post={true} item={item} />
+                                                    </div>
+                                                </div>
+                                                <div className=" w-full flex flex-col px-3 gap-3 " >
+                                                    <Text className=" text-xs font-medium " >{item?.content}</Text>
+                                                    {item?.attachments?.length > 0 && (
+                                                        <div className=" w-full h-[200px] flex justify-center bg-gray-500 items-center p-1 rounded-2xl " >
+                                                            <img className=" w-f h-full rounded-2xl object-cover " src={item?.attachments[0]?.image} alt={item?.attachments[0]?.image} />
+                                                        </div>
+                                                    )}
+                                                    <div className=" flex items-center gap-4 " >
+                                                        <LikePostBtn item={item} />
+                                                        <div onClick={() => router(`/dashboard/community/post-comment/${item?._id}`)} role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
+                                                            <ChatIcon />
+                                                            <Text className=" font-black text-xs " >{item?.comments?.length}</Text>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
                                     {post?.map((item, index) => {
                                         return (
                                             <div key={index} className=" w-full flex flex-col gap-3 " >
@@ -91,14 +132,14 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
                                                         <div role="button" className=" cursor-pointer w-fit " >
                                                             <SendTopIcon />
                                                         </div>
-                                                        <MoreOptionBtn item={item} />
+                                                        <MoreOptionBtn post={true} item={item} />
                                                     </div>
                                                 </div>
                                                 <div className=" w-full flex flex-col px-3 gap-3 " >
                                                     <Text className=" text-xs font-medium " >{item?.content}</Text>
                                                     {item?.attachments?.length > 0 && (
                                                         <div className=" w-full h-[200px] flex justify-center bg-gray-500 items-center p-1 rounded-2xl " >
-                                                            <img className=" h-full rounded-2xl object-cover " src={item?.attachments[0]?.image} alt={item?.attachments[0]?.image} />
+                                                            <img className=" w-f h-full rounded-2xl object-cover " src={item?.attachments[0]?.image} alt={item?.attachments[0]?.image} />
                                                         </div>
                                                     )}
                                                     <div className=" flex items-center gap-4 " >
@@ -141,8 +182,8 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
                                                 <div className=" w-full flex flex-col px-3 gap-3 " >
                                                     <Text className=" text-xs font-medium " >{item?.content}</Text>
                                                     {item?.attachments?.length > 0 && (
-                                                        <div className=" w-full h-[200px] rounded-2xl " >
-                                                            <img className=" w-full h-full rounded-2xl " src={item?.attachments[0]} alt={item?.attachments[0]} />
+                                                        <div className=" w-full h-[200px] flex justify-center bg-gray-500 items-center p-1 rounded-2xl " >
+                                                            <img className=" w-f h-full rounded-2xl object-cover " src={item?.attachments[0]?.image} alt={item?.attachments[0]?.image} />
                                                         </div>
                                                     )}
                                                     <div className=" flex items-center gap-4 " >

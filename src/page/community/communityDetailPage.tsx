@@ -28,7 +28,7 @@ export default function CommunityDetailPage() {
             <div className=" w-full lg:flex hidden items-center justify-between " >
                 <PageHeader path={"/dashboard/community"} back={true} header="Community Details" body="Effortless Event Creation and Community Engagement." />
                 <div className=" gap-3 w-fit flex ">
-                    <CustomButton onClick={() => router("/dashboard/event/create")} hasFrontIcon={true} icon={
+                    <CustomButton onClick={() => router(`/dashboard/community/edit/${id}`)} hasFrontIcon={true} icon={
                         <EditIcon />
                     } >
                         Edit Community
@@ -40,7 +40,7 @@ export default function CommunityDetailPage() {
             </div> */}
             <LoadingAnimation loading={isLoading} >
                 <CommunityDetail item={data} />
-            </LoadingAnimation> 
+            </LoadingAnimation>
             <div className="fixed bottom-4 w-[240px] right-4 flex flex-col justify-end items-center">
                 {/* Animated Buttons */}
                 {isOpen && (
@@ -51,7 +51,7 @@ export default function CommunityDetailPage() {
                         transition={{ type: "spring", stiffness: 300 }}
                         className="mb-2"
                     >
-                        
+
                         <CustomButton rounded="44px" fontSize="14px" bgColor="#7B1251" onClick={() => router(`/dashboard/community/post/${id}`)} hasFrontIcon={true} icon={
                             <ChatWhiteIcon />
                         } >
@@ -67,7 +67,7 @@ export default function CommunityDetailPage() {
                         exit={{ y: 20, opacity: 0 }}
                         transition={{ type: "spring", stiffness: 300 }}
                         className="mb-2 absolute -bottom-16 right-0 w-full ml-auto "
-                    > 
+                    >
                         <CustomButton width="200px" fontSize="14px" rounded="44px" bgColor="#7B1251" onClick={() => router(`/dashboard/community/post/${id}?tab=true`)} hasFrontIcon={true} icon={
                             <AnnoncementIcon />
                         } >

@@ -97,3 +97,19 @@ export interface ITicketHistory {
     "updatedAt": string,
     "__v": number
 } 
+
+export interface IConversationMember {
+    "participantType": string,
+    "event": {
+        "_id": string,
+        "name": string,
+        "photo": string
+    },
+    "participant": {
+        "_id": string,
+        "createdAt": string,
+        "photo": string,
+        "fullname": string
+    },
+    "name": string
+}

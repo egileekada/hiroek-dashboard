@@ -9,14 +9,14 @@ import { useImage } from "../../global-state/useImageData";
 import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 
-const useCommunity = () => {
+const useCommunity = (pin?: boolean) => {
 
     // const router = useNavigate(); 
     const { eventImage } = useImage((state) => state)
     const history = useLocation()
     const router = useNavigate();
     const [images, setImages] = useState<File[]>([]);
-    const { id } = useParams();
+    const { id } = useParams();  
 
     const query = useQueryClient()
 
@@ -49,6 +49,32 @@ const useCommunity = () => {
             router("/dashboard/community")
         },
     });
+ 
+    const { mutate: pinPost, isLoading: loadingPinPost } = useMutation({
+        mutationFn: (data: any) => httpService.post(`/posts/${data}/pin-post`),
+        onError: (error: any) => { 
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: () => {
+            toast.success(pin ? "Post UnPinned Successfully" : "Post Pinned Successfully") 
+            setOpenPin(false)
+            query?.invalidateQueries("post-communities") 
+            query?.invalidateQueries("post-pin")
+        },
+    });
+
+    const { mutate: editCommunity, isLoading: loadingEdit } = useMutation({
+        mutationFn: (data: any) => httpService.patch(`/communities/${id}`, data),
+        onError: (error: any) => {
+            console.log(error?.response?.data?.error?.details?.message);
+
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: () => {
+            toast.success("Created Event Successfully")
+            router("/dashboard/community")
+        },
+    });
 
 
     const { mutate: createPost, isLoading: loadingCreatePost } = useMutation({
@@ -66,11 +92,11 @@ const useCommunity = () => {
             // if(index) { 
             //     createAnnocement(data?.data?.post?._id)
             // } else {
-                router("/dashboard/community/details/"+id)
+            router("/dashboard/community/details/" + id)
             // }
 
         },
-    }); 
+    });
 
     const createAnnocementPost = useMutation({
         mutationFn: (postId: any) => httpService.post(`/organizations/posts/${postId}/make-announcement`, {}),
@@ -79,7 +105,7 @@ const useCommunity = () => {
 
             toast.error(error?.response?.data?.error?.details?.message)
         },
-        onSuccess: () => { 
+        onSuccess: () => {
             setOpenBroadcast(false)
             toast?.success("successful")
         },
@@ -93,7 +119,7 @@ const useCommunity = () => {
             toast.error(error?.response?.data?.error?.details?.message)
         },
         onSuccess: () => {
-            router("/dashboard/community/details/"+id)
+            router("/dashboard/community/details/" + id)
         },
     });
 
@@ -107,7 +133,7 @@ const useCommunity = () => {
         onSuccess: (data) => {
             console.log(data);
             query.invalidateQueries("post-communities")
-            setOpenDelete(false) 
+            setOpenDelete(false)
             toast.success("post deleted successfully")
         },
     });
@@ -120,11 +146,11 @@ const useCommunity = () => {
 
             toast.error(error?.response?.data?.error?.details?.message)
         },
-        onSuccess: () => { 
-            query?.invalidateQueries("post-communities") 
-            query?.invalidateQueries("postssingle") 
-            query?.invalidateQueries("comments")  
-            
+        onSuccess: () => {
+            query?.invalidateQueries("post-communities")
+            query?.invalidateQueries("postssingle")
+            query?.invalidateQueries("comments")
+
         },
     });
 
@@ -136,10 +162,10 @@ const useCommunity = () => {
 
             toast.error(error?.response?.data?.error?.details?.message)
         },
-        onSuccess: () => { 
-            query?.invalidateQueries("post-communities") 
-            query?.invalidateQueries("postssingle") 
-            query?.invalidateQueries("comments")  
+        onSuccess: () => {
+            query?.invalidateQueries("post-communities")
+            query?.invalidateQueries("postssingle")
+            query?.invalidateQueries("comments")
         },
     });
 
@@ -151,10 +177,10 @@ const useCommunity = () => {
 
             toast.error(error?.response?.data?.error?.details?.message)
         },
-        onSuccess: () => { 
-            query?.invalidateQueries("post-communities") 
-            query?.invalidateQueries("postssingle") 
-            query?.invalidateQueries("comments")  
+        onSuccess: () => {
+            query?.invalidateQueries("post-communities")
+            query?.invalidateQueries("postssingle")
+            query?.invalidateQueries("comments")
         },
     });
 
@@ -166,10 +192,10 @@ const useCommunity = () => {
 
             toast.error(error?.response?.data?.error?.details?.message)
         },
-        onSuccess: () => { 
-            query?.invalidateQueries("post-communities") 
-            query?.invalidateQueries("postssingle") 
-            query?.invalidateQueries("comments")  
+        onSuccess: () => {
+            query?.invalidateQueries("post-communities")
+            query?.invalidateQueries("postssingle")
+            query?.invalidateQueries("comments")
         },
     });
 
@@ -205,19 +231,17 @@ const useCommunity = () => {
             toast.error(error?.response?.data?.error?.details?.message)
         },
         onSuccess: () => {
-            query?.invalidateQueries("post-communities") 
-            query?.invalidateQueries("postssingle") 
-            query?.invalidateQueries("comments")  
+            query?.invalidateQueries("post-communities")
+            query?.invalidateQueries("postssingle")
+            query?.invalidateQueries("comments")
             setContentReply("")
-            
+
         },
     });
 
-
-
     const createCommentPost = useMutation({
         mutationFn: (data: {
-            postId: string 
+            postId: string
         }) => httpService.post(`/posts/${data?.postId}/comment`, {
             content: contentComment
         }),
@@ -227,13 +251,12 @@ const useCommunity = () => {
             toast.error(error?.response?.data?.error?.details?.message)
         },
         onSuccess: () => {
-            query?.invalidateQueries("post-communities") 
-            query?.invalidateQueries("postssingle") 
-            query?.invalidateQueries("comments")  
-            setContentComment("")
-            
+            query?.invalidateQueries("post-communities")
+            query?.invalidateQueries("postssingle")
+            query?.invalidateQueries("comments")
+            setContentComment("") 
         },
-    }); 
+    });
 
     const { renderForm: communityHookForm, values, setValue, formState } = useForm({
         defaultValues: {
@@ -255,7 +278,12 @@ const useCommunity = () => {
                 if (eventImage) {
                     formData.append("photo", eventImage)
                 }
-                mutate(formData)
+
+                if(!history?.pathname.includes("edit")){
+                    mutate(formData)
+                } else {
+                    editCommunity(formData)
+                }
             }
         }
     });
@@ -271,7 +299,7 @@ const useCommunity = () => {
 
             const formData = new FormData()
             formData.append("content", data?.content)
-            if(index) {
+            if (index) {
                 formData.append("isAnnouncement", "true")
             }
             formData.append("communityId", data?.communityId)
@@ -284,14 +312,14 @@ const useCommunity = () => {
         }
     });
 
-    const submit = ()=> {
-        if(!content){
+    const submit = () => {
+        if (!content) {
             toast.error("Add Content")
         } else {
             const formData = new FormData()
             formData.append("content", content)
-            formData.append("communityId", id+"")
-            if(index) {
+            formData.append("communityId", id + "")
+            if (index) {
                 formData.append("isAnnouncement", "true")
             }
             if (images?.length > 0) {
@@ -304,7 +332,11 @@ const useCommunity = () => {
     }
 
     return {
+        pinPost,
+        loadingPinPost,
         communityHookForm,
+        editCommunity,
+        loadingEdit,
         isLoading,
         isSuccess,
         values,
@@ -338,7 +370,7 @@ const useCommunity = () => {
         setOpenDelete,
         setOpenPin,
         setOpenReport,
-        reason, 
+        reason,
         setReason,
         createAnnocementPost,
         unLikeChannelComment,

@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useEventDetail } from "../../global-state/useEventDetails";
 import { useMap } from "../../global-state/useMapStore";
 import { usePagintion } from "../../global-state/usePagination";
-import { IEvent, IEventDashboard, IScanEvent } from "../../model/event";
+import { IConversationMember, IEvent, IEventDashboard, IScanEvent } from "../../model/event";
 import httpService from "../../utils/httpService";
 import { IMessage } from "../../model/chat";
 import Cookies from "js-cookie"
@@ -79,6 +79,35 @@ const useGetEventData = () => {
         }
     }
 
+
+    // Get Event list From Members
+    const getEventConversionMemberData = (index: string) => {
+        const [data, setData] = useState<Array<IConversationMember>>([])
+        const [count, setCount] = useState(0)
+        const { isLoading } = useQuery(
+            ["conversations-member", index],
+            () => httpService.get(`/conversations`, { 
+                params: {
+                    event: index
+                }
+            }),
+            {
+                onError: (error: any) => {
+                    toast.error(error.response?.data)
+                },
+                onSuccess: (data: any) => { 
+                    setCount(data?.data?.conversations?.data[0]?.unreadMessages)
+                    setData(data?.data?.conversations?.data[0]?.participants)
+                }, 
+            },
+        );
+
+        return {
+            data,
+            count,
+            isLoading
+        }
+    }
 
     //  Get Organization
     const getOrganization = () => {
@@ -309,7 +338,8 @@ const useGetEventData = () => {
         getEventMemberData,
         getOrganization,
         getOrganizationById, 
-        getScanEventTicket
+        getScanEventTicket,
+        getEventConversionMemberData
     };
 }
 

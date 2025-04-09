@@ -33,6 +33,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
     const userId = Cookies.get("user-index")
 
     const { data, isLoading } = useGetEventData().getSingleEventData()
+    const { data: member } = useGetEventData().getEventConversionMemberData(eventId + "")
     const { data: conversation, isLoading: loadingMessage, refetch } = useGetEventData().getConversationMessageData()
     const { createConversation, loadingConversation, createChat, loadingChat, inputMessage, setInputMessage } = useConversation()
 
@@ -52,11 +53,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
         }
     }, [index]);
 
-    const clickHandler = (item: {
-        fullname: string;
-        photo: string;
-        _id: string;
-    }) => {
+    const clickHandler = (item: any) => {
         createConversation({
             userTwo: item?._id,
             userType: "User",
@@ -78,7 +75,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
     //     conversationId: 'CONVERSATION_ID'
     //   });
     useEffect(() => {
-        if (conversation?.length > 0) { 
+        if (conversation?.length > 0) {
             conversation?.map((item) => {
                 if (item?.status === "unread") {
                     socket.emit('conversation-opened', {
@@ -88,27 +85,29 @@ export default function EventSupport({ tab, setTab }: IProps) {
             })
             query?.invalidateQueries("Conversations-count")
         }
-    }, [conversation])
-
+    }, [conversation]) 
+    
     return supportHookForm(
         <div className=' w-full flex gap-4 h-full' >
             <div className={` w-full ${!tab ? " flex " : " lg:flex hidden "} `} >
                 <LoadingAnimation loading={isLoading || loadingMessage} length={lodash.uniqBy(data?.members, "_id")?.length} >
                     <div className={` w-full px-4 flex-col flex gap-4 `} >
-                        {lodash.uniqBy(data?.members, "_id")?.map((item: any, index) => {
-                            return (
-                                <div key={index} role="button" onClick={() => clickHandler(item)} className=" w-full flex items-center gap-2  " >
-                                    <div className=" w-11 h-11 rounded-full border-2 border-primary " >
-                                        <img src={item?.photo} className=" w-full h-full rounded-full object-cover " alt={item?._id} />
+                        {lodash.uniqBy(member, "name")?.map((item, index) => {
+                            if (item?.participantType === "User") {
+                                return (
+                                    <div key={index} role="button" onClick={() => clickHandler(item?.participant)} className=" w-full flex items-center gap-2  " >
+                                        <div className=" w-11 h-11 rounded-full border-2 border-primary " >
+                                            <img src={item?.participant?.photo} className=" w-full h-full rounded-full object-cover " alt={item?.name} />
+                                        </div>
+                                        <div className=" flex flex-col " >
+                                            <Text className=" text-sm font-bold text-primary tracking-[1%] " >{item?.participant?.fullname}</Text>
+                                            {/* <Text className=" text-xs font-medium text-[#000000BF] tracking-[1%] " >Can we get this event started?</Text> */}
+                                        </div>
+                                        <div className=" flex flex-col ml-auto text-right gap-1 " >
+                                        </div>
                                     </div>
-                                    <div className=" flex flex-col " >
-                                        <Text className=" text-sm font-bold text-primary tracking-[1%] " >{item?.fullname}</Text>
-                                        {/* <Text className=" text-xs font-medium text-[#000000BF] tracking-[1%] " >Can we get this event started?</Text> */}
-                                    </div>
-                                    <div className=" flex flex-col ml-auto text-right gap-1 " >
-                                    </div>
-                                </div>
-                            )
+                                )
+                            }
                         })}
                     </div>
                 </LoadingAnimation>

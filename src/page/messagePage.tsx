@@ -18,7 +18,7 @@ export default function MessagePage() {
 
     return (
         <div className=' w-full flex flex-col gap-6 ' >
-            <PageHeader back={true}  header="Event Messages" second={true} body="" />
+            <PageHeader back={true} path={"/dashboard"}  header="Event Messages" second={true} body="" />
             <div className=" w-full lg:hidden flex px-4  " >
                 <input type={"search"} placeholder={"Search"} value={searchText} onChange={(e) => setSearchText(e.target.value)} className=" h-[45px] px-3 border-[#37137F80] border-[0.5px] hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] rounded-[10px] bg-transparent w-full text-sm font-semibold text-primary " />
             </div>

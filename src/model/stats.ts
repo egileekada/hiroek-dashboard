@@ -9,4 +9,5 @@
     eventDonations: 0, 
     totalCreatedCommunities: number,
     ticketSales: number
+    ticketSalesCount: number
 }

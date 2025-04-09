@@ -24,8 +24,8 @@ export default function EventDashboardPage() {
                             <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
                                 <CashIcon />
                             </div>
-                            <Text className=" relative z-10 font-semibold mt-1 lg:text-base text-xs " >Total Pledged Amount</Text>
-                            <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(getEventDashboardData()?.data?.pledges)}</Text>
+                            <Text className=" relative z-10 font-semibold mt-1 lg:text-base text-xs " >Total Donated Amount</Text>
+                            <Text className=" relative z-10 text-2xl lg:text-[28px] tracking-[1%] -mt-1 inter-all " >{formatNumber(getEventDashboardData()?.data?.fundRaised)}</Text>
                         </div>
                         <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                     </div>

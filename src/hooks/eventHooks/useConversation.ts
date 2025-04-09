@@ -45,9 +45,7 @@ const useConversation = () => {
         onError: (error: any) => {
             toast.error(error?.response?.data?.error?.details?.message)
         },
-        onSuccess: (data) => {
-
-            console.log(data?.data?.isTicketValid);
+        onSuccess: (data) => { 
             if (data?.data?.isTicketValid && history?.pathname?.includes("/dashboard/event/scanner")) {
                 toast.success("ticket is valid")
                 navigate(`/dashboard/event/scan/history/${eventId}`)

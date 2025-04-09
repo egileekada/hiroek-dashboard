@@ -27,7 +27,7 @@ export default function DashboardPage() {
                                 <CashIcon />
                             </div>
                             <Text className=" relative z-10 font-bold mt-1 lg:text-base !text-sm " >Total Amount</Text>
-                            <Text className=" relative z-10 text-[24px] tracking-[1%] -mt-1 font-extrabold " >{formatNumber(data?.ticketSales / 100)}</Text>
+                            <Text className=" relative z-10 text-[24px] tracking-[1%] -mt-1 font-extrabold " >{formatNumber(data?.walletBalance / 100)}</Text>
                         </div>
                         <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                     </div>
@@ -63,7 +63,7 @@ export default function DashboardPage() {
                             </div>
                             <Text className=" relative z-10 font-bold mt-1 lg:text-base text-sm " >Tickets Sold</Text>
                             <div className=" flex gap-2 items-center " >
-                                <Text className=" relative z-10 text-[24px] tracking-[1%] -mt-1 font-extrabold " >{formatNumber(data?.totalCreatedCommunities, "")}</Text>
+                                <Text className=" relative z-10 text-[24px] tracking-[1%] -mt-1 font-extrabold " >{formatNumber(data?.ticketSalesCount, "")}</Text>
                             </div>
                         </div>
                         <img src="/images/two.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
