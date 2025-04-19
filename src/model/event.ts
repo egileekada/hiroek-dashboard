@@ -7,7 +7,7 @@ export interface IEvent {
     address: string;
     admin: any
     adminType: string
-    category: string
+    category: any
     createdAt: string
     description: string
     endTime: string

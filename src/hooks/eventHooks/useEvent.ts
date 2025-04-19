@@ -62,8 +62,8 @@ const useEvent = () => {
                 ]
             },
             eventTicket: {
-                "totalTicket": "0",
-                "ticketPrice": "0"
+                "totalTicket": "",
+                "ticketPrice": ""
             },
             category: "",
             privacy: "public", 

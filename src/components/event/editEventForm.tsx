@@ -60,6 +60,8 @@ export default function EditEventForm(props: IProps) {
 
 
     // const { updateEndDate, updateStartDate } = useDatePicker((state) => state)
+    console.log(defaultdata?.category);
+    
 
     useEffect(() => {
         if (!values?.name) {
@@ -67,7 +69,13 @@ export default function EditEventForm(props: IProps) {
             setValue("name", defaultdata?.name)
             setValue("description", defaultdata?.description)
             setValue("signUpLimit", defaultdata?.signUpLimit)
-            setValue("category", defaultdata?.category)
+
+            if(defaultdata?.category?.subcategories?.length > 0){
+                setValue("category", defaultdata?.category?.subcategories[0])
+            } else {
+                setValue("category", defaultdata?.category?._id)
+            }
+
             setValue("eventTicket.ticketPrice", defaultdata?.eventTicket?.ticketPrice)
             setValue("eventTicket.totalTicket", defaultdata?.eventTicket?.totalTicket)
             setValue("fundRaiser.fundRaisingGoal", defaultdata?.fundRaiser?.fundRaisingGoal) 
@@ -84,6 +92,16 @@ export default function EditEventForm(props: IProps) {
             setTicketNo((prev) => prev + 1)
             setValue("eventTicket.totalTicket", ticketNo + 1)
         }
+    }
+
+    const checkForCategory = () => { 
+        if(defaultdata?.category?.subcategories?.length > 0){
+            return defaultdata?.category?.subcategories[0]
+        } else {
+            return defaultdata?.category?._id
+        }
+
+            return ""
     }
 
     return (
@@ -105,7 +123,7 @@ export default function EditEventForm(props: IProps) {
                 </div>
                 <div className=" w-full flex gap-4 lg:flex-row flex-col " >
                     <div className=" flex w-full flex-col gap-1 " >
-                        <Text className=" text-primary font-semibold text-sm " >No Of Avaliable Ticket</Text>
+                        <Text className=" text-primary font-semibold text-sm " >Spots Available</Text>
                         <div className=" w-full h-[54px] text-opacity-30 text-primary border-2 px-2 border-[#37137F4D] flex justify-between items-center rounded-lg " >
                             <div role="button" onClick={() => clickTicket("remove")} >
                                 <AiOutlineMinusCircle size={"30px"} />
@@ -119,7 +137,7 @@ export default function EditEventForm(props: IProps) {
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Event Category</Text>
                         {!loadingCategory && (
-                            <CustomSelect value={values?.category ? values?.category : defaultdata?.category} formState={formState} placeholder="Select Categories" name="category" changeHandler={changeHandler} list={categoryData} />
+                            <CustomSelect value={values?.category ? values?.category : checkForCategory()} formState={formState} placeholder="Select Categories" name="category" changeHandler={changeHandler} list={categoryData} />
                         )}
                     </div>
                 </div>

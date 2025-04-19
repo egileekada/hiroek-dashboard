@@ -35,24 +35,17 @@ export default function CustomDatePicker({ name }: IProps) {
         } else {
             updateEndDate(item.toISOString())
         }
-    } 
-
-    console.log(startData);
+    }  
     
 
     return (
         <div className=" w-full flex flex-col h-[54px] relative " >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateTimePicker
-                    // open={open} 
-                    // disablePast 
-                    minDate={name === "endTime" ? dayjs.utc() : dayjs.utc(startData)}
-                    // value={date}
+                <DateTimePicker 
+                    // label={name !== "endTime" ? "End Date": "Start Date"}
+                    minDate={name === "endTime" ? dayjs.utc() : dayjs.utc(startData)} 
                     defaultValue={dayjs.utc(name === "endTime" ? startData : endDate)}
-                    format="ddd, MM/DD/YYYY hh:mm a"
-                    // onOpen={() => setOpen(true)} 
-                    // onClose={() => setOpen(false)}
-                    // label="Select date"
+                    format="ddd, MM/DD/YYYY hh:mm a" 
                     onChange={(item) => changeHandler(item)} 
 
                 />

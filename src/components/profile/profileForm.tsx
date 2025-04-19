@@ -72,6 +72,10 @@ export default function ProfileForm() {
                     <CustomInput name="email" value={email} type="email" placeholder="Enter Organization" disable={true} />
                 </div> 
                 <div className=" flex w-full flex-col gap-1 " >
+                    <Text className=" text-primary font-semibold text-sm " >Organisation Address</Text>
+                    <CustomInput name="address" value={email} type="text" placeholder="Enter Address"  />
+                </div> 
+                <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Organization Reg No.</Text>
                     <CustomInput name="charityRegNumber" type="number" placeholder="Enter Organization Reg No" />
                 </div>

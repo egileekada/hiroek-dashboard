@@ -3,15 +3,16 @@ import { IInterest } from '../../model/interest'
 import { useState } from 'react';
 import ModalLayout from './modalLayout';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { ICategories } from '../../hooks/useCategory';
 
 interface IProps {
     changeHandler?: any;
-    list?: Array<string>;
+    list?: Array<ICategories>;
     interest?: Array<IInterest>;
     placeholder: string,
     name: string,
     formState: any,
-    value?: string,
+    value?: any,
     rounded?: string
 }
 
@@ -19,7 +20,7 @@ export default function CustomSelect(props: IProps) {
 
     const {
         changeHandler,
-        list = [],
+        list,
         placeholder,
         value,
         name,
@@ -36,47 +37,55 @@ export default function CustomSelect(props: IProps) {
         setOpenModal(false)
 
         console.log(item);
-        
-    }
+
+    }  
 
     const [open, setOpen] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [selected, setSelected] = useState("")
+ 
+    const selectHandler = (item: string) => {
+        if (item === selected) {
+            setSelected("")
+        } else {
+            setSelected(item)
+        }
+    }
 
-    const extractActivities = (inputString: any) => {
-        if (typeof inputString !== "string") {
-            throw new Error("Input must be a string");
+    function checkForName() {
+        for (const item of list || []) {
+            // Check subcategories first
+            if (item?.subcategories?.length > 0) {
+                for (const subitem of item.subcategories) {
+                    if (subitem?._id === defaultData) {
+                        return subitem.name;
+                    }
+                }
+            }
+
+            // Fallback to checking item itself
+            if (item?._id === defaultData) {
+                return item.name;
+            }
         }
 
-        const activities = inputString.split('",').map(activity => activity.trim().replace(/"/g, "")); // Split and clean input
-
-        const result = activities.map(activity => {
-            const [name, values] = activity.split(" ("); // Split by the first "("
-            const items = values.replace(")", "").split(",").map(item => item.trim()); // Extract values into an array
-            return {
-                name: name.trim(),
-                values: items
-            };
-        });
-
-        return result;
-    }; 
-
+        return "";
+    }  
 
     return (
         <>
             <div className=' w-full md:flex hidden birder flex-col placeholder:text-white relative ' >
                 <div onClick={() => setOpen(true)} className=' w-full px-4 flex justify-between h-[54px] text-sm rounded-lg border-primary bg-primary text-white border-2 items-center gap-4 ' >
-                    {defaultData ? defaultData : placeholder}
+                    {defaultData ? checkForName() : placeholder}
                     <div className=' w-fit ' >
                         <DropdownMenu.TriggerIcon />
                     </div>
                 </div>
                 {formState?.errors[name] && <Text className=" text-left text-xs text-red-500 font-semibold mt-1 " >{formState?.errors[name]?.message as string}</Text>}
             </div>
-            <div className=' w-full md:hidden flex birder flex-col !bg-primary placeholder:text-white relative ' >
+            <div className=' w-full md:hidden flex birder flex-col placeholder:text-white relative ' >
                 <div onClick={() => setOpenModal(true)} className=' w-full px-4 flex justify-between h-[54px] text-sm rounded-lg border-primary bg-primary text-white border-2 items-center gap-4 ' >
-                    {defaultData ? defaultData : placeholder}
+                    {defaultData ? checkForName() : placeholder}
                     <div className=' w-fit ' >
                         <DropdownMenu.TriggerIcon />
                     </div>
@@ -88,34 +97,33 @@ export default function CustomSelect(props: IProps) {
                     <Text className=' text-[18px] text-primary font-bold w-[80%] mx-auto text-center ' >Select your Preferred Category for The Event</Text>
                     <div className=' w-full overflow-y-auto ' >
                         <div className=' h-auto flex flex-col gap-1 w-full ' >
-                            {list?.map((item: string, index: number) => {
+                            {list?.map((item, index) => {
                                 return (
                                     <div key={index} className=' w-full flex flex-col px-2 ' >
-                                        {item?.includes("(") ?
-                                            <div role='button' onClick={() => setSelected((prev) => prev === extractActivities(item)[0]?.name ? "" : extractActivities(item)[0]?.name)} className=' text-sm flex items-center h-[54px] w-full justify-between font-semibold ' key={index} >
-                                                {extractActivities(item)[0]?.name + ""}
-                                                {selected !== extractActivities(item)[0]?.name ?
+                                        {item?.subcategories?.length ?
+                                            <div role='button' onClick={() => selectHandler(item?._id)} className=' text-sm flex items-center h-[45px] w-full justify-between font-semibold ' key={index} >
+                                                {item?.name}
+                                                {selected !== item?._id ?
                                                     <IoIosArrowDown size={"20px"} /> :
                                                     <IoIosArrowUp size={"20px"} />
                                                 }
                                             </div> :
-                                            <div role='button' onClick={() => clickhandler(item)} className=' text-sm flex items-center h-[54px] font-semibold ' key={index} >
-                                                {item}
+                                            <div role='button' onClick={() => clickhandler(item?._id)} className=' text-sm flex items-center h-[45px] font-semibold ' key={index} >
+                                                {item?.name}
                                             </div>
                                         }
-                                        {item?.includes("(") && (
+
+                                        {item?._id === selected && (
                                             <>
-                                                {selected === extractActivities(item)[0]?.name && (
-                                                    <div className=' flex flex-col px-4 gap-2 ' >
-                                                        {extractActivities(item)[0]?.values?.map((subitem, subindex) => {
-                                                            return (
-                                                                <div role='button' onClick={() => clickhandler((extractActivities(item)[0]?.name).toString() + " " + subitem)} key={subindex} className=' text-sm w-full py-2  ' >
-                                                                    {subitem}
-                                                                </div>
-                                                            )
-                                                        })}
-                                                    </div>
-                                                )}
+                                                <div className=' flex flex-col px-4 gap-2 ' >
+                                                    {item?.subcategories?.map((subitem, subindex) => {
+                                                        return (
+                                                            <div role='button' onClick={() => clickhandler(item?._id)} key={subindex} className=' text-sm w-full h-[45px] items-center flex ' >
+                                                                {subitem?.name}
+                                                            </div>
+                                                        )
+                                                    })}
+                                                </div>
                                             </>
                                         )}
                                     </div>
@@ -131,34 +139,33 @@ export default function CustomSelect(props: IProps) {
                     <Text className=' text-[18px] text-primary font-bold w-[80%] mx-auto text-center ' >Select your Preferred Category for The Event</Text>
                     <div className=' w-full overflow-y-auto ' >
                         <div className=' h-auto flex flex-col gap-1 w-full ' >
-                            {list?.map((item: string, index: number) => {
+                            {list?.map((item, index) => {
                                 return (
                                     <div key={index} className=' w-full flex flex-col px-2 ' >
-                                        {item?.includes("(") ?
-                                            <div role='button' onClick={() => setSelected((prev) => prev === extractActivities(item)[0]?.name ? "" : extractActivities(item)[0]?.name)} className=' text-sm flex items-center h-[54px] w-full justify-between font-semibold ' key={index} >
-                                                {extractActivities(item)[0]?.name + ""}
-                                                {selected !== extractActivities(item)[0]?.name ?
+                                        {item?.subcategories?.length ?
+                                            <div role='button' onClick={() => selectHandler(item?._id)} className=' text-sm flex items-center h-[45px] w-full justify-between font-semibold ' key={index} >
+                                                {item?.name}
+                                                {selected !== item?._id ?
                                                     <IoIosArrowDown size={"20px"} /> :
                                                     <IoIosArrowUp size={"20px"} />
                                                 }
                                             </div> :
-                                            <div role='button' onClick={() => clickhandler(item)} className=' text-sm flex items-center h-[54px] font-semibold ' key={index} >
-                                                {item}
+                                            <div role='button' onClick={() => clickhandler(item?._id)} className=' text-sm flex items-center h-[45px] font-semibold ' key={index} >
+                                                {item?.name}
                                             </div>
                                         }
-                                        {item?.includes("(") && (
+
+                                        {item?._id === selected && (
                                             <>
-                                                {selected === extractActivities(item)[0]?.name && (
-                                                    <div className=' flex flex-col px-4 gap-2 ' >
-                                                        {extractActivities(item)[0]?.values?.map((subitem, subindex) => {
-                                                            return (
-                                                                <div role='button' onClick={() => clickhandler(extractActivities(item)[0]?.name + " " + subitem)} key={subindex} className={`  text-sm w-full py-2  `} >
-                                                                    {subitem}
-                                                                </div>
-                                                            )
-                                                        })}
-                                                    </div>
-                                                )}
+                                                <div className=' flex flex-col px-4 gap-2 ' >
+                                                    {item?.subcategories?.map((subitem, subindex) => {
+                                                        return (
+                                                            <div role='button' onClick={() => clickhandler(item?._id)} key={subindex} className=' text-sm w-full h-[45px] items-center flex   ' >
+                                                                {subitem?.name}
+                                                            </div>
+                                                        )
+                                                    })}
+                                                </div>
                                             </>
                                         )}
                                     </div>

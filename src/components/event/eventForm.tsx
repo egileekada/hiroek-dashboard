@@ -41,9 +41,7 @@ export default function EventForm(props: IProps) {
     } = props
 
     // const { isLoading: loadingInterest, data: interestData } = useInterest()
-    const { isLoading: loadingCategory, data: categoryData } = useCategory()
-    // const [signupCount, setSignupCount] = useState(0)
-    // const [ticketNo, setTicketNo] = useState(0)
+    const { isLoading: loadingCategory, data: categoryData } = useCategory() 
     const [paidEvent, setPaidEvent] = useState(false)
     const [isFundraising, setIsFundraising] = useState(false) 
     const [ticketNo, setTicketNo] = useState(0) 
@@ -75,21 +73,9 @@ export default function EventForm(props: IProps) {
                     <Text className=" text-primary font-semibold text-sm " >Event Venue</Text>
                     <CustomAddress borderRadius="8px" name="address" type="text" setValue={setValue} placeholder="Type or search for venue..." />
                 </div>
-                <div className=" w-full flex gap-4 lg:flex-row flex-col " >
-                    {/* <div className=" flex w-full flex-col gap-1 " >
-                        <Text className=" text-primary font-semibold text-sm " >Event Sign-up Limit</Text>
-                        <div className=" w-full h-[54px] text-primary border-2 px-2 border-[#37137F4D] flex justify-between items-center rounded-lg " >
-                            <button onClick={() => clickSignUp("remove")} >
-                                <AiOutlineMinusCircle size={"30px"} />
-                            </button>
-                            {signupCount}
-                            <button onClick={() => clickSignUp("add")} >
-                                <IoMdAddCircleOutline size={"30px"} />
-                            </button>
-                        </div>
-                    </div> */}
+                <div className=" w-full flex gap-4 lg:flex-row flex-col " > 
                     <div className=" flex w-full flex-col gap-1 " >
-                        <Text className=" text-primary font-semibold text-sm " >No Of Avaliable Ticket</Text>
+                        <Text className=" text-primary font-semibold text-sm " >Spots Available</Text>
                         <div className=" w-full h-[54px] text-primary border-2 px-2 border-[#37137F4D] flex justify-between items-center rounded-lg " >
                             <div role="button" onClick={() => clickTicket("remove")} >
                                 <AiOutlineMinusCircle size={"30px"} />
@@ -109,11 +95,11 @@ export default function EventForm(props: IProps) {
                 </div>
                 <div className=" w-full flex gap-4 flex-col lg:flex-row relative " >
                     <div className=" flex w-full flex-col gap-1 " >
-                        <Text className=" text-primary font-semibold text-sm " >Start Date</Text>
+                        <Text className=" text-primary font-semibold text-sm " >Start Date & Time</Text>
                         <CustomDatePicker borderRadius="8px" name="endTime"  />
                     </div>
                     <div className=" flex w-full flex-col gap-1 " >
-                        <Text className=" text-primary font-semibold text-sm " >End Date</Text>
+                        <Text className=" text-primary font-semibold text-sm " >End Date & Time</Text>
                         <CustomDatePicker borderRadius="8px" name="eventEndDate"  />
                     </div>
                 </div>

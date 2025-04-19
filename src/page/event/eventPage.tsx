@@ -5,15 +5,18 @@ import { CustomButton } from "../../components/shared";
 import { EventIcon } from "../../svg";
 import { useEventDetail } from "../../global-state/useEventDetails";
 import EventCardMembersList from "../../components/shared/eventCardListForMembers";
+import { useMap } from "../../global-state/useMapStore";
 
 
 export default function EventPage() {
 
     const router = useNavigate()  
     const { updateEvent } = useEventDetail((state) => state)
+    const { updateMap } = useMap((state) => state);
 
     const clickHandler = () => {
         updateEvent({} as any)
+        updateMap("")
         router("/dashboard/event/create")
     }
 
