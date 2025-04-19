@@ -1,5 +1,5 @@
 import { MoreIcon } from "../../svg";
-import { FaEdit } from "react-icons/fa";
+// import { FaEdit } from "react-icons/fa";
 import ModalLayout from "../shared/modalLayout";
 import { HiMiniSpeakerWave, HiMiniTrash } from "react-icons/hi2";
 import { TbFlagFilled } from "react-icons/tb";
@@ -24,12 +24,12 @@ export default function MoreOptionBtn({ item, post, pinned }: { item: IPost, pos
             </div>
             <ModalLayout width=" max-w-[390px] w-full " open={open} setOpen={setOpen} >
                 <div className=" flex w-full flex-col pt-3 gap-4 " >
-                    {self && (
+                    {/* {self && (
                         <div role="button" className=" w-full pb-5 flex gap-2 items-center border-b border-primary30  " >
                             <FaEdit size={"16px"} color="#37137f" />
                             <p className=" text-xs font-bold text-primary " >Edit Post</p>
                         </div>
-                    )}
+                    )} */}
                     {(self && post && !pinned) && (
                         <div onClick={() => { setOpen(false), setOpenPin(true) }} role="button" className=" w-full pb-5 flex gap-2 items-center border-b border-primary30  " >
                             <TbFlagFilled size={"16px"} color="#37137f" />

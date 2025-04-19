@@ -20,7 +20,7 @@ export default function PostForm() {
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (files) {
-            setImages([...images, ...Array.from(files)]);
+            setImages([files[0]]);
         }
     };
 
@@ -79,8 +79,7 @@ export default function PostForm() {
                                 {/* Add Image */}
                                 <input
                                     type="file"
-                                    accept="image/*"
-                                    multiple
+                                    accept="image/*" 
                                     hidden
                                     onChange={handleImageChange}
                                 />

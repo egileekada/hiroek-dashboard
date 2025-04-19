@@ -43,7 +43,7 @@ export default function CommunityDetailPage() {
             </LoadingAnimation>
             <div className="fixed bottom-4 w-[240px] right-4 flex flex-col justify-end items-center">
                 {/* Animated Buttons */}
-                {isOpen && (
+                {/* {isOpen && (
                     <motion.div
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: -80, opacity: 1 }}
@@ -58,7 +58,7 @@ export default function CommunityDetailPage() {
                             Add New Post
                         </CustomButton>
                     </motion.div>
-                )}
+                )} */}
 
                 {isOpen && (
                     <motion.div
