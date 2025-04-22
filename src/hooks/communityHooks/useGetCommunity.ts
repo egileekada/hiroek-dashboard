@@ -5,23 +5,29 @@ import httpService from "../../utils/httpService";
 import { useState } from "react"; 
 import Cookies from "js-cookie" 
 import { ICommunity } from "../../model/community";
+import { useSearchStore } from "../../global-state/useSearchText";
 
 const useGetCommunity = () => {
  
         const [data, setData] = useState<Array<ICommunity>>() 
         const userId = Cookies.get("user-index")
 
+        const { search } = useSearchStore((state)=> state)
+
         // react query
         const { isLoading, isRefetching } = useQuery(
-            ["hosted-communities"],
-            () => httpService.get(`/communities/all-communities?userId=${userId}`),
+            ["hosted-communities", search],
+            () => httpService.get(`/communities/all-communities?userId=${userId}`, {
+                params: {
+                    searchQuery: search
+                }
+            }),
             {
                 onError: (error: any) => {
                     toast.error(error.response?.data)
                     // console.log(error);
                 },
-                onSuccess: (data: any) => {
-                    console.log(data?.data?.communities?.data);
+                onSuccess: (data: any) => { 
                     setData(data?.data?.communities?.data) 
                 }
             },

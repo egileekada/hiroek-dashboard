@@ -7,14 +7,17 @@ import { TbPhoto } from "react-icons/tb";
 import { useImage } from "../../global-state/useImageData";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";  
+import CustomAddress from "../shared/customAddress";
+import { useMap } from "../../global-state/useMapStore";
 
 
 export default function ProfileForm() {
 
-    const { isLoading, values, setImage, image, loadingProfile, profileForm } = useProfile()
-    const { logo, name, charityRegNumber, email, description } = useDetails((state) => state);
+    const { isLoading, values, setImage, image, loadingProfile, profileForm, setValue } = useProfile()
+    const { logo, name, charityRegNumber, email, description, address } = useDetails((state) => state);
 
     const { updateImage } = useImage((state) => state) 
+    const { updateMap } = useMap((state) => state);
 
     const router = useNavigate()
     // const { isLoading: loadingInterest, data: interestData } = useInterest()
@@ -39,7 +42,12 @@ export default function ProfileForm() {
         if (name !== values?.name || charityRegNumber !== values?.charityRegNumber || description !== values?.description) {
             router("/dashboard")
         }
-    }, [name]) 
+    }, [name])  
+
+    useEffect(() =>  {
+        updateMap(address)
+    }, [])
+    
 
     return profileForm (
         <div className=' w-full max-w-[607px] flex flex-col gap-4 lg:px-0 px-4 ' >
@@ -70,11 +78,11 @@ export default function ProfileForm() {
                 <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Organization Email</Text>
                     <CustomInput name="email" value={email} type="email" placeholder="Enter Organization" disable={true} />
-                </div> 
+                </div>  
                 <div className=" flex w-full flex-col gap-1 " >
-                    <Text className=" text-primary font-semibold text-sm " >Organisation Address</Text>
-                    <CustomInput name="address" value={email} type="text" placeholder="Enter Address"  />
-                </div> 
+                    <Text className=" text-primary font-semibold text-sm " >Event Venue</Text>
+                    <CustomAddress borderRadius="8px" name="address" type="text" setValue={setValue} placeholder="Type or search for venue..." />
+                </div>
                 <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Organization Reg No.</Text>
                     <CustomInput name="charityRegNumber" type="number" placeholder="Enter Organization Reg No" />

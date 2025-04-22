@@ -61,7 +61,7 @@ export default function EventCardMembersList({ title, filter, mobile }: IProps) 
                         <Text className=' lg:text-xl text-primary font-black ' >{title ?? "Events"}</Text>
                         {/* <Text className=' lg:text-xs text-primary font-medium ' >{details ?? ""}</Text> */}
                     </div>
-                    <Text role='button' className=' w-[60px] lg:text-sm text-xs text-primary text-opacity-50 font-normal lg:hidden cursor-pointer ' >See all</Text>
+                    {/* <Text role='button' className=' w-[60px] lg:text-sm text-xs text-primary text-opacity-50 font-normal lg:hidden cursor-pointer ' >See all</Text> */}
                 </div>
             </div>
             {(!mobile) && (

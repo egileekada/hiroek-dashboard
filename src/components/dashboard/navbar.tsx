@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { DownArrowIcon, MessageIcon, NotificationIcon } from "../../svg";
 import { Spinner, Text } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
@@ -6,11 +5,11 @@ import { useDetails } from "../../global-state/useUserDetails";
 import { capitalizeFLetter } from "../../utils/capitalLetter";
 import useNotificationCount from "../../hooks/useNotificationCount";
 import useConversationCount from "../../hooks/useConversationCount";
+import { useSearchStore } from "../../global-state/useSearchText";
+import { useEffect } from "react";
 
 
-export default function Navbar() {
-
-    const [searchText, setSearchText] = useState("")
+export default function Navbar() { 
 
     const router = useNavigate()
     const { name, logo } = useDetails((state) => state);
@@ -19,10 +18,16 @@ export default function Navbar() {
 
     const { data: count, isLoading } = useConversationCount()
 
+    const { search, setSearchText } = useSearchStore((state)=> state)
+
+    useEffect(()=> {
+        setSearchText("")
+    }, [])
+
     return (
         <div className=" w-full h-[55px] flex justify-between items-center px-4 " >
             <div className=" w-[300px] lg:block hidden " >
-                <input type={"search"} placeholder={"Search"} value={searchText} onChange={(e) => setSearchText(e.target.value)} className=" h-[35px] px-3 border-[#37137F80] border-[0.5px] hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] rounded-[10px] bg-transparent w-full text-sm font-semibold text-primary " />
+                <input type={"search"} placeholder={"Search"} value={search} onChange={(e) => setSearchText(e.target.value)} className=" h-[35px] px-3 border-[#37137F80] border-[0.5px] hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] rounded-[10px] bg-transparent w-full text-sm font-semibold text-primary " />
             </div>
             <div className=" flex items-center ml-auto " >
                 <div onClick={() => router("/dashboard/message")} role="button" className=" w-10 h-10 relative flex justify-center items-center " >

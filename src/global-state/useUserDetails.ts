@@ -4,6 +4,7 @@ type UserState = {
     accountClaimed: boolean;
     bankAccountName: string;
     bankAccountNumber: string;
+    address: string;
     bankName: string;
     charityRegNumber: string;
     city: string;
@@ -30,6 +31,7 @@ type UserState = {
 export const useDetails = create<UserState>((set) => ({
     accountClaimed: false,
     bankAccountName: "",
+    address: "", 
     bankAccountNumber: "",
     bankName: "",
     charityRegNumber: "",

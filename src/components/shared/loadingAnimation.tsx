@@ -59,7 +59,7 @@ function LoadingAnimation(props: Props) {
             {((!loading && !isLoading)) && (
                 <>
                     {length === 0 && (
-                        <div className=' w-full  flex justify-center text-lg py-4 '  >
+                        <div className=' w-full flex justify-center text-lg py-4 '  >
                             <Text>No Records Found</Text>
                         </div>
                     )}

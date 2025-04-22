@@ -10,6 +10,7 @@ import httpService from "../../utils/httpService";
 import { IMessage } from "../../model/chat";
 import Cookies from "js-cookie"
 import { IUser } from "../../model/user";
+import { useSearchStore } from "../../global-state/useSearchText";
 
 const useGetEventData = () => {
 
@@ -17,12 +18,11 @@ const useGetEventData = () => {
     const { updateEvent } = useEventDetail((state) => state)
     const { updateMap } = useMap((state) => state);
 
-    const userId = Cookies.get("user-index")
-
-    const [search, setSearch] = useState("")
+    const userId = Cookies.get("user-index") 
     const [searchParams] = useSearchParams();
     const conversationId = searchParams.get("id");
 
+    const { search } = useSearchStore((state)=> state)
 
     const { id } = useParams();
 
@@ -30,12 +30,13 @@ const useGetEventData = () => {
     const getEventData = () => {
         const [data, setData] = useState<Array<IEvent>>([])
         const { isLoading } = useQuery(
-            ["Event", page, pageSize, eventFilter],
+            ["Event", page, pageSize, eventFilter, search],
             () => httpService.get(`/organizations/events`, {
                 params: {
                     page: page,
                     pageSize: pageSize,
-                    eventFilter: eventFilter
+                    eventFilter: eventFilter,
+                    searchQuery: search
                 }
             }),
             {
@@ -330,9 +331,7 @@ const useGetEventData = () => {
         getEventData,
         getEventDashboardData,
         getEventDashboardTicketData,
-        getSingleEventData,
-        setSearch,
-        search,
+        getSingleEventData, 
         getEventConversationData,
         getConversationMessageData,
         getEventMemberData,

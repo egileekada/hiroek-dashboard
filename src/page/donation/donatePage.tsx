@@ -8,6 +8,7 @@ import { formatNumber } from "../../utils/numberFormat";
 import InfoGraph from "../../components/donate/infoGraph";
 import { useState } from "react";
 import useBankBal from "../../hooks/useBankBal";
+import InfoGraphTicket from "../../components/donate/infoGraphTicket";
 
 
 export default function DonatePage() {
@@ -61,9 +62,16 @@ export default function DonatePage() {
                         <CustomButton onClick={() => setTab(false)} fontSize='14px' width='100%' bgColor={!tab ? "#37137F" : "#37137F1A"} color={tab ? "#37137F" : "white"} rounded="999px"  >Donations</CustomButton>
                         <CustomButton onClick={() => setTab(true)} fontSize='14px' width='100%' bgColor={tab ? "#37137F" : "#37137F1A"} color={!tab ? "#37137F" : "white"} rounded="999px" >Ticket Sales</CustomButton>
                     </div>
-                    <div className=" w-full max-w-[400px] p-4 shadow-lg mt-3 rounded-2xl " >
-                        <InfoGraph />
-                    </div>
+                    {!tab && (
+                        <div className=" w-full max-w-[400px] p-4 shadow-lg mt-3 rounded-2xl " >
+                            <InfoGraph />
+                        </div>
+                    )}
+                    {tab && (
+                        <div className=" w-full max-w-[400px] p-4 shadow-lg mt-3 rounded-2xl " >
+                            <InfoGraphTicket />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

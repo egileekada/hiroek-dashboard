@@ -10,7 +10,7 @@ import { useMap } from "../../global-state/useMapStore";
 
 export default function EventPage() {
 
-    const router = useNavigate()  
+    const router = useNavigate()
     const { updateEvent } = useEventDetail((state) => state)
     const { updateMap } = useMap((state) => state);
 
@@ -33,12 +33,14 @@ export default function EventPage() {
                 </div>
             </div>
             <div className=" w-full flex flex-col lg:px-0 px-5 gap-6 " >
-                <EventCardList title="Created Events" details="View Events Created By Your Supporters In Aid of Your Mission. Chat With The Event Creators To Support Their Effort." filter={true} />
+                <div className=" w-full" >
+                    <EventCardList title="Created Events" details="View Events Created By Your Supporters In Aid of Your Mission. Chat With The Event Creators To Support Their Effort." filter={true} />
+                </div>
                 <div className=" w-full lg:hidden " >
                     <EventCardMembersList mobile={true} title="Events created by members" />
                 </div>
                 <div className=" w-full lg:block hidden " >
-                    <EventCardMembersList title="Events created by members"  />
+                    <EventCardMembersList title="Events created by members" />
                 </div>
             </div>
             <div className=" w-fit lg:hidden md:bottom-6 fixed bottom-28 ml-auto mr-6 right-0 ">

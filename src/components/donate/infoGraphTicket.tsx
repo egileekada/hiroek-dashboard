@@ -15,11 +15,9 @@ import LoadingAnimation from "../shared/loadingAnimation";
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 
-export default function InfoGraph() {
+export default function InfoGraphTicket() {
 
-
-    const { data: dataInfo, isLoading } = useGetGraphData().getDonationData()
-    const { } = useGetGraphData().getTicketData()
+    const { data: dataInfo, isLoading } = useGetGraphData().getTicketData()
 
     // Get the last six months
     const lastSixMonths = dataInfo?.slice(-6);
@@ -32,7 +30,8 @@ export default function InfoGraph() {
             const date = new Date(year, month - 1); // month is 0-indexed in JS
             const monthName = new Intl.DateTimeFormat('en-US', { month: 'short' }).format(date);
             const shortYear = `'${year.toString().slice(-2)}`; // Takes last 2 digits (e.g., '24')
-            return `${monthName} ${shortYear}`;          
+            return `${monthName} ${shortYear}`;
+          
         }
     }); 
 
