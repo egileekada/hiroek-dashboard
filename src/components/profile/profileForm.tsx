@@ -14,7 +14,7 @@ import { useMap } from "../../global-state/useMapStore";
 export default function ProfileForm() {
 
     const { isLoading, values, setImage, image, loadingProfile, profileForm, setValue } = useProfile()
-    const { logo, name, charityRegNumber, email, description, address } = useDetails((state) => state);
+    const { logo, name, charityRegNumber, email, description, address, telephone } = useDetails((state) => state);
 
     const { updateImage } = useImage((state) => state) 
     const { updateMap } = useMap((state) => state);
@@ -80,7 +80,11 @@ export default function ProfileForm() {
                     <CustomInput name="email" value={email} type="email" placeholder="Enter Organization" disable={true} />
                 </div>  
                 <div className=" flex w-full flex-col gap-1 " >
-                    <Text className=" text-primary font-semibold text-sm " >Event Venue</Text>
+                    <Text className=" text-primary font-semibold text-sm " >Organization Phone Number</Text>
+                    <CustomInput name="telephone" value={telephone} type="tel" edit={true} setValue={setValue} placeholder="Enter Organization Phone Number" />
+                </div>  
+                <div className=" flex w-full flex-col gap-1 " >
+                    <Text className=" text-primary font-semibold text-sm " >Organization Address</Text>
                     <CustomAddress borderRadius="8px" name="address" type="text" setValue={setValue} placeholder="Type or search for venue..." />
                 </div>
                 <div className=" flex w-full flex-col gap-1 " >

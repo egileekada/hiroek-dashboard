@@ -12,7 +12,7 @@ import { useImage } from "../global-state/useImageData";
 
 const useProfile = () => {
 
-    const { name, charityRegNumber, description, logo, setAll, address } = useDetails((state) => state);
+    const { name, charityRegNumber, description, logo, setAll, address, telephone } = useDetails((state) => state);
     const { image: imageFile, updateImage } = useImage((state) => state) 
 
     const [image, setImage] = useState('');
@@ -55,7 +55,9 @@ const useProfile = () => {
             name: name,
             charityRegNumber: charityRegNumber,
             // interests: interests,
-            description: description
+            description: description,
+            telephone: telephone,
+            address: address
         },
         validationSchema: ProfileValidation,
         submit: async (data: any) => {
@@ -67,6 +69,7 @@ const useProfile = () => {
                 if(data?.address){
                     formData.append("address", data?.address ?? address) 
                 }
+                formData.append("telephone", data?.telephone ?? "") 
                 formData.append("charityRegNumber", data?.charityRegNumber ?? charityRegNumber)
                 formData.append("description", data?.description ?? description)
                 if (imageFile) {

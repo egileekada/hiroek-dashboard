@@ -20,6 +20,7 @@ const ProfileValidation = z.object({
     name: z.string().nonempty("Required"),
     charityRegNumber: z.string().nonempty("Required"),
     // interests: z.string().nonempty("Required"),
+    telephone: z.any(),
     address: z.any(),
     description: z.string().nonempty("Required"),
 })

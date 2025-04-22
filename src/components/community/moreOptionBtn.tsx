@@ -1,7 +1,7 @@
 import { MoreIcon } from "../../svg";
 // import { FaEdit } from "react-icons/fa";
 import ModalLayout from "../shared/modalLayout";
-import { HiMiniSpeakerWave, HiMiniTrash } from "react-icons/hi2";
+import { HiMiniTrash } from "react-icons/hi2";
 import { TbFlagFilled } from "react-icons/tb";
 import { IPost } from "../../hooks/communityHooks/useGetCommunityPost";
 import { Text, TextArea } from "@radix-ui/themes";
@@ -10,7 +10,7 @@ import LoadingAnimation from "../shared/loadingAnimation";
 import Cookies from "js-cookie"
 
 
-export default function MoreOptionBtn({ item, post, pinned }: { item: IPost, post?: boolean, pinned?: boolean }) {
+export default function MoreOptionBtn({ item, pinned }: { item: IPost, post?: boolean, pinned?: boolean }) {
 
     const { reportChannelPost, open, setOpen, openReport, setOpenReport, openDelete, setOpenDelete, openBroadcast, setOpenBroadcast, openPin, setOpenPin, reason, setReason, deleteChannelPost, createAnnocementPost, pinPost, loadingPinPost } = useCommunity(pinned)
     const userId = Cookies.get("user-index")
@@ -30,34 +30,36 @@ export default function MoreOptionBtn({ item, post, pinned }: { item: IPost, pos
                             <p className=" text-xs font-bold text-primary " >Edit Post</p>
                         </div>
                     )} */}
-                    {(self && post && !pinned) && (
+                    {(self && !pinned) && (
                         <div onClick={() => { setOpen(false), setOpenPin(true) }} role="button" className=" w-full pb-5 flex gap-2 items-center border-b border-primary30  " >
                             <TbFlagFilled size={"16px"} color="#37137f" />
                             <p className=" text-xs font-bold text-primary " >Pin Post</p>
                         </div>
-                    )} 
+                    )}
                     {(pinned) && (
                         <div onClick={() => { setOpen(false), setOpenPin(true) }} role="button" className=" w-full pb-5 flex gap-2 items-center border-b border-primary30  " >
                             <TbFlagFilled size={"16px"} color="#37137f" />
                             <p className=" text-xs font-bold text-primary " >UnPin Post</p>
                         </div>
                     )}
-                    <div onClick={() => { setOpen(false), setOpenReport(true) }} role="button" className=" w-full pb-5 flex gap-2 items-center border-b border-primary30  " >
-                        <TbFlagFilled size={"16px"} color="#37137f" />
-                        <p className=" text-xs font-bold text-primary " >Report Post</p>
-                    </div>
-                    {self && (
+                    {(!self) && (
+                        <div onClick={() => { setOpen(false), setOpenReport(true) }} role="button" className=" w-full pb-5 flex gap-2 items-center border-b border-primary30  " >
+                            <TbFlagFilled size={"16px"} color="#37137f" />
+                            <p className=" text-xs font-bold text-primary " >Report Post</p>
+                        </div>
+                    )}
+                    {(self) && (
                         <div onClick={() => { setOpen(false), setOpenDelete(true) }} role="button" className={` w-full pb-5 flex gap-2 items-center ${!item?.isAnnouncement && self ? " border-b border-primary30 " : ""} `} >
                             <HiMiniTrash size={"16px"} color="#37137f" />
                             <p className=" text-xs font-bold text-primary " >Delete Post</p>
                         </div>
                     )}
-                    {(!item?.isAnnouncement && self) && (
+                    {/* {(!item?.isAnnouncement && self) && (
                         <div onClick={() => { setOpen(false), setOpenBroadcast(true) }} role="button" className=" w-full pb-5 flex gap-2 items-center " >
                             <HiMiniSpeakerWave size={"16px"} color="#37137f" />
                             <p className=" text-xs font-bold text-primary " >Broadcast Post</p>
                         </div>
-                    )}
+                    )} */}
                 </div>
             </ModalLayout>
 

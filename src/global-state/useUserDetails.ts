@@ -6,6 +6,7 @@ type UserState = {
     bankAccountNumber: string;
     address: string;
     bankName: string;
+    telephone: string;
     charityRegNumber: string;
     city: string;
     country: string;
@@ -49,6 +50,7 @@ export const useDetails = create<UserState>((set) => ({
     logo: "",
     name: "",
     postalCode: "",
+    telephone: "",
     subcategories: [],
     totalDonations: 0,
     updatedAt: "",

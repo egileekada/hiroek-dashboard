@@ -162,19 +162,7 @@ export default function EditEventForm(props: IProps) {
                             <div className=" flex w-full flex-col gap-1 " >
                                 <Text className=" text-primary font-semibold text-sm " >Event Ticket Price</Text>
                                 <CustomInput disable={true} value={values?.eventTicket?.ticketPrice ? values?.eventTicket?.ticketPrice / 100 : defaultdata?.eventTicket?.ticketPrice} borderRadius="8px" name="eventTicket.ticketPrice" type="number" placeholder="" icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} />
-                            </div>
-                            {/* <div className=" flex w-full flex-col gap-1 " >
-                                <Text className=" text-primary font-semibold text-sm " >No Of Avaliable Ticket</Text>
-                                <div className=" w-full h-[54px] text-opacity-30 text-primary border-2 px-2 border-[#37137F4D] flex justify-between items-center rounded-lg " >
-                                    <div role="button" onClick={() => clickTicket("remove")} >
-                                        <AiOutlineMinusCircle size={"30px"} />
-                                    </div>
-                                    {values?.eventTicket?.totalTicket+""}
-                                    <div role="button" onClick={() => clickTicket("add")} >
-                                        <IoMdAddCircleOutline size={"30px"} />
-                                    </div>
-                                </div>
-                            </div> */}
+                            </div> 
                             <div className=" w-full " />
                         </div>
                     )}
@@ -198,13 +186,7 @@ export default function EditEventForm(props: IProps) {
                                     <div className=" flex w-full flex-col gap-1 " >
                                         <CustomInput value={values?.fundRaiser.fundRaisingGoal ? values?.fundRaiser.fundRaisingGoal : defaultdata?.fundRaiser.fundRaisingGoal} icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} borderRadius="8px" color="white" borderWidth="1px" borderColor="white" name="fundRaiser.fundRaisingGoal" type="number" placeholder="Enter Amount" />
                                     </div>
-                                </div>
-                                {/* <div className=" flex w-full flex-col gap-1 " >
-                                    <Text className=" text-white font-semibold text-sm " >Add Charity Partners</Text>
-                                    <div className=" flex w-full flex-col gap-1 " >
-                                        <CustomInput icon={<LuSearch size={"20px"} className=" ml-3 " />} hasLeftIcon={true} borderRadius="8px" color="white" borderWidth="1px" borderColor="white" name="fundRaiser.organisation[1]" type="text" placeholder="Search Charity Partners" />
-                                    </div>
-                                </div> */}
+                                </div> 
                             </div>
                         </div>
                     )}

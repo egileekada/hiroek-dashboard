@@ -46,7 +46,7 @@ export default function DonatePage() {
                             </div>
                         </div>
                         <div className=" w-full h-[87px] flex items-center gap-6 px-6 " style={{ background: "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%)" }} >
-                            <CustomButton onClick={() => router("/dashboard/donation/setup")} bgColor="#FFFFFF4D" className=" " fontSize="12px" >Setup Account</CustomButton>
+                            <CustomButton onClick={() => router("/dashboard/donation/setup")} bgColor="#FFFFFF4D" className=" " fontSize="12px" >{!bankAccountNumber ? "Setup Account" : "Manage Account"}</CustomButton>
                             <CustomButton onClick={() => router("/dashboard/donation/withdraw")} bgColor="#FFFFFF4D" className=" " fontSize="12px" >Withdraw Funds</CustomButton>
                         </div>
                     </div>

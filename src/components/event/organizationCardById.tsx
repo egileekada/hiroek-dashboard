@@ -33,7 +33,7 @@ export default function OrganizationCardWithId({ index, control, name, value }: 
                     )}
                     <div className=" flex flex-col gap-2 " >
                         <Text className=" font-semibold text-sm " >{textLimit(item?.name, 40)}</Text>
-                        <Text className=" font-semibold text-sm " >{item?.email}</Text>
+                        {/* <Text className=" font-semibold text-sm " >{item?.email}</Text> */}
                     </div>
                     {userId !== item?._id && (
                         <div className=" ml-auto flex gap-3 " >
