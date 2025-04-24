@@ -53,10 +53,6 @@ export default function NotificationPage() {
         query.invalidateQueries("Notification-counting")
     }
 
-    console.log(data);
-
-    
-
     return (
         <>
             {!index && (
@@ -65,10 +61,7 @@ export default function NotificationPage() {
                     <LoadingAnimation loading={isLoading} refeching={isRefetching} length={data?.length} >
                         <div className=' lg:max-w-[400px] w-full flex flex-col lg:px-0 ' >
                             {results?.map((item: IProps, index: number) => {
-                                if(index === results?.length-1){
-                                    console.log(index);
-                                    console.log(results?.length-1);
-                                    
+                                if(index === results?.length-1){ 
                                     return (
                                         <div key={index} ref={ref} > 
                                             <NotificationCard item={item} clickHandler={clickHandler} name={name}  />
