@@ -60,7 +60,12 @@ const useBank = () => {
         onError: (error: any) => {
             console.log(error?.response?.data?.error?.details?.message);
 
-            toast.error(error?.response?.data?.error?.details?.message)
+            if(error?.response?.data?.error?.details?.message?.includes("balance is too low")){
+                toast.error("you have insufficient funds") 
+            } else {
+                toast.error(error?.response?.data?.error?.details?.message);
+            }
+
         },
         onSuccess: (data) => { 
 

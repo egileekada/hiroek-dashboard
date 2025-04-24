@@ -2,6 +2,7 @@ import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import httpService from "../utils/httpService";
 import { useState } from "react";
+import InfiniteScrollerComponent from "./infiniteScrollerComponent";
 
 
 export interface IProps {
@@ -26,21 +27,30 @@ const useNotification = () => {
     // react query
     const { isLoading } = useQuery(
         ["Notification-List"],
-        () => httpService.get(`/notifications`),
+        () => httpService.get(`/notifications`, {
+            params: {
+                pageSize: 20
+            }
+        }),
         {
             onError: (error: any) => {
                 toast.error(error.response?.data)
             },
-            onSuccess: (data: any) => {
-
-                console.log(data);
-
+            onSuccess: (data: any) => { 
                 setData(data?.data?.notifications?.data)
             }
         },
     ); 
+
+
+    const { results, ref, isRefetching, isLoading: loading } = InfiniteScrollerComponent({ url: `/notifications`, limit: 10, filter: "_id", name: "getOrder" })
+
     return {
         isLoading,
+        isRefetching,
+        ref,
+        results,
+        loading,
         data 
     };
 }

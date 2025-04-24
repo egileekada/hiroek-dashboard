@@ -1,5 +1,5 @@
 // import { TextField } from "@radix-ui/themes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EyeIcon } from "../../svg";
 import { useFormContext } from "react-hook-form";
 import { Text } from "@radix-ui/themes";
@@ -31,8 +31,12 @@ interface IProps {
 export default function CustomInput({ isPassword = false, name, textarea, type, placeholder, disable, value, icon, hasIcon, hasLeftIcon, borderRadius, onclick, edit, setValue, color, borderColor, borderWidth }: IProps) {
 
     const [showText, setShowText] = useState(type)
-    const [defaultValue, setDefaultValue] = useState(value+"")
+    const [defaultValue, setDefaultValue] = useState("")
     const { register, formState: { errors } } = useFormContext();
+
+    useEffect(()=> {
+        setDefaultValue(value)
+    }, [])
 
     const clickHandler = () => {
         setShowText((prev) => prev === "text" ? "password" : "text")

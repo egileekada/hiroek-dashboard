@@ -1,27 +1,23 @@
-import { Text } from '@radix-ui/themes'
-import PageHeader from '../components/shared/pageHeader'
-import { ChannelsColored, CommentIcon, DonateIcon, EventLikeColored, FollwingIcon } from '../svg'
+import PageHeader from '../components/shared/pageHeader' 
 import useNotification, { IProps } from '../hooks/useNotification'
-import LoadingAnimation from '../components/shared/loadingAnimation'
-import moment from 'moment'
-import { useDetails } from '../global-state/useUserDetails'
-import { textLimit } from '../utils/textlimit'
+import LoadingAnimation from '../components/shared/loadingAnimation' 
+import { useDetails } from '../global-state/useUserDetails' 
 // import ModalLayout from '../components/shared/modalLayout'
 import { useEffect, useState } from 'react'
 // import { CustomButton } from '../components/shared'
 import { io } from "socket.io-client";
 import Cookies from "js-cookie"
 import { useQueryClient } from 'react-query'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { ImCheckmark } from "react-icons/im";
+import { useNavigate, useSearchParams } from 'react-router-dom' 
 import ViewPost from '../components/notifications /viewPost'
 import ViewEvent from '../components/notifications /viewEvent'
+import NotificationCard from '../components/notifications /notificationCard'
 
 export default function NotificationPage() {
 
     // const data = "Believes in our mission and has shown their support. Let's welcome them to the community!"
 
-    const { isLoading, data } = useNotification()
+    const { isLoading, data, results, isRefetching, ref } = useNotification()
     // const [open, setOpen] = useState(false)
     const navigate = useNavigate()
 
@@ -57,81 +53,37 @@ export default function NotificationPage() {
         query.invalidateQueries("Notification-counting")
     }
 
+    console.log(data);
+
+    
+
     return (
         <>
             {!index && (
                 <div className=' w-full flex flex-col gap-6 ' >
                     <PageHeader back={true} header="Notifications" body="Manage your platform effectively with hiroek." />
-                    <LoadingAnimation loading={isLoading} length={data?.length} >
+                    <LoadingAnimation loading={isLoading} refeching={isRefetching} length={data?.length} >
                         <div className=' lg:max-w-[400px] w-full flex flex-col lg:px-0 ' >
-                            {data?.map((item, index) => {
-                                return (
-                                    <div onClick={() => clickHandler(item)} style={{ boxShadow: "0px 2px 4px 0px #0000000D" }} key={index} className={` h-[80px] relative px-2 w-full flex items-center gap-4 lg:border-b-0 border-b `} >
-                                        <div className=' flex gap-2 items-center ' >
-                                            {(item?.type === "NEW_DONATION" || item?.type === "NEW_PAYMENT") && (
-                                                <div className=' w-fit' >
-                                                    <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
-                                                        <DonateIcon />
-                                                    </div>
-                                                </div>
-                                            )}
-                                            {(item?.type === "EVENT_INVITE" || item?.type === "EVENT_UPDATE" || item?.type === "EVENT_STARTED") && (
-                                                <div className=' w-fit' >
-                                                    <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
-                                                        <EventLikeColored />
-                                                    </div>
-                                                </div>
-                                            )}
-                                            {(item?.type === "COMMUNITY_REPORT" || item?.type === "COMMUNITY_INVITE" || item?.type === "POST_REPORT" || item?.type === "NEW_POST") && (
-                                                <div className=' w-fit' >
-                                                    <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
-                                                        <ChannelsColored />
-                                                    </div>
-                                                </div>
-                                            )}
-                                            {item?.type === "NEW_LIKE" && (
-                                                <div className=' w-fit' >
-                                                    <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
-                                                        <FollwingIcon />
-                                                    </div>
-                                                </div>
-                                            )}
-                                            {(item?.type === "NEW_COMMENT" || item?.type === "NEW_CHAT") && (
-                                                <div className=' w-fit' >
-                                                    <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
-                                                        <CommentIcon />
-                                                    </div>
-                                                </div>
-                                            )}
-
-                                            <div className=' flex flex-col ' >
-                                                <Text className=' text-sm tracking-[-0.5px] font-bold text-primary ' >{item?.title}</Text>
-                                                <Text className=' text-[10px] text-primary text-opacity-75 ' ><span className=' font-bold ' >{name}</span> {textLimit(item?.message, 20)}</Text>
-                                            </div>
+                            {results?.map((item: IProps, index: number) => {
+                                if(index === results?.length-1){
+                                    console.log(index);
+                                    console.log(results?.length-1);
+                                    
+                                    return (
+                                        <div key={index} ref={ref} > 
+                                            <NotificationCard item={item} clickHandler={clickHandler} name={name}  />
                                         </div>
-                                        <div className=' w-fit ml-auto flex flex-col lg:mr-1 mr-2 ' >
-                                            <Text className=' text-[10px] font-extrabold text-primary text-opacity-50' >{moment(item?.createdAt)?.fromNow()}</Text>
-
+                                    )
+                                } else {
+                                    return (
+                                        <div key={index}> 
+                                            <NotificationCard item={item} clickHandler={clickHandler} name={name}  />
                                         </div>
-                                        {item?.isRead && (
-                                            <div className=' absolute bottom-1 right-4 lg:right-1 text-[10px] font-extrabold text-primary' >
-                                                <ImCheckmark size={"15px"} />
-                                            </div>
-                                        )}
-                                    </div>
-                                )
+                                    )
+                                }
                             })}
                         </div>
-                    </LoadingAnimation>
-                    {/* <ModalLayout open={open} width='max-w-[350px]' setOpen={setOpen} >
-                        <div className=' w-full flex flex-col gap-3 ' >
-                            <p className=' text-xl font-semibold text-center ' >{detail?.name}</p>
-                            <p className=' text-sm text-center ' >{detail?.message}</p>
-                            <div className=' my-3 w-full flex justify-center ' >
-                                <CustomButton onClick={() => closeHandler(detail?.id)} height='35px' fontSize='14px' width='150px' >Close</CustomButton>
-                            </div>
-                        </div>
-                    </ModalLayout> */}
+                    </LoadingAnimation> 
                 </div>
             )}
             {index && (

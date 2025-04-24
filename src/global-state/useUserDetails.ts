@@ -14,6 +14,7 @@ type UserState = {
     description: string;
     email: string;
     fundRaised: number;
+    sortCode: string;
     interests: Array<any>;
     loc: {
         type: string;
@@ -38,6 +39,7 @@ export const useDetails = create<UserState>((set) => ({
     charityRegNumber: "",
     city: "",
     country: "",
+    sortCode: "",
     createdAt: "",
     description: "",
     email: "",
