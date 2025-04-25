@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 // import { LuSearch } from "react-icons/lu"; 
 import CreateEventBtnMobile from "./createEventBtnmobile"; 
+import GetOrganization from "./getOrganization";
 
 interface IProps {
     setValue: any;
@@ -187,6 +188,7 @@ export default function EditEventForm(props: IProps) {
                                         <CustomInput value={values?.fundRaiser.fundRaisingGoal ? values?.fundRaiser.fundRaisingGoal : defaultdata?.fundRaiser.fundRaisingGoal} icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} borderRadius="8px" color="white" borderWidth="1px" borderColor="white" name="fundRaiser.fundRaisingGoal" type="number" placeholder="Enter Amount" />
                                     </div>
                                 </div> 
+                                <GetOrganization value={values} />
                             </div>
                         </div>
                     )}

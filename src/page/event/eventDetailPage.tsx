@@ -1,6 +1,6 @@
 import { Text } from "@radix-ui/themes";
 import PageHeader from "../../components/shared/pageHeader";
-import { BackWhiteIcon, CalendarIcon2, CashIcon, ClockIcon, EditIcon, HistoryIcon, LocationIcon, QRIcon, TicketIcon, TrashIcon, TwoChatIcon } from "../../svg";
+import { BackWhiteIcon, CalendarIcon2, CashIcon, ClockIcon, EditIcon, HistoryIcon, LocationIcon, QRIcon, TicketIcon, TwoChatIcon } from "../../svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { CustomButton } from "../../components/shared";
 import { useEventDetail } from "../../global-state/useEventDetails";
@@ -31,13 +31,13 @@ export default function EventDetailPage() {
                             Edit Event
                         </CustomButton>
                     </div>
-                    <div className=" w-[160px] " >
+                    {/* <div className=" w-[160px] " >
                         <CustomButton bgColor="#CE4646" onClick={() => router("/dashboard/report/post")} hasFrontIcon={true} icon={
                             <TrashIcon />
                         } >
                             Delete Event
                         </CustomButton>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <LoadingAnimation loading={getSingleEventData()?.isLoading} >
@@ -149,11 +149,11 @@ export default function EventDetailPage() {
                     } >
                         Edit Event
                     </CustomButton>
-                    <CustomButton bgColor="#CE4646" onClick={() => router("/dashboard/report/post")} hasFrontIcon={true} icon={
+                    {/* <CustomButton bgColor="#CE4646" onClick={() => router("/dashboard/report/post")} hasFrontIcon={true} icon={
                         <TrashIcon />
                     } >
                         Delete Event
-                    </CustomButton>
+                    </CustomButton> */}
                 </div>
             </LoadingAnimation>
         </div>

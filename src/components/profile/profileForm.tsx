@@ -63,33 +63,33 @@ export default function ProfileForm() {
 
                 <label className=' w-fit px-6 h-[38px] lg:h-[57px] lg:text-base text-xs rounded-[44px] bg-primary absolute top-4 justify-center items-center flex right-4 font-extrabold text-white '  >
                     <input style={{ display: 'none' }} type="file" accept="image/*" id="input" onChange={handleImageChange} />
-                    Upload Organization Logo
+                    Upload Organisation Logo
                 </label>
             </div>
             <div className=' w-full flex flex-col gap-4 pb-6 mt-3 ' >
                 <div className=" flex w-full flex-col gap-1 " >
-                    <Text className=" text-primary font-semibold text-sm " >Organization Name</Text>
+                    <Text className=" text-primary font-semibold text-sm " >Organisation Name</Text>
                     <CustomInput name="name" type="text" placeholder="Type event name here. . ." />
                 </div>
                 <div className=" flex w-full flex-col gap-1 " >
-                    <Text className=" text-primary font-semibold text-sm " >Organization Description</Text>
-                    <CustomInput name="description" textarea={true} type="text" placeholder="Enter Organization Description" />
+                    <Text className=" text-primary font-semibold text-sm " >Organisation Description</Text>
+                    <CustomInput name="description" textarea={true} type="text" placeholder="Enter Organisation Description" />
                 </div>
                 <div className=" flex w-full flex-col gap-1 " >
-                    <Text className=" text-primary font-semibold text-sm " >Organization Email</Text>
-                    <CustomInput name="email" value={email} type="email" placeholder="Enter Organization" disable={true} />
+                    <Text className=" text-primary font-semibold text-sm " >Organisation Email</Text>
+                    <CustomInput name="email" value={email} type="email" placeholder="Enter Organisation" disable={true} />
                 </div>  
                 <div className=" flex w-full flex-col gap-1 " >
-                    <Text className=" text-primary font-semibold text-sm " >Organization Phone Number</Text>
-                    <CustomInput name="telephone" value={telephone} type="tel" edit={true} setValue={setValue} placeholder="Enter Organization Phone Number" />
+                    <Text className=" text-primary font-semibold text-sm " >Organisation Phone Number</Text>
+                    <CustomInput name="telephone" value={telephone} type="tel" edit={true} setValue={setValue} placeholder="Enter Organisation Phone Number" />
                 </div>  
                 <div className=" flex w-full flex-col gap-1 " >
-                    <Text className=" text-primary font-semibold text-sm " >Organization Address</Text>
+                    <Text className=" text-primary font-semibold text-sm " >Organisation Address</Text>
                     <CustomAddress borderRadius="8px" name="address" type="text" setValue={setValue} placeholder="Type or search for venue..." />
                 </div>
                 <div className=" flex w-full flex-col gap-1 " >
-                    <Text className=" text-primary font-semibold text-sm " >Organization Reg No.</Text>
-                    <CustomInput name="charityRegNumber" type="number" placeholder="Enter Organization Reg No" />
+                    <Text className=" text-primary font-semibold text-sm " >Organisation Reg No.</Text>
+                    <CustomInput name="charityRegNumber" type="number" placeholder="Enter Organisation Reg No" />
                 </div>
                 <div className=" w-full mt-4 ">
                     <CustomButton loading={isLoading || loadingProfile} hasFrontIcon={true} icon={

@@ -5,7 +5,7 @@ import useGetEventData from '../../hooks/eventHooks/useGetEventData'
 import OrganizationCard from './organizationCard'
 import OrganizationCardWithId from './organizationCardById'
 
-export default function GetOrganization({ control, value }: { control: any, value: any }) {
+export default function GetOrganization({ control, value }: { control?: any, value: any }) {
 
     const { data, search } = useGetEventData().getOrganization()
 

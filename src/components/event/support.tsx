@@ -70,10 +70,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
     const changeHandler = (value: any) => {
         setInputMessage(value);
     }
-
-    // socket.emit('conversation-opened', {
-    //     conversationId: 'CONVERSATION_ID'
-    //   });
+ 
     useEffect(() => {
         if (conversation?.length > 0) {
             conversation?.map((item) => {

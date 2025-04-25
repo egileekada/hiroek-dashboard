@@ -59,7 +59,7 @@ export default function InfoGraph() {
         plugins: {
             legend: {
                 display: true,
-                position: "top" as const,
+                position: "bottom" as const,
             },
             title: {
                 display: true,
