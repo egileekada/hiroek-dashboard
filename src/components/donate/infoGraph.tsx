@@ -23,7 +23,7 @@ export default function InfoGraph() {
 
     // Get the last six months
     const lastSixMonths = dataInfo?.slice(-6);
-    const amountArray = lastSixMonths?.map(item => item?.amount);
+    const amountArray = lastSixMonths?.map(item => item?.amount/100);
 
     // Format 'YYYY-MM' into 'MMM YYYY' (e.g., 'Nov 2024')
     const formattedMonths = lastSixMonths?.map((item: any) => {

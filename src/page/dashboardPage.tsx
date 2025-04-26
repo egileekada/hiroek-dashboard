@@ -70,9 +70,14 @@ export default function DashboardPage() {
                     </div>
                 </div>
             </LoadingAnimation>
-            <div className=" w-full flex flex-col px-4 lg:px-0 gap-6 " >
-                <EventCardList />
-                <CommunityCardList />
+            <div className=" w-full flex flex-col px-4 lg:px-0 gap-6 h-full " >
+
+                <div className=" w-full" >
+                    <EventCardList />
+                </div>
+                <div> 
+                    <CommunityCardList />
+                </div>
             </div>
         </div>
     )

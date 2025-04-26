@@ -12,6 +12,7 @@ import { useMap } from '../../global-state/useMapStore';
 import { CiSearch } from "react-icons/ci";
 import useGetEventData from '../../hooks/eventHooks/useGetEventData';
 import { useSearchStore } from '../../global-state/useSearchText';
+import { useEffect } from 'react';
 
 interface IProps {
     title?: string;
@@ -40,6 +41,10 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
             router(`/dashboard/event/details/${item?._id}`)
         }
     }
+
+    useEffect(()=> {
+        updateFilter("future")
+    }, [])
 
     return (
         <div className=' w-full flex flex-col gap-2 ' >
