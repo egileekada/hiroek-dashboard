@@ -27,15 +27,15 @@ const useGetEventData = () => {
     const { id } = useParams();
 
     // Get Event list
-    const getEventData = () => {
+    const getEventData = (filter?: string) => {
         const [data, setData] = useState<Array<IEvent>>([])
         const { isLoading } = useQuery(
-            ["Event", page, pageSize, eventFilter, search],
+            ["Event", page, pageSize, eventFilter, search, filter],
             () => httpService.get(`/organizations/events`, {
                 params: {
                     page: page,
                     pageSize: pageSize,
-                    eventFilter: eventFilter,
+                    eventFilter: filter ? filter : eventFilter,
                     searchQuery: search
                 }
             }),

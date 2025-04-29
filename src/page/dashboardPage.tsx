@@ -1,7 +1,6 @@
 import { Text } from "@radix-ui/themes";
 import PageHeader from "../components/shared/pageHeader";
-import { CashIcon, CommunityIcon, EventIcon } from "../svg";
-import EventCardList from "../components/shared/eventCardList";
+import { CashIcon, CommunityIcon, EventIcon } from "../svg"; 
 import CommunityCardList from "../components/shared/communityCardList";
 import { useDetails } from "../global-state/useUserDetails";
 import { capitalizeFLetter } from "../utils/capitalLetter";
@@ -9,6 +8,7 @@ import useGetStats from "../hooks/useGetStats";
 import { formatNumberWithK } from "../utils/formatNumberWithK";
 import { formatNumber } from "../utils/numberFormat";
 import LoadingAnimation from "../components/shared/loadingAnimation";
+import EventCardForOngoingAndFuture from "../components/shared/eventCardForOngoingAndFuture";
 
 
 export default function DashboardPage() {
@@ -73,7 +73,7 @@ export default function DashboardPage() {
             <div className=" w-full flex flex-col px-4 lg:px-0 gap-6 h-full " >
 
                 <div className=" w-full" >
-                    <EventCardList />
+                    <EventCardForOngoingAndFuture />
                 </div>
                 <div> 
                     <CommunityCardList />

@@ -132,7 +132,7 @@ export default function EventDetailPage() {
                                 <div className=" w-full px-2 flex justify-between pt-2 " >
                                     <div className=" flex flex-col items-center" >
                                         <Text className=" font-medium text-[#667085] text-sm " >Target</Text>
-                                        <Text className=" font-semibold text-xl text-[#1D1F2C] " >£{formatNumberWithK(event?.fundRaiser?.fundRaisingGoal)}</Text>
+                                        <Text className=" font-semibold text-xl text-[#1D1F2C] " >£{formatNumberWithK(event?.fundRaiser?.fundRaisingGoal / 100)}</Text>
                                     </div>
                                     <div className=" flex flex-col items-center" >
                                         <Text className=" font-medium text-[#667085] text-sm " >Donated</Text>

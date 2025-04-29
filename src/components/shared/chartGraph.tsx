@@ -13,7 +13,7 @@ export default function ChartGraph() {
         datasets: [
             {
                 label: "Donation",
-                data: [event?.fundRaiser?.fundRaised, (event?.fundRaiser?.fundRaisingGoal - event.fundRaiser?.fundRaised)],
+                data: [event?.fundRaiser?.fundRaised, ((event?.fundRaiser?.fundRaisingGoal/ 100) - event.fundRaiser?.fundRaised)],
                 backgroundColor: ["#37137F", "#37137F26"],
                 circumference: 180,
                 rotation: 270,
