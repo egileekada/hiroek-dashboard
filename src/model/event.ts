@@ -20,7 +20,7 @@ export interface IEvent {
         fullname: string
         photo: string
         _id: string
-    }>
+    } | any>
     name: string
     organization: string
     photo: string

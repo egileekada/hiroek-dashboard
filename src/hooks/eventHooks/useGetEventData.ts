@@ -57,6 +57,36 @@ const useGetEventData = () => {
         }
     }
 
+    // Get Event list
+    const getEventDataNoQuery = () => {
+        const [data, setData] = useState<Array<IEvent>>([])
+        const { isLoading } = useQuery(
+            ["Event", page, pageSize, search],
+            () => httpService.get(`/organizations/events`, {
+                params: {
+                    page: page,
+                    pageSize: pageSize, 
+                    searchQuery: search
+                }
+            }),
+            {
+                onError: (error: any) => {
+                    toast.error(error.response?.data)
+                },
+                onSuccess: (data: any) => {
+                    setData(data?.data?.events?.data) 
+
+                },
+                // enabled: history?.pathname?.includes("dashboard/event") || history?.pathname === "/dashboard"
+            },
+        );
+
+        return {
+            data,
+            isLoading
+        }
+    }
+
     // Get Event list From Members
     const getEventMemberData = () => {
         const [data, setData] = useState<Array<IEvent>>([])
@@ -338,7 +368,8 @@ const useGetEventData = () => {
         getOrganization,
         getOrganizationById, 
         getScanEventTicket,
-        getEventConversionMemberData
+        getEventConversionMemberData,
+        getEventDataNoQuery
     };
 }
 

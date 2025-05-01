@@ -26,8 +26,7 @@ export default function EventCardForOngoingAndFuture({ title, filter, mobile }: 
     const router = useNavigate()
 
     const { search, setSearchText } = useSearchStore((state) => state)
-    const { data, isLoading } = useGetEventData()?.getEventData("present")
-    const { data: future, isLoading: loading } = useGetEventData()?.getEventData("future")
+    const { data, isLoading } = useGetEventData()?.getEventDataNoQuery() 
 
     const { eventFilter, updateFilter } = usePagintion((state) => state)
     const { updateEvent } = useEventDetail((state) => state)
@@ -75,7 +74,7 @@ export default function EventCardForOngoingAndFuture({ title, filter, mobile }: 
             </div>
             {(!mobile) && (
                 <div className={` w-full overflow-x-auto flex overflow-y-hidden h-full `} >
-                    <LoadingAnimation loading={isLoading || loading} length={data?.length + future?.length} > 
+                    <LoadingAnimation loading={isLoading} length={data?.length} > 
                         <div className={` w-fit flex gap-4 `} >
                             {data?.map((item, index) => {
                                 return (
@@ -105,36 +104,7 @@ export default function EventCardForOngoingAndFuture({ title, filter, mobile }: 
                                         </div>
                                     </div>
                                 )
-                            })}
-                            {future?.map((item, index) => {
-                                return (
-                                    <div onClick={() => clickHandler(item)} role='button' key={index} className=' w-[300px] h-[186px] rounded-2xl bg-white shadow-sm relative ' >
-                                        <img src={item?.photo} alt={item?.name} className=' w-full h-full object-cover absolute inset-0 rounded-2xl ' />
-                                        <div style={{ backdropFilter: "blur(30px)" }} className=' absolute bottom-2 inset-x-2 text-white flex items-center justify-between rounded-[10px] bg-[#2D264B80] py-[8px] px-3 ' >
-                                            <div className=' flex-col flex gap-1 ' >
-                                                <Text className=' text-xs font-semibold ' >{textLimit(item?.name, 20)}</Text>
-                                                <div className=' flex gap-2 items-center ' >
-                                                    <LocationIcon />
-                                                    <Text className=' text-xs font-medium ' >{textLimit(item?.address, 20)}</Text>
-                                                </div>
-                                                <div className=' flex gap-2 items-center ' >
-                                                    <CalendarIcon />
-                                                    <Text className=' text-xs font-medium ' >{dateFormat(item.endTime)}</Text>
-                                                </div>
-                                            </div>
-                                            {(Number(item?.eventTicket?.ticketPrice) <= 0 || !item?.eventTicket?.ticketPrice) ?
-                                                <div className=' bg-[#FFFFFF80] text-white text-xs flex justify-center items-center font-medium h-[24px] px-2 rounded-[4px] ' >
-                                                    Free Event
-                                                </div> :
-                                                <div className=' flex flex-col ' >
-                                                    <Text className=' text-[10px] font-medium ' >Tickets</Text>
-                                                    <Text className=' inter-all ' >{formatNumber(item?.eventTicket?.ticketPrice / 100)}</Text>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                )
-                            })}
+                            })} 
                         </div>
                     </LoadingAnimation>
                 </div>

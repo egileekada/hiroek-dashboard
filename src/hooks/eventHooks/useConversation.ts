@@ -1,10 +1,8 @@
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import httpService from "../../utils/httpService";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { useState } from "react";
-
-
+import { useState } from "react";  
 
 
 const useConversation = () => {
@@ -16,6 +14,8 @@ const useConversation = () => {
     const history = useLocation()
     const { id: eventId } = useParams();
     const [inputMessage, setInputMessage] = useState("");
+
+    const query = useQueryClient()
 
     const message = searchParams.get("message");
 
@@ -37,6 +37,17 @@ const useConversation = () => {
                 navigate(`/dashboard/event/support/${eventId}?id=${data?.data?.conversation?._id}&`)
             }
 
+        },
+    });
+
+
+    const { mutate: joinEvent, isLoading: loadingJoinEvent } = useMutation({
+        mutationFn: (data: string) => httpService.post(`/events/${data}/join-events`),
+        onError: (error: any) => {
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: () => {
+            query?.invalidateQueries("Event")
         },
     });
 
@@ -78,7 +89,9 @@ const useConversation = () => {
         setInputMessage,
         inputMessage,
         verifyTicket,
-        verifing
+        verifing,
+        joinEvent,
+        loadingJoinEvent
     };
 
 }

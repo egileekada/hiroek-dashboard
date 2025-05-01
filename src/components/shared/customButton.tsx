@@ -50,7 +50,7 @@ export default function CustomButton(props: IProps) {
                     {icon ?? <ArrowIcon />}
                 </>
             )}
-            <p className=' mt-[3px] ' >{loading ? "Loading..." : children}</p>
+            <p className=' mt-[2px] ' >{loading ? "Loading..." : children}</p>
             {(hasIcon && !loading) && (
                 <>
                     {icon ?? <ArrowIcon />}
