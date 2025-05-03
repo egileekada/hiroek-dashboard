@@ -70,7 +70,7 @@ export default function InfoGraphTicket() {
                     // Customize tooltip content
                     label: (context: any) => {
                         const value = context.raw;
-                        return `Sales: $${value}`;
+                        return `Ticket Sales: $${value}`;
                     },
                 },
             },

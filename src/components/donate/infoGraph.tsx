@@ -71,7 +71,7 @@ export default function InfoGraph() {
                     // Customize tooltip content
                     label: (context: any) => {
                         const value = context.raw;
-                        return `Sales: $${value}`;
+                        return `Donations: $${value}`;
                     },
                 },
             },

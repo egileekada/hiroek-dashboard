@@ -36,7 +36,7 @@ export default function CommunityPage() {
                 <CommunityCardList title="All Channels" mobile={true} />
             </div>
             <div className=" w-fit lg:hidden md:bottom-8 fixed bottom-28 ml-auto mr-6 right-0  ">
-                <CustomButton rounded="44px" bgColor="#37137F" onClick={() => router("/dashboard/community/create")} hasIcon={true} icon={<MobileCommunityIcon />}>
+                <CustomButton rounded="44px" bgColor="#37137F" onClick={() => router("/dashboard/community/create")} hasFrontIcon={true} icon={<MobileCommunityIcon />}>
                     Create Channel
                 </CustomButton>
             </div>

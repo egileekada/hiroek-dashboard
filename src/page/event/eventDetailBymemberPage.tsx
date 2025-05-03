@@ -143,7 +143,7 @@ export default function EventDetailByMemberPage() {
                                     <Text className="  text-primary " >Fundraising Goal</Text>
                                     <Text className=" text-[#858D9D] text-xs font-medium " >Funds needed to make a difference.</Text>
                                     <ChartGraph />
-                                    <Text className=" text-[#667085] font-medium text-center text-sm " >This event received donations of £0 <span style={{ color: "#37137F" }} >{formatNumber(event?.fundRaiser?.fundRaised)}</span> today.</Text>
+                                    <Text className=" text-[#667085] font-medium text-center text-sm " >This event received donations of <span style={{ color: "#37137F" }} >{formatNumber(event?.fundRaiser?.fundRaised)}</span> today.</Text>
                                     <div className=" w-full px-2 flex justify-between pt-2 " >
                                         <div className=" flex flex-col items-center" >
                                             <Text className=" font-medium text-[#667085] text-sm " >Target</Text>
@@ -189,7 +189,7 @@ export default function EventDetailByMemberPage() {
                     <CustomButton height="44px" fontSize="11px" loading={loadingConversation} onClick={() => clickHandler()} hasFrontIcon={true} icon={
                         <ChatIcon color="#fff" size="18" />
                     } >
-                        Event Messages
+                        Message Event Host
                     </CustomButton>
                     <div onClick={()=> setOpen(false)} role="button" className=" w-full flex justify-center items-center text-[#CC1B1B] font-semibold text-sm " >
                         Close
