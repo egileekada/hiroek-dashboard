@@ -115,7 +115,12 @@ export default function EventDetailByMemberPage() {
                                                     <div className=" w-fit text-primary text-opacity-50 " >
                                                         <TicketIcon />
                                                     </div>
-                                                    <Text className=" font-bold text-xs " >{event?.signUpLimit} Spot{event?.signUpLimit > 1 ? "s" : ""} Available</Text>
+                                                    {event?.signUpLimit > 0 && (
+                                                        <Text className=" font-bold text-xs " >{event?.signUpLimit} Spot{event?.signUpLimit > 1 ? "s" : ""} Available</Text>
+                                                    )}
+                                                    {event?.signUpLimit < 1 && (
+                                                        <Text className=" font-bold text-xs " >Sold Out</Text>
+                                                    )}
                                                 </div>
                                             )}
                                         </div>
