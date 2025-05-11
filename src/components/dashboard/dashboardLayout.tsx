@@ -7,6 +7,7 @@ import { Text } from "@radix-ui/themes"
 import { useDetails } from "../../global-state/useUserDetails"
 import { useEffect, useState } from "react"
 import useUser from "../../hooks/useUser"
+import useTawkTo from "../../services/useTawk"
 // import LoadingAnimation from "../shared/loadingAnimation"
 
 export default function DashboardLayout() {
@@ -15,6 +16,11 @@ export default function DashboardLayout() {
     const history = useLocation()
     const { setAll } = useDetails((state) => state);
     const [loading, setLoading] = useState(true)
+    const { hideChat } = useTawkTo("680611b92a762a1910951e8f", "1ipbrafch");
+
+    useEffect(()=> {
+        hideChat()
+    }, [history])
 
     const { isLoading, data, isError } = useUser()
 

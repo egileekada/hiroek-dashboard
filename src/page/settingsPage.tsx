@@ -1,7 +1,7 @@
 import PageHeader from "../components/shared/pageHeader";
-import { Switch, Text } from "@radix-ui/themes";
+import { Text } from "@radix-ui/themes";
 import { IoIosArrowForward } from "react-icons/io";
-import { DeleteIcon, LogoutIcon, NotificationIcon2, RatingIcon, SupportIcon, WorldIcon } from "../svg";
+import { DeleteIcon, LogoutIcon, SupportIcon } from "../svg";
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../components/shared";
 import Cookies from "js-cookie" 
@@ -21,7 +21,7 @@ export default function SettingsPage() {
                 <PageHeader notification={true} second={true} back={true} header="App Settings" body="" />
             </div>
             <div className=" w-full flex flex-col mt-4  " >
-                <div className=" w-full px-4 py-6 flex flex-col gap-4 border-b border-[#0000001A] " >
+                {/* <div className=" w-full px-4 py-6 flex flex-col gap-4 border-b border-[#0000001A] " >
                     <div className=" w-full flex gap-2 " >
                         <div className=" w-4 h-4 " >
                             <NotificationIcon2 />
@@ -52,9 +52,8 @@ export default function SettingsPage() {
                     <div className=" flex flex-col " >
                         <Text className=" text-sm font-bold text-primary " >Rate Our Platform</Text>
                         <Text className=" text-xs font-bold text-primary text-opacity-50 " >Please give us your feedback</Text>
-                    </div>
-                    {/* <IoIosArrowForward className=" ml-auto " /> */}
-                </div>
+                    </div> 
+                </div> */}
                 <div role="button" onClick={() => navigate("/dashboard/support")} className=" w-full flex gap-2 items-center px-4 py-6 border-b border-[#0000001A] " >
                     <div className=" w-4 h-4 " >
                         <SupportIcon />

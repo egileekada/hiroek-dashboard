@@ -147,16 +147,4 @@ body {
     width: 100% !important
   }
 
-  /* .css-jupps9-MuiInputBase-root-MuiOutlinedInput-root {
-    border-radius: 8px !important;
-    border-color: #A195C2 !important; 
-    border-width: 2px !important;
-    outline: none !important;
-  } */
-
-  /* .css-189ousr-MuiPopper-root-MuiPickersPopper-root {
-   position: absolute !important;
-   top: 70px !important;
-   left: auto;
-   width: 600px;
-  } */
+  body.hideTawkTo .widget-visible {display: none}

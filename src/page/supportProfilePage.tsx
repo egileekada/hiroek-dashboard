@@ -2,7 +2,8 @@ import { Text } from "@radix-ui/themes";
 import PageHeader from "../components/shared/pageHeader";
 import { CallIcon, HelpIcon, MailIcon, MeetingIcon, SupportIcon } from "../svg";
 import { IoIosArrowDown } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useTawkTo from "../services/useTawk";
 
 export default function SupportPage() {
 
@@ -70,6 +71,11 @@ export default function SupportPage() {
     ];
 
     const [open, setopen] = useState(-1)
+    const { showChat, hideChat } = useTawkTo("680611b92a762a1910951e8f", "1ipbrafch");
+
+    useEffect(()=> {
+        hideChat()
+    }, [])
 
     return (
         <div className=' w-full flex flex-col gap-6 py-4 ' >
@@ -78,7 +84,7 @@ export default function SupportPage() {
             </div>
             <div className=" w-full flex flex-col gap-4 " >
                 <div className=" w-full max-w-[500px] flex flex-col gap-4 px-4  " >
-                    <div role="button" className=" w-full flex gap-2 items-center " >
+                    {/* <div role="button" className=" w-full flex gap-2 items-center " >
                         <div className=" w-fit " >
                             <SupportIcon width="24" />
                         </div>
@@ -93,8 +99,8 @@ export default function SupportPage() {
                     <div className=" w-full flex items-center justify-between pl-6 " >
                         <Text className=" text-sm text-primary font-semibold " >Email Support</Text>
                         <MailIcon />
-                    </div>
-                    <div className=" w-full flex items-center justify-between pl-6 " >
+                    </div> */}
+                    <div onClick={showChat} className=" w-full flex items-center justify-between pl-6 cursor-pointer " >
                         <Text className=" text-sm text-primary font-semibold " >Live Chat</Text>
                         <MeetingIcon />
                     </div>
@@ -105,14 +111,14 @@ export default function SupportPage() {
                             <HelpIcon width="24" />
                         </div>
                         <div className=" flex flex-col " >
-                            <Text className=" text-sm font-bold text-primary " >Contact Us On:</Text>
+                            <Text className=" text-sm font-bold text-primary " >FAQ:</Text>
                         </div>
                     </div>
                     <div className=" w-full flex flex-col gap-2 pl-6  " >
                         {hiroekSupportInfo?.map((item, index) => {
                             return (
                                 <div key={index} className=" w-full pt-2 pb-4 flex flex-col gap-2 border-b " >
-                                    <div onClick={()=> setopen((prev) => prev === index ? -1 : index)} className=" w-full flex items-center justify-between " >
+                                    <div onClick={()=> setopen((prev) => prev === index ? -1 : index)} className=" w-full flex cursor-pointer items-center justify-between " >
                                         <Text className=" text-primary font-semibold " >{item?.question}</Text>
                                         <div className={` ${index === open ? " rotate-180 " : ""} transition-all transform `} >
                                             <IoIosArrowDown />
