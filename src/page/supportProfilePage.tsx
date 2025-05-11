@@ -1,6 +1,6 @@
 import { Text } from "@radix-ui/themes";
 import PageHeader from "../components/shared/pageHeader";
-import { CallIcon, HelpIcon, MailIcon, MeetingIcon, SupportIcon } from "../svg";
+import { HelpIcon, MeetingIcon } from "../svg";
 import { IoIosArrowDown } from "react-icons/io";
 import { useEffect, useState } from "react";
 import useTawkTo from "../services/useTawk";
