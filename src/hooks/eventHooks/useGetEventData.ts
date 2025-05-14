@@ -327,6 +327,80 @@ const useGetEventData = () => {
     }
 
     // Get Event list
+    const getEventConversationMember = (index?: string) => {
+        const [data, setData] = useState<Array<{
+            "_id": string,
+            "participants": [
+                {
+                    "participantType": string,
+                    "event": any,
+                    "participant": {
+                        "_id": string,
+                        "name": string,
+                        "logo": string,
+                        "createdAt": string
+                    },
+                    "name": string
+                },
+                {
+                    "participantType": string,
+                    "event": {
+                        "_id": string,
+                        "name": string,
+                        "photo": string
+                    },
+                    "participant": {
+                        "_id": string,
+                        "createdAt": string,
+                        "fullname": string,
+                        "photo": string
+                    },
+                    "name": string
+                }
+            ],
+            "createdAt": string,
+            "updatedAt": string,
+            "__v": 0,
+            "lastMessage": {
+                "senderType": string,
+                "recipientType": string,
+                "status": string,
+                "_id": string,
+                "conversation": string,
+                "message": string,
+                "sender": string,
+                "recipient": string,
+                "createdAt": string,
+                "updatedAt": string,
+                "__v": number
+            },
+            "unreadMessages": number
+        }>>()
+        const { isLoading } = useQuery(
+            ["conversations-member"],
+            () => httpService.get(`/conversations`, {
+                params: {
+                    event: index
+                }
+            }),
+            {
+                onError: (error: any) => {
+                    toast.error(error.response?.data)
+                },
+                onSuccess: (data: any) => {
+                    setData(data?.data?.conversations?.data) 
+                    
+                },
+            },
+        );
+
+        return {
+            data,
+            isLoading
+        }
+    }
+
+    // Get Event list
     const getScanEventTicket = () => {
         const [data, setData] = useState<Array<IScanEvent>>()
         const { isLoading } = useQuery(
@@ -415,7 +489,8 @@ const useGetEventData = () => {
         getOrganizationById,
         getScanEventTicket,
         getEventConversionMemberData,
-        getEventDataNoQuery
+        getEventDataNoQuery,
+        getEventConversationMember
     };
 }
 

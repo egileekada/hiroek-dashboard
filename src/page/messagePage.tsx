@@ -15,8 +15,7 @@ import { useState } from "react"
 export default function MessagePage() {
  
     const { search, setSearchText } = useSearchStore((state)=> state)
-    const userId = Cookies.get("user-index")
-
+    const userId = Cookies.get("user-index") 
     const { data, isLoading } = useGetEventData().getEventConversationData() 
     const [show, setShow] = useState("") 
 
@@ -55,7 +54,7 @@ export default function MessagePage() {
             name: item?.participant?.fullname,
             photo: item?.participant?.photo
         }) 
-        
+
     } 
     
     
