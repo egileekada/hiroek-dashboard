@@ -66,21 +66,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
                 refetch()
             });
         }
-    }, [index]);
-
-    // const clickHandler = (item: any) => {
-    //     createConversation({
-    //         userTwo: item?._id,
-    //         userType: "User",
-    //         ownEvent: eventId + ""
-    //     })
-    //     updateConversation({
-    //         ...condata,
-    //         name: item?.fullname,
-    //         photo: item?.photo
-    //     })
-    //     setTab(true)
-    // }
+    }, [index]); 
 
     const clickHandler = (item: any, eventid: string, ownEvent: any) => {
         if (!loadingConversation) {
@@ -106,7 +92,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
         }
 
     }
-    
+
     useEffect(() => {
         if (condata?.name) {
             setTab(true)
