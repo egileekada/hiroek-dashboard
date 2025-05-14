@@ -28,6 +28,7 @@ export default function DashboardLayout() {
         if (!isLoading) {
             if (data?.email) {
                 console.log(data);
+                hideChat()
 
                 setAll({ ...data })
                 setLoading(false)
