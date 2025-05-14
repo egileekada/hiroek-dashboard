@@ -1,7 +1,6 @@
 import moment from "moment";
 import { ImCheckmark } from "react-icons/im";
-import { IProps } from "../../hooks/useNotification";
-import { DonateIcon, EventLikeColored, ChannelsColored, FollwingIcon, CommentIcon } from "../../svg";
+import { IProps } from "../../hooks/useNotification"; 
 import { textLimit } from "../../utils/textlimit";
 import { Text } from "@radix-ui/themes";
 
