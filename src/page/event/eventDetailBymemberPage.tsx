@@ -34,8 +34,8 @@ export default function EventDetailByMemberPage() {
     const clickHandler = () => {
         createConversation({
             userTwo: event?.admin?._id,
-            userType: "User",
-            ownEvent: event?._id + ""
+            userType: event?.adminType+"",
+            userTwoEvent: event?._id + ""
         })
         updateConversation({
             ...condata,

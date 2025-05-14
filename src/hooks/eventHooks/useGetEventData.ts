@@ -18,11 +18,11 @@ const useGetEventData = () => {
     const { updateEvent } = useEventDetail((state) => state)
     const { updateMap } = useMap((state) => state);
 
-    const userId = Cookies.get("user-index") 
+    const userId = Cookies.get("user-index")
     const [searchParams] = useSearchParams();
     const conversationId = searchParams.get("id");
 
-    const { search } = useSearchStore((state)=> state)
+    const { search } = useSearchStore((state) => state)
 
     const { id } = useParams();
 
@@ -45,7 +45,7 @@ const useGetEventData = () => {
                     toast.error(error.response?.data)
                 },
                 onSuccess: (data: any) => {
-                    setData(data?.data?.events?.data) 
+                    setData(data?.data?.events?.data)
 
                 },
                 // enabled: history?.pathname?.includes("dashboard/event") || history?.pathname === "/dashboard"
@@ -67,7 +67,7 @@ const useGetEventData = () => {
                 params: {
                     userId: userId,
                     page: page,
-                    pageSize: pageSize, 
+                    pageSize: pageSize,
                     searchQuery: search
                 }
             }),
@@ -76,7 +76,7 @@ const useGetEventData = () => {
                     toast.error(error.response?.data)
                 },
                 onSuccess: (data: any) => {
-                    setData(data?.data?.events?.data) 
+                    setData(data?.data?.events?.data)
 
                 },
                 // enabled: history?.pathname?.includes("dashboard/event") || history?.pathname === "/dashboard"
@@ -94,7 +94,7 @@ const useGetEventData = () => {
         const [data, setData] = useState<Array<IEvent>>([])
         const { isLoading } = useQuery(
             ["Event-member", page, pageSize, eventFilter],
-            () => httpService.get(`/organizations/fundraiser-events/${userId}`, { 
+            () => httpService.get(`/organizations/fundraiser-events/${userId}`, {
             }),
             {
                 onError: (error: any) => {
@@ -102,7 +102,7 @@ const useGetEventData = () => {
                 },
                 onSuccess: (data: any) => {
                     setData(data?.data?.events?.data)
-                }, 
+                },
             },
         );
 
@@ -119,7 +119,7 @@ const useGetEventData = () => {
         const [count, setCount] = useState(0)
         const { isLoading } = useQuery(
             ["conversations-member", index],
-            () => httpService.get(`/conversations`, { 
+            () => httpService.get(`/conversations`, {
                 params: {
                     event: index
                 }
@@ -128,10 +128,10 @@ const useGetEventData = () => {
                 onError: (error: any) => {
                     toast.error(error.response?.data)
                 },
-                onSuccess: (data: any) => { 
+                onSuccess: (data: any) => {
                     setCount(data?.data?.conversations?.data[0]?.unreadMessages)
                     setData(data?.data?.conversations?.data[0]?.participants)
-                }, 
+                },
             },
         );
 
@@ -258,20 +258,64 @@ const useGetEventData = () => {
 
     // Get Event list
     const getEventConversationData = () => {
-        const [data, setData] = useState<any>()
+        const [data, setData] = useState<Array<{
+            "_id": string,
+            "participants": [
+                {
+                    "participantType": string,
+                    "event": any,
+                    "participant": {
+                        "_id": string,
+                        "name": string,
+                        "logo": string,
+                        "createdAt": string
+                    },
+                    "name": string
+                },
+                {
+                    "participantType": string,
+                    "event": {
+                        "_id": string,
+                        "name": string,
+                        "photo": string
+                    },
+                    "participant": {
+                        "_id": string,
+                        "createdAt": string,
+                        "fullname": string,
+                        "photo": string
+                    },
+                    "name": string
+                }
+            ],
+            "createdAt": string,
+            "updatedAt": string,
+            "__v": 0,
+            "lastMessage": {
+                "senderType": string,
+                "recipientType": string,
+                "status": string,
+                "_id": string,
+                "conversation": string,
+                "message": string,
+                "sender": string,
+                "recipient": string,
+                "createdAt": string,
+                "updatedAt": string,
+                "__v": number
+            },
+            "unreadMessages": number
+        }>>()
         const { isLoading } = useQuery(
             ["conversations"],
-            () => httpService.get(`/conversations`, {
-                params: {
-                    searchQuery: search
-                }
-            }),
+            () => httpService.get(`/conversations`),
             {
                 onError: (error: any) => {
                     toast.error(error.response?.data)
                 },
                 onSuccess: (data: any) => {
-                    setData(data?.data?.stats)
+                    setData(data?.data?.conversations?.data) 
+                    
                 },
             },
         );
@@ -288,7 +332,7 @@ const useGetEventData = () => {
         const { isLoading } = useQuery(
             ["Event", page, pageSize, eventFilter, id],
             () => httpService.get(`/events/ticket-scan-logs`, {
-                params:{
+                params: {
                     eventId: id
                 }
             }),
@@ -297,7 +341,7 @@ const useGetEventData = () => {
                     toast.error(error.response?.data)
                 },
                 onSuccess: (data: any) => {
-                    setData(data?.data?.result?.data); 
+                    setData(data?.data?.result?.data);
                 }
             },
         );
@@ -322,7 +366,7 @@ const useGetEventData = () => {
                 },
                 onSuccess: (data: any) => {
                     setData(data?.data?.event)
-                    updateEvent(data?.data?.event) 
+                    updateEvent(data?.data?.event)
                     updateMap(data?.data?.event?.address)
                 },
                 enabled: newIndex ? true : false
@@ -363,12 +407,12 @@ const useGetEventData = () => {
         getEventData,
         getEventDashboardData,
         getEventDashboardTicketData,
-        getSingleEventData, 
+        getSingleEventData,
         getEventConversationData,
         getConversationMessageData,
         getEventMemberData,
         getOrganization,
-        getOrganizationById, 
+        getOrganizationById,
         getScanEventTicket,
         getEventConversionMemberData,
         getEventDataNoQuery

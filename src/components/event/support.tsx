@@ -7,7 +7,7 @@ import Cookies from "js-cookie"
 import LoadingAnimation from "../shared/loadingAnimation";
 import useConversation from "../../hooks/eventHooks/useConversation";
 import useGetEventData from "../../hooks/eventHooks/useGetEventData";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useConversationHook } from "../../global-state/useConversationHook";
 import lodash from 'lodash';
 import ChatInput from "../shared/chatInput";
@@ -28,6 +28,9 @@ export default function EventSupport({ tab, setTab }: IProps) {
     const { id: eventId } = useParams();
     const { updateConversation, data: condata } = useConversationHook((state) => state)
     const query = useQueryClient()
+    const message = searchParams.get("message");
+    const membe = searchParams.get("member");
+    const navigate = useNavigate()
 
 
     const userId = Cookies.get("user-index")
@@ -67,23 +70,34 @@ export default function EventSupport({ tab, setTab }: IProps) {
         setTab(true)
     }
 
+    useEffect(() => {
+        if (condata?.name) {
+            setTab(true)
+        }
+    }, [])
+
     const changeHandler = (value: any) => {
         setInputMessage(value);
     }
- 
+
     useEffect(() => {
-        if (conversation?.length > 0) {
-            conversation?.map((item) => {
-                if (item?.status === "unread") {
-                    socket.emit('conversation-opened', {
-                        conversationId: item?._id
-                    });
-                }
-            })
-            query?.invalidateQueries("Conversations-count")
+        socket.emit('conversation-opened', {
+            conversationId: index
+        });
+        query?.invalidateQueries("Conversations-count")
+    }, [])
+
+    const clickBack = () => {
+        // member? `/event/details/bymembers/${id}` : index ? `/dashboard/message` : `/dashboard/event/details/${id}
+        if (membe) {
+            navigate(`/event/details/bymembers/${eventId}`)
+        } else if (message) {
+            navigate(`/dashboard/message`)
+        } else {
+            setTab(false)
         }
-    }, [conversation]) 
-    
+    }
+
     return supportHookForm(
         <div className=' w-full flex gap-4 h-full' >
             <div className={` w-full ${!tab ? " flex " : " lg:flex hidden "} `} >
@@ -115,7 +129,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
 
                         <div className=" w-full flex sticky top-0 flex-col bg-white gap-1 pb-2 h-[20vh] rounded-t-3xl pt-3 lg:px-3 px-4  " >
                             <div className=' w-fit lg:hidden ' >
-                                <div onClick={() => setTab(false)} role='button' className=' w-11 h-11 lg:w-[62px] lg:h-[62px] flex justify-center bg-primary bg-opacity-15 rounded-[6px] items-center cursor-pointer ' style={{ boxShadow: "0px 2px 4px 0px #0000000D" }} >
+                                <div onClick={() => clickBack()} role='button' className=' w-11 h-11 lg:w-[62px] lg:h-[62px] flex justify-center bg-primary bg-opacity-15 rounded-[6px] items-center cursor-pointer ' style={{ boxShadow: "0px 2px 4px 0px #0000000D" }} >
                                     <BackArrowIcon />
                                 </div>
                             </div>

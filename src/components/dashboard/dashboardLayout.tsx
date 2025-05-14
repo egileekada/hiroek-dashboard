@@ -20,16 +20,13 @@ export default function DashboardLayout() {
 
     useEffect(()=> {
         hideChat()
-    }, [history])
+    }, [history, router])
 
     const { isLoading, data, isError } = useUser()
 
     useEffect(() => {
         if (!isLoading) {
-            if (data?.email) {
-                console.log(data);
-                hideChat()
-
+            if (data?.email) { 
                 setAll({ ...data })
                 setLoading(false)
             } else if (isError) {
@@ -37,6 +34,7 @@ export default function DashboardLayout() {
             }
         }
 
+        hideChat()
 
     }, [setAll, isLoading, setLoading, loading, isError])
 

@@ -18,7 +18,7 @@ function App() {
         <Route path="/forgot-password" element={<ResetPasswordPage />} />
         <Route path="/reset-password" element={<ChangePasswordPage />} />
         <Route path="/reset-sent" element={<ResetSentPage />} />
-        <Route path="/dashboard" element={<DashboardLayout  />} >
+        <Route path="/dashboard" element={<DashboardLayout />} >
           <Route index element={<DashboardPage />} />
           <Route path="event" >
             <Route index element={<EventPage />} />

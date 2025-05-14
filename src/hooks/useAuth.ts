@@ -28,7 +28,13 @@ const useAuth = () => {
             Cookies.set("access_token", data?.data?.token)
             Cookies.set("user-index", data?.data?.organization?._id) 
             toast.success("Login Successful")
-            router("/dashboard")
+
+            if(data?.data?.organization?.charityRegNumber){
+                router("/dashboard/profile")
+            } else {
+                router("/dashboard")
+            }
+ 
         },
     }); 
 
