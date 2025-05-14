@@ -17,6 +17,7 @@ export default function EventDashboardPage() {
     return (
         <div className=' w-full flex flex-col gap-4 lg:gap-6 ' >
             <PageHeader back={true} header={"Event Dashboard"} body="" />
+            <div className=' w-full h-fit ' >
             <LoadingAnimation loading={getEventDashboardData()?.isLoading} >
                 <div className=" w-full grid grid-cols-2 lg:flex gap-2 lg:gap-4 px-4 lg:px-0 " >
                     <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-primary h-[136px] lg:h-[170px] relative flex items-center  " >
@@ -65,7 +66,8 @@ export default function EventDashboardPage() {
                     </div>
                 </div>
             </LoadingAnimation>
-            <div className=' w-full flex flex-col px-4 lg:px-0 gap-4 pb-8 ' >
+            </div>
+            <div className=' w-full flex h-full flex-col px-4 lg:px-0 gap-4 pb-8 ' >
                 <div className=' w-full flex items-center ' >
                     <div className=' flex flex-col ' >
                         <p className=' text-sm font-bold text-primary ' >Tickets Sold</p>
