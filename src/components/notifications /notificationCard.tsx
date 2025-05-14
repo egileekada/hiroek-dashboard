@@ -12,37 +12,42 @@ export default function NotificationCard({item, clickHandler, name}: {item:IProp
             <div className=' flex gap-2 items-center ' >
                 {(item?.type === "NEW_DONATION" || item?.type === "NEW_PAYMENT") && (
                     <div className=' w-fit' >
-                        <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
+                        {/* <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
                             <DonateIcon />
-                        </div>
+                        </div> */}
+                        <img src="/images/donation.png" alt="event" className=' w-11 h-11 flex ' />
                     </div>
                 )}
                 {(item?.type === "EVENT_INVITE" || item?.type === "EVENT_UPDATE" || item?.type === "EVENT_STARTED") && (
                     <div className=' w-fit' >
-                        <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
+                        {/* <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
                             <EventLikeColored />
-                        </div>
+                        </div> */}
+                        <img src="/images/event.png" alt="event" className=' w-11 h-11 flex ' />
                     </div>
                 )}
                 {(item?.type === "COMMUNITY_REPORT" || item?.type === "COMMUNITY_INVITE" || item?.type === "POST_REPORT" || item?.type === "NEW_POST") && (
                     <div className=' w-fit' >
-                        <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
+                        {/* <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
                             <ChannelsColored />
-                        </div>
+                        </div> */}
+                        <img src="/images/community.png" alt="event" className=' w-11 h-11 flex ' />
                     </div>
                 )}
                 {item?.type === "NEW_LIKE" && (
                     <div className=' w-fit' >
-                        <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
+                        {/* <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
                             <FollwingIcon />
-                        </div>
+                        </div> */}
+                        <img src="/images/community.png" alt="event" className=' w-11 h-11 flex ' />
                     </div>
                 )}
                 {(item?.type === "NEW_COMMENT" || item?.type === "NEW_CHAT") && (
                     <div className=' w-fit' >
-                        <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
+                        {/* <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
                             <CommentIcon />
-                        </div>
+                        </div> */}
+                        <img src="/images/chat.png" alt="event" className=' w-11 h-11 flex ' />
                     </div>
                 )}
 

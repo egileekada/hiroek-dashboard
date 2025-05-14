@@ -36,9 +36,9 @@ export default function DashboardPage() {
                             <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
                                 <EventIcon />
                             </div>
-                            <Text className=" relative z-10 font-bold mt-1 lg:text-base text-sm " >Ticket Sales</Text>
+                            <Text className=" relative z-10 font-bold mt-1 lg:text-base text-sm " >Total Donation</Text>
                             <div className=" flex gap-1 lg:flex-row lg:items-center " >
-                                <Text className=" relative z-10 text-[24px] tracking-[1%] -mt-1 font-extrabold " >{formatNumber(data?.ticketSales / 100)}</Text>
+                                <Text className=" relative z-10 text-[24px] tracking-[1%] -mt-1 font-extrabold " >{formatNumber(data?.totalDonations / 100)}</Text>
                                 <div className=" h-[22px] bg-[#FFFFFF26] rounded-[4px] w-fit px-[6px] flex justify-center items-center " >
                                     <Text className=" relative z-10 tracking-[0.5%] inter-all lg:text-xs text-[10px] " >{formatNumberWithK(data?.totalDonors)} Donors</Text>
                                 </div>

@@ -31,11 +31,12 @@ const useGetEventData = () => {
         const [data, setData] = useState<Array<IEvent>>([])
         const { isLoading } = useQuery(
             ["Event", page, pageSize, eventFilter, search, filter],
-            () => httpService.get(`/organizations/events`, {
+            () => httpService.get(`/events/all-events`, {
                 params: {
+                    userId: userId,
                     page: page,
                     pageSize: pageSize,
-                    eventFilter: filter ? filter : eventFilter,
+                    timeFilter: filter ? filter : eventFilter,
                     searchQuery: search
                 }
             }),
@@ -61,9 +62,10 @@ const useGetEventData = () => {
     const getEventDataNoQuery = () => {
         const [data, setData] = useState<Array<IEvent>>([])
         const { isLoading } = useQuery(
-            ["Event", page, pageSize, search],
-            () => httpService.get(`/organizations/events`, {
+            ["EventNoquery", page, pageSize, search],
+            () => httpService.get(`/events/all-events`, {
                 params: {
+                    userId: userId,
                     page: page,
                     pageSize: pageSize, 
                     searchQuery: search

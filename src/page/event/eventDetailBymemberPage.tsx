@@ -77,15 +77,15 @@ export default function EventDetailByMemberPage() {
                                                 <div className=" w-8 h-8 rounded-full " >
                                                     <img className=" w-full h-full rounded-full object-cover " src={event?.admin?.photo} alt="image" />
                                                 </div>
-                                                <div className=" flex flex-col justify-center " >
+                                                <div className=" flex flex-col items-center justify-center " >
                                                     <div className=" font-bold text-[10px] flex justify-center items-center text-white bg-[#37137FBF] rounded h-[18px] w-[75px] " >
                                                         Event Host:
                                                     </div>
-                                                    <p className=" font-bold text-[12px] text-center text-white " >{event?.admin?.fullname ?? event?.admin?.name}</p>
+                                                    <p className=" font-bold text-[12px] text-center text-white " >{textLimit(event?.admin?.fullname+" john dfbhd idfnkdk ", 14) ?? textLimit(event?.admin?.name+" john dfbhd idfnkdk ", 14)}</p>
                                                 </div>
                                             </div>
                                             <div className=" w-full " > 
-                                                {!event?.members.some(product => product._id === userId) && (
+                                                {!event?.members?.some(product => product?._id === userId) && (
                                                     <CustomButton onClick={()=> joinEvent(event?._id)} loading={loadingJoinEvent} bgColor="#ffffff" rounded="44px" width="100%" height="50px" color="#37137f"  >Join Event</CustomButton>
                                                 )}
                                             </div>
@@ -158,10 +158,10 @@ export default function EventDetailByMemberPage() {
                                             <Text className=" font-medium text-[#667085] text-sm " >Donated</Text>
                                             <Text className=" font-semibold text-xl text-[#1D1F2C] " >{formatNumber(event?.fundRaiser?.fundRaised)}</Text>
                                         </div>
-                                        <div className=" flex flex-col items-center" >
+                                        {/* <div className=" flex flex-col items-center" >
                                             <Text className=" font-medium text-[#667085] text-sm " >Today</Text>
                                             <Text className=" font-semibold text-xl text-[#1D1F2C] " >£0k</Text>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             )}
