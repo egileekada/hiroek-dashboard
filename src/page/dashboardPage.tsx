@@ -24,17 +24,17 @@ export default function DashboardPage() {
                     <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-primary h-[160px] lg:h-[170px] relative flex items-center  " >
                         <div className=" px-4 flex flex-col gap-2 text-white " >
                             <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
-                                <CashIcon />
+                                <EventIcon />
                             </div>
-                            <Text className=" relative z-10 font-bold mt-1 lg:text-base !text-sm " >Total Amount</Text>
-                            <Text className=" relative z-10 text-[24px] tracking-[1%] -mt-1 font-extrabold " >{formatNumber(data?.walletBalance / 100)}</Text>
+                            <Text className=" relative z-10 font-bold mt-1 lg:text-base !text-sm " >Ticket Sales</Text>
+                            <Text className=" relative z-10 text-[24px] tracking-[1%] -mt-1 font-extrabold " >{formatNumber(data?.ticketSales / 100)}</Text>
                         </div>
                         <img src="/images/one.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                     </div>
                     <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-secondary h-[160px] lg:h-[170px] relative flex items-center  " >
                         <div className=" px-4 flex flex-col gap-2 text-white " >
                             <div className=" w-9 h-9  bg-[#FFFFFF33] rounded-lg flex justify-center items-center " >
-                                <EventIcon />
+                                <CashIcon />
                             </div>
                             <Text className=" relative z-10 font-bold mt-1 lg:text-base text-sm " >Total Donation</Text>
                             <div className=" flex gap-1 lg:flex-row lg:items-center " >

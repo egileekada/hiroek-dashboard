@@ -190,10 +190,10 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
                                                     )}
                                                     <div className=" flex items-center gap-4 " >
                                                         <LikePostBtn item={item} />
-                                                        <div onClick={() => router(`/dashboard/community/post-comment/${item?._id}`)} role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
+                                                        {/* <div onClick={() => router(`/dashboard/community/post-comment/${item?._id}`)} role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
                                                             <ChatIcon />
                                                             <Text className=" font-black text-xs " >{item?.comments?.length}</Text>
-                                                        </div>
+                                                        </div> */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -228,10 +228,10 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
                                                     )}
                                                     <div className=" flex items-center gap-4 " >
                                                         <LikePostBtn item={item} />
-                                                        <div onClick={() => router(`/dashboard/community/post-comment/${item?._id}`)} role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
+                                                        {/* <div onClick={() => router(`/dashboard/community/post-comment/${item?._id}`)} role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
                                                             <ChatIcon />
                                                             <Text className=" font-black text-xs " >{item?.comments?.length}</Text>
-                                                        </div>
+                                                        </div> */}
                                                     </div>
                                                 </div>
                                             </div>

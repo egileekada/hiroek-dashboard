@@ -93,15 +93,14 @@ const useGetEventData = () => {
     const getEventMemberData = () => {
         const [data, setData] = useState<Array<IEvent>>([])
         const { isLoading } = useQuery(
-            ["Event-member", page, pageSize, eventFilter],
-            () => httpService.get(`/organizations/fundraiser-events/${userId}`, {
-            }),
+            ["Event-member", page, pageSize],
+            () => httpService.get(`/organizations/organization-indirect-events/${userId}`),
             {
                 onError: (error: any) => {
                     toast.error(error.response?.data)
                 },
-                onSuccess: (data: any) => {
-                    setData(data?.data?.events?.data)
+                onSuccess: (data: any) => { 
+                    setData(data?.data?.data)
                 },
             },
         );
