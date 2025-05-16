@@ -33,9 +33,6 @@ export default function DashboardLayout() {
                 router("/login")
             }
         }
-
-        hideChat()
-
     }, [setAll, isLoading, setLoading, loading, isError])
 
     return (
