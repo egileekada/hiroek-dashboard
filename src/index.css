@@ -146,5 +146,31 @@ body {
   .date-picker-input {
     width: 100% !important
   }
+  
+.tawk-bubble-container {
+    display: none !important;
+}
 
-  body.hideTawkTo .widget-visible {display: none}
+#tawk-bubble-container {
+  display: none !important;
+}
+
+.tawk-bubble-container .tawk-icon-bottom .tawk-icon-close {
+    display: none !important
+}
+
+  iframe[src*="tawk.to"], 
+div[id^="tawk_"], 
+.tawk-button-container, 
+.tawk-min-container, 
+#tawkchat-minified-container, 
+#tawkchat-container, 
+.tawk-custom-iframe {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    pointer-events: none !important;
+}
+

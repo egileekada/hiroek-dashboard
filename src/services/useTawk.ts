@@ -100,6 +100,34 @@ const useTawkTo = (propertyId: string, widgetId: string) => {
 
   const hideChat = useCallback(() => {
     if (window.Tawk_API) {
+      document.addEventListener('DOMContentLoaded', function() {
+        const hideTawkElements = () => {
+            const selectors = [
+                '.tawk-bubble-container',
+                '.tawk-icon-bottom',
+                '.tawk-icon-close',
+                '.tawk-button-container',
+                '#tawkchat-container'
+            ];
+            
+            selectors.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach((el: any) => {
+                    el.style.display = 'none';
+                    el.style.visibility = 'hidden';
+                    el.remove(); // Force remove if needed
+                });
+            });
+        };
+    
+        // Try immediately
+        hideTawkElements();
+    
+        // Keep checking in case Tawk.to loads late
+        const observer = new MutationObserver(hideTawkElements);
+        observer.observe(document.body, { childList: true, subtree: true });
+    });
+    
       window.Tawk_API.minimize();
       window.Tawk_API.hideWidget();
     }

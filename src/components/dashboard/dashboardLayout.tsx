@@ -12,14 +12,14 @@ import useTawkTo from "../../services/useTawk"
 
 export default function DashboardLayout() {
 
+    const { hideChat } = useTawkTo("680611b92a762a1910951e8f", "1ipbrafch");  
     const router = useNavigate()
     const history = useLocation()
     const { setAll } = useDetails((state) => state);
     const [loading, setLoading] = useState(true)
-    const { hideChat } = useTawkTo("680611b92a762a1910951e8f", "1ipbrafch");
 
-    useEffect(()=> {
-        hideChat()
+    useEffect(()=> { 
+        hideChat() 
     }, [history, router])
 
     const { isLoading, data, isError } = useUser()
@@ -36,8 +36,7 @@ export default function DashboardLayout() {
     }, [setAll, isLoading, setLoading, loading, isError])
 
     return (
-        <>
-
+        <> 
             <div className=" w-screen h-full relative lg:flex hidden overflow-hidden " >
                 <div className=" w-fit md:block hidden " >
                     <div className=" md:w-[60px] lg:w-[300px] h-screen border-r border-r-[#F0F1F3] " style={{ boxShadow: "4px 0px 30px 0px #8362EA0D" }} >
