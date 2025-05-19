@@ -26,7 +26,7 @@ export default function EventCardMembersList({ title, filter, mobile }: IProps) 
 
     const [searchText, setSearchText] = useState("")
 
-    const { data, isLoading } = useGetEventData().getEventMemberData()
+    const { data, isLoading, isRefetching } = useGetEventData().getEventMemberData()
 
     const { eventFilter, updateFilter } = usePagintion((state) => state)
     const { updateEvent } = useEventDetail((state) => state)
@@ -66,7 +66,7 @@ export default function EventCardMembersList({ title, filter, mobile }: IProps) 
             </div>
             {(!mobile) && (
                 <div className={` w-full overflow-x-auto flex `} >
-                    <LoadingAnimation loading={isLoading} length={data?.length} >
+                    <LoadingAnimation loading={isLoading || isRefetching} length={data?.length} >
                         <div className={` w-fit flex gap-4 `} >
                             {data?.map((item, index) => {
                                 return (

@@ -26,7 +26,7 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
     const router = useNavigate() 
 
     const { search, setSearchText } = useSearchStore((state)=> state)
-    const { data, isLoading } = useGetEventData()?.getEventData()
+    const { data, isLoading, isRefetching } = useGetEventData()?.getEventData()
 
     const { eventFilter, updateFilter } = usePagintion((state) => state)
     const { updateEvent } = useEventDetail((state) => state)
@@ -74,7 +74,7 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
             </div>
             {(!mobile) && (
                 <div className={` w-full overflow-x-auto flex overflow-y-hidden h-full `} >
-                    <LoadingAnimation loading={isLoading} length={data?.length} >
+                    <LoadingAnimation loading={isLoading || isRefetching} length={data?.length} >
                         <div className={` w-fit flex gap-4 `} >
                             {data?.map((item, index) => {
                                 return (

@@ -29,7 +29,7 @@ const useGetEventData = () => {
     // Get Event list
     const getEventData = (filter?: string) => {
         const [data, setData] = useState<Array<IEvent>>([])
-        const { isLoading } = useQuery(
+        const { isLoading, isRefetching } = useQuery(
             ["Event", page, pageSize, eventFilter, search, filter],
             () => httpService.get(`/events/all-events`, {
                 params: {
@@ -54,7 +54,8 @@ const useGetEventData = () => {
 
         return {
             data,
-            isLoading
+            isLoading,
+            isRefetching
         }
     }
 
@@ -92,9 +93,13 @@ const useGetEventData = () => {
     // Get Event list From Members
     const getEventMemberData = () => {
         const [data, setData] = useState<Array<IEvent>>([])
-        const { isLoading } = useQuery(
-            ["Event-member", page, pageSize],
-            () => httpService.get(`/organizations/organization-indirect-events/${userId}`),
+        const { isLoading, isRefetching } = useQuery(
+            ["Event-member", page, pageSize, eventFilter],
+            () => httpService.get(`/organizations/organization-indirect-events/${userId}`, {
+                params: {
+                    timeFilter : eventFilter
+                }
+            }),
             {
                 onError: (error: any) => {
                     toast.error(error.response?.data)
@@ -107,7 +112,8 @@ const useGetEventData = () => {
 
         return {
             data,
-            isLoading
+            isLoading,
+            isRefetching
         }
     }
 

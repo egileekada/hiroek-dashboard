@@ -113,7 +113,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
     const clickBack = () => {
         // member? `/event/details/bymembers/${id}` : index ? `/dashboard/message` : `/dashboard/event/details/${id}
         if (membe) {
-            navigate(`/event/details/bymembers/${eventId}`)
+            navigate(`/dashboard/event/details/bymembers/${eventId}`)
         } else if (message) {
             navigate(`/dashboard/message`)
         } else {
