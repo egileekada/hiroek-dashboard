@@ -5,7 +5,7 @@ import { menulistmobile } from "../../constant"
 import { MobileCashIcon, MobileCommunityIcon, MobileEventIcon, MobileHomeIcon, MobileImpactIcon } from "../../svg"
 import { Text } from "@radix-ui/themes"
 import { useDetails } from "../../global-state/useUserDetails"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import useUser from "../../hooks/useUser"
 
 export default function DashboardLayout() {
