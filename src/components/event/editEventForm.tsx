@@ -88,10 +88,10 @@ export default function EditEventForm(props: IProps) {
     const clickTicket = (type: "remove" | "add") => {
         if (ticketNo > 0 && type === "remove") {
             setTicketNo((prev) => prev - 1)
-            setValue("eventTicket.totalTicket", ticketNo - 1)
+            setValue("signUpLimit", ticketNo - 1)
         } else {
             setTicketNo((prev) => prev + 1)
-            setValue("eventTicket.totalTicket", ticketNo + 1)
+            setValue("signUpLimit", ticketNo + 1)
         }
     }
 

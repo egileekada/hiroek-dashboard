@@ -79,8 +79,7 @@ const useGetEventData = () => {
                 onSuccess: (data: any) => {
                     setData(data?.data?.events?.data)
 
-                },
-                // enabled: history?.pathname?.includes("dashboard/event") || history?.pathname === "/dashboard"
+                }
             },
         );
 
