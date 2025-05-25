@@ -138,17 +138,16 @@ const useEvent = () => {
                 formData.append("fundRaiser[fundRaisingGoal]",  Number(event?.fundRaiser?.fundRaisingGoal * 100)+"");
             }
 
-            if (!history?.pathname?.includes("edit")) {
+            if (!history?.pathname?.includes("edit")) {  
                 // if (values.eventTicket.totalTicket) {
                 //     formData.append("eventTicket[totalTicket]", values.eventTicket.totalTicket);
                 // } else if (event?.eventTicket?.totalTicket) {
                 //     formData.append("eventTicket[totalTicket]", event.eventTicket.totalTicket + "");
                 // }
-
-                if (values?.eventTicket?.totalTicket) {
-                    formData.append("eventTicket[ticketPrice]", Number(values.eventTicket.ticketPrice * 100)+"");
-                } else if (event?.eventTicket?.ticketPrice) {
-                    formData.append("eventTicket[ticketPrice]",  Number(event.eventTicket.ticketPrice * 100)+"");
+                if (event?.eventTicket?.ticketPrice) {
+                    formData.append("eventTicket[ticketPrice]", event.eventTicket.ticketPrice ? Number(event.eventTicket.ticketPrice * 100)+"" : 0+"" );
+                } else {
+                    formData.append("eventTicket[ticketPrice]", values.eventTicket.ticketPrice ? Number(values.eventTicket.ticketPrice * 100)+"" : 0+"" );
                 }
             }
 
