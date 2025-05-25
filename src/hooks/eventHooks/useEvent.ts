@@ -74,6 +74,8 @@ const useEvent = () => {
         validationSchema: history?.pathname?.includes("edit") ? EditEventValidation : EventValidation,
         submit: () => {
  
+            console.log("values");
+
             if (!eventImage && !history?.pathname?.includes("edit")) {
                 toast.error("Add Image")
             } else if(!startData) {
@@ -115,8 +117,8 @@ const useEvent = () => {
 
             formData.append("category", values?.category ? values?.category : event?.category)
             formData.append("privacy", values?.privacy ? values?.privacy : event?.privacy)
-            if(values?.signUpLimit){
-                formData.append("signUpLimit", values?.signUpLimit ? values?.signUpLimit : event?.signUpLimit)
+            if(values?.eventTicket.totalTicket){
+                formData.append("signUpLimit", values?.eventTicket.totalTicket ? values?.eventTicket.totalTicket : event?.signUpLimit)
             }
             formData.append("eventEndDate", new Date(endDate)?.toISOString())
             formData.append("endTime", new Date(startData)?.toISOString())
@@ -137,11 +139,11 @@ const useEvent = () => {
             }
 
             if (!history?.pathname?.includes("edit")) {
-                if (values.eventTicket.totalTicket) {
-                    formData.append("eventTicket[totalTicket]", values.eventTicket.totalTicket);
-                } else if (event?.eventTicket?.totalTicket) {
-                    formData.append("eventTicket[totalTicket]", event.eventTicket.totalTicket + "");
-                }
+                // if (values.eventTicket.totalTicket) {
+                //     formData.append("eventTicket[totalTicket]", values.eventTicket.totalTicket);
+                // } else if (event?.eventTicket?.totalTicket) {
+                //     formData.append("eventTicket[totalTicket]", event.eventTicket.totalTicket + "");
+                // }
 
                 if (values?.eventTicket?.totalTicket) {
                     formData.append("eventTicket[ticketPrice]", Number(values.eventTicket.ticketPrice * 100)+"");
