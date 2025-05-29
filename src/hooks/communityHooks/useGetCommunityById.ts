@@ -41,7 +41,7 @@ const useGetCommunityById = (index?: string) => {
                     _id: data?.data?.community?._id
                 })
             },
-            enabled: id || index ? true : false
+            enabled: (id || index) ? true : false
         },
     );
 
