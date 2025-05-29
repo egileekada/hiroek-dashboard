@@ -40,7 +40,8 @@ const useGetCommunityById = (index?: string) => {
                     updatedAt: data?.data?.community?.updatedAt,
                     _id: data?.data?.community?._id
                 })
-            }
+            },
+            enabled: id || index ? true : false
         },
     );
 
