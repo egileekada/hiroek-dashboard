@@ -54,7 +54,7 @@ export default function SettingsPage() {
                         <Text className=" text-xs font-bold text-primary text-opacity-50 " >Please give us your feedback</Text>
                     </div> 
                 </div> */}
-                <div role="button" onClick={() => navigate("/dashboard/support")} className=" w-full flex gap-2 items-center px-4 py-6 border-b border-[#0000001A] " >
+                <div role="button" onClick={() => navigate("/dashboard/support")} className=" w-full flex gap-4 items-center px-4 py-6 border-b border-[#0000001A] " >
                     <div className=" w-4 h-4 " >
                         <SupportIcon />
                     </div>
@@ -64,16 +64,15 @@ export default function SettingsPage() {
                     </div>
                     <IoIosArrowForward className=" ml-auto " />
                 </div>
-                <div className=" w-full flex gap-2 items-center px-4 py-6 border-b border-[#0000001A] " >
+                {/* <div className=" w-full flex gap-2 items-center px-4 py-6 border-b border-[#0000001A] " >
                     <div className=" w-4 h-4" >
                         <DeleteIcon />
                     </div>
                     <div className=" flex flex-col " >
                         <Text className=" text-sm font-bold text-primary " >Delete Account</Text>
                         <Text className=" text-xs font-bold text-primary text-opacity-50 " >Please give us your feedback</Text>
-                    </div>
-                    {/* <IoIosArrowForward className=" ml-auto " /> */}
-                </div>
+                    </div> 
+                </div> */}
             </div>
             <div className=" mt-auto w-full px-4 lg:hidden " >
                 <CustomButton onClick={clickHandler} bgColor="#CC1B1BCC" hasFrontIcon={true} icon={<LogoutIcon />} >

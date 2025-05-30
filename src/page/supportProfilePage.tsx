@@ -82,7 +82,7 @@ export default function SupportPage() {
             <div className=" w-full flex items-center justify-between " >
                 <PageHeader notification={true} second={true} back={true} header="Contact Support" body="" />
             </div>
-            <div className=" w-full flex flex-col gap-4 " >
+            <div className=" w-full flex flex-col gap-6 pt-4 " >
                 <div className=" w-full max-w-[500px] flex flex-col gap-4 px-4  " >
                     {/* <div role="button" className=" w-full flex gap-2 items-center " >
                         <div className=" w-fit " >
