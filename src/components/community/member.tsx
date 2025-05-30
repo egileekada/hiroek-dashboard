@@ -1,30 +1,30 @@
 import { Text } from "@radix-ui/themes"
 import useGetMembers from "../../hooks/communityHooks/useGetMembers"
 import LoadingAnimation from "../shared/loadingAnimation"
-import { CustomButton } from "../shared"
-import { useState } from "react"
+// import { CustomButton } from "../shared"
+// import { useState } from "react"
 
 
 export default function ComunityMember() {
 
     const { data, isLoading } = useGetMembers().getMemberData()
     const { data: moderator, isLoading: loading } = useGetMembers().getModeratorData()
-    const { addModerator, removeModerator } = useGetMembers()
+    // const { addModerator, removeModerator } = useGetMembers()
 
-    const [currentId, setCurrentId] = useState("")
+    // const [currentId, setCurrentId] = useState("")
 
-    const removeHandler = (item: string) => {
-        setCurrentId(item)
-        removeModerator?.mutate({
-            memberId: item
-        })
-    }
-    const addHandler = (item: string) => {
-        setCurrentId(item)
-        addModerator?.mutate({
-            memberId: item
-        })
-    }
+    // const removeHandler = (item: string) => {
+    //     setCurrentId(item)
+    //     removeModerator?.mutate({
+    //         memberId: item
+    //     })
+    // }
+    // const addHandler = (item: string) => {
+    //     setCurrentId(item)
+    //     addModerator?.mutate({
+    //         memberId: item
+    //     })
+    // }
 
     return (
         <div className=" w-full flex flex-col gap-4 " >

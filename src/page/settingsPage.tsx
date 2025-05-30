@@ -1,7 +1,7 @@
 import PageHeader from "../components/shared/pageHeader";
 import { Text } from "@radix-ui/themes";
 import { IoIosArrowForward } from "react-icons/io";
-import { DeleteIcon, LogoutIcon, SupportIcon } from "../svg";
+import { LogoutIcon, SupportIcon } from "../svg";
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../components/shared";
 import Cookies from "js-cookie" 
