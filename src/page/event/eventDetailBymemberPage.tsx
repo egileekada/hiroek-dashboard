@@ -1,6 +1,6 @@
 import { Text } from "@radix-ui/themes";
 import PageHeader from "../../components/shared/pageHeader";
-import { BackWhiteIcon, CalendarIcon2, ChatIcon, ClockIcon, LocationIcon, ShareIcon2, TicketIcon } from "../../svg";
+import { BackWhiteIcon, CalendarIcon2, ChatIcon, ClockIcon, LocationIcon, TicketIcon } from "../../svg";
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../components/shared";
 import { useEventDetail } from "../../global-state/useEventDetails";
@@ -17,7 +17,7 @@ import ModalLayout from "../../components/shared/modalLayout";
 import useConversation from "../../hooks/eventHooks/useConversation";
 import { useConversationHook } from "../../global-state/useConversationHook";
 import { useDetails } from "../../global-state/useUserDetails";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import ShareBtn from "../../components/shared/shareBtn";
 
 
