@@ -10,6 +10,7 @@ import ChartGraph from "../../components/shared/chartGraph";
 import { formatNumberWithK } from "../../utils/formatNumberWithK";
 import { formatNumber } from "../../utils/numberFormat";
 import useGetEventData from "../../hooks/eventHooks/useGetEventData";
+import ShareBtn from "../../components/shared/shareBtn";
 
 
 export default function EventDetailPage() {
@@ -31,13 +32,6 @@ export default function EventDetailPage() {
                             Edit Event
                         </CustomButton>
                     </div>
-                    {/* <div className=" w-[160px] " >
-                        <CustomButton bgColor="#CE4646" onClick={() => router("/dashboard/report/post")} hasFrontIcon={true} icon={
-                            <TrashIcon />
-                        } >
-                            Delete Event
-                        </CustomButton>
-                    </div> */}
                 </div>
             </div>
             <LoadingAnimation loading={getSingleEventData()?.isLoading} >
@@ -48,13 +42,19 @@ export default function EventDetailPage() {
                             <div role="button" onClick={() => router("/dashboard/event")} className=" cursor-pointer lg:hidden w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-white lg:bg-[#FFFFFF33] flex justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
                                 <BackWhiteIcon color="black" />
                             </div>
-                            <div role="button" onClick={() => router(`/dashboard/event/scanner/${id}`)} className=" cursor-pointer text-xs lg:hidden w-fit px-3 h-11 absolute top-6 z-10 right-4 rounded-md bg-white lg:bg-[#FFFFFF33] flex gap-2 justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
-                                Scan Tickets
-                                <QRIcon />
+                            <div className=" absolute top-6 z-10 right-4 gap-2 flex lg:hidden items-center ">
+                                <div role="button" onClick={() => router(`/dashboard/event/scanner/${id}`)} className=" cursor-pointer text-xs lg:hidden w-fit px-3 h-11 rounded-md bg-white lg:bg-[#FFFFFF33] flex gap-2 justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
+                                    Scan Tickets
+                                    <QRIcon />
+                                </div>
+                                <ShareBtn id={event?._id} type="EVENT" />
                             </div>
-                            <div role="button" onClick={() => router(`/dashboard/event/scan/history/${id}`)} className=" cursor-pointer text-xs lg:flex hidden w-fit px-3 h-11 absolute top-6 z-10 right-4 rounded-md bg-white gap-2 justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
-                                <HistoryIcon />
-                                Scan History
+                            <div className=" absolute top-6 z-10 right-4 gap-2 lg:flex hidden items-center ">
+                                <div role="button" onClick={() => router(`/dashboard/event/scan/history/${id}`)} className=" cursor-pointer text-xs w-fit flex px-3 h-11 rounded-md bg-white gap-2 justify-center items-center " style={{ boxShadow: "0px 4px 4px 0px #00000014" }} >
+                                    <HistoryIcon />
+                                    Scan History
+                                </div>
+                                <ShareBtn id={event?._id} type="EVENT" />
                             </div>
                         </div>
                         <div className=" w-full px-4 relative z-20 -mt-[80px]  " >
@@ -76,7 +76,7 @@ export default function EventDetailPage() {
                                     </div>
                                     <Text className=" !font-semibold text-xs " >{timeFormat(event?.endTime)}</Text>
                                 </div>
-                                <div className=" w-full flex justify-between items-center " > 
+                                <div className=" w-full flex justify-between items-center " >
                                     {event?.members?.length > 0 && (
                                         <div className='flex items-center mt-2 bg-[#37137F4D] px-3 rounded-full w-fit h-[40px] text-black ' >
                                             <div className=' w-7 h-7 rounded-full'>
@@ -91,7 +91,7 @@ export default function EventDetailPage() {
                                                 <div className=' w-7 h-7 rounded-full -ml-2 ' >
                                                     <img src={event?.members[2]?.photo} alt={event?.members[2]?._id} className=" w-full h-full object-cover rounded-full " />
                                                 </div>
-                                            )} 
+                                            )}
                                             <Text className=' ml-2 font-semibold text-xs text-[#37137F] ' >{formatNumberWithK(event?.members?.length)} Attending</Text>
                                         </div>
                                     )}
@@ -128,7 +128,7 @@ export default function EventDetailPage() {
                                 <Text className=" text-xl tracking-[1%] text-primary " >Fundraising Target</Text>
                                 <Text className=" text-[#858D9D] " >This is the target for this event.</Text>
                                 <ChartGraph />
-                                <Text className=" text-[#667085] font-medium text-center text-sm " >This event received donations of <span style={{ color: "#37137F" }} >{formatNumber(event?.fundRaiser?.fundRaised/100)}</span> so far</Text>
+                                <Text className=" text-[#667085] font-medium text-center text-sm " >This event received donations of <span style={{ color: "#37137F" }} >{formatNumber(event?.fundRaiser?.fundRaised / 100)}</span> so far</Text>
                                 <div className=" w-full px-2 flex justify-between pt-2 " >
                                     <div className=" flex flex-col items-center" >
                                         <Text className=" font-medium text-[#667085] text-sm " >Target</Text>
@@ -136,8 +136,8 @@ export default function EventDetailPage() {
                                     </div>
                                     <div className=" flex flex-col items-center" >
                                         <Text className=" font-medium text-[#667085] text-sm " >Donated</Text>
-                                        <Text className=" font-semibold text-xl text-[#1D1F2C] " >{formatNumber(event?.fundRaiser?.fundRaised/ 100)}</Text>
-                                    </div> 
+                                        <Text className=" font-semibold text-xl text-[#1D1F2C] " >{formatNumber(event?.fundRaiser?.fundRaised / 100)}</Text>
+                                    </div>
                                 </div>
                             </div>
                         </div>

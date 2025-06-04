@@ -8,6 +8,7 @@ import { textLimit } from "../../utils/textlimit";
 import { dateFormat } from "../../utils/dateFormat";
 import { formatNumber } from "../../utils/numberFormat";
 import { useEventDetail } from "../../global-state/useEventDetails"; 
+import toast from "react-hot-toast";
 
 
 export default function CreateEventBtnMobile({ loading, submit, open, setOpen, isSuccess }: { loading?: boolean, open: boolean, setOpen: any, submit: any, isSuccess: boolean }) {
@@ -17,7 +18,7 @@ export default function CreateEventBtnMobile({ loading, submit, open, setOpen, i
     const [tab, setTab] = useState(0)
     const { createdEvent } = useEventDetail((state) => state)
 
-    const [ share, setShared ] =  useState("Share")
+    // const [ share, setShared ] =  useState("Share")
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -26,17 +27,22 @@ export default function CreateEventBtnMobile({ loading, submit, open, setOpen, i
         }  
     }, [isSuccess])
 
-    const clickHandler = (item: string) => { 
-        setShared("Copied")
-        console.log(item);
-        navigator.clipboard
-          .writeText(`https://socialimpact.hiroek.io/dashboard/event/details/${item}`)
-          .then(() =>{
-            setShared("Text copied!"); 
-            setTimeout(() => setShared("Share"), 3000);
-          })
-          .catch(() => setShared("Failed to copy text.")); 
+    // const clickHandler = (item: string) => { 
+    //     setShared("Copied")
+    //     console.log(item);
+    //     navigator.clipboard
+    //       .writeText(`https://socialimpact.hiroek.io/dashboard/event/details/${item}`)
+    //       .then(() =>{
+    //         setShared("Text copied!"); 
+    //         setTimeout(() => setShared("Share"), 3000);
+    //       })
+    //       .catch(() => setShared("Failed to copy text.")); 
         
+    // }
+
+    const copyHandler = () => {
+        navigator.clipboard.writeText(`events.hiroek.io/event/${createdEvent?._id}`)
+        toast.success("Copied to clipboard")
     }
 
     return (
@@ -84,10 +90,11 @@ export default function CreateEventBtnMobile({ loading, submit, open, setOpen, i
                             <Text className=" font-semibold text-xs text-center " >Share the event and start gathering support and awareness</Text>
 
 
-                            <CustomButton onClick={()=> clickHandler(createdEvent?._id)} bgColor={"#B00062"} className=" px-3 " width="100%" type="button" hasIcon={true} icon={
+                            <CustomButton onClick={()=> copyHandler()} bgColor={"#B00062"} className=" px-3 " width="100%" type="button" hasIcon={true} icon={
                                 <ShareIcon />
                             } >
-                                {share}
+                                {/* {share} */}
+                                Share
                             </CustomButton>
                             <CustomButton onClick={() => navigate("/dashboard/event")} className=" px-3 " width="100%" type="submit" >
                                 Done

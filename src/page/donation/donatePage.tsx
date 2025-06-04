@@ -25,10 +25,10 @@ export default function DonatePage() {
             </div>
             <div className=" w-full flex flex-col lg:flex-row gap-6 lg:px-0 px-4 " >
                 <div className=" lg:w-fit w-full flex gap-4 items-center flex-col  " >
-                    <div className=" w-full lg:w-[400px] max-w-[400px] rounded-[15px] pt-8 h-[290px] text-white flex justify-between flex-col bg-primary "  >
+                    <div style={{ background: "linear-gradient(107.38deg, #4C49ED 2.61%, #37137F 101.2%)" }} className=" w-full lg:w-[400px] max-w-[400px] rounded-[15px] pt-8 h-[290px] text-white flex justify-between flex-col "  >
                         <div className=" w-full flex items-center justify-between px-6 " >
                             <div className=" flex flex-col " >
-                                <Text className=" text-sm font-bold " >Donations Account Balance</Text>
+                                <Text className=" text-sm font-bold " >Account Balance</Text>
                                 {isLoading ? <Spinner size={"2"} /> :
                                     <Text className=" text-[22px] font-semibold -mt-1 "  >{formatNumber(data?.balance / 100)}</Text>
                                 }

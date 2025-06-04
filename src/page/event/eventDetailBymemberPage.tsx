@@ -17,6 +17,8 @@ import ModalLayout from "../../components/shared/modalLayout";
 import useConversation from "../../hooks/eventHooks/useConversation";
 import { useConversationHook } from "../../global-state/useConversationHook";
 import { useDetails } from "../../global-state/useUserDetails";
+import toast from "react-hot-toast";
+import ShareBtn from "../../components/shared/shareBtn";
 
 
 export default function EventDetailByMemberPage() {
@@ -43,8 +45,7 @@ export default function EventDetailByMemberPage() {
             photo: event?.admin?.photo
         }) 
     } 
-    
-
+ 
     return (
         <div className=" w-full relative" >
             <div className=' w-full flex flex-col gap-6 ' >
@@ -63,9 +64,7 @@ export default function EventDetailByMemberPage() {
                                     {/* <div className=" w-11 h-11 rounded-full flex justify-center items-center bg-white bg-opacity-30 " style={{ backdropFilter: "blur(12px)" }} >
                                     <HeartIcon2 />
                                 </div> */}
-                                    <div className=" w-11 h-11 rounded-[10px] bg-primary flex justify-center items-center " >
-                                        <ShareIcon2 />
-                                    </div>
+                                    <ShareBtn id={event?._id} type="EVENT" />
                                 </div>
                                 <div className=" absolute z-10 inset-0 bg-black bg-opacity-50 " />
                                 <div className=" w-full absolute !bottom-2 z-20 px-3  " >
