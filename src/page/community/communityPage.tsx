@@ -30,9 +30,9 @@ export default function CommunityPage() {
                 <input type={"search"} placeholder={"Search"} value={search} onChange={(e)=> setSearchText(e?.target?.value)} className=" h-[48px] pl-8 px-3 border-[#37137F80] border-[2px] hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] outline-none rounded-[10px] bg-transparent w-full text-sm font-semibold text-primary pt-1 " />
             </div>
             <div className=" w-full flex flex-col gap-6 lg:px-0 px-4 ">
-                <div className=" hidden lg:block ">
-                    <CommunityCardList title="Recent Channels" />
-                </div>
+                {/* <div className=" hidden lg:block ">
+                    <CommunityCardList title="Channel" />
+                </div> */}
                 <CommunityCardList title="All Channels" mobile={true} />
             </div>
             <div className=" w-fit lg:hidden md:bottom-8 fixed bottom-28 ml-auto mr-6 right-0  ">

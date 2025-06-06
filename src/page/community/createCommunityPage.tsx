@@ -17,11 +17,11 @@ export default function CreateCommunityPage() {
     return communityHookForm(
         <div className=' w-full flex flex-col gap-6 ' >
             <div className=" w-full flex items-center justify-between " >
-                <PageHeader second={true} back={true} header={!history?.pathname.includes("edit") ? "Create New Community" : "Edit Community"} body="" />
+                <PageHeader second={true} back={true} header={!history?.pathname.includes("edit") ? "Create New Channel" : "Edit Channel"} body="" />
                 {history?.pathname.includes("edit") && (
                     <div className=" w-[170px] lg:flex hidden" >
                         <CustomButton height='45px' loading={loadingEdit} className=" px-3 " width="100%" type="submit" >
-                            Edit Community
+                            Edit Channel
                         </CustomButton>
                     </div>
                 )}

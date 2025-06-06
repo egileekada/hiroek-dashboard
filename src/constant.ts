@@ -10,12 +10,12 @@ export const menulist = [
         indicator: true
     },
     {
-        name: "Communities",
+        name: "Channels",
         link: "/dashboard/community",
         indicator: true
     },
     {
-        name: "Manage Donations",
+        name: "Revenue",
         link: "/dashboard/donation",
         indicator: false
     },

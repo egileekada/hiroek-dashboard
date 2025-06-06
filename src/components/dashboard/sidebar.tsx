@@ -29,10 +29,10 @@ Sidebar() {
                                 {item?.name === "Events" && (
                                     <EventIcon />
                                 )}
-                                {item?.name === "Communities" && (
+                                {item?.name === "Channels" && (
                                     <CommunityIcon />
                                 )}
-                                {item?.name === "Manage Donations" && (
+                                {item?.name === "Revenue" && (
                                     <CashIcon />
                                 )}
                                 {item?.name === "Impact Report" && (

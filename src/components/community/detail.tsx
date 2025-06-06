@@ -62,7 +62,7 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
                                             <img src={item?.members[2]?.photo} alt={item?.members[2]?._id} className=" w-full h-full object-cover rounded-full " />
                                         </div>
                                     )}
-                                    <Text className=' ml-2 font-semibold text-xs text-[#37137F] ' >{formatNumberWithK(item?.members?.length)} Attending</Text>
+                                    <Text className=' ml-2 font-semibold text-xs text-[#37137F] ' >{formatNumberWithK(item?.members?.length)} Members</Text>
                                 </div>
                             )}
                         </div>
@@ -73,90 +73,7 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
                         <div className=" w-full flex gap-2 px-2 justify-center " >
                             {/* <button onClick={() => router(`/dashboard/community/details/${id}`)} className={` ${!index ? " text-white " : " text-primary bg-opacity-10 "} bg-primary text-xs font-bold h-[40px] rounded-[44px] px-4 w-fit `} >Recent Posts</button> */}
                             <button onClick={() => router(`/dashboard/community/details/${id}?tab=true`)} disabled className={` ${!index ? " text-white " : " text-primary bg-opacity-10 "}  text-xs font-bold h-[40px] rounded-[44px] px-4 w-fit bg-primary `} >Announcements</button>
-                        </div>
-                        {/* {!index && (
-                            <LoadingAnimation loading={isLoading || loadingPin} length={post?.length} >
-                                <div className=" w-full max-h-auto overflow-y-auto rounded-[44px] p-4 lg:p-6 flex flex-col gap-6 lg:pb-0 pb-24 " >
-                                    {pinnedData?.map((item, index) => {
-                                        return (
-                                            <div key={index} className=" w-full flex flex-col gap-3 " >
-                                                <div className=" flex items-center w-full justify-between " >
-                                                    <div className=" flex items-center gap-2 " >
-                                                        <div className=" w-10 h-10 rounded-full border border-primary border-opacity-50 " >
-                                                            <img className=" w-full h-full object-cover rounded-full " src={item?.user?.logo} alt={item?.user?.logo} />
-                                                        </div>
-                                                        <div className=" flex flex-col " >
-                                                            <Text className=" text-xs font-bold " >{item?.user?.name}</Text>
-                                                            <Text className=" text-[10px] italic font-bold text-primary text-opacity-50 " >{moment(item?.createdAt)?.fromNow()}</Text>
-                                                        </div>
-                                                    </div>
-                                                    <div className=" flex gap-3 items-center " >
-                                                        <div role="button" className=" cursor-pointer w-fit " >
-                                                            <SendTopIcon />
-                                                        </div>
-                                                        <MoreOptionBtn pinned={true} post={true} item={item} />
-                                                    </div>
-                                                </div>
-                                                <div className=" w-full flex flex-col px-3 gap-3 " >
-                                                    <Text className=" text-xs font-medium " >{item?.content}</Text>
-                                                    {item?.attachments?.length > 0 && (
-                                                        <div className=" w-full h-[200px] flex justify-center bg-gray-500 items-center p-1 rounded-2xl " >
-                                                            <img className=" w-f h-full rounded-2xl object-cover " src={item?.attachments[0]?.image} alt={item?.attachments[0]?.image} />
-                                                        </div>
-                                                    )}
-                                                    <div className=" flex items-center gap-4 " >
-                                                        <LikePostBtn item={item} />
-                                                        <div onClick={() => router(`/dashboard/community/post-comment/${item?._id}`)} role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
-                                                            <ChatIcon />
-                                                            <Text className=" font-black text-xs " >{item?.comments?.length}</Text>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )
-                                    })}
-                                    {post?.map((item, index) => {
-                                        return (
-                                            <div key={index} className=" w-full flex flex-col gap-3 " >
-                                                <div className=" flex items-center w-full justify-between " >
-                                                    <div className=" flex items-center gap-2 " >
-                                                        <div className=" w-10 h-10 rounded-full border border-primary border-opacity-50 " >
-                                                            <img className=" w-full h-full object-cover rounded-full " src={item?.user?.logo} alt={item?.user?.logo} />
-                                                        </div>
-                                                        <div className=" flex flex-col " >
-                                                            <Text className=" text-xs font-bold " >{item?.user?.name}</Text>
-                                                            <Text className=" text-[10px] italic font-bold text-primary text-opacity-50 " >{moment(item?.createdAt)?.fromNow()}</Text>
-                                                        </div>
-                                                    </div>
-                                                    <div className=" flex gap-3 items-center " >
-                                                        <div role="button" className=" cursor-pointer w-fit " >
-                                                            <SendTopIcon />
-                                                        </div>
-                                                        <MoreOptionBtn post={true} item={item} />
-                                                    </div>
-                                                </div>
-                                                <div className=" w-full flex flex-col px-3 gap-3 " >
-                                                    <Text className=" text-xs font-medium " >{item?.content}</Text>
-                                                    {item?.attachments?.length > 0 && (
-                                                        <div className=" w-full h-[200px] flex justify-center bg-gray-500 items-center p-1 rounded-2xl " >
-                                                            <img className=" w-f h-full rounded-2xl object-cover " src={item?.attachments[0]?.image} alt={item?.attachments[0]?.image} />
-                                                        </div>
-                                                    )}
-                                                    <div className=" flex items-center gap-4 " >
-                                                        <LikePostBtn item={item} />
-                                                        <div onClick={() => router(`/dashboard/community/post-comment/${item?._id}`)} role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
-                                                            <ChatIcon />
-                                                            <Text className=" font-black text-xs " >{item?.comments?.length}</Text>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                            </LoadingAnimation>
-                        )}
-                        {index && ( */}
+                        </div> 
                             <LoadingAnimation loading={loading || loadingPin} length={data?.length} >
                                 <div className=" w-full rounded-[44px] p-4 lg:p-6 flex flex-col gap-6 lg:pb-0 pb-24 " >
                                     {pinnedData?.map((item, index) => {
@@ -174,9 +91,9 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
                                                         </div>
                                                     </div>
                                                     <div className=" flex gap-3 items-center " >
-                                                        <div role="button" className=" cursor-pointer w-fit " >
+                                                        {/* <div role="button" className=" cursor-pointer w-fit " >
                                                             <SendTopIcon />
-                                                        </div>
+                                                        </div> */}
                                                         <MoreOptionBtn pinned={true} post={true} item={item} />
                                                         <MdOutlinePushPin size={"25px"} />
                                                     </div>
@@ -213,9 +130,9 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
                                                         </div>
                                                     </div>
                                                     <div className=" flex gap-3 items-center " >
-                                                        <div role="button" className=" cursor-pointer w-fit " >
+                                                        {/* <div role="button" className=" cursor-pointer w-fit " >
                                                             <SendTopIcon />
-                                                        </div>
+                                                        </div> */}
                                                         <MoreOptionBtn item={item} />
                                                     </div>
                                                 </div>

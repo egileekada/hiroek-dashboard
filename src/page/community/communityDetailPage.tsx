@@ -31,7 +31,7 @@ export default function CommunityDetailPage() {
                     <CustomButton onClick={() => router(`/dashboard/community/edit/${id}`)} hasFrontIcon={true} icon={
                         <EditIcon />
                     } >
-                        Edit Community
+                        Edit Channel
                     </CustomButton>
                 </div>
             </div>
