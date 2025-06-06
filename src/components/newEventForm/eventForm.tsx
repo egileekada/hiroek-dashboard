@@ -3,8 +3,7 @@ import PageHeader from "../shared/pageHeader";
 import useEvent from "../../hooks/eventHooks/useNewEvent";
 import CustomInput from "./input";
 import { Text } from "../shared";
-import ImagePicker from "../shared/imagePicker";
-import CustomAddress from "../shared/customAddress";
+import ImagePicker from "../shared/imagePicker"; 
 import { useEffect, useState } from "react";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import { IoMdAddCircleOutline } from "react-icons/io";
@@ -16,6 +15,7 @@ import { IoCloseCircle } from "react-icons/io5";
 import { Switch } from "@radix-ui/themes";
 import CreateEventBtn from "../event/createEventBtn";
 import CreateEventBtnMobile from "../event/createEventBtnmobile";
+import CustomAddressFormik from "../shared/customAddressFormik";
 // import { useDatePicker } from "../../global-state/useDatePicker";
 
 export default function EventForm({defaultdata} : {defaultdata?: any}) {
@@ -97,7 +97,7 @@ export default function EventForm({defaultdata} : {defaultdata?: any}) {
                     </div>
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Event Venue</Text>
-                        <CustomAddress touched={formik?.touched} errors={formik?.errors} value={formik?.values?.address} borderRadius="8px" name="address" type="text" setValue={formik.setFieldValue} placeholder="Type or search for venue..." />
+                        <CustomAddressFormik touched={formik?.touched} errors={formik?.errors} value={formik?.values?.address} borderRadius="8px" name="address" type="text" setValue={formik.setFieldValue} placeholder="Type or search for venue..." />
                     </div>
                     <div className=" w-full flex gap-4 lg:flex-row flex-col " >
                         <div className=" w-full flex flex-col gap-1 ">
