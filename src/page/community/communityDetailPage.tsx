@@ -26,7 +26,7 @@ export default function CommunityDetailPage() {
     return (
         <div className=' w-full flex flex-col gap-6 absolute inset-0 lg:px-4 ' >
             <div className=" w-full lg:flex hidden items-center justify-between " >
-                <PageHeader path={"/dashboard/community"} back={true} header="Community Details" body="Effortless Event Creation and Community Engagement." />
+                <PageHeader path={"/dashboard/community"} back={true} header="Channel Details" body="" />
                 <div className=" gap-3 w-fit flex ">
                     <CustomButton onClick={() => router(`/dashboard/community/edit/${id}`)} hasFrontIcon={true} icon={
                         <EditIcon />

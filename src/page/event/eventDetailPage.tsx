@@ -23,7 +23,7 @@ export default function EventDetailPage() {
     return (
         <div className=' w-full flex flex-col gap-6 ' >
             <div className=" w-full lg:flex hidden items-center justify-between " >
-                <PageHeader path={"/dashboard/event"} back={true} header="Event Details" body="Effortless Event Creation and Community Engagement." />
+                <PageHeader path={"/dashboard/event"} back={true} header="Event Details" body="" />
                 <div className=" gap-3 w-fit flex ">
                     <div className=" w-[160px] " >
                         <CustomButton onClick={() => router(`/dashboard/event/edit/${event?._id}`)} hasFrontIcon={true} icon={
