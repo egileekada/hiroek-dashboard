@@ -5,8 +5,7 @@ import ModalLayout from "../shared/modalLayout";
 import { Text } from "@radix-ui/themes";
 import { useLocation, useNavigate } from "react-router-dom";
 import { textLimit } from "../../utils/textlimit";
-import { dateFormat } from "../../utils/dateFormat";
-import { formatNumber } from "../../utils/numberFormat";
+import { dateFormat } from "../../utils/dateFormat"; 
 import { useEventDetail } from "../../global-state/useEventDetails"; 
 import toast from "react-hot-toast";
 

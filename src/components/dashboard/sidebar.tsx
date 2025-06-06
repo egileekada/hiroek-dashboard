@@ -1,7 +1,7 @@
 import { Text } from '@radix-ui/themes'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { menulist } from '../../constant'
-import { CashIcon, CommunityIcon, DashboardIcon, EventIcon, ImpactIcon, MobileCommunityIcon } from '../../svg';
+import { CashIcon, DashboardIcon, EventIcon, ImpactIcon, MobileCommunityIcon } from '../../svg';
 import { useDetails } from '../../global-state/useUserDetails';
 
 export default function 

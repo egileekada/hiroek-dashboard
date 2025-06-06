@@ -6,8 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEventDetail } from "../../global-state/useEventDetails";
 import { CalendarIcon, LocationIcon, ShareIcon, TicketIcon } from "../../svg";
 import { dateFormat } from "../../utils/dateFormat";
-import { textLimit } from "../../utils/textlimit";
-import { formatNumber } from "../../utils/numberFormat";
+import { textLimit } from "../../utils/textlimit"; 
 import toast from "react-hot-toast";
 
 

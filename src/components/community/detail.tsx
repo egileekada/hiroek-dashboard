@@ -1,5 +1,5 @@
 import { Text } from "@radix-ui/themes";
-import { BackWhiteIcon, EditIcon, SendTopIcon } from "../../svg";
+import { BackWhiteIcon, EditIcon } from "../../svg";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { ICommunity } from "../../model/community";
 import { formatNumberWithK } from "../../utils/formatNumberWithK";
