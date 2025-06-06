@@ -29,7 +29,10 @@ export default function DashboardLayout() {
 
     useEffect(() => {
         if (!isLoading) {
-            if (data?.email) {
+            if (data?.email) { 
+                if(!data?.charityRegNumber){
+                    router("/dashboard/profile")
+                }  
                 setAll({ ...data })
                 setLoading(false)
             } else if (isError) {
