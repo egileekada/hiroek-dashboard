@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CalendarIcon, LocationIcon, ShareIcon } from "../../svg";
+import { CalendarIcon, LocationIcon, ShareIcon, TicketIcon } from "../../svg";
 import { CustomButton } from "../shared";
 import ModalLayout from "../shared/modalLayout";
 import { Text } from "@radix-ui/themes";
@@ -79,10 +79,10 @@ export default function CreateEventBtnMobile({ loading, submit, open, setOpen, i
                                         <CalendarIcon />
                                         <Text className=' text-xs font-medium ' >{dateFormat(createdEvent?.endTime)}</Text>
                                     </div>
-                                </div>
-                                <div className=' flex flex-col ' >
-                                    <Text className=' text-[10px] font-medium ' >Tickets</Text>
-                                    <Text className=' font-semibold ' >{formatNumber(createdEvent?.eventTicket?.ticketPrice)}</Text>
+                                </div> 
+                                <div className=" flex gap-2 items-center " >
+                                    <TicketIcon />
+                                    <Text className=" font-bold text-xs " >{createdEvent?.signUpLimit} Spot(s) Available</Text>
                                 </div>
                             </div>
                         </div>

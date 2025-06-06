@@ -96,15 +96,8 @@ export default function EventDetailPage() {
                                         </div>
                                     )}
                                     <div className=" flex gap-2 items-center " >
-                                        <TicketIcon />
-                                        {/* <Text className=" text-xs font-semibold " >{event?.signUpLimit} Spot(s) Available</Text> */}
-
-                                        {/* {(event?.signUpLimit > 0 && event?.signUpLimit) && ( */}
-                                            <Text className=" font-bold text-xs " >{event?.signUpLimit} Spot(s) Available</Text>
-                                        {/* // )} */}
-                                        {/* {event?.signUpLimit < 1 && (
-                                            <Text className=" font-bold text-xs " >Sold Out</Text>
-                                        )} */}
+                                        <TicketIcon /> 
+                                        <Text className=" font-bold text-xs " >{event?.signUpLimit} Spot(s) Available</Text> 
                                     </div>
                                 </div>
                             </div>
