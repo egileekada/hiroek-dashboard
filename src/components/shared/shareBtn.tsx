@@ -1,4 +1,4 @@
-import toast from "react-hot-toast"
+
 import { ShareIcon2 } from "../../svg"
 
 
@@ -19,7 +19,7 @@ export default function ShareBtn({ type, id }: { id: string, type: "EVENT" | "CH
                 alert('Sharing not supported on this device.');
             }
         }
-        toast.success("Copied to clipboard")
+        // toast.success("Copied to clipboard")
     }
 
     return (
