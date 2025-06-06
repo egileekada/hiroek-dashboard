@@ -36,7 +36,7 @@ export default function CustomInput({ isPassword = false, name, textarea, type, 
 
     useEffect(() => {
         setDefaultValue(value)
-    }, [])
+    }, [value])
 
     const clickHandler = () => {
         setShowText((prev) => prev === "text" ? "password" : "text")

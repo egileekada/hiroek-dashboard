@@ -20,7 +20,7 @@ export default function CommunityCardList({ title, notitle, mobile }: IProps) {
     return (
         <div className=' w-full flex pb-6 flex-col gap-2 ' >
             {!notitle && (
-                <Text className=' text-xl text-primary font-black ' >{title ?? "Communities"}</Text>
+                <Text className=' text-xl text-primary font-black ' >{title ?? "Channel"}</Text>
             )}
             <LoadingAnimation loading={isLoading} length={data?.length} >
                 <div className=' w-full h-full flex overflow-x-auto  ' >

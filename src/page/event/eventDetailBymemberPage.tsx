@@ -108,20 +108,18 @@ export default function EventDetailByMemberPage() {
                                                     <ClockIcon />
                                                 </div>
                                                 <Text className=" font-semibold text-xs " >{timeFormat(event?.endTime)}</Text>
-                                            </div>
-                                            {event?.signUpLimit && (
-                                                <div className=" flex items-center gap-2 " >
-                                                    <div className=" w-fit text-primary text-opacity-50 " >
-                                                        <TicketIcon />
-                                                    </div>
-                                                    {event?.signUpLimit > 0 && (
-                                                        <Text className=" font-bold text-xs " >{event?.signUpLimit} Spot(s) Available</Text>
-                                                    )}
-                                                    {event?.signUpLimit < 1 && (
-                                                        <Text className=" font-bold text-xs " >Sold Out</Text>
-                                                    )}
+                                            </div> 
+                                            <div className=" flex items-center gap-2 " >
+                                                <div className=" w-fit text-primary text-opacity-50 " >
+                                                    <TicketIcon />
                                                 </div>
-                                            )}
+                                                {/* {event?.signUpLimit > 0 && ( */}
+                                                    <Text className=" font-bold text-xs " >{event?.signUpLimit} Spot(s) Available</Text>
+                                                {/* )}
+                                                {event?.signUpLimit < 1 && (
+                                                    <Text className=" font-bold text-xs " >Sold Out</Text>
+                                                )} */}
+                                            </div> 
                                         </div>
                                     </div>
                                 </div>

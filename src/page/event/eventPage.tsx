@@ -34,13 +34,13 @@ export default function EventPage() {
             </div>
             <div className=" w-full flex flex-col lg:px-0 px-5 gap-6 " >
                 <div className=" w-full" >
-                    <EventCardList title="Created Events" details="View Events Created By Your Supporters In Aid of Your Mission. Chat With The Event Creators To Support Their Effort." filter={true} />
+                    <EventCardList title="Curated Events" details="View Events Created By Your Supporters In Aid of Your Mission. Chat With The Event Creators To Support Their Effort." filter={true} />
                 </div>
                 <div className=" w-full lg:hidden " >
-                    <EventCardMembersList mobile={true} title="Events created by members" />
+                    <EventCardMembersList mobile={true} title="Events Curated by members" />
                 </div>
                 <div className=" w-full lg:block hidden " >
-                    <EventCardMembersList title="Events created by members" />
+                    <EventCardMembersList title="Events Curated by members" />
                 </div>
             </div>
             <div className=" w-fit lg:hidden md:bottom-6 fixed bottom-28 ml-auto mr-6 right-0 ">

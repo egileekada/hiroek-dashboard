@@ -95,12 +95,17 @@ export default function EventDetailPage() {
                                             <Text className=' ml-2 font-semibold text-xs text-[#37137F] ' >{formatNumberWithK(event?.members?.length)} Attending</Text>
                                         </div>
                                     )}
-                                    {event?.signUpLimit && (
-                                        <div className=" flex gap-2 items-center " >
-                                            <TicketIcon />
-                                            <Text className=" text-xs font-semibold " >{event?.signUpLimit} Spot(s) Available</Text>
-                                        </div>
-                                    )}
+                                    <div className=" flex gap-2 items-center " >
+                                        <TicketIcon />
+                                        {/* <Text className=" text-xs font-semibold " >{event?.signUpLimit} Spot(s) Available</Text> */}
+
+                                        {/* {(event?.signUpLimit > 0 && event?.signUpLimit) && ( */}
+                                            <Text className=" font-bold text-xs " >{event?.signUpLimit} Spot(s) Available</Text>
+                                        {/* // )} */}
+                                        {/* {event?.signUpLimit < 1 && (
+                                            <Text className=" font-bold text-xs " >Sold Out</Text>
+                                        )} */}
+                                    </div>
                                 </div>
                             </div>
                         </div>
