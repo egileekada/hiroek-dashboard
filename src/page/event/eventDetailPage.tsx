@@ -66,15 +66,19 @@ export default function EventDetailPage() {
                                     </div>
                                     <Text className="!font-semibold text-xs " >{event?.address}</Text>
                                 </div>
-                                <div className=" flex items-center gap-2 " >
-                                    <div className=" w-fit text-primary text-opacity-50 " >
-                                        <CalendarIcon2 />
+                                <div className=" flex items-center gap-2 w-full justify-between " >
+                                    <div className=" flex items-center gap-2 " > 
+                                        <div className=" w-fit text-primary text-opacity-50 " >
+                                            <CalendarIcon2 />
+                                        </div>
+                                        <Text className="!font-semibold text-xs mr-2 " >{dateFormat(event?.endTime)}</Text>
                                     </div>
-                                    <Text className="!font-semibold text-xs mr-2 " >{dateFormat(event?.endTime)}</Text>
+                                    <div className=" flex items-center gap-2 " > 
                                     <div className=" w-fit text-primary text-opacity-50 " >
                                         <ClockIcon />
                                     </div>
                                     <Text className=" !font-semibold text-xs " >{timeFormat(event?.endTime)}</Text>
+                                    </div>
                                 </div>
                                 <div className=" w-full flex justify-between items-center " >
                                     {event?.members?.length > 0 && (
@@ -126,7 +130,7 @@ export default function EventDetailPage() {
                         <div className=" w-full flex flex-col gap-6 lg:px-0 px-4 " >
                             <div className=" w-full rounded-[44px] flex flex-col lg:p-6 " >
                                 <Text className=" text-xl tracking-[1%] text-primary " >Fundraising Target</Text>
-                                <Text className=" text-[#858D9D] " >This is the target for this event.</Text>
+                                <Text className=" text-[#858D9D] text-xs " >This is the target for this event.</Text>
                                 <ChartGraph />
                                 <Text className=" text-[#667085] font-medium text-center text-sm " >This event received donations of <span style={{ color: "#37137F" }} >{formatNumber(event?.fundRaiser?.fundRaised / 100)}</span> so far</Text>
                                 <div className=" w-full px-2 flex justify-between pt-2 " >

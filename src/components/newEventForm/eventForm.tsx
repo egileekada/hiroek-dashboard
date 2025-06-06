@@ -29,6 +29,7 @@ export default function EventForm({ defaultdata }: { defaultdata?: any }) {
     const { isLoading: loadingCategory, data: categoryData } = useCategory()
     const [paidEvent, setPaidEvent] = useState(false)
     const [isFundraising, setIsFundraising] = useState(false)
+    const [editCategory, setEditCategory] = useState(false)
 
     // console.log(formik.values);
 
@@ -48,31 +49,32 @@ export default function EventForm({ defaultdata }: { defaultdata?: any }) {
             formik?.setFieldValue("name", defaultdata?.name)
             formik?.setFieldValue("description", defaultdata?.description)
             formik?.setFieldValue("signUpLimit", defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
-
-            if (defaultdata?.category?.subcategories?.length > 0) {
-                formik?.setFieldValue("category", defaultdata?.category?.subcategories[0])
-            } else {
-                formik?.setFieldValue("category", defaultdata?.category?._id)
-            }
             formik?.setFieldValue("eventTicket.ticketPrice", defaultdata?.eventTicket?.ticketPrice)
             // formik?.setFieldValue("eventTicket.totalTicket", defaultdata?.eventTicket?.totalTicket)
             formik?.setFieldValue("fundRaiser.fundRaisingGoal", defaultdata?.fundRaiser?.fundRaisingGoal)
             setTicketNo(defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
             // updateStartDate(defaultdata?.endTime)
             // updateEndDate(defaultdata?.eventEndDate)
+            checkForCategory()
         }
-    }, [formik?.values])
+    }, [formik?.values, defaultdata])
 
     const checkForCategory = () => {
         if (defaultdata?.category?.subcategories?.length > 0) {
-            return defaultdata?.category?.subcategories[0]
+            setEditCategory(defaultdata?.category?.subcategories[0])
+            formik?.setFieldValue("category", defaultdata?.category?.subcategories[0])
         } else {
-            return defaultdata?.category?._id
-        }
-        return ""
+            setEditCategory(defaultdata?.category?._id)
+            formik?.setFieldValue("category", defaultdata?.category?._id)
+        } 
     }
 
     const [show, setShow] = useState(false)
+
+    console.log(formik?.values);
+
+    console.log(defaultdata);
+    
 
 
     return (
@@ -129,7 +131,7 @@ export default function EventForm({ defaultdata }: { defaultdata?: any }) {
                         <div className=" flex w-full flex-col gap-1 " >
                             <Text className=" text-primary font-semibold text-sm " >Event Category</Text>
                             {!loadingCategory && (
-                                <CustomSelect touched={formik?.touched} errors={formik?.errors} value={formik?.values?.category ? formik?.values?.category : checkForCategory()} placeholder="Select Categories" name="category" changeHandler={formik.setFieldValue} list={categoryData} />
+                                <CustomSelect touched={formik?.touched} errors={formik?.errors} value={formik?.values?.category ? formik?.values?.category : editCategory} placeholder="Select Categories" name="category" changeHandler={formik.setFieldValue} list={categoryData} />
                             )}
                         </div>
                     </div>

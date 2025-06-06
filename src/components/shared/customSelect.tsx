@@ -1,6 +1,6 @@
 import { DropdownMenu, Text } from '@radix-ui/themes'
 import { IInterest } from '../../model/interest'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ModalLayout from './modalLayout';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { ICategories } from '../../hooks/useCategory';
@@ -38,10 +38,7 @@ export default function CustomSelect(props: IProps) {
         setDefaultData(item)
         changeHandler(name, item)
         setOpen(false)
-        setOpenModal(false)
-
-        console.log(item);
-
+        setOpenModal(false) 
     }  
 
     const [open, setOpen] = useState(false)
@@ -75,6 +72,10 @@ export default function CustomSelect(props: IProps) {
 
         return "";
     }  
+
+    useEffect(()=> {
+        setDefaultData(value)
+    }, [value])
 
     return (
         <>

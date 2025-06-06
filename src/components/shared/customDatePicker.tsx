@@ -29,10 +29,11 @@ export default function CustomDatePicker({ name }: IProps) {
     }   
 
     return (
-        <div className=" w-full flex flex-col h-[54px] relative " >
+        <div className=" w-full flex flex-col h-[54px] relative !text-primary " >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateTimePicker 
                     // label={name !== "endTime" ? "End Date": "Start Date"}
+                    className=" text-primary "
                     minDate={name === "endTime" ? dayjs() : dayjs(startData)} 
                     defaultValue={dayjs(name === "endTime" ? startData : endDate)}
                     format="ddd, MM/DD/YYYY hh:mm a" 
