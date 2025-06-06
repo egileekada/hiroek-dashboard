@@ -108,8 +108,10 @@ const useEvent = () => {
 
             formData.append("category", formik?.values?.category ? formik?.values?.category : event?.category)
             formData.append("privacy", formik?.values?.privacy ? formik?.values?.privacy : event?.privacy)
-            if (formik?.values?.eventTicket.totalTicket) {
-                formData.append("signUpLimit", formik?.values?.eventTicket.totalTicket)
+            if (formik?.values?.signUpLimit) {
+                if(Number(formik?.values?.signUpLimit) > 0) {
+                    formData.append("signUpLimit", formik?.values?.signUpLimit+"")
+                }
             }
             formData.append("eventEndDate", new Date(endDate)?.toISOString())
             formData.append("endTime", new Date(startData)?.toISOString())
