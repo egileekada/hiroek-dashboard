@@ -2,7 +2,7 @@ import toast from "react-hot-toast"
 import { ShareIcon2 } from "../../svg"
 
 
-export default function ShareBtn({ type }: { id: string, type: "EVENT" | "CHANNEL" }) {
+export default function ShareBtn({ type, id }: { id: string, type: "EVENT" | "CHANNEL" }) {
 
     const copyHandler = () => {
         if (type === "EVENT") {
@@ -10,8 +10,8 @@ export default function ShareBtn({ type }: { id: string, type: "EVENT" | "CHANNE
             if (navigator.share) {
                 navigator.share({
                     title: 'Check this out!',
-                    text: 'Here’s something interesting I found.',
-                    url: window.location.href,
+                    text: `Heres something interesting I found.`,
+                    url: `events.hiroek.io/event/${id}`,
                 })
                     .then(() => console.log('Shared successfully!'))
                     .catch((error) => console.error('Error sharing:', error));
