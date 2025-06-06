@@ -126,7 +126,7 @@ export default function SupportPage() {
                                     </div>
                                     {/* {open === index && ( */}
                                         <div className={` ${open === index ? "opacity-100  " : "opacity-0 hidden " } transition-opacity ease-in-out delay-150 duration-300  `} >
-                                            <Text className=" text-sm  " >{item?.answer}</Text>
+                                            <Text className=" text-sm text-primary " >{item?.answer}</Text>
                                         </div>
                                     {/* )} */}
                                 </div>
