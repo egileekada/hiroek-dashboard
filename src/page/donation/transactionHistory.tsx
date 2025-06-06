@@ -47,12 +47,18 @@ export default function TransactionHistory() {
                                     <div key={index} className=' lg:max-w-[550px] w-full justify-between pb-3 border-b border-[#2E2D740D] px-3 flex items-center ' >
                                         <div className=' flex gap-2 items-center ' >
                                             <div className=' w-10 h-10 rounded-full ' >
-                                                <img alt='logo' src={item?.user?.photo} className=' object-cover w-full h-full rounded-full ' />
+                                                {!item?.anonymousUser?.firstName ? (
+                                                    <img alt='logo' src={item?.user?.photo} className=' object-cover w-full h-full rounded-full ' />
+                                                ): (
+                                                   <div className=' w-full h-full pt-[1px] rounded-full flex justify-center items-center bg-primary text-white ' >
+                                                        U
+                                                   </div>
+                                                )}
                                             </div>
                                             <div className=' flex flex-col ' >
-                                                <Text className=' text-xs font-bold text-primary ' >{textLimit(item?.user?.fullname, 20)}</Text>
-                                                <Text className=' text-[10px] font-bold text-primary text-opacity-50 ' >{item?.event?.name}</Text>
-                                                <Text className=' text-[10px] font-bold text-primary text-opacity-50' >{item?.recipients[0]?.name}</Text>
+                                                <Text className=' text-xs font-bold text-primary ' >User: {textLimit(item?.user?.fullname ? item?.user?.fullname : item?.anonymousUser?.firstName +" "+item?.anonymousUser?.lastName, 20)}</Text>
+                                                <Text className=' text-[10px] font-bold text-primary text-opacity-50 ' >Event: {item?.event?.name}</Text>
+                                                <Text className=' text-[10px] font-bold text-primary text-opacity-50' >Recipients: {item?.recipients[0]?.name}</Text> 
                                             </div>
                                         </div>
                                         <div className=' flex flex-col ' >

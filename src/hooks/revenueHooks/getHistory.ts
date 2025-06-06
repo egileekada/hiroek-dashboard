@@ -72,6 +72,13 @@ const useGetRevenue = () => {
             "status": string,
             "donationStatus": string,
             "interval": string,
+            anonymousUser: {
+                "_id": string,
+                "firstName": string,
+                "lastName": string,
+                "email":string,
+                "phone": string, 
+            },
             "recipients": Array<{
                     "fundRaised": number,
                     "totalDonations": number,
