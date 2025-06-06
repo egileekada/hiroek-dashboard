@@ -1,5 +1,3 @@
-import { useFormContext } from "react-hook-form";
-import { Text } from "@radix-ui/themes"; 
 import "react-datepicker/dist/react-datepicker.css";
 // import { CalendarIcon2 } from "../../svg";
 import { DateTimePicker } from '@mui/x-date-pickers';
@@ -17,7 +15,7 @@ interface IProps {
 export default function CustomDatePicker({ name }: IProps) {
 
 
-    const { formState: { errors } } = useFormContext();
+    // const { formState: { errors } } = useFormContext();
 
     const { startData, endDate, updateEndDate, updateStartDate } = useDatePicker((state) => state) 
 
@@ -28,8 +26,7 @@ export default function CustomDatePicker({ name }: IProps) {
         } else {
             updateEndDate(item.toISOString())
         }
-    }  
-    
+    }   
 
     return (
         <div className=" w-full flex flex-col h-[54px] relative " >
@@ -43,7 +40,7 @@ export default function CustomDatePicker({ name }: IProps) {
 
                 />
             </LocalizationProvider>
-            {errors[name] && <Text className=" text-left text-xs text-red-500 font-semibold mt-1 " >{errors[name]?.message as string}</Text>}
+            {/* {errors[name] && <Text className=" text-left text-xs text-red-500 font-semibold mt-1 " >{errors[name]?.message as string}</Text>} */}
         </div>
     )
 }

@@ -61,7 +61,7 @@ export default function EditEventForm(props: IProps) {
 
 
     // const { updateEndDate, updateStartDate } = useDatePicker((state) => state)
-    console.log(defaultdata?.category);
+    console.log(defaultdata);
     
 
     useEffect(() => {
@@ -69,17 +69,18 @@ export default function EditEventForm(props: IProps) {
             setValue("address", defaultdata?.address)
             setValue("name", defaultdata?.name)
             setValue("description", defaultdata?.description)
-            setValue("signUpLimit", defaultdata?.signUpLimit)
+            setValue("signUpLimit", defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
 
             if(defaultdata?.category?.subcategories?.length > 0){
                 setValue("category", defaultdata?.category?.subcategories[0])
             } else {
                 setValue("category", defaultdata?.category?._id)
             }
-
+            console.log("text");
             setValue("eventTicket.ticketPrice", defaultdata?.eventTicket?.ticketPrice)
-            setValue("eventTicket.totalTicket", defaultdata?.eventTicket?.totalTicket)
+            // setValue("eventTicket.totalTicket", defaultdata?.eventTicket?.totalTicket)
             setValue("fundRaiser.fundRaisingGoal", defaultdata?.fundRaiser?.fundRaisingGoal) 
+            setTicketNo(defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
             // updateStartDate(defaultdata?.endTime)
             // updateEndDate(defaultdata?.eventEndDate)
         }
@@ -100,8 +101,7 @@ export default function EditEventForm(props: IProps) {
             return defaultdata?.category?.subcategories[0]
         } else {
             return defaultdata?.category?._id
-        }
-
+        } 
             return ""
     }
 
@@ -129,7 +129,7 @@ export default function EditEventForm(props: IProps) {
                             <div role="button" onClick={() => clickTicket("remove")} >
                                 <AiOutlineMinusCircle size={"30px"} />
                             </div>
-                            {values?.eventTicket?.totalTicket + ""}
+                            {values.signUpLimit + ""}
                             <div role="button" onClick={() => clickTicket("add")} >
                                 <IoMdAddCircleOutline size={"30px"} />
                             </div>

@@ -11,9 +11,11 @@ interface IProps {
     interest?: Array<IInterest>;
     placeholder: string,
     name: string,
-    formState: any,
+    formState?: any,
     value?: any,
-    rounded?: string
+    rounded?: string,
+    touched?: any,
+    errors?: any
 }
 
 export default function CustomSelect(props: IProps) {
@@ -24,7 +26,9 @@ export default function CustomSelect(props: IProps) {
         placeholder,
         value,
         name,
-        formState,
+        touched,
+        errors
+        // formState,
         // rounded
     } = props
 
@@ -74,14 +78,15 @@ export default function CustomSelect(props: IProps) {
 
     return (
         <>
-            <div className=' w-full md:flex hidden birder flex-col placeholder:text-white relative ' >
+            <div className=' w-full md:flex hidden birder flex-col gap-1 placeholder:text-white relative ' >
                 <div onClick={() => setOpen(true)} className=' w-full px-4 flex justify-between h-[54px] text-sm rounded-lg border-primary bg-primary text-white border-2 items-center gap-4 ' >
                     {defaultData ? checkForName() : placeholder}
                     <div className=' w-fit ' >
                         <DropdownMenu.TriggerIcon />
                     </div>
                 </div>
-                {formState?.errors[name] && <Text className=" text-left text-xs text-red-500 font-semibold mt-1 " >{formState?.errors[name]?.message as string}</Text>}
+                {touched[name] && errors[name] && <Text className=" text-left text-xs text-red-500 font-medium " >{errors[name]}</Text>} 
+                {/* {formState?.errors[name] && <Text className=" text-left text-xs text-red-500 font-semibold mt-1 " >{formState?.errors[name]?.message as string}</Text>} */}
             </div>
             <div className=' w-full md:hidden flex birder flex-col placeholder:text-white relative ' >
                 <div onClick={() => setOpenModal(true)} className=' w-full px-4 flex justify-between h-[54px] text-sm rounded-lg border-primary bg-primary text-white border-2 items-center gap-4 ' >
@@ -90,7 +95,7 @@ export default function CustomSelect(props: IProps) {
                         <DropdownMenu.TriggerIcon />
                     </div>
                 </div>
-                {formState?.errors[name] && <Text className=" text-left text-xs text-red-500 font-semibold mt-1 " >{formState?.errors[name]?.message as string}</Text>}
+                {touched[name] && errors[name] && <Text className=" text-left text-xs text-red-500 font-medium -mt-1 " >{errors[name]}</Text>} 
             </div>
             <ModalLayout height='100vh' width=' max-w-[400px] ' open={open} setOpen={setOpen} >
                 <div className=' w-full h-full flex flex-col gap-4 py-4  ' >

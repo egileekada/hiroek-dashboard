@@ -95,10 +95,12 @@ export default function EventDetailPage() {
                                             <Text className=' ml-2 font-semibold text-xs text-[#37137F] ' >{formatNumberWithK(event?.members?.length)} Attending</Text>
                                         </div>
                                     )}
-                                    <div className=" flex gap-2 items-center " >
-                                        <TicketIcon />
-                                        <Text className=" text-xs font-semibold " >{event?.eventTicket?.totalTicket} Spots Available</Text>
-                                    </div>
+                                    {event?.signUpLimit && (
+                                        <div className=" flex gap-2 items-center " >
+                                            <TicketIcon />
+                                            <Text className=" text-xs font-semibold " >{event?.signUpLimit} Spot(s) Available</Text>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>

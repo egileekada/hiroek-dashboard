@@ -82,8 +82,7 @@ const useEvent = () => {
                 toast.error("Add Start Date")
             }  else if(!endDate) {
                 toast.error("Add End Date")
-            } else { 
-
+            } else {  
                 if (history?.pathname?.includes("edit")) { 
                     setOpen(true) 
                 } else {
