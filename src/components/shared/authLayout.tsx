@@ -38,7 +38,7 @@ export default function AuthLayout({ children, header, body, hidesidebar, hidefo
                 <div className=" max-w-[450px] w-full flex flex-col items-center text-primary  lg:text-white gap-4 " >
                     <div className=" w-full flex flex-col items-center " >
                         <Text className=" uppercase lg:block hidden text-[32px] font-black " >Hiroek</Text>
-                        <Text className=" lg:block hidden text-xs tracking-[1%] font-medium " >FOR CHARITIES</Text>
+                        <Text className=" lg:block hidden text-xs tracking-[1%] font-medium " >FOR CHARITIES & SOCIAL IMPACT ORGANISATIONS </Text>
                         <Text className=" text-[28px] font-black mt-4 " >{header}</Text>
                         <Text className=" text-sm tracking-[1%] font-medium " >{body}</Text>
                     </div>
@@ -84,8 +84,8 @@ export default function AuthLayout({ children, header, body, hidesidebar, hidefo
                             1
                         </div>
                         <div className=" flex flex-col flex-1 " >
-                            <Text className=" text-[24px] font-black " >Verify Organization</Text>
-                            <Text className=" text-lg font-medium " >Start by entering your organizations email To claim Your account And a verification Link Will Be Sent To Organizations email.</Text>
+                            <Text className=" text-[24px] font-black " >Verify Organisation</Text>
+                            <Text className=" text-lg font-medium " >Start by entering your organisations email To claim Your account And a verification Link Will Be Sent To Organisations email.</Text>
                         </div>
                     </div>
                     <div className=" flex gap-3 relative z-20 " >
@@ -94,7 +94,7 @@ export default function AuthLayout({ children, header, body, hidesidebar, hidefo
                         </div>
                         <div className=" flex flex-col flex-1 " >
                             <Text className=" text-[24px] font-black " >Create New Password</Text>
-                            <Text className=" text-lg font-medium " >After Verifying the link sent to The email, Organization Will Be Required To create a new password for their account.</Text>
+                            <Text className=" text-lg font-medium " >After Verifying the link sent to The email, Organisation Will Be Required To create a new password for their account.</Text>
                         </div>
                     </div>
                     <div className=" flex gap-3 relative z-20 " >
@@ -102,7 +102,7 @@ export default function AuthLayout({ children, header, body, hidesidebar, hidefo
                             3
                         </div>
                         <div className=" flex flex-col flex-1 " >
-                            <Text className=" text-[24px] font-black " >Setup Organization Profile</Text>
+                            <Text className=" text-[24px] font-black " >Setup Organisation Profile</Text>
                             <Text className=" text-lg font-medium " >Maximise your Time Through Seamless Event Creation and Community Activation.</Text>
                         </div>
                     </div>
