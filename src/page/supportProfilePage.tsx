@@ -1,6 +1,6 @@
 import { Text } from "@radix-ui/themes";
 import PageHeader from "../components/shared/pageHeader";
-import { HelpIcon, MeetingIcon } from "../svg";
+import { HelpIcon, MeetingIcon, SupportIcon } from "../svg";
 import { IoIosArrowDown } from "react-icons/io";
 import { useEffect, useState } from "react";
 import useTawkTo from "../services/useTawk";
@@ -84,7 +84,7 @@ export default function SupportPage() {
             </div>
             <div className=" w-full flex flex-col gap-6 pt-4 " >
                 <div className=" w-full max-w-[500px] flex flex-col gap-4 px-4  " >
-                    {/* <div role="button" className=" w-full flex gap-2 items-center " >
+                    <div role="button" className=" w-full flex gap-2 items-center " >
                         <div className=" w-fit " >
                             <SupportIcon width="24" />
                         </div>
@@ -92,14 +92,14 @@ export default function SupportPage() {
                             <Text className=" text-sm font-bold text-primary " >Contact Us On:</Text>
                         </div>
                     </div>
-                    <div className=" w-full flex items-center justify-between pl-6 " >
-                        <Text className=" text-sm text-primary font-semibold " >Phone Support</Text>
-                        <CallIcon />
-                    </div>
-                    <div className=" w-full flex items-center justify-between pl-6 " >
-                        <Text className=" text-sm text-primary font-semibold " >Email Support</Text>
-                        <MailIcon />
-                    </div> */}
+                            {/* <div className=" w-full flex items-center justify-between pl-6 " >
+                                <Text className=" text-sm text-primary font-semibold " >Phone Support</Text>
+                                <CallIcon />
+                            </div>
+                            <div className=" w-full flex items-center justify-between pl-6 " >
+                                <Text className=" text-sm text-primary font-semibold " >Email Support</Text>
+                                <MailIcon />
+                            </div> */}
                     <div onClick={showChat} className=" w-full flex items-center justify-between pl-6 cursor-pointer " >
                         <Text className=" text-sm text-primary font-semibold " >Live Chat</Text>
                         <MeetingIcon />
