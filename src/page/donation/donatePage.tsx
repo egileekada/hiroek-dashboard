@@ -21,7 +21,7 @@ export default function DonatePage() {
     return (
         <div className=' w-full flex flex-col gap-6 ' >
             <div className=" w-full flex items-center justify-between " >
-                <PageHeader header="Manage Your Donations." body="Manage Your Donation." />
+                <PageHeader header="Manage Your Revenue" body="Effortlessly track and optimise event revenue." />
             </div>
             <div className=" w-full flex flex-col lg:flex-row gap-6 lg:px-0 px-4 " >
                 <div className=" lg:w-fit w-full flex gap-4 items-center flex-col  " >
