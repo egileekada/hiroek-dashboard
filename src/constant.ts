@@ -10,7 +10,7 @@ export const menulist = [
         indicator: true
     },
     {
-        name: "Channels",
+        name: "Channel",
         link: "/dashboard/community",
         indicator: true
     },
@@ -43,7 +43,7 @@ export const menulistmobile = [
         indicator: false
     },
     {
-        name: "Channels",
+        name: "Channel",
         link: "/dashboard/community",
         indicator: true
     },

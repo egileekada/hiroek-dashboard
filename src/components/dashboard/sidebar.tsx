@@ -1,7 +1,7 @@
 import { Text } from '@radix-ui/themes'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { menulist } from '../../constant'
-import { CashIcon, CommunityIcon, DashboardIcon, EventIcon, ImpactIcon } from '../../svg';
+import { CashIcon, CommunityIcon, DashboardIcon, EventIcon, ImpactIcon, MobileCommunityIcon } from '../../svg';
 import { useDetails } from '../../global-state/useUserDetails';
 
 export default function 
@@ -29,8 +29,8 @@ Sidebar() {
                                 {item?.name === "Events" && (
                                     <EventIcon />
                                 )}
-                                {item?.name === "Channels" && (
-                                    <CommunityIcon />
+                                {item?.name === "Channel" && (
+                                    <MobileCommunityIcon color={history?.pathname === item?.link ? "#37137f": "#37137F80"} />
                                 )}
                                 {item?.name === "Revenue" && (
                                     <CashIcon />

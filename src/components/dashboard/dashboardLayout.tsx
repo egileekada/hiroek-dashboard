@@ -86,7 +86,7 @@ export default function DashboardLayout() {
                                             {item?.name === "Events" && (
                                                 <MobileEventIcon />
                                             )}
-                                            {item?.name === "Channels" && (
+                                            {item?.name === "Channel" && (
                                                 <MobileCommunityIcon />
                                             )}
                                             {item?.name === "Revenue" && (
