@@ -4,6 +4,8 @@ import { ShareIcon2 } from "../../svg"
 
 export default function ShareBtn({ type, id }: { id: string, type: "EVENT" | "CHANNEL" }) {
 
+    const shareUrl = `https://events.hiroek.io/event/${id}`;
+
     const copyHandler = () => {
         if (type === "EVENT") {
             // navigator.clipboard.writeText(`events.hiroek.io/event/${id}`)
@@ -11,7 +13,7 @@ export default function ShareBtn({ type, id }: { id: string, type: "EVENT" | "CH
                 navigator.share({
                     title: 'Check this out!',
                     text: `Heres something interesting I found.`,
-                    url: `events.hiroek.io/event/${id}`,
+                    url: shareUrl,
                 })
                     .then(() => console.log('Shared successfully!'))
                     .catch((error) => console.error('Error sharing:', error));
