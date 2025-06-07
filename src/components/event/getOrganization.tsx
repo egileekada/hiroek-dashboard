@@ -5,7 +5,7 @@ import useGetEventData from '../../hooks/eventHooks/useGetEventData'
 import OrganizationCard from './organizationCard'
 import OrganizationCardWithId from './organizationCardById'
 
-export default function GetOrganization({ control, value }: { control?: any, value: any }) {
+export default function GetOrganization({ value }: { value: any }) {
 
     const { data, search } = useGetEventData().getOrganization()
 
@@ -22,7 +22,7 @@ export default function GetOrganization({ control, value }: { control?: any, val
                     {value?.fundRaiser?.organizations?.map((item: string, index: number) => {
                         return (
                             <div className=' w-full ' key={index} >
-                                <OrganizationCardWithId value={value?.fundRaiser?.organizations} index={item} control={control} name='fundRaiser.organizations' />
+                                <OrganizationCardWithId value={value?.fundRaiser?.organizations} index={item}  name='fundRaiser.organizations' />
                             </div>
                         )
                     })}
@@ -33,7 +33,7 @@ export default function GetOrganization({ control, value }: { control?: any, val
                     {data?.map((item, index) => {
                         return (
                             <div className=' w-full ' key={index} >
-                                <OrganizationCard value={value} name='fundRaiser.organizations' control={control} item={item} />
+                                <OrganizationCard value={value} name='fundRaiser.organizations'  item={item} />
                             </div>
                         )
                     })}

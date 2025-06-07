@@ -84,9 +84,9 @@ export default function EventDetailByMemberPage() {
                                                 </div>
                                             </div>
                                             <div className=" w-full " > 
-                                                {!event?.members?.some(product => product?._id === userId) && (
+                                                {/* {!event?.members?.some(product => product?._id === userId) && (
                                                     <CustomButton onClick={()=> joinEvent(event?._id)} loading={loadingJoinEvent} bgColor="#ffffff" rounded="44px" width="100%" height="50px" color="#37137f"  >Join Event</CustomButton>
-                                                )}
+                                                )} */}
                                             </div>
                                         </div>
                                         <div className=" w-full p-4 flex flex-col gap-1 rounded-[10px] bg-white " >

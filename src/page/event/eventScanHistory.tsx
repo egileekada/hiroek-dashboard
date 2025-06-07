@@ -21,9 +21,16 @@ export default function EventScanHistory() {
         <div className=' w-full py-4 h-full flex flex-col' >
             <div className=" w-full bg-white flex sticky top-0 flex-col gap-1 rounded-t-3xl pt-3 lg:px-3 px-4  " >
                 <div className=" w-full flex items-center justify-center " >
-                    <div className=' w-fit absolute left-4 ' >
+                    <div className=' w-fit absolute lg:hidden left-4 ' >
                         <div onClick={() => navigate(
                             `/dashboard/event/scanner/${id}`
+                        )} role='button' className=' w-11 h-11 lg:w-[62px] lg:h-[62px] flex justify-center bg-primary bg-opacity-15 rounded-[6px] items-center cursor-pointer ' style={{ boxShadow: "0px 2px 4px 0px #0000000D" }} >
+                            <BackArrowIcon />
+                        </div>
+                    </div>
+                    <div className=' w-fit absolute lg:flex hidden left-4 ' >
+                        <div onClick={() => navigate(
+                            `/dashboard/event/details/${id}`
                         )} role='button' className=' w-11 h-11 lg:w-[62px] lg:h-[62px] flex justify-center bg-primary bg-opacity-15 rounded-[6px] items-center cursor-pointer ' style={{ boxShadow: "0px 2px 4px 0px #0000000D" }} >
                             <BackArrowIcon />
                         </div>

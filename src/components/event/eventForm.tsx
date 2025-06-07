@@ -150,7 +150,7 @@ export default function EventForm(props: IProps) {
                                         <CustomInput icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} borderRadius="8px" color="white" borderWidth="1px" borderColor="white" name="fundRaiser.fundRaisingGoal" type="number" placeholder="Enter Amount" />
                                     </div>
                                 </div>
-                                <GetOrganization value={values} control={control} />
+                                <GetOrganization value={values} />
                             </div>
                         </div>
                     )}
