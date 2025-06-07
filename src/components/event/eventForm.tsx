@@ -35,8 +35,7 @@ export default function EventForm(props: IProps) {
         values,
         submit,
         open,
-        setOpen,
-        control,
+        setOpen, 
         isSuccess
     } = props
 
