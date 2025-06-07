@@ -20,7 +20,7 @@ export default function SettingsPage() {
             <div className=" w-full flex items-center justify-between " >
                 <PageHeader notification={true} second={true} back={true} header="App Settings" body="" />
             </div>
-            <div className=" w-full flex flex-col mt-4  " >
+            <div className=" w-full flex flex-col mt-4   " >
                 {/* <div className=" w-full px-4 py-6 flex flex-col gap-4 border-b border-[#0000001A] " >
                     <div className=" w-full flex gap-2 " >
                         <div className=" w-4 h-4 " >
@@ -74,7 +74,7 @@ export default function SettingsPage() {
                     </div> 
                 </div> */}
             </div>
-            <div className=" mt-auto w-full px-4 lg:hidden " >
+            <div className=" mt-auto w-full px-4 lg:max-w-[400px] " >
                 <CustomButton onClick={clickHandler} bgColor="#CC1B1BCC" hasFrontIcon={true} icon={<LogoutIcon />} >
                     Log Out
                 </CustomButton>
