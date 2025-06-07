@@ -16,7 +16,7 @@ import { useState } from "react";
 import ModalLayout from "../../components/shared/modalLayout";
 import useConversation from "../../hooks/eventHooks/useConversation";
 import { useConversationHook } from "../../global-state/useConversationHook";
-import { useDetails } from "../../global-state/useUserDetails";
+// import { useDetails } from "../../global-state/useUserDetails";
 // import toast from "react-hot-toast";
 import ShareBtn from "../../components/shared/shareBtn";
 
@@ -27,10 +27,10 @@ export default function EventDetailByMemberPage() {
     const { getSingleEventData } = useGetEventData()
     const { event } = useEventDetail((state) => state)
 
-    const { userId } = useDetails((state) => state);
+    // const { userId } = useDetails((state) => state);
 
     const [open, setOpen] = useState(false)
-    const { createConversation, loadingConversation, joinEvent, loadingJoinEvent } = useConversation()
+    const { createConversation, loadingConversation } = useConversation()
     const { updateConversation, data: condata } = useConversationHook((state) => state)
 
     const clickHandler = () => {
