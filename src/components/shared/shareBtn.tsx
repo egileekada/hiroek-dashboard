@@ -11,8 +11,8 @@ export default function ShareBtn({ type, id }: { id: string, type: "EVENT" | "CH
             // navigator.clipboard.writeText(`events.hiroek.io/event/${id}`)
             if (navigator.share) {
                 navigator.share({
-                    title: 'Check this out!',
-                    text: `Heres something interesting I found.`,
+                    title: '',
+                    text: ``,
                     url: shareUrl,
                 })
                     .then(() => console.log('Shared successfully!'))
