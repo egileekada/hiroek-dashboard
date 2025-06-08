@@ -17,7 +17,7 @@ export default function NotificationCard({item, clickHandler, name}: {item:IProp
                         <img src="/images/donation.png" alt="event" className=' w-11 h-11 flex ' />
                     </div>
                 )}
-                {(item?.type === "EVENT_INVITE" || item?.type === "EVENT_UPDATE" || item?.type === "EVENT_STARTED") && (
+                {(item?.type === "EVENT_INVITE" || item?.type === "EVENT_UPDATE" || item?.type === "EVENT_STARTED" || item?.type === "NEW_EVENT") && (
                     <div className=' w-fit' >
                         {/* <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
                             <EventLikeColored />
