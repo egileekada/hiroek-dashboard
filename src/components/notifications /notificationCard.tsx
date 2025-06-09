@@ -5,7 +5,7 @@ import { textLimit } from "../../utils/textlimit";
 import { Text } from "@radix-ui/themes";
 
 
-export default function NotificationCard({item, clickHandler, name}: {item:IProps, clickHandler: any, name: string}) {
+export default function NotificationCard({item, clickHandler}: {item:IProps, clickHandler: any, name: string}) {
     return ( 
         <div onClick={() => clickHandler(item)} style={{ boxShadow: "0px 2px 4px 0px #0000000D" }}className={` h-[80px] relative px-2 w-full flex items-center gap-4 lg:border-b-0 border-b `} >
             <div className=' flex gap-2 items-center ' >
