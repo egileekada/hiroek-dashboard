@@ -52,7 +52,7 @@ export default function NotificationCard({item, clickHandler, name}: {item:IProp
 
                 <div className=' flex flex-col ' >
                     <Text className=' text-sm tracking-[-0.5px] font-bold text-primary ' >{item?.title}</Text>
-                    <Text className=' text-[10px] text-primary text-opacity-75 ' ><span className=' font-bold ' >{name}</span> {textLimit(item?.message, 20)}</Text>
+                    <Text className=' text-[10px] text-primary text-opacity-75 ' >{textLimit(item?.message, 20)}</Text>
                 </div>
             </div>
             <div className=' w-fit ml-auto flex flex-col lg:mr-1 mr-2 ' >
