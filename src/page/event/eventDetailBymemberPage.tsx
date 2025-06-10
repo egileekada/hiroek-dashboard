@@ -92,11 +92,11 @@ export default function EventDetailByMemberPage() {
                                         <div className=" w-full p-4 flex flex-col gap-1 rounded-[10px] bg-white " >
                                             <p className=" font-bold text-xs text-primary " >Walk for Water: A Step Towards Clean Water</p>
                                             <div className=" w-full flex gap-3 items-center justify-between " >
-                                                <div className=" flex gap-2 items-center " >
-                                                    <div className=" w-fit text-primary text-opacity-50 mt-[2px] " >
+                                                <div className=" flex gap-2 " >
+                                                    <div className=" w-fit text-primary text-opacity-50 " >
                                                         <LocationIcon block={true} />
                                                     </div>
-                                                    <Text className=" font-semibold text-xs " >{textLimit(event?.address, 40)}</Text>
+                                                    <Text className=" font-semibold text-xs " >{event?.address}</Text>
                                                 </div>
                                             </div>
                                             <div className=" flex items-center gap-2 " >
