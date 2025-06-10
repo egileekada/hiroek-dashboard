@@ -75,12 +75,12 @@ export default function MessagePage() {
                                 <div className=" flex gap-2 items-center " >
                                     <div className=" w-fit " >
                                         <div className=" w-[32px] h-[32px] rounded-full " >
-                                            <img src={userdata[0]?.participant?.photo} alt={userdata[0]?.name} className=" object-cover w-full h-full rounded-full " />
+                                            <img src={event[0]?.event?.photo} alt={userdata[0]?.name} className=" object-cover w-full h-full rounded-full " />
                                         </div>
                                     </div>
                                     <div className=" flex flex-col " >
-                                        <Text className=" text-xs font-bold !leading-[14px] text-[#37137F] " >{capitalizeFLetter(textLimit(userdata[0]?.name, 20))}</Text>
-                                        <Text className=" text-xs font-bold !leading-[14px] text-[#37137F] " >({capitalizeFLetter(textLimit(event[0]?.event?.name, 20))})</Text>
+                                        {/* <Text className=" text-xs font-bold !leading-[14px] text-[#37137F] " >{capitalizeFLetter(textLimit(userdata[0]?.name, 20))}</Text> */}
+                                        <Text className=" text-xs font-bold !leading-[14px] text-[#37137F] " >{capitalizeFLetter(textLimit(event[0]?.event?.name, 20))}</Text>
                                         <Text className=" text-[10px] text-[#37137F80] " >{moment(item.updatedAt)?.fromNow()}</Text>
                                     </div>
                                 </div>
