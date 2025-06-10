@@ -128,24 +128,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
         } else {
             setTab(false)
         }
-    }
-    // {lodash.uniqBy(member, "name")?.map((item, index) => {
-    //     if (item?.participantType === "User") {
-    //         return (
-    //             <div key={index} role="button" onClick={() => clickHandler(item?.participant)} className=" w-full flex items-center gap-2  " >
-    //                 <div className=" w-11 h-11 rounded-full border-2 border-primary " >
-    //                     <img src={item?.participant?.photo} className=" w-full h-full rounded-full object-cover " alt={item?.name} />
-    //                 </div>
-    //                 <div className=" flex flex-col " >
-    //                     <Text className=" text-sm font-bold text-primary tracking-[1%] " >{item?.participant?.fullname}</Text>
-    //                     {/* <Text className=" text-xs font-medium text-[#000000BF] tracking-[1%] " >Can we get this event started?</Text> */}
-    //                 </div>
-    //                 <div className=" flex flex-col ml-auto text-right gap-1 " >
-    //                 </div>
-    //             </div>
-    //         )
-    //     }
-    // })}
+    } 
 
     return supportHookForm(
         <div className=' w-full flex gap-4 h-full' >
