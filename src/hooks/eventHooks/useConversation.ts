@@ -52,6 +52,31 @@ const useConversation = () => {
         },
     });
 
+    const { mutate: createConversationWithCreator, isLoading: loadingConversationWithCreator } = useMutation({
+        mutationFn: (data: {
+            userTwo: string,
+            ownEvent?: string,
+            userTwoEvent?: string,
+            userType: 'User' | 'Organization' | 'EventPartner' | any
+        }) => httpService.post(`/conversations`, data),
+        onError: (error: any) => {
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: (data) => {
+ 
+            const validEvent = (newdata: any) => {
+                let item = newdata.filter((item: any) => item.event !== null);
+                console.log(item);
+                return item
+
+            }
+
+            let event = validEvent(data?.data?.conversation?.participants) 
+ 
+            navigate(`/dashboard/event/support/${event[0]?.event._id}?id=${data?.data?.conversation?._id}&curate=true`) 
+        },
+    });
+
 
     const { mutate: joinEvent, isLoading: loadingJoinEvent } = useMutation({
         mutationFn: (data: string) => httpService.post(`/events/${data}/join-events`),
@@ -103,7 +128,9 @@ const useConversation = () => {
         verifyTicket,
         verifing,
         joinEvent,
-        loadingJoinEvent
+        loadingJoinEvent,
+        createConversationWithCreator,
+        loadingConversationWithCreator
     };
 
 }

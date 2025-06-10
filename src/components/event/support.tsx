@@ -32,6 +32,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
     const query = useQueryClient()
     const message = searchParams.get("message");
     const membe = searchParams.get("member");
+    const curate = searchParams.get("curate"); 
     const navigate = useNavigate()
 
 
@@ -117,6 +118,8 @@ export default function EventSupport({ tab, setTab }: IProps) {
         // member? `/event/details/bymembers/${id}` : index ? `/dashboard/message` : `/dashboard/event/details/${id}
         if (membe) {
             navigate(`/dashboard/event/details/bymembers/${eventId}`)
+        } else if (curate) {
+            navigate(`/dashboard/message`)
         } else if (message) {
             if(index){
                 setTab(false)

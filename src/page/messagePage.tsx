@@ -29,7 +29,7 @@ export default function MessagePage() {
         return item
     }
 
-    const { createConversation, loadingConversation } = useConversation()
+    const { createConversation, loadingConversation, createConversationWithCreator, loadingConversationWithCreator } = useConversation()
     const { updateConversation, data: condata } = useConversationHook((state) => state)
 
     const clickHandler = (item: any, eventid: string, ownEvent: any) => {
@@ -42,11 +42,11 @@ export default function MessagePage() {
                 ownEvent: eventid + ""
             })
         } else {
-            createConversation({
+            createConversationWithCreator({
                 userTwo: item?.participant?._id,
                 userType: item?.participantType+"",
                 userTwoEvent: eventid + ""
-            })
+            })  
         }
         
         updateConversation({
@@ -56,6 +56,9 @@ export default function MessagePage() {
         }) 
 
     } 
+
+    
+    console.log(data);
     
     
 
@@ -66,7 +69,7 @@ export default function MessagePage() {
                 <input type={"search"} placeholder={"Search"} value={search} onChange={(e) => setSearchText(e.target.value)} className=" h-[45px] px-3 border-[#37137F80] border-[0.5px] hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] rounded-[10px] bg-transparent w-full text-sm font-semibold text-primary " />
             </div> 
             <LoadingAnimation loading={isLoading} length={data?.length} >
-                <div className=" max-w-[400px] w-full flex flex-col gap-4 lg:px-0 px-4 " >
+                <div className=" lg:max-w-[400px] w-full flex flex-col gap-4 lg:px-0 px-4 " >
                     {data?.map((item, index) => {
                         let event = validEvent(item?.participants)
                         let userdata = NotUser(item?.participants)
@@ -85,8 +88,8 @@ export default function MessagePage() {
                                     </div>
                                 </div>
                                 <div className=" w-fit " >
-                                    <button disabled={loadingConversation} onClick={()=> clickHandler(userdata[0], event[0]?.event?._id, event[0])} className=" text-[#2E008B] !text-[10px] bg-[#37137F26] rounded-[44px] w-[75px] h-[25px] " >
-                                        {(loadingConversation && event[0]?.event?._id === show) ? "Loading.." : "View Chats"} 
+                                    <button disabled={loadingConversation || loadingConversationWithCreator} onClick={()=> clickHandler(userdata[0], event[0]?.event?._id, event[0])} className=" text-[#2E008B] !text-[10px] bg-[#37137F26] rounded-[44px] w-[75px] h-[25px] " >
+                                        {(loadingConversation || loadingConversationWithCreator && event[0]?.event?._id === show) ? "Loading.." : "View Chats"} 
                                     </button>
                                 </div>
                             </div>
