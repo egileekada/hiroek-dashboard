@@ -12,6 +12,55 @@ import Cookies from "js-cookie"
 import { IUser } from "../../model/user";
 import { useSearchStore } from "../../global-state/useSearchText";
 
+interface IConversation {
+    "_id": string,
+    "participants": [
+        {
+            "participantType": string,
+            "event": any,
+            "participant": {
+                "_id": string,
+                "name": string,
+                "logo": string,
+                "createdAt": string
+            },
+            "name": string
+        },
+        {
+            "participantType": string,
+            "event": {
+                "_id": string,
+                "name": string,
+                "photo": string
+            },
+            "participant": {
+                "_id": string,
+                "createdAt": string,
+                "fullname": string,
+                "photo": string
+            },
+            "name": string
+        }
+    ],
+    "createdAt": string,
+    "updatedAt": string,
+    "__v": 0,
+    "lastMessage": {
+        "senderType": string,
+        "recipientType": string,
+        "status": string,
+        "_id": string,
+        "conversation": string,
+        "message": string,
+        "sender": string,
+        "recipient": string,
+        "createdAt": string,
+        "updatedAt": string,
+        "__v": number
+    },
+    "unreadMessages": number
+}
+
 const useGetEventData = () => {
 
     const { page, pageSize, eventFilter } = usePagintion((state) => state)
@@ -403,7 +452,7 @@ const useGetEventData = () => {
             isLoading
         }
     }
-
+ 
     // Get Event list
     const getScanEventTicket = () => {
         const [data, setData] = useState<Array<IScanEvent>>()
@@ -481,6 +530,37 @@ const useGetEventData = () => {
         }
     }
 
+    // Get Event list
+    const getConversationEventMember = () => {
+        const [data, setData] = useState<Array<IConversation>>([])
+        const { isLoading, refetch } = useQuery(
+            ["Conversation-Member"],
+            () => httpService.get(`/conversations`, {
+                params: {
+                    event: id
+                }
+            }),
+            {
+                onError: (error: any) => {
+                    toast.error(error.response?.data)
+                },
+                onSuccess: (data: any) => {
+                    setData(data?.data?.conversations?.data)
+
+                    // console.log(data?.data?.conversations?.data);
+                    
+                },
+                // enabled: conversationId ? true : false
+            },
+        );
+
+        return {
+            data,
+            isLoading,
+            refetch
+        }
+    }
+
     return {
         getEventData,
         getEventDashboardData,
@@ -494,7 +574,8 @@ const useGetEventData = () => {
         getScanEventTicket,
         getEventConversionMemberData,
         getEventDataNoQuery,
-        getEventConversationMember
+        getEventConversationMember,
+        getConversationEventMember
     };
 }
 

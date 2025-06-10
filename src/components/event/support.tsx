@@ -9,7 +9,7 @@ import useConversation from "../../hooks/eventHooks/useConversation";
 import useGetEventData from "../../hooks/eventHooks/useGetEventData";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useConversationHook } from "../../global-state/useConversationHook";
-import lodash from 'lodash';
+// import lodash from 'lodash';
 import ChatInput from "../shared/chatInput";
 import moment from "moment";
 import { useQueryClient } from "react-query";
@@ -37,9 +37,10 @@ export default function EventSupport({ tab, setTab }: IProps) {
 
     const userId = Cookies.get("user-index")
 
-    const { data, isLoading } = useGetEventData().getSingleEventData()
-    const { data: member } = useGetEventData().getEventConversationMember(eventId + "")
+    // const { data, isLoading } = useGetEventData().getSingleEventData()
+    // const { data: member } = useGetEventData().getEventConversationMember(eventId + "")
     const { data: conversation, isLoading: loadingMessage, refetch } = useGetEventData().getConversationMessageData()
+    const { data: conversationMember, isLoading: loadingMember } = useGetEventData().getConversationEventMember()
     const { createConversation, loadingConversation, createChat, loadingChat, inputMessage, setInputMessage } = useConversation()
 
     const socket: any = io("https://staging.hiroek.io", {
@@ -69,6 +70,9 @@ export default function EventSupport({ tab, setTab }: IProps) {
     }, [index]); 
 
     const clickHandler = (item: any, eventid: string, ownEvent: any) => {
+
+        console.log("test");
+        
         if (!loadingConversation) {
             if (ownEvent?.participant?._id === userId) {
                 createConversation({
@@ -83,7 +87,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
                     userTwoEvent: eventid + ""
                 })
             }
-
+            setTab(true)
             updateConversation({
                 ...condata,
                 name: item?.participant?.fullname,
@@ -94,7 +98,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
     }
 
     useEffect(() => {
-        if (condata?.name) {
+        if (index) {
             setTab(true)
         }
     }, [])
@@ -115,7 +119,12 @@ export default function EventSupport({ tab, setTab }: IProps) {
         if (membe) {
             navigate(`/dashboard/event/details/bymembers/${eventId}`)
         } else if (message) {
-            navigate(`/dashboard/message`)
+            if(index){
+                setTab(false)
+                navigate(-1) 
+            } else { 
+                navigate(`/dashboard/message`)
+            }
         } else {
             setTab(false)
         }
@@ -141,51 +150,30 @@ export default function EventSupport({ tab, setTab }: IProps) {
     return supportHookForm(
         <div className=' w-full flex gap-4 h-full' >
             <div className={` w-full ${!tab ? " flex " : " lg:flex hidden "} `} >
-                <LoadingAnimation loading={isLoading || loadingMessage} length={lodash.uniqBy(data?.members, "_id")?.length} >
+                <LoadingAnimation loading={loadingMember} length={(conversationMember)?.length} >
                     <div className={` w-full px-4 flex-col flex gap-4 `} >
-
-                        {member?.map((item, index) => {
+                        {conversationMember?.map((item, index) => {
                             let event = validEvent(item?.participants)
                             let userdata = NotUser(item?.participants)
-                            return (
-
+                            return ( 
                                 <div key={index} role="button" onClick={() => clickHandler(userdata[0], event[0]?.event?._id, event[0])} className=" w-full flex items-center gap-2  " >
                                     <div className=" w-11 h-11 rounded-full border-2 border-primary " >
                                         <img src={userdata[0]?.participant?.photo} alt={userdata[0]?.name} className=" object-cover w-full h-full rounded-full " />
                                     </div>
                                     <div className=" flex flex-col " >
                                         <Text className=" text-sm font-bold text-primary tracking-[1%] " >{capitalizeFLetter(textLimit(userdata[0]?.name, 20))}</Text>
-                                        {/* <Text className=" text-xs font-medium text-[#000000BF] tracking-[1%] " >Can we get this event started?</Text> */}
+                                        <Text className=" text-xs font-medium text-[#000000BF] tracking-[1%] " >{item?.lastMessage?.message}</Text>
                                     </div>
                                     <div className=" flex flex-col ml-auto text-right gap-1 " >
                                     </div>
-                                </div>
-                                // <div key={index} className=" w-full flex items-center py-4 border-b justify-between " >
-                                //     <div className=" flex gap-2 items-center " >
-                                //         <div className=" w-fit " >
-                                //             <div className=" w-[32px] h-[32px] rounded-full " >
-                                //                 <img src={userdata[0]?.participant?.photo} alt={userdata[0]?.name} className=" object-cover w-full h-full rounded-full " />
-                                //             </div>
-                                //         </div>
-                                //         <div className=" flex flex-col " >
-                                //             <Text className=" text-xs font-bold !leading-[14px] text-[#37137F] " >{capitalizeFLetter(textLimit(userdata[0]?.name, 20))}</Text>
-                                //             <Text className=" text-xs font-bold !leading-[14px] text-[#37137F] " >({capitalizeFLetter(textLimit(event[0]?.event?.name, 20))})</Text>
-                                //             <Text className=" text-[10px] text-[#37137F80] " >{moment(item.updatedAt)?.fromNow()}</Text>
-                                //         </div>
-                                //     </div>
-                                //     <div className=" w-fit " >
-                                //         <button disabled={loadingConversation} onClick={()=> clickHandler(userdata[0], event[0]?.event?._id, event[0])} className=" text-[#2E008B] !text-[10px] bg-[#37137F26] rounded-[44px] w-[75px] h-[25px] " >
-                                //             {(loadingConversation && event[0]?.event?._id === show) ? "Loading.." : "View Chats"} 
-                                //         </button>
-                                //     </div>
-                                // </div>
+                                </div> 
                             )
                         })}
                     </div>
                 </LoadingAnimation>
             </div>
             <div className={` w-full ${(tab && !condata?.name) ? " lg:hidden " : tab ? " flex " : " hidden "} flex-col h-full items-end `} >
-                <LoadingAnimation width="w-full lg:max-w-[393px] !h-full " loading={loadingConversation} >
+                <LoadingAnimation width="w-full lg:max-w-[393px] !h-full " loading={loadingConversation || loadingMessage} >
                     <div className=" w-full lg:max-w-[393px] relative flex flex-col lg:mt-auto h-full lg:h-[60vh] rounded-3xl lg:border-[5px] lg:border-primary " >
 
                         <div className=" w-full flex sticky top-0 flex-col bg-white gap-1 pb-2 h-[20vh] rounded-t-3xl pt-3 lg:px-3 px-4  " >

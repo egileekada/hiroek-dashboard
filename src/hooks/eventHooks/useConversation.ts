@@ -30,6 +30,8 @@ const useConversation = () => {
         onSuccess: (data) => {
 
 
+            const index = searchParams.get("message");
+
             const validEvent = (newdata: any) => {
                 let item = newdata.filter((item: any) => item.event !== null);
                 console.log(item);
@@ -42,9 +44,9 @@ const useConversation = () => {
             if(history?.pathname?.includes("/event/details/bymembers/")){
                 navigate(`/dashboard/event/support/${event[0]?.event._id}?id=${data?.data?.conversation?._id}&member=true`)
             } else if (history?.pathname?.includes("/dashboard/message")) {
-                navigate(`/dashboard/event/support/${event[0]?.event._id}?id=${data?.data?.conversation?._id}&message=true`)
+                navigate(`/dashboard/event/support/${event[0]?.event._id}?message=true`)
             } else {
-                navigate(`/dashboard/event/support/${event[0]?.event._id}?id=${data?.data?.conversation?._id}&`)
+                navigate(`/dashboard/event/support/${event[0]?.event._id}?id=${data?.data?.conversation?._id}&${index? "message=true" : ""}`)
             }
 
         },

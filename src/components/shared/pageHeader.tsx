@@ -1,6 +1,7 @@
 import { Text } from '@radix-ui/themes';
 import { BackArrowIcon, NotificationIcon } from '../../svg';
 import { useNavigate } from 'react-router-dom';
+import { useConversationHook } from '../../global-state/useConversationHook';
 
 interface IProps {
     header: string;
@@ -14,6 +15,7 @@ interface IProps {
 export default function PageHeader({ header, body, back, path, second, notification }: IProps) {
 
     const router = useNavigate()
+    const { updateConversation, data: condata } = useConversationHook((state) => state)
 
     const clickHandler = () => { 
         
@@ -22,6 +24,12 @@ export default function PageHeader({ header, body, back, path, second, notificat
         } else {
             router(path) 
         }
+
+        updateConversation({
+            ...condata,
+            name: "",
+            photo: ""
+        })
     }
 
     return (
