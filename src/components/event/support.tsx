@@ -100,6 +100,10 @@ export default function EventSupport({ tab, setTab }: IProps) {
         if (index || membe) {
             setTab(true)
         }
+
+        if(membe && !condata?.photo){
+            navigate(`/dashboard/event/details/bymembers/${eventId}`)
+        }
     }, [index, membe])
 
     const changeHandler = (value: any) => {
@@ -162,7 +166,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
                     </div>
                 </LoadingAnimation>
             </div>
-            <div className={` w-full ${(tab && !condata?.name) ? " lg:hidden " : tab ? " flex " : " hidden "} flex-col h-full items-end `} >
+            <div className={` w-full ${(tab || index) ? " flex " : " hidden "} flex-col h-full items-end `} >
                 <LoadingAnimation width="w-full lg:max-w-[393px] !h-full " loading={loadingConversation || loadingMessage} >
                     <div className=" w-full lg:max-w-[393px] relative flex flex-col lg:mt-auto h-full lg:h-[60vh] rounded-3xl lg:border-[5px] lg:border-primary " >
 
