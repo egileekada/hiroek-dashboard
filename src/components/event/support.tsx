@@ -35,12 +35,10 @@ export default function EventSupport({ tab, setTab }: IProps) {
     const navigate = useNavigate()
 
 
-    const userId = Cookies.get("user-index")
+    const userId = Cookies.get("user-index") 
 
-    // const { data, isLoading } = useGetEventData().getSingleEventData()
-    // const { data: member } = useGetEventData().getEventConversationMember(eventId + "")
     const { data: conversation, isLoading: loadingMessage, refetch } = useGetEventData().getConversationMessageData()
-    const { data: conversationMember, isLoading: loadingMember } = useGetEventData().getConversationEventMember()
+    const { data: conversationMember, isLoading: loadingMember, refetch: refetchMember } = useGetEventData().getConversationEventMember()
     const { createConversation, loadingConversation, createChat, loadingChat, inputMessage, setInputMessage } = useConversation()
 
     const socket: any = io("https://staging.hiroek.io", {
@@ -112,6 +110,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
             conversationId: index
         });
         query?.invalidateQueries("Conversations-count")
+        refetchMember()
     }, [index])
 
     const clickBack = () => {
