@@ -112,7 +112,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
             conversationId: index
         });
         query?.invalidateQueries("Conversations-count")
-    }, [])
+    }, [index])
 
     const clickBack = () => {
         // member? `/event/details/bymembers/${id}` : index ? `/dashboard/message` : `/dashboard/event/details/${id}
@@ -165,6 +165,11 @@ export default function EventSupport({ tab, setTab }: IProps) {
                                         <Text className=" text-xs font-medium text-[#000000BF] tracking-[1%] " >{item?.lastMessage?.message}</Text>
                                     </div>
                                     <div className=" flex flex-col ml-auto text-right gap-1 " >
+                                        {Number(item?.unreadMessages) > 0  && (
+                                            <div className=" w-4 h-4 rounded-full flex items-center justify-center text-xs bg-primary text-white " > 
+                                                {item?.unreadMessages}
+                                            </div>
+                                        )}
                                     </div>
                                 </div> 
                             )
