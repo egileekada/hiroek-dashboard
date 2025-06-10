@@ -142,10 +142,11 @@ const useGetEventData = () => {
     const getEventMemberData = () => {
         const [data, setData] = useState<Array<IEvent>>([])
         const { isLoading, isRefetching } = useQuery(
-            ["Event-member", page, pageSize, eventFilter],
+            ["Event-member", page, pageSize, eventFilter, search],
             () => httpService.get(`/organizations/organization-indirect-events/${userId}`, {
                 params: {
-                    timeFilter : eventFilter
+                    timeFilter : eventFilter,
+                    searchQuery: search
                 }
             }),
             {
