@@ -138,7 +138,7 @@ export default function EventSupport({ tab, setTab }: IProps) {
 
     return supportHookForm(
         <div className=' w-full flex gap-4 h-full' >
-            <div className={` w-full ${!tab ? " flex " : membe ? " hidden " : " lg:flex hidden "} `} >
+            <div className={` w-full ${!tab ? " flex " :( membe || curate )? " hidden " : " lg:flex hidden "} `} >
                 <LoadingAnimation loading={loadingMember} length={(conversationMember)?.length} >
                     <div className={` w-full px-4 flex-col flex gap-4 `} >
                         {conversationMember?.map((item, index) => {
