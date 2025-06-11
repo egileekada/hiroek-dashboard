@@ -140,7 +140,7 @@ export default function EventDetailByMemberPage() {
                             </div>
                         </div>
                         <div className=" w-full flex flex-col relative gap-6 lg:px-0 px-4 " >
-                            {event?.fundRaiser?.fundRaisingGoal && (
+                            {event?.fundRaiser?.fundRaisingGoal > 0 && (
                                 <div className=" w-full rounded-[44px] flex flex-col lg:p-6 items-center " >
                                     <Text className="  text-primary " >Fundraising Goal</Text>
                                     <Text className=" text-[#858D9D] text-xs font-medium " >Funds needed to make a difference.</Text>
@@ -154,11 +154,7 @@ export default function EventDetailByMemberPage() {
                                         <div className=" flex flex-col items-center" >
                                             <Text className=" font-medium text-[#667085] text-sm " >Donated</Text>
                                             <Text className=" font-semibold text-xl text-[#1D1F2C] " >{formatNumber(event?.fundRaiser?.fundRaised)}</Text>
-                                        </div>
-                                        {/* <div className=" flex flex-col items-center" >
-                                            <Text className=" font-medium text-[#667085] text-sm " >Today</Text>
-                                            <Text className=" font-semibold text-xl text-[#1D1F2C] " >£0k</Text>
-                                        </div> */}
+                                        </div> 
                                     </div>
                                 </div>
                             )}
