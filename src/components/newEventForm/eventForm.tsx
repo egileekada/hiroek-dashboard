@@ -175,7 +175,7 @@ export default function EventForm({ defaultdata }: { defaultdata?: any }) {
 
                                     <div className=" flex flex-col w-full gap-1 " >
                                         <div className=" w-full flex justify-between items-center " >
-                                            <p className=" text-sm font-bold " >Set Minimum Pledge</p>
+                                            <p className=" text-sm font-bold " >Fundraising Goal</p>
                                         </div>
                                         <div className=" flex w-full flex-col gap-1 " >
                                             <CustomInput touched={formik?.touched} errors={formik?.errors} value={formik.values.fundRaiser.organizations} setValue={formik.setFieldValue} icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} borderRadius="8px" color="white" borderWidth="1px" borderColor="white" name="fundRaiser.fundRaisingGoal" type="number" placeholder="Enter Amount" />
