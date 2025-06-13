@@ -8,6 +8,7 @@ import LoadingAnimation from "../../components/shared/loadingAnimation";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
+import ShareBtn from "../../components/shared/shareBtn";
 
 
 export default function CommunityDetailPage() {
@@ -27,38 +28,21 @@ export default function CommunityDetailPage() {
         <div className=' w-full flex flex-col gap-6 absolute inset-0 lg:px-4 ' >
             <div className=" w-full lg:flex hidden items-center justify-between " >
                 <PageHeader path={"/dashboard/community"} back={true} header="Channel Details" body="" />
-                <div className=" gap-3 w-fit flex ">
+                <div className=" gap-3 w-fit flex "> 
                     <CustomButton onClick={() => router(`/dashboard/community/edit/${id}`)} hasFrontIcon={true} icon={
                         <EditIcon />
                     } >
                         Edit Channel
-                    </CustomButton>
+                    </CustomButton> 
+                    <div className=" w-fit " > 
+                        <ShareBtn id={data?._id} height=" h-[54px] w-[54px] " type="CHANNEL" />
+                    </div>
                 </div>
-            </div>
-            {/* <div className=" w-full lg:block hidden " >
-                <PageHeader back={true} header="Community Details" body="Effortless Event Creation and Community Engagement." />
-            </div> */}
+            </div> 
             <LoadingAnimation loading={isLoading} >
                 <CommunityDetail item={data} />
             </LoadingAnimation>
-            <div className="fixed bottom-4 w-[240px] right-4 flex flex-col justify-end items-center">
-                {/* Animated Buttons */}
-                {/* {isOpen && (
-                    <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: -80, opacity: 1 }}
-                        exit={{ y: 20, opacity: 0 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                        className="mb-2"
-                    >
-
-                        <CustomButton rounded="44px" fontSize="14px" bgColor="#7B1251" onClick={() => router(`/dashboard/community/post/${id}`)} hasFrontIcon={true} icon={
-                            <ChatWhiteIcon />
-                        } >
-                            Add New Post
-                        </CustomButton>
-                    </motion.div>
-                )} */}
+            <div className="fixed bottom-4 w-[240px] right-4 flex flex-col justify-end items-center"> 
 
                 {isOpen && (
                     <motion.div
