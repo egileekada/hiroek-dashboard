@@ -3,9 +3,9 @@ import useGetMembers from '../../hooks/communityHooks/useGetMembers'
 import LoadingAnimation from '../shared/loadingAnimation'
 import { Text } from '@radix-ui/themes/components/callout'
 import moment from 'moment'
-import { SendTopIcon, ChatIcon } from '../../svg'
-import LikePostBtn from '../community/likePostBtn'
+import { SendTopIcon } from '../../svg' 
 import MoreOptionBtn from '../community/moreOptionBtn'
+import LikePostBtn from '../community/likePostBtn'
 import { useNavigate } from 'react-router-dom'
 
 export default function ViewPost({ item }: { item: string }) {
@@ -15,12 +15,15 @@ export default function ViewPost({ item }: { item: string }) {
 
     return (
         <LoadingAnimation loading={isLoading} >
-            <div role='button' onClick={() => router(`/dashboard/community/post-comment/${data?._id}`)}  style={{ boxShadow: "0px 4px 4px 0px #0000000D" }} className=" w-full sticky top-0 rounded-lg p-4 flex flex-col gap-3 " >
+            <div 
+            role='button'
+             onClick={() => router(`/dashboard/community/details/${data?.community?._id}`)} 
+             style={{ boxShadow: "0px 4px 4px 0px #0000000D" }} className=" w-full sticky top-0 rounded-lg p-4 flex flex-col gap-3 " >
                 <div className=" flex items-center w-full justify-between " >
                     <div className=" flex items-center gap-2 " >
-                        <div className=" w-10 h-10 rounded-full border border-primary border-opacity-50 " >
+                        {/* <div className=" w-10 h-10 rounded-full border border-primary border-opacity-50 " >
                             <img className=" w-full h-full object-cover rounded-full " src={data?.user?.logo} alt={data?.user?.logo} />
-                        </div>
+                        </div> */}
                         <div className=" flex flex-col " >
                             <Text className=" text-xs font-bold " >{data?.user?.name}</Text>
                             <Text className=" text-[10px] italic font-bold text-primary text-opacity-50 " >{moment(data?.createdAt)?.fromNow()}</Text>
@@ -42,10 +45,10 @@ export default function ViewPost({ item }: { item: string }) {
                     )}
                     <div className=" flex items-center gap-4 " >
                         <LikePostBtn item={data} />
-                        <div role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
+                        {/* <div role="button" className=" cursor-pointer flex gap-2 items-center text-primary " >
                             <ChatIcon />
                             <Text className=" font-black text-xs " >{data?.comments?.length}</Text>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
