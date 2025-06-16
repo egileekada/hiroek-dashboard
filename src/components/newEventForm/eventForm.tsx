@@ -137,11 +137,11 @@ export default function EventForm({ defaultdata }: { defaultdata?: any }) {
                     </div>
                     <div className=" w-full flex !gap-4 lg:flex-row flex-col " >
                         <div className=" flex w-full flex-col gap-1 " >
-                            <Text className=" text-primary font-semibold text-sm " >Start Date</Text>
+                            <Text className=" text-primary font-semibold text-sm " >Start Date & Time</Text>
                             <CustomDatePicker name="endTime" />
                         </div>
                         <div className=" flex w-full flex-col gap-1 " >
-                            <Text className=" text-primary font-semibold text-sm " >End Date</Text>
+                            <Text className=" text-primary font-semibold text-sm " >End Date & Time</Text>
                             <CustomDatePicker name="eventEndDate" />
                         </div>
                     </div>
