@@ -10,6 +10,7 @@ import { useEventDetail } from '../../global-state/useEventDetails';
 import { useDatePicker } from '../../global-state/useDatePicker';
 import { useState } from 'react';
 import Cookies from "js-cookie"
+import { useMap } from '../../global-state/useMapStore';
 
 
 const useEvent = () => {
@@ -22,6 +23,7 @@ const useEvent = () => {
     const router = useNavigate()
     const { endDate, startData } = useDatePicker((state) => state)
     const userId = Cookies.get("user-index")
+    const { marker } = useMap((state) => state);
 
     const { mutate, isLoading, isSuccess } = useMutation({
         mutationFn: (data: any) => httpService.post(`/organizations/create-event`, data, {
@@ -63,7 +65,7 @@ const useEvent = () => {
             eventTicket: {
                 totalTicket: "",
                 ticketPrice: "",
-            },
+            }, 
             category: "",
             privacy: "public",
             address: "",
@@ -109,13 +111,15 @@ const useEvent = () => {
             formData.append("category", formik?.values?.category ? formik?.values?.category : event?.category)
             formData.append("privacy", formik?.values?.privacy ? formik?.values?.privacy : event?.privacy)
             if (formik?.values?.signUpLimit) {
-                if(Number(formik?.values?.signUpLimit) > 0) {
-                    formData.append("signUpLimit", formik?.values?.signUpLimit+"")
+                if (Number(formik?.values?.signUpLimit) > 0) {
+                    formData.append("signUpLimit", formik?.values?.signUpLimit + "")
                 }
             }
             formData.append("eventEndDate", new Date(endDate)?.toISOString())
             formData.append("endTime", new Date(startData)?.toISOString())
             formData.append("address", formik?.values?.address ? formik?.values?.address : event?.address)
+            formData.append("latitude", marker?.lat+"")
+            formData.append("longitude", marker?.lng+"")
 
             if (!history?.pathname?.includes("edit")) {
                 if (formik?.values?.fundRaiser?.fundRaisingGoal) {

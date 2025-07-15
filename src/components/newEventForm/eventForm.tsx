@@ -17,21 +17,22 @@ import CreateEventBtn from "../event/createEventBtn";
 import CreateEventBtnMobile from "../event/createEventBtnmobile";
 import CustomAddressFormik from "../shared/customAddressFormik";
 import ModalLayout from "../shared/modalLayout";
+import { useMap } from "../../global-state/useMapStore";
+import { IEvent } from "../../model/event";
 // import { useDatePicker } from "../../global-state/useDatePicker";
 
-export default function EventForm({ defaultdata }: { defaultdata?: any }) {
+export default function EventForm({ defaultdata }: { defaultdata?: IEvent }) {
 
     const history = useLocation()
 
     const { formik, open, setOpen, isSuccess, isLoading, loadingEditEvent, submitHandler } = useEvent()
     const [ticketNo, setTicketNo] = useState(0)
+    const { updateMap, updateMarker } = useMap((state) => state);
 
     const { isLoading: loadingCategory, data: categoryData } = useCategory()
     const [paidEvent, setPaidEvent] = useState(false)
     const [isFundraising, setIsFundraising] = useState(false)
     const [editCategory, setEditCategory] = useState(false)
-
-    // console.log(formik.values);
 
     const clickTicket = (type: "remove" | "add") => {
         if (ticketNo > 0 && type === "remove") {
@@ -53,11 +54,29 @@ export default function EventForm({ defaultdata }: { defaultdata?: any }) {
             // formik?.setFieldValue("eventTicket.totalTicket", defaultdata?.eventTicket?.totalTicket)
             formik?.setFieldValue("fundRaiser.fundRaisingGoal", defaultdata?.fundRaiser?.fundRaisingGoal)
             setTicketNo(defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
+            
             // updateStartDate(defaultdata?.endTime)
             // updateEndDate(defaultdata?.eventEndDate)
             checkForCategory()
         }
-    }, [formik?.values, defaultdata])
+    }, [formik?.values, defaultdata]) 
+    
+
+    useEffect(() => {
+        if(defaultdata?.address) { 
+            updateMap(defaultdata?.address)
+            updateMarker({
+                lat: defaultdata.loc.coordinates[1],
+                lng: defaultdata.loc.coordinates[0]
+            })
+        } else {
+            updateMap("")
+            updateMarker({
+                lat: null,
+                lng: null
+            })
+        }
+    }, [])
 
     const checkForCategory = () => {
         if (defaultdata?.category?.subcategories?.length > 0) {
@@ -69,13 +88,7 @@ export default function EventForm({ defaultdata }: { defaultdata?: any }) {
         } 
     }
 
-    const [show, setShow] = useState(false)
-
-    console.log(formik?.values);
-
-    console.log(defaultdata);
-    
-
+    const [show, setShow] = useState(false) 
 
     return (
         <form onSubmit={formik?.handleSubmit} className=' w-full flex flex-col gap-6 ' >

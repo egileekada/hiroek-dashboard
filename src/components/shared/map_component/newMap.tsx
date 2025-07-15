@@ -1,150 +1,147 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
-import useMapLocation from '../../../hooks/useMapLocation';
 import { useMap } from '../../../global-state/useMapStore';
 import { CustomButton } from '..';
 import MapSearch from './map_search';
-import React from 'react';
 
-// Define types for Google Map props and objects
+
 interface LatLngLiteral {
     lat: number;
     lng: number;
 }
 
 interface Props {
-    setOpen?: any,
+    setOpen?: (open: boolean) => void;
+    latlng?: any;
 }
 
-const libraries: ("places")[] = ['places']; // Libraries to load for Google Maps
+const libraries: ("places")[] = ['places'];
 
 const mapContainerStyle = {
     width: '100%',
-    height: '60vh'
+    height: '60vh',
 };
 
 const defaultCenter: LatLngLiteral = {
-    lat: 37.7749, // Default latitude (San Francisco)
-    lng: -122.4194 // Default longitude (San Francisco)
+    lat: 37.7749,
+    lng: -122.4194,
 };
 
-const API_KEY = import.meta.env.VITE_APP_MAP_KEY
+const API_KEY = import.meta.env.VITE_APP_MAP_KEY;
 
-const MapWithClickMarker = (props: Props) => {
+const MapWithClickMarker = ({ setOpen, latlng }: Props) => {
+    const { updateMap, updateMarker } = useMap((state) => state);
 
-    const {
-        setOpen,
-    } = props
-
-    const { updateMap } = useMap((state) => state);
+    const [zoom, setZoom] = useState(12);
+    const [location, setLocation] = useState<LatLngLiteral | any>(latlng.lat ? latlng : {} as any);
+    const [markerPosition, setMarkerPosition] = useState<LatLngLiteral | any>(latlng.lat ? latlng : {} as any);
 
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: API_KEY,
         libraries,
     });
 
-    useEffect(()=> {
-        updateMap("")
-    }, [])
+    const mapRef = useRef<google.maps.Map | null>(null);
 
-
-    const options = {
-        disableDefaultUI: true,
-        zoomControl: true,
-    };
-
-    const { markerPosition: newMarker, loading } = useMapLocation()
-
-    useEffect(() => {
-        if (newMarker?.lat) {
-            setLocation({
-                lat: newMarker?.lat,
-                lng: newMarker?.lng,
-            })
-            setMarkerPosition({
-                lat: newMarker?.lat,
-                lng: newMarker?.lng,
-            })
-        } else {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    setLocation({
-                        lat: position.coords.latitude ? position.coords.latitude : 37.7749,
-                        lng: position.coords.longitude ? position.coords.longitude : -122.4194,
-                    });
-                },
-                () =>
-                    setLocation({
-                        lat: 37.7749,
-                        lng: -122.4194,
-                    })
-
-            );
-        }
-        setZoom(16)
-    }, [loading])
-
-    const mapRef: any = React.useRef();
-    const onMapLoad = React.useCallback((map: any) => {
+    const onMapLoad = useCallback((map: google.maps.Map) => {
         mapRef.current = map;
     }, []);
 
-    const panTo = React.useCallback(({ lat, lng }: any) => {
-        mapRef.current.panTo({ lat, lng });
-        mapRef.current.setZoom(14);
+    const panTo = useCallback(({ lat, lng }: LatLngLiteral) => {
+        mapRef.current?.panTo({ lat, lng });
+        mapRef.current?.setZoom(16);
     }, []);
 
-
-    //   const { loadingMap, center, setMarkerPosition, markerPosition } = useMapLocation()
-    const [zoom, setZoom] = useState(12); // Default map center
-    const [location, setLocation] = useState<LatLngLiteral>(defaultCenter); // Default map center
-    const [markerPosition, setMarkerPosition] = useState<LatLngLiteral | null>(null); // Marker position state
-
-
-    // Handle map click event to place marker
-    const handleMapClick = (event: any) => {
-        const geocoder = new google.maps.Geocoder();
-        geocoder.geocode(
-            { location: { lat: event.latLng.lat(), lng: event.latLng.lng() } },
-            (results: any, status: any) => {
-                if (status === 'OK' && results[0]) {
-
-                    let address = results[0].formatted_address 
-                    updateMap(address)
-
-                } else {
-                    console.error('Error fetching address:', status);
-                }
+    // Setup initial marker and center
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const current = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+                setLocation(current);
+                //   setMarkerPosition(current); 
+                setZoom(16);
+            },
+            () => {
+                setLocation(defaultCenter);
+                //   setMarkerPosition(defaultCenter)
+                setZoom(12);
             }
         );
-        const clickedLat = event.latLng.lat();
-        const clickedLng = event.latLng.lng();
-        setMarkerPosition({ lat: clickedLat, lng: clickedLng });
-    };
+    }, []);
+
+    console.log(latlng);
+
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+
+            if (latlng.lat) {
+                setLocation(latlng)
+                setMarkerPosition(latlng)
+            }
+            console.log("working");
+            
+        }, 3000);
+
+        return () => clearTimeout(timer);
+    }, [])
+
+    // console.log(markerPosition);
+
+
+    const onMapClick = useCallback((event: google.maps.MapMouseEvent) => {
+        const clickedLat = event.latLng?.lat();
+        const clickedLng = event.latLng?.lng();
+
+        if (!clickedLat || !clickedLng) return;
+
+        const geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode({ location: { lat: clickedLat, lng: clickedLng } }, (results: any, status) => {
+            if (status === 'OK' && results[0]) {
+                const address = results[0].formatted_address;
+                updateMap(address);
+            } else {
+                console.error('Error fetching address:', status);
+            }
+        });
+
+        const newPos = { lat: clickedLat, lng: clickedLng };
+        // panTo(newPos);
+        setMarkerPosition(newPos);
+        // updateMarker(newPos);
+    }, [updateMap]);
+
+    const clickHandler = () => {
+        updateMarker(markerPosition)
+        setOpen?.(false)
+    }
 
     if (loadError) return <div>Error loading maps</div>;
-    if (!isLoaded && loading) return <div className=' w-full flex justify-center items-center ' >Loading maps...</div>;
-
-
+    if (!isLoaded) return <div className='w-full flex justify-center items-center'>Loading maps...</div>;
 
     return (
-        <div className=' mt-1 ' >
-
+        <div className='mt-1'>
             <GoogleMap
                 mapContainerStyle={mapContainerStyle}
-                zoom={zoom}
+                zoom={latlng.lat ? 16 : zoom}
                 onLoad={onMapLoad}
-                options={options}
+                options={{ disableDefaultUI: true, zoomControl: true }}
                 center={location}
-                onClick={(e) => handleMapClick(e)} // Add the onClick handler here
+                onClick={onMapClick}
             >
-                <MapSearch setMarker={setMarkerPosition} center={location} panTo={panTo} />
-                {markerPosition && (
-                    <Marker position={markerPosition} /> // Render the marker at the clicked position
+                <MapSearch center={location} panTo={panTo} />
+                {markerPosition?.lat && (
+                    <Marker title='marker' position={{ lat: markerPosition?.lat, lng: markerPosition.lng }} />
                 )}
+                {/* {(markerPosition && !isNaN(markerPosition.lat) && !isNaN(markerPosition.lng)) && <Marker position={{ lat: Number(markerPosition.lat), lng: Number(markerPosition.lng) }} />} */}
             </GoogleMap>
-            <div className=' w-full bg-white flex justify-end py-3 px-4 '  >
-                <CustomButton onClick={() => setOpen(false)} ml={"auto"} width={"150px"}>
+
+            <div className='w-full bg-white flex justify-end py-3 px-4'>
+                <CustomButton onClick={() => clickHandler()} ml="auto" width="150px">
                     Okay
                 </CustomButton>
             </div>
@@ -152,4 +149,4 @@ const MapWithClickMarker = (props: Props) => {
     );
 };
 
-export default MapWithClickMarker
+export default MapWithClickMarker;

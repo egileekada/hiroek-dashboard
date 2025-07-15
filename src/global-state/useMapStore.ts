@@ -1,14 +1,14 @@
 import { create } from 'zustand'; 
 
 
-interface LatLngLiteral {
-    lat: number;
-    lng: number;
-}
+// interface LatLngLiteral {
+//     lat: number | null;
+//     lng: number | null;
+// }
 
 type State = {   
     address: string
-    marker: LatLngLiteral
+    marker: any
 }
 
 type Action = {  
@@ -18,7 +18,7 @@ type Action = {
 
 export const useMap = create<State & Action>((set) => ({ 
     address: "", 
-    marker: {lat: 0, lng: 0},
+    marker: {} as any,
     updateMap: (data: any) => set(() => ({ address: data })), 
     updateMarker: (data: any) => set(() => ({ marker: data })), 
 }));

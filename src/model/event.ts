@@ -21,6 +21,13 @@ export interface IEvent {
         photo: string
         _id: string
     } | any>
+    loc: {
+        "type": string,
+        "coordinates": [
+            number,
+            number
+        ]
+    }
     name: string
     organization: string
     photo: string
