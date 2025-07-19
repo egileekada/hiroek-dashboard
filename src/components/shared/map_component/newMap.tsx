@@ -90,8 +90,7 @@ const MapWithClickMarker = (props: Props) => {
         mapRef.current.setZoom(14);
     }, []);
 
-
-    //   const { loadingMap, center, setMarkerPosition, markerPosition } = useMapLocation()
+ 
     const [zoom, setZoom] = useState(12); // Default map center
     const [location, setLocation] = useState<LatLngLiteral>(defaultCenter); // Default map center
     const [markerPosition, setMarkerPosition] = useState<LatLngLiteral | null>(null); // Marker position state
