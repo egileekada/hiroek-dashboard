@@ -10,7 +10,7 @@ import { useMap } from '../../../../global-state/useMapStore';
 interface Props {
     center: any,
     panTo: any,
-    // setMarker: any, 
+    setMarker: any, 
 }
 
 function MapSearch(props: Props) {

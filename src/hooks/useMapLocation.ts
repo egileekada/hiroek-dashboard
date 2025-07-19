@@ -14,7 +14,7 @@ const useMapLocation = () => {
 
     const [markerPosition, setMarkerPosition] = useState<LatLngLiteral | null>(null);
 
-    const { address, updateMarker, marker } = useMap((state) => state); 
+    const { address, marker } = useMap((state) => state); 
 
     // Function to fetch geolocation from the address
     const fetchGeolocation = async (address: string) => {
@@ -23,17 +23,13 @@ const useMapLocation = () => {
         );
         const data = await response.json();
         if (data.results && data.results.length > 0) {
-            const { lat, lng } = data.results[0].geometry.location; 
+            // const { lat, lng } = data.results[0].geometry.location; 
 
             setMarkerPosition({
-                lat: lat,
-                lng: lng,
+                lat: marker.lat,
+                lng: marker.lng,
             })
             setLoading(false)
-            updateMarker({
-                lat: lat,
-                lng: lng,
-            })
             // setDirectionsResponse({ lat, lng });
         }
     };

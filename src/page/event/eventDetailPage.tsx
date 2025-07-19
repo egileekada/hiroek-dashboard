@@ -21,7 +21,7 @@ export default function EventDetailPage() {
     const { id } = useParams();
 
     return (
-        <div className=' w-full flex flex-col gap-6 ' >
+        <div className=' w-full h-full flex flex-col gap-6 ' >
             <div className=" w-full lg:flex hidden items-center justify-between " >
                 <PageHeader path={"/dashboard/event"} back={true} header="Event Details" body="" />
                 <div className=" gap-3 w-fit flex ">
@@ -35,7 +35,7 @@ export default function EventDetailPage() {
                 </div>
             </div>
             <LoadingAnimation loading={getSingleEventData()?.isLoading} >
-                <div className=" w-full flex lg:flex-row flex-col pb-4 gap-6 text-primary " >
+                <div className=" w-full flex-1 flex lg:flex-row relative flex-col pb-4 gap-6 text-primary " >
                     <div className=" w-full h-fit flex flex-col rounded-[44px] lg:pb-8 pb-6 lg:p-8 " >
                         <div className=" w-full h-[240px] bg-green-700 rounded-b-3xl lg:rounded-3xl relative " >
                             <img src={event?.photo} alt={event?.name} className=" w-full h-full rounded-b-3xl lg:rounded-3xl object-cover " />
@@ -147,7 +147,7 @@ export default function EventDetailPage() {
                         </div>
                     )}
                 </div>
-                <div className=" gap-4 flex-col w-full flex lg:hidden p-6 px-4 ">
+                <div className=" gap-4 flex-col w-full flex absolute bottom-20 lg:hidden p-6 px-4 ">
                     <CustomButton onClick={() => router(`/dashboard/event/edit/${event?._id}`)} hasFrontIcon={true} icon={
                         <EditIcon />
                     } >
