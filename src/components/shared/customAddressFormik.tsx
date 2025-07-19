@@ -24,7 +24,7 @@ export default function CustomAddressFormik({ name, type, placeholder, disable, 
 
     const [defaultValue, setDefaultValue] = useState(value + "")
     // const { formState: { errors } } = useFormContext();
-    const { address, marker } = useMap((state) => state);
+    const { address } = useMap((state) => state);
     const [open, setOpen] = useState(false)
 
     const changeHandler = (item: string) => {
