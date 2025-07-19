@@ -53,11 +53,7 @@ export default function CustomAddressFormik({ name, type, placeholder, disable, 
                 {/* {errors[name] && <Text className=" text-left text-xs text-red-500 font-medium -mt-1 " >{errors[name]?.message as string}</Text>} */}
 
                 <ModalLayout width="600px" open={open} setOpen={setOpen} >
-                    {marker ? (
-                        <MapWithClickMarker latlng={marker} setOpen={setOpen} />
-                    ) : (
-                        <MapWithClickMarker setOpen={setOpen} />
-                    )}
+                    <MapWithClickMarker setOpen={setOpen} />
                 </ModalLayout>
             </div>
         </>
