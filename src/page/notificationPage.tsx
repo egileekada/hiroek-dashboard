@@ -53,6 +53,9 @@ export default function NotificationPage() {
         query.invalidateQueries("Notification-counting")
     }
 
+    console.log(results);
+    
+
     return (
         <>
             {!index && (

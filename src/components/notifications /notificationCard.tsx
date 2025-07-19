@@ -6,6 +6,8 @@ import { Text } from "@radix-ui/themes";
 
 
 export default function NotificationCard({item, clickHandler}: {item:IProps, clickHandler: any, name: string}) {
+
+    // "EVENT_FAVORITE"
     return ( 
         <div onClick={() => clickHandler(item)} style={{ boxShadow: "0px 2px 4px 0px #0000000D" }}className={` h-[80px] relative px-2 w-full flex items-center gap-4 lg:border-b-0 border-b `} >
             <div className=' flex gap-2 items-center ' >
@@ -17,7 +19,7 @@ export default function NotificationCard({item, clickHandler}: {item:IProps, cli
                         <img src="/images/donation.png" alt="event" className=' w-11 h-11 flex ' />
                     </div>
                 )}
-                {(item?.type === "EVENT_INVITE" || item?.type === "EVENT_UPDATE" || item?.type === "EVENT_STARTED" || item?.type === "NEW_EVENT") && (
+                {(item?.type === "EVENT_INVITE" || item?.type === "EVENT_UPDATE" || item?.type === "EVENT_STARTED" || item?.type === "NEW_EVENT" || item?.type === "EVENT_FAVORITE") && (
                     <div className=' w-fit' >
                         {/* <div className=' w-11 h-11 flex rounded-full justify-center items-center bg-primary bg-opacity-10 ' >
                             <EventLikeColored />
