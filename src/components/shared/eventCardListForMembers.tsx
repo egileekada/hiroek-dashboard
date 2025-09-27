@@ -7,7 +7,7 @@ import { dateFormat } from '../../utils/dateFormat';
 import { textLimit } from '../../utils/textlimit';
 import { formatNumber } from '../../utils/numberFormat';
 import LoadingAnimation from './loadingAnimation';
-import { useEventDetail } from '../../global-state/useEventDetails'; 
+import { useEventDetail } from '../../global-state/useEventDetails';
 import { IEvent } from '../../model/event';
 import { useMap } from '../../global-state/useMapStore';
 import { CiSearch } from "react-icons/ci";
@@ -84,13 +84,13 @@ export default function EventCardMembersList({ title, filter, mobile }: IProps) 
                                                     <Text className=' text-xs font-medium ' >{dateFormat(item.endTime)}</Text>
                                                 </div>
                                             </div>
-                                            {(Number(item?.eventTicket?.ticketPrice) <= 0 || !item?.eventTicket?.ticketPrice) ?
+                                            {Number(item?.ticketing?.length) === 0 ?
                                                 <div className=' bg-[#FFFFFF80] text-white text-xs flex justify-center items-center font-medium h-[24px] px-2 rounded-[4px] ' >
                                                     Free Event
                                                 </div> :
                                                 <div className=' flex flex-col ' >
                                                     <Text className=' text-[10px] font-medium ' >Tickets</Text>
-                                                    <Text className=' inter-all ' >{formatNumber(item?.eventTicket?.ticketPrice/100)}</Text>
+                                                    <Text className=' inter-all ' >{formatNumber(item?.ticketing[0].ticketPrice)}</Text>
                                                 </div>
                                             }
                                         </div>

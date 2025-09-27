@@ -5,7 +5,7 @@ import { textLimit } from '../../utils/textlimit'
 // import { useFieldArray } from 'react-hook-form';
 // import Cookies from "js-cookie"
 
-export default function OrganizationCard({ item, value }: { item: IUser, name: string, control?: any, value: any }) {
+export default function OrganizationCard({ item }: { item: IUser, name: string, control?: any, value: any }) {
 
  
 

@@ -1,5 +1,5 @@
 import { FormikProps } from "formik";
-import { ICreateEvent, IEvent } from "../../model/event";
+import { ICreateEvent } from "../../model/event";
 import CustomInput from "./input";
 import { CustomButton, Text } from "../shared";
 import { AiOutlineMinusCircle } from "react-icons/ai";

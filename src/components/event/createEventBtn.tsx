@@ -3,11 +3,12 @@ import { CustomButton } from "../shared";
 import ModalLayout from "../shared/modalLayout";
 import { Text } from "@radix-ui/themes";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEventDetail } from "../../global-state/useEventDetails";
+// import { useEventDetail } from "../../global-state/useEventDetails";
 import { CalendarIcon, LocationIcon, ShareIcon, TicketIcon } from "../../svg";
 import { dateFormat } from "../../utils/dateFormat";
 import { textLimit } from "../../utils/textlimit"; 
 import toast from "react-hot-toast";
+import { useEventDetail } from "../../global-state/useEventDetails";
 
 
 export default function CreateEventBtn({ loading, submit, open, setOpen, isSuccess }: { loading?: boolean, open: boolean, setOpen: any, submit: any, isSuccess: boolean }) {
@@ -69,7 +70,7 @@ export default function CreateEventBtn({ loading, submit, open, setOpen, isSucce
                                 </div> 
                                 <div className=" flex gap-2 items-center " >
                                     <TicketIcon />
-                                    <Text className=" font-bold text-xs " >{createdEvent?.signUpLimit} Spot(s) Available</Text>
+                                    {/* <Text className=" font-bold text-xs " >{createdEvent?.signUpLimit} Spot(s) Available</Text> */}
                                 </div>
                             </div>
                         </div>

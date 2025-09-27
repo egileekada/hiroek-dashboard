@@ -55,7 +55,7 @@ export default function EditEventForm(props: IProps) {
     useEffect(() => {
         // setSignupCount(values?.signUpLimit ? values?.signUpLimit : defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
         // setTicketNo(values?.eventTicket?.totalTicket ? values?.eventTicket?.totalTicket : defaultdata?.eventTicket?.totalTicket ? defaultdata?.eventTicket?.totalTicket : 0)
-        setPaidEvent(defaultdata?.eventTicket?.ticketPrice > 0 ? true : false)
+        // setPaidEvent(defaultdata?.eventTicket?.ticketPrice > 0 ? true : false)
         setIsFundraising(defaultdata?.fundRaiser?.fundRaisingGoal > 0 ? true : false)
     }, [])
 
@@ -64,27 +64,27 @@ export default function EditEventForm(props: IProps) {
     console.log(defaultdata);
     
 
-    useEffect(() => {
-        if (!values?.name) {
-            setValue("address", defaultdata?.address)
-            setValue("name", defaultdata?.name)
-            setValue("description", defaultdata?.description)
-            setValue("signUpLimit", defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
+    // useEffect(() => {
+    //     if (!values?.name) {
+    //         setValue("address", defaultdata?.address)
+    //         setValue("name", defaultdata?.name)
+    //         setValue("description", defaultdata?.description)
+    //         setValue("signUpLimit", defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
 
-            if(defaultdata?.category?.subcategories?.length > 0){
-                setValue("category", defaultdata?.category?.subcategories[0])
-            } else {
-                setValue("category", defaultdata?.category?._id)
-            }
-            console.log("text");
-            setValue("eventTicket.ticketPrice", defaultdata?.eventTicket?.ticketPrice)
-            // setValue("eventTicket.totalTicket", defaultdata?.eventTicket?.totalTicket)
-            setValue("fundRaiser.fundRaisingGoal", defaultdata?.fundRaiser?.fundRaisingGoal) 
-            setTicketNo(defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
-            // updateStartDate(defaultdata?.endTime)
-            // updateEndDate(defaultdata?.eventEndDate)
-        }
-    }, [values])  
+    //         if(defaultdata?.category?.subcategories?.length > 0){
+    //             setValue("category", defaultdata?.category?.subcategories[0])
+    //         } else {
+    //             setValue("category", defaultdata?.category?._id)
+    //         }
+    //         console.log("text");
+    //         setValue("eventTicket.ticketPrice", defaultdata?.eventTicket?.ticketPrice)
+    //         // setValue("eventTicket.totalTicket", defaultdata?.eventTicket?.totalTicket)
+    //         setValue("fundRaiser.fundRaisingGoal", defaultdata?.fundRaiser?.fundRaisingGoal) 
+    //         setTicketNo(defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
+    //         // updateStartDate(defaultdata?.endTime)
+    //         // updateEndDate(defaultdata?.eventEndDate)
+    //     }
+    // }, [values])  
 
     const clickTicket = (type: "remove" | "add") => {
         if (ticketNo > 0 && type === "remove") {
@@ -97,12 +97,12 @@ export default function EditEventForm(props: IProps) {
     }
 
     const checkForCategory = () => { 
-        if(defaultdata?.category?.subcategories?.length > 0){
-            return defaultdata?.category?.subcategories[0]
-        } else {
-            return defaultdata?.category?._id
-        } 
-            return ""
+        // if(defaultdata?.category?.subcategories?.length > 0){
+        //     return defaultdata?.category?.subcategories[0]
+        // } else {
+        //     return defaultdata?.category?._id
+        // } 
+        //     return ""
     }
 
     return (
@@ -162,7 +162,7 @@ export default function EditEventForm(props: IProps) {
                         <div className=" w-full flex lg:flex-row flex-col gap-3 text-primary " >
                             <div className=" flex w-full flex-col gap-1 " >
                                 <Text className=" text-primary font-semibold text-sm " >Event Ticket Price</Text>
-                                <CustomInput disable={true} value={values?.eventTicket?.ticketPrice ? values?.eventTicket?.ticketPrice / 100 : defaultdata?.eventTicket?.ticketPrice} borderRadius="8px" name="eventTicket.ticketPrice" type="number" placeholder="" icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} />
+                                {/* <CustomInput disable={true} value={values?.eventTicket?.ticketPrice ? values?.eventTicket?.ticketPrice / 100 : defaultdata?.eventTicket?.ticketPrice} borderRadius="8px" name="eventTicket.ticketPrice" type="number" placeholder="" icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} /> */}
                             </div> 
                             <div className=" w-full " />
                         </div>

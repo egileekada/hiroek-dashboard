@@ -21,7 +21,7 @@ interface IProps {
     errors?: any
 }
 
-export default function CustomAddressFormik({ name, type, placeholder, disable, borderRadius, setValue }: IProps) {
+export default function CustomAddressFormik({ name, type, placeholder, disable, borderRadius }: IProps) {
 
     const [defaultValue, setDefaultValue] = useState("")
     // const { formState: { errors } } = useFormContext();

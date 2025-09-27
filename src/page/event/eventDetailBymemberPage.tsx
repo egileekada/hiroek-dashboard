@@ -10,12 +10,12 @@ import ChartGraph from "../../components/shared/chartGraph";
 import { formatNumberWithK } from "../../utils/formatNumberWithK";
 import { formatNumber } from "../../utils/numberFormat";
 import useGetEventData from "../../hooks/eventHooks/useGetEventData";
-import { textLimit } from "../../utils/textlimit";
+// import { textLimit } from "../../utils/textlimit";
 import CountdownTimer from "../../components/shared/CountDownTimer";
 import { useState } from "react";
 import ModalLayout from "../../components/shared/modalLayout";
 import useConversation from "../../hooks/eventHooks/useConversation";
-import { useConversationHook } from "../../global-state/useConversationHook";
+// import { useConversationHook } from "../../global-state/useConversationHook";
 // import { useDetails } from "../../global-state/useUserDetails";
 // import toast from "react-hot-toast";
 import ShareBtn from "../../components/shared/shareBtn";
@@ -31,7 +31,7 @@ export default function EventDetailByMemberPage() {
 
     const [open, setOpen] = useState(false)
     const { createConversation, loadingConversation } = useConversation()
-    const { updateConversation, data: condata } = useConversationHook((state) => state)
+    // const { updateConversation, data: condata } = useConversationHook((state) => state)
 
     const clickHandler = () => {
         createConversation({
@@ -39,11 +39,11 @@ export default function EventDetailByMemberPage() {
             userType: event?.adminType+"",
             userTwoEvent: event?._id + ""
         })
-        updateConversation({
-            ...condata,
-            name: event?.admin?.fullname,
-            photo: event?.admin?.photo
-        }) 
+        // updateConversation({
+        //     ...condata,
+        //     name: event?.admin?.fullname,
+        //     photo: event?.admin?.photo
+        // }) 
     } 
  
     return (
@@ -74,13 +74,13 @@ export default function EventDetailByMemberPage() {
                                             <div role="button" onClick={() => setOpen(true)} className=" w-full flex items-center justify-center gap-2 px-2 bg-white bg-opacity-30 rounded-[10px] h-[50px] " >
                                                 {/* <di */}
                                                 <div className=" w-8 h-8 rounded-full " >
-                                                    <img className=" w-full h-full rounded-full object-cover " src={event?.admin?.photo} alt="image" />
+                                                    {/* <img className=" w-full h-full rounded-full object-cover " src={event?.admin?.photo} alt="image" /> */}
                                                 </div>
                                                 <div className=" flex flex-col items-center justify-center " >
                                                     <div className=" font-bold text-[10px] flex justify-center items-center text-white bg-[#37137FBF] rounded h-[18px] w-[75px] " >
                                                         Event Host:
                                                     </div>
-                                                    <p className=" font-bold text-[12px] text-center text-white " >{textLimit(event?.admin?.fullname+" john dfbhd idfnkdk ", 14) ?? textLimit(event?.admin?.name+" john dfbhd idfnkdk ", 14)}</p>
+                                                    {/* <p className=" font-bold text-[12px] text-center text-white " >{textLimit(event?.admin?.fullname, 14) ?? textLimit(event?.admin?.name+" john dfbhd idfnkdk ", 14)}</p> */}
                                                 </div>
                                             </div>
                                             <div className=" w-full " > 
@@ -114,7 +114,7 @@ export default function EventDetailByMemberPage() {
                                                     <TicketIcon />
                                                 </div>
                                                 {/* {event?.signUpLimit > 0 && ( */}
-                                                    <Text className=" font-bold text-xs " >{event?.signUpLimit} Spot(s) Available</Text>
+                                                    {/* <Text className=" font-bold text-xs " >{event?.signUpLimit} Spot(s) Available</Text> */}
                                                 {/* )}
                                                 {event?.signUpLimit < 1 && (
                                                     <Text className=" font-bold text-xs " >Sold Out</Text>
@@ -174,13 +174,13 @@ export default function EventDetailByMemberPage() {
                     <div className=" w-full flex items-center justify-center gap-3 px-2 bg-[#37137F4D] bg-opacity-30 rounded-[10px] py-3 " >
                         {/* <di */}
                         <div className=" w-[44px] h-[44px] rounded-full " >
-                            <img className=" w-full h-full rounded-full object-cover " src={event?.admin?.photo} alt="image" />
+                            {/* <img className=" w-full h-full rounded-full object-cover " src={event?.admin?.photo} alt="image" /> */}
                         </div>
                         <div className=" flex flex-col justify-center gap-1 " >
                             <div className=" font-bold text-[12px] flex justify-center items-center text-white bg-[#37137FBF] rounded h-[20px] w-[80px] " >
                                 Event Host:
                             </div>
-                            <p className=" font-bold text-[14px] text-center text-[#37137F] " >{event?.admin?.fullname ?? event?.admin?.name}</p>
+                            {/* <p className=" font-bold text-[14px] text-center text-[#37137F] " >{event?.admin?.fullname ?? event?.admin?.name}</p> */}
                         </div>
                     </div>
 

@@ -32,7 +32,7 @@ export default function EventForm({ defaultdata }: { defaultdata?: IEvent }) {
     const { isLoading: loadingCategory, data: categoryData } = useCategory()
     const [paidEvent, setPaidEvent] = useState(false)
     const [isFundraising, setIsFundraising] = useState(false)
-    const [editCategory, setEditCategory] = useState(false)
+    // const [editCategory, setEditCategory] = useState(false)
 
     const clickTicket = (type: "remove" | "add") => {
         if (ticketNo > 0 && type === "remove") {
@@ -144,7 +144,7 @@ export default function EventForm({ defaultdata }: { defaultdata?: IEvent }) {
                         <div className=" flex w-full flex-col gap-1 " >
                             <Text className=" text-primary font-semibold text-sm " >Event Category</Text>
                             {!loadingCategory && (
-                                <CustomSelect touched={formik?.touched} errors={formik?.errors} value={formik?.values?.category ? formik?.values?.category : editCategory} placeholder="Select Categories" name="category" changeHandler={formik.setFieldValue} list={categoryData} />
+                                <CustomSelect touched={formik?.touched} errors={formik?.errors} value={formik?.values?.category ? formik?.values?.category : "" } placeholder="Select Categories" name="category" changeHandler={formik.setFieldValue} list={categoryData} />
                             )}
                         </div>
                     </div>

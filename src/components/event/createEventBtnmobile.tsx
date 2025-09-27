@@ -81,7 +81,7 @@ export default function CreateEventBtnMobile({ loading, submit, open, setOpen, i
                                 </div> 
                                 <div className=" flex gap-2 items-center " >
                                     <TicketIcon />
-                                    <Text className=" font-bold text-xs " >{createdEvent?.signUpLimit} Spot(s) Available</Text>
+                                    {/* <Text className=" font-bold text-xs " >{createdEvent?.signUpLimit} Spot(s) Available</Text> */}
                                 </div>
                             </div>
                         </div>
