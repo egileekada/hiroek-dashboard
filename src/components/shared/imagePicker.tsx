@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 export default function ImagePicker({ defaultValue } : { defaultValue?: string }) {
 
     const [image, setImage] = useState("")
-    const { updateEventImage } = useImage((state) => state)
+    const { eventImage, updateEventImage } = useImage((state) => state)
 
     const handleImageChange = (e: any) => {
 
@@ -38,10 +38,10 @@ export default function ImagePicker({ defaultValue } : { defaultValue?: string }
                     <input style={{ display: 'none' }} type="file" accept="image/*" id="input" onChange={handleImageChange} />
                 </label>
                 {/* </lab/el> */}
-                {(image || defaultValue) && (
-                    <img className=' h-full w-full rounded-lg absolute inset-0 object-cover ' src={image ? image : defaultValue} alt='logo' />
+                {(eventImage || defaultValue) && (
+                    <img className=' h-full w-full rounded-lg absolute inset-0 object-cover ' src={eventImage ? URL.createObjectURL(eventImage) : defaultValue} alt='logo' />
                 )}
-                {(image || defaultValue) && (
+                {(eventImage || defaultValue) && (
                     <div className=' h-full w-full rounded-lg absolute inset-0 bg-black bg-opacity-25 ' />
                 )}
             </div>

@@ -49,11 +49,11 @@ export default function EventForm({ defaultdata }: { defaultdata?: IEvent }) {
             formik?.setFieldValue("address", defaultdata?.address)
             formik?.setFieldValue("name", defaultdata?.name)
             formik?.setFieldValue("description", defaultdata?.description)
-            formik?.setFieldValue("signUpLimit", defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
-            formik?.setFieldValue("eventTicket.ticketPrice", defaultdata?.eventTicket?.ticketPrice)
+            // formik?.setFieldValue("signUpLimit", defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
+            // formik?.setFieldValue("eventTicket.ticketPrice", defaultdata?.eventTicket?.ticketPrice)
             // formik?.setFieldValue("eventTicket.totalTicket", defaultdata?.eventTicket?.totalTicket)
             formik?.setFieldValue("fundRaiser.fundRaisingGoal", defaultdata?.fundRaiser?.fundRaisingGoal)
-            setTicketNo(defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
+            // setTicketNo(defaultdata?.signUpLimit ? defaultdata?.signUpLimit : 0)
             
             // updateStartDate(defaultdata?.endTime)
             // updateEndDate(defaultdata?.eventEndDate)
@@ -79,13 +79,13 @@ export default function EventForm({ defaultdata }: { defaultdata?: IEvent }) {
     }, [])
 
     const checkForCategory = () => {
-        if (defaultdata?.category?.subcategories?.length > 0) {
-            setEditCategory(defaultdata?.category?.subcategories[0])
-            formik?.setFieldValue("category", defaultdata?.category?.subcategories[0])
-        } else {
-            setEditCategory(defaultdata?.category?._id)
-            formik?.setFieldValue("category", defaultdata?.category?._id)
-        } 
+        // if (defaultdata?.category?.subcategories?.length > 0) {
+        //     setEditCategory(defaultdata?.category?.subcategories[0])
+        //     formik?.setFieldValue("category", defaultdata?.category?.subcategories[0])
+        // } else {
+        //     setEditCategory(defaultdata?.category?._id)
+        //     formik?.setFieldValue("category", defaultdata?.category?._id)
+        // } 
     }
 
     const [show, setShow] = useState(false) 
@@ -104,16 +104,16 @@ export default function EventForm({ defaultdata }: { defaultdata?: IEvent }) {
                 <div className=" w-full p-4 lg:p-5 flex flex-col gap-4 " style={{ boxShadow: "0px 4px 30px 0px #2E2D740D" }}  >
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Event Name</Text>
-                        <CustomInput touched={formik?.touched} errors={formik?.errors} setValue={formik.setFieldValue} value={formik?.values?.name} borderRadius="8px" name="name" type="text" placeholder="Type event name here. . ." />
+                        <CustomInput borderRadius="8px" name="name" type="text" placeholder="Type event name here. . ." />
                     </div>
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Event Description</Text>
-                        <CustomInput touched={formik?.touched} errors={formik?.errors} setValue={formik.setFieldValue} value={formik?.values?.description} borderRadius="8px" name="description" type="text" textarea={true} placeholder="Type event description here. . ." />
+                        <CustomInput borderRadius="8px" name="description" type="text" textarea={true} placeholder="Type event description here. . ." />
                         {/* <textarea placeholder="Type event description here. . ." className=" h-[156px] p-3 border-[#37137F80] border-[1.5px] outline-none hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] rounded-[10px] bg-transparent w-full text-sm font-semibold text-primary " /> */}
                     </div>
                     <div className=" flex w-full flex-col gap-1 " >
                         <Text className=" text-primary font-semibold text-sm " >Event Venue</Text>
-                        <CustomAddressFormik touched={formik?.touched} errors={formik?.errors} value={formik?.values?.address} borderRadius="8px" name="address" type="text" setValue={formik.setFieldValue} placeholder="Type or search for venue..." />
+                        <CustomAddressFormik borderRadius="8px" name="address" type="text" placeholder="Type or search for venue..." />
                     </div>
                     <div className=" w-full flex gap-4 lg:flex-row flex-col " >
                         <div className=" w-full flex flex-col gap-1 ">
@@ -164,7 +164,7 @@ export default function EventForm({ defaultdata }: { defaultdata?: IEvent }) {
                             <p className=" text-sm font-bold text-primary capitalize " >Is this a Paid ticketed event?</p>
                             <Switch checked={paidEvent} onClick={() => setPaidEvent((prev) => !prev)} />
                         </div>
-                        {paidEvent && (
+                        {/* {paidEvent && (
                             <div className=" w-full flex lg:flex-row flex-col gap-3 text-primary " >
                                 <div className=" flex w-full flex-col gap-1 " >
                                     <Text className=" text-primary font-semibold text-sm " >Event Ticket Price</Text>
@@ -172,7 +172,7 @@ export default function EventForm({ defaultdata }: { defaultdata?: IEvent }) {
                                 </div>
                                 <div className=" w-full " />
                             </div>
-                        )}
+                        )} */}
                         {!isFundraising && (
                             <div className=" flex gap-4 ">
                                 <p className=" text-sm font-bold text-primary capitalize " >Do you want to use this event for a fundraiser?</p>
@@ -191,7 +191,7 @@ export default function EventForm({ defaultdata }: { defaultdata?: IEvent }) {
                                             <p className=" text-sm font-bold " >Fundraising Goal</p>
                                         </div>
                                         <div className=" flex w-full flex-col gap-1 " >
-                                            <CustomInput touched={formik?.touched} errors={formik?.errors} value={formik.values.fundRaiser.organizations} setValue={formik.setFieldValue} icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} borderRadius="8px" color="white" borderWidth="1px" borderColor="white" name="fundRaiser.fundRaisingGoal" type="number" placeholder="Enter Amount" />
+                                            <CustomInput icon={<Text className=" font-medium !text-xl ml-2 " >£</Text>} hasLeftIcon={true} borderRadius="8px" color="white" borderWidth="1px" borderColor="white" name="fundRaiser.fundRaisingGoal" type="number" placeholder="Enter Amount" />
                                         </div>
                                     </div>
                                     <GetOrganization value={formik?.values} />

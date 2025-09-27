@@ -11,6 +11,7 @@ import { useDatePicker } from '../../global-state/useDatePicker';
 import { useState } from 'react';
 import Cookies from "js-cookie"
 import { useMap } from '../../global-state/useMapStore';
+import { ICreateEvent } from '../../model/event';
 
 
 const useEvent = () => {
@@ -22,7 +23,7 @@ const useEvent = () => {
     const { id } = useParams();
     const router = useNavigate()
     const { endDate, startData } = useDatePicker((state) => state)
-    const userId = Cookies.get("user-index")
+    const userId = Cookies.get("user-index") as string
     const { marker } = useMap((state) => state);
 
     const { mutate, isLoading, isSuccess } = useMutation({
@@ -35,7 +36,8 @@ const useEvent = () => {
         onSuccess: (data) => {
             toast.success("Created Event Successfully")
             updateCreateEvent(data?.data?.event)
-            // router("/dashboard/event")
+
+            router("/dashboard/event/details/" + data?.data?.event?._id) 
         },
     });
 
@@ -52,24 +54,59 @@ const useEvent = () => {
         },
     });
 
+
+
+    const { mutate: ticketMutate, isLoading: loadingticketEvent } = useMutation({
+        mutationFn: (data: {
+            payload: {
+                "ticketType": string,
+                "ticketPrice": number,
+                "signUpLimit": number,
+                "salesStartDate": string,
+                "salesEndDate": string,
+                "absorbFees": boolean
+              },
+            id: string
+        }) => httpService.patch(`/organizations/update-event-ticket-type/${event?._id}/${data?.id}`, data.payload, {
+            headers: { 'Content-Type': eventImage ? eventImage.type : "" }
+        }),
+        onError: (error: any) => {
+            toast.error(error?.response?.data?.error?.details?.message)
+        },
+        onSuccess: () => {
+            toast.success("Updated Event Successfully")
+            router("/dashboard/event/details/" + id)
+        },
+    });
+
     const formik = useFormik({
         initialValues: {
-            name: "",
-            description: "",
-            fundRaiser: {
-                fundRaisingGoal: "",
-                organizations: [
-                    userId
-                ], // You can dynamically insert userId later
+            "name": "",
+            "description": "",
+            "fundRaiser": {
+                "fundRaisingGoal": "",
+                "organizations": [userId]
             },
-            eventTicket: {
-                totalTicket: "",
-                ticketPrice: "",
-            }, 
-            category: "",
-            privacy: "public",
-            address: "",
-            signUpLimit: 0,
+            "ticketing": [],
+            "recurrence": {
+                "interval": "",
+                "frequency": "",
+                "daysOfWeek": [],
+                "endType": "",
+                endDate: "",
+                "occurrenceCount": ""
+            },
+            "category": "",
+            "subcategory": "",
+            "privacy": "public",
+            "eventEndDate": "",
+            "endTime": "",
+            "address": "",
+            "latitude": "",
+            "longitude": "",
+            "signUpLimit": "",
+            "communityId": "",
+            "photo": ""
         },
         validationSchema: Yup.object({
             name: Yup.string().required("Required"),
@@ -78,24 +115,82 @@ const useEvent = () => {
             privacy: Yup.string().oneOf(["public", "private"]).required("Required"),
             address: Yup.string().required("Required"),
         }),
-        onSubmit: () => {
+        onSubmit: (data: ICreateEvent) => {
             // submitHandler()
 
             if (!eventImage && !history?.pathname?.includes("edit")) {
                 toast.error("Add Image")
-            } else if (!startData) {
-                toast.error("Add a Start Date")
-            } else if (!endDate) {
-                toast.error("Add a End Date")
             } else {
-                setOpen(true)
+                // setOpen(true)
+                buildFormData(data)
             }
         },
     });
 
-    const submitHandler = () => {
+    console.log(marker);
+    
 
-        const formData = new FormData()
+    const buildFormData = (values: ICreateEvent) => {
+        const formData = new FormData();
+
+        // Add simple string/number fields
+        formData.append("name", values.name);
+        formData.append("description", values.description);
+        formData.append("category", values.category); 
+        // formData.append("subcategory", values.category);
+        formData.append("privacy", values.privacy);
+        formData.append("eventEndDate", values.eventEndDate);
+        formData.append("endTime", values.endTime);
+        formData.append("address", values.address);
+        formData.append("latitude", String(marker.lat));
+        formData.append("longitude", String(marker.lng));
+        // formData.append("signUpLimit", String(values.signUpLimit));
+        // formData.append("communityId", values.communityId);
+
+        // Fundraiser
+        formData.append(
+            "fundRaiser[fundRaisingGoal]",
+            String(values.fundRaiser.fundRaisingGoal)
+        );
+        values.fundRaiser.organizations.forEach((org, i) => {
+            formData.append(`fundRaiser[organizations][${i}]`, org);
+        });
+
+        // Recurrence
+        formData.append("recurrence[interval]", String(values.recurrence.interval));
+        formData.append("recurrence[frequency]", values.recurrence.frequency);
+        formData.append("recurrence[endType]", values.recurrence.endType);
+        // formData.append(
+        //     "recurrence[occurrenceCount]",
+        //     String(values.recurrence.occurrenceCount)
+        // );
+        values.recurrence.daysOfWeek.forEach((day, i) => {
+            formData.append(`recurrence[daysOfWeek][${i}]`, String(day));
+        });
+
+        values.ticketing.map((item, i) => {
+            formData.append(`ticketing[${i}][salesEndDate]`, String(item?.salesEndDate));
+            formData.append(`ticketing[${i}][salesStartDate]`, String(item?.salesStartDate));
+            {item?.signUpLimit && (
+                formData.append(`ticketing[${i}][signUpLimit]`, String(item?.signUpLimit))
+            )}
+            formData.append(`ticketing[${i}][ticketPrice]`, String(item?.ticketPrice));
+            formData.append(`ticketing[${i}][ticketType]`, String(item?.ticketType));
+        })
+ 
+        if(eventImage){ 
+            formData.append("photo", eventImage);
+        }
+ 
+
+        if (history?.pathname?.includes("edit")) {
+            editMutate(formData)
+        } else {
+            mutate(formData)
+        } 
+    };
+
+    const submitHandler = () => {
 
         if (!eventImage && !history?.pathname?.includes("edit")) {
             toast.error("Add Image")
@@ -105,44 +200,7 @@ const useEvent = () => {
             toast.error("Add a End Date")
         } else {
 
-            formData.append("name", formik?.values?.name ? formik?.values?.name : event?.name)
-            formData.append("description", formik?.values?.description ? formik?.values?.description : event?.description)
-
-            formData.append("category", formik?.values?.category ? formik?.values?.category : event?.category)
-            formData.append("privacy", formik?.values?.privacy ? formik?.values?.privacy : event?.privacy)
-            if (formik?.values?.signUpLimit) {
-                if (Number(formik?.values?.signUpLimit) > 0) {
-                    formData.append("signUpLimit", formik?.values?.signUpLimit + "")
-                }
-            }
-            formData.append("eventEndDate", new Date(endDate)?.toISOString())
-            formData.append("endTime", new Date(startData)?.toISOString())
-            formData.append("address", formik?.values?.address ? formik?.values?.address : event?.address)
-            formData.append("latitude", marker?.lat+"")
-            formData.append("longitude", marker?.lng+"")
-
-            if (!history?.pathname?.includes("edit")) {
-                if (formik?.values?.fundRaiser?.fundRaisingGoal) {
-                    formik?.values?.fundRaiser?.organizations?.map((item: any) => {
-                        formData.append("fundRaiser[organizations][]", item);
-                    })
-                }
-            }
-
-            if (!history?.pathname?.includes("edit")) {
-                if (formik?.values?.fundRaiser?.fundRaisingGoal) {
-                    formData.append("fundRaiser[fundRaisingGoal]", Number(formik.values.fundRaiser.fundRaisingGoal) * 100 + "");
-                }
-            }
-
-            if (!history?.pathname?.includes("edit")) {
-                formData.append("eventTicket[ticketPrice]", formik.values.eventTicket.ticketPrice ? Number(formik.values.eventTicket.ticketPrice) * 100 + "" : 0 + "");
-            }
-
-
-            if (eventImage) {
-                formData.append("photo", eventImage)
-            }
+            const formData = buildFormData(formik?.values);
 
             if (history?.pathname?.includes("edit")) {
                 editMutate(formData)
@@ -159,7 +217,9 @@ const useEvent = () => {
         loadingEditEvent,
         submitHandler,
         open,
-        setOpen
+        setOpen,
+        ticketMutate,
+        loadingticketEvent
     }
 
 }

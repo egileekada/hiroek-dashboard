@@ -124,8 +124,7 @@ const MapWithClickMarker = (props: Props) => {
 
 
     return (
-        <div>
-
+        <div> 
             <GoogleMap
                 mapContainerStyle={mapContainerStyle}
                 zoom={zoom}

@@ -6,11 +6,11 @@ import { CustomButton } from "../../components/shared";
 import { useEventDetail } from "../../global-state/useEventDetails";
 import { dateFormat, timeFormat } from "../../utils/dateFormat";
 import LoadingAnimation from "../../components/shared/loadingAnimation";
-import ChartGraph from "../../components/shared/chartGraph";
 import { formatNumberWithK } from "../../utils/formatNumberWithK";
 import { formatNumber } from "../../utils/numberFormat";
 import useGetEventData from "../../hooks/eventHooks/useGetEventData";
 import ShareBtn from "../../components/shared/shareBtn";
+import { MdEditSquare } from "react-icons/md";
 
 
 export default function EventDetailPage() {
@@ -67,17 +67,17 @@ export default function EventDetailPage() {
                                     <Text className="!font-semibold text-xs " >{event?.address}</Text>
                                 </div>
                                 <div className=" flex items-center gap-2 w-full justify-between " >
-                                    <div className=" flex items-center gap-2 " > 
+                                    <div className=" flex items-center gap-2 " >
                                         <div className=" w-fit text-primary text-opacity-50 " >
                                             <CalendarIcon2 />
                                         </div>
                                         <Text className="!font-semibold text-xs mr-2 " >{dateFormat(event?.endTime)}</Text>
                                     </div>
-                                    <div className=" flex items-center gap-2 " > 
-                                    <div className=" w-fit text-primary text-opacity-50 " >
-                                        <ClockIcon />
-                                    </div>
-                                    <Text className=" !font-semibold text-xs " >{timeFormat(event?.endTime)}</Text>
+                                    <div className=" flex items-center gap-2 " >
+                                        <div className=" w-fit text-primary text-opacity-50 " >
+                                            <ClockIcon />
+                                        </div>
+                                        <Text className=" !font-semibold text-xs " >{timeFormat(event?.endTime)}</Text>
                                     </div>
                                 </div>
                                 <div className=" w-full flex justify-between items-center " >
@@ -100,8 +100,8 @@ export default function EventDetailPage() {
                                         </div>
                                     )}
                                     <div className=" flex gap-2 items-center " >
-                                        <TicketIcon /> 
-                                        <Text className=" font-bold text-xs " >{event?.signUpLimit} Spot(s) Available</Text> 
+                                        <TicketIcon />
+                                        {/* <Text className=" font-bold text-xs " >{event?.signUpLimit} Spot(s) Available</Text> */}
                                     </div>
                                 </div>
                             </div>
@@ -118,15 +118,47 @@ export default function EventDetailPage() {
                                 Event Messages
                             </CustomButton>
                         </div>
-                        <div className=" w-full flex flex-col lg:px-0 px-4 lg:pt-4 pt-4 " >
-                            <div className=" w-fit bg-[#37137F26] rounded-md px-[10px] h-[25px] flex justify-center items-center "  >
-                                <Text className=" font-extrabold text-xs " >About Event</Text>
-                            </div>
-                            <Text className=" text-primary text-opacity-90 text-xs font-medium !leading-[18px] mt-2 " >{event?.description}</Text>
+                        <div className=" flex flex-col gap-4 w-full px-4 py-4 " >
+                            <div className=" w-full flex flex-col lg:pt-4 pt-4 " >
+                                <div className=" w-fit bg-[#37137F26] rounded-md px-[10px] h-[25px] flex justify-center items-center "  >
+                                    <Text className=" font-extrabold text-xs " >About Event</Text>
+                                </div>
+                                <Text className=" text-primary text-opacity-90 text-xs font-medium !leading-[18px] mt-2 " >{event?.description}</Text>
 
+                            </div>
+                            <div className=" w-full flex gap-4 " >
+                                <div className=" flex flex-col gap-3 items-center " >
+                                    <div className=" w-fit bg-[#37137F26] rounded-md px-[10px] h-[25px] flex justify-center items-center "  >
+                                        <Text className=" font-extrabold text-xs " >Minimum Pledge</Text>
+                                    </div>
+
+                                    <div className=" w-fit bg-[#37137F] text-white rounded-full px-[10px] h-[25px] flex justify-center items-center "  >
+                                        <Text className=" font-extrabold text-xs " >{formatNumber(event?.fundRaiser?.fundRaisingGoal)}</Text>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className=" flex flex-col gap-3 " >
+                                <div className=" w-fit bg-[#37137F26] rounded-md px-[10px] h-[25px] flex justify-center items-center "  >
+                                    <Text className=" font-extrabold text-xs " >Tickets Available</Text>
+                                </div>
+                                {event?.ticketing?.map((item, index) => {
+                                    return (
+                                        <div className=" w-full justify-between items-center flex border rounded-lg  px-4 h-[96px] " >
+                                            <div key={index} className=" lg:max-w-[360px] w-full flex flex-col gap-1 justify-center" >
+                                                <p className=" text-xs font-semibold " >{item?.ticketType}</p>
+                                                <p className=" font-semibold " >{formatNumber(item?.ticketPrice)}</p>
+                                                <p className=" text-xs font-semibold ">Sales End On {dateFormat(item?.salesEndDate)}</p>
+                                            </div>
+                                            <button onClick={()=>  router(`/dashboard/event/edit/${event?._id}?type=editticket&ticketId=${item?._id}&index=${index}`)} > 
+                                                <MdEditSquare size={"20px"} />
+                                            </button>
+                                        </div>
+                                    )
+                                })}
+                            </div>
                         </div>
                     </div>
-                    {event?.fundRaiser?.fundRaisingGoal && (
+                    {/* {event?.fundRaiser?.fundRaisingGoal && (
                         <div className=" w-full flex flex-col gap-6 lg:px-0 px-4 " >
                             <div className=" w-full rounded-[44px] flex flex-col lg:p-6 " >
                                 <Text className=" text-xl tracking-[1%] text-primary " >Fundraising Target</Text>
@@ -145,19 +177,14 @@ export default function EventDetailPage() {
                                 </div>
                             </div>
                         </div>
-                    )}
+                    )} */}
                 </div>
-                <div className=" gap-4 flex-col w-full flex absolute bottom-20 lg:hidden p-6 px-4 ">
+                <div className=" gap-4 flex-col w-full flex bottom-20 bg-white lg:hidden p-6 px-4 ">
                     <CustomButton onClick={() => router(`/dashboard/event/edit/${event?._id}`)} hasFrontIcon={true} icon={
                         <EditIcon />
                     } >
                         Edit Event
                     </CustomButton>
-                    {/* <CustomButton bgColor="#CE4646" onClick={() => router("/dashboard/report/post")} hasFrontIcon={true} icon={
-                        <TrashIcon />
-                    } >
-                        Delete Event
-                    </CustomButton> */}
                 </div>
             </LoadingAnimation>
         </div>

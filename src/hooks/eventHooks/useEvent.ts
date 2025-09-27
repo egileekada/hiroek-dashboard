@@ -10,7 +10,7 @@ import { useImage } from "../../global-state/useImageData";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie" 
 import { useEventDetail } from "../../global-state/useEventDetails"; 
-import { useDatePicker } from "../../global-state/useDatePicker";
+import { useDatePicker } from "../../global-state/useDatePicker"; 
 
 const useEvent = () => { 
     const { eventImage } = useImage((state) => state) 
@@ -116,9 +116,9 @@ const useEvent = () => {
 
             formData.append("category", values?.category ? values?.category : event?.category)
             formData.append("privacy", values?.privacy ? values?.privacy : event?.privacy)
-            if(values?.eventTicket.totalTicket){
-                formData.append("signUpLimit", values?.eventTicket.totalTicket ? values?.eventTicket.totalTicket : event?.signUpLimit)
-            }
+            // if(values?.eventTicket.totalTicket){
+            //     formData.append("signUpLimit", values?.eventTicket.totalTicket ? values?.eventTicket.totalTicket : event?.signUpLimit)
+            // }
             formData.append("eventEndDate", new Date(endDate)?.toISOString())
             formData.append("endTime", new Date(startData)?.toISOString())
             formData.append("address", values?.address ? values?.address : event?.address)
@@ -143,11 +143,11 @@ const useEvent = () => {
                 // } else if (event?.eventTicket?.totalTicket) {
                 //     formData.append("eventTicket[totalTicket]", event.eventTicket.totalTicket + "");
                 // }
-                if (event?.eventTicket?.ticketPrice) {
-                    formData.append("eventTicket[ticketPrice]", event.eventTicket.ticketPrice ? Number(event.eventTicket.ticketPrice * 100)+"" : 0+"" );
-                } else {
-                    formData.append("eventTicket[ticketPrice]", values.eventTicket.ticketPrice ? Number(values.eventTicket.ticketPrice * 100)+"" : 0+"" );
-                }
+                // if (event?.eventTicket?.ticketPrice) {
+                //     formData.append("eventTicket[ticketPrice]", event.eventTicket.ticketPrice ? Number(event.eventTicket.ticketPrice * 100)+"" : 0+"" );
+                // } else {
+                //     formData.append("eventTicket[ticketPrice]", values.eventTicket.ticketPrice ? Number(values.eventTicket.ticketPrice * 100)+"" : 0+"" );
+                // }
             }
 
 

@@ -482,7 +482,7 @@ const useGetEventData = () => {
 
     // Get Event list
     const getSingleEventData = (index?: string) => {
-        const [data, setData] = useState<IEvent | any>()
+        const [data, setData] = useState<IEvent>()
 
         const newIndex = index ? index : id
         const { isLoading } = useQuery(

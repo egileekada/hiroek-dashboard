@@ -96,7 +96,7 @@ export default function CustomSelect(props: IProps) {
                         <DropdownMenu.TriggerIcon />
                     </div>
                 </div>
-                {touched[name] && errors[name] && <Text className=" text-left text-xs text-red-500 font-medium -mt-1 " >{errors[name]}</Text>} 
+                {touched[name] && errors[name] && <Text className=" text-left text-xs text-red-500 font-medium mt-1 " >{errors[name]}</Text>} 
             </div>
             <ModalLayout height='100vh' width=' max-w-[400px] ' open={open} setOpen={setOpen} >
                 <div className=' w-full h-full flex flex-col gap-4 py-4  ' >
