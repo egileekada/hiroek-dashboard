@@ -27,9 +27,11 @@ const useEvent = () => {
     const { marker } = useMap((state) => state);
 
     const { mutate, isLoading, isSuccess } = useMutation({
-        mutationFn: (data: any) => httpService.post(`/organizations/create-event`, data, {
-            headers: { 'Content-Type': eventImage ? eventImage.type : "" }
-        }),
+        mutationFn: (data: any) => httpService.post(`/organizations/create-event`, data,
+            eventImage ?
+                {
+                    headers: { 'Content-Type': eventImage ? eventImage.type : "" }
+                } : {}),
         onError: (error: any) => {
             toast.error(error?.response?.data?.error?.details?.message)
         },
@@ -37,14 +39,19 @@ const useEvent = () => {
             toast.success("Created Event Successfully")
             updateCreateEvent(data?.data?.event)
 
-            router("/dashboard/event/details/" + data?.data?.event?._id) 
+            router("/dashboard/event/details/" + data?.data?.event?._id)
         },
     });
 
     const { mutate: editMutate, isLoading: loadingEditEvent } = useMutation({
-        mutationFn: (data: any) => httpService.patch(`/organizations/update-event/${event?._id}`, data, {
-            headers: { 'Content-Type': eventImage ? eventImage.type : "" }
-        }),
+        mutationFn: (data: any) => httpService.patch(
+            `/organizations/update-event/${event?._id}`,
+            data,
+            eventImage ?
+                {
+                    headers: { 'Content-Type': eventImage ? eventImage.type : "" }
+                } : {}
+        ),
         onError: (error: any) => {
             toast.error(error?.response?.data?.error?.details?.message)
         },
@@ -53,8 +60,6 @@ const useEvent = () => {
             router("/dashboard/event/details/" + id)
         },
     });
-
-
 
     const { mutate: ticketMutate, isLoading: loadingticketEvent } = useMutation({
         mutationFn: (data: {
@@ -65,11 +70,9 @@ const useEvent = () => {
                 "salesStartDate": string,
                 "salesEndDate": string,
                 "absorbFees": boolean
-              },
+            },
             id: string
-        }) => httpService.patch(`/organizations/update-event-ticket-type/${event?._id}/${data?.id}`, data.payload, {
-            headers: { 'Content-Type': eventImage ? eventImage.type : "" }
-        }),
+        }) => httpService.patch(`/organizations/update-event-ticket-type/${event?._id}/${data?.id}`, data.payload),
         onError: (error: any) => {
             toast.error(error?.response?.data?.error?.details?.message)
         },
@@ -128,7 +131,7 @@ const useEvent = () => {
     });
 
     console.log(marker);
-    
+
 
     const buildFormData = (values: ICreateEvent) => {
         const formData = new FormData();
@@ -136,7 +139,7 @@ const useEvent = () => {
         // Add simple string/number fields
         formData.append("name", values.name);
         formData.append("description", values.description);
-        formData.append("category", values.category); 
+        formData.append("category", values.category);
         // formData.append("subcategory", values.category);
         formData.append("privacy", values.privacy);
         formData.append("eventEndDate", values.eventEndDate);
@@ -171,23 +174,25 @@ const useEvent = () => {
         values.ticketing.map((item, i) => {
             formData.append(`ticketing[${i}][salesEndDate]`, String(item?.salesEndDate));
             formData.append(`ticketing[${i}][salesStartDate]`, String(item?.salesStartDate));
-            {item?.signUpLimit && (
-                formData.append(`ticketing[${i}][signUpLimit]`, String(item?.signUpLimit))
-            )}
-            formData.append(`ticketing[${i}][ticketPrice]`, String(item?.ticketPrice));
+            {
+                item?.signUpLimit && (
+                    formData.append(`ticketing[${i}][signUpLimit]`, String(item?.signUpLimit))
+                )
+            }
+            formData.append(`ticketing[${i}][ticketPrice]`, String(item?.ticketPrice * 100));
             formData.append(`ticketing[${i}][ticketType]`, String(item?.ticketType));
         })
- 
-        if(eventImage){ 
+
+        if (eventImage) {
             formData.append("photo", eventImage);
         }
- 
+
 
         if (history?.pathname?.includes("edit")) {
             editMutate(formData)
         } else {
             mutate(formData)
-        } 
+        }
     };
 
     const submitHandler = () => {
