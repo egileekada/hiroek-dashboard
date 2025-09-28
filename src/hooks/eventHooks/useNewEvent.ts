@@ -163,10 +163,7 @@ const useEvent = () => {
         formData.append("recurrence[interval]", String(values.recurrence.interval));
         formData.append("recurrence[frequency]", values.recurrence.frequency);
         formData.append("recurrence[endType]", values.recurrence.endType);
-        // formData.append(
-        //     "recurrence[occurrenceCount]",
-        //     String(values.recurrence.occurrenceCount)
-        // );
+        
         values.recurrence.daysOfWeek.forEach((day, i) => {
             formData.append(`recurrence[daysOfWeek][${i}]`, String(day));
         });
