@@ -151,34 +151,59 @@ const useEvent = () => {
         // formData.append("communityId", values.communityId);
 
         // Fundraiser
-        formData.append(
-            "fundRaiser[fundRaisingGoal]",
-            String(values.fundRaiser.fundRaisingGoal)
-        );
+        if (values.fundRaiser.fundRaisingGoal) {
+            formData.append(
+                "fundRaiser[fundRaisingGoal]",
+                String(values.fundRaiser.fundRaisingGoal)
+            );
+        }
         values.fundRaiser.organizations.forEach((org, i) => {
             formData.append(`fundRaiser[organizations][${i}]`, org);
         });
 
+        if (values.recurrence.interval) {
+            formData.append("recurrence[interval]", String(values.recurrence.interval));
+        }
         // Recurrence
-        formData.append("recurrence[interval]", String(values.recurrence.interval));
-        formData.append("recurrence[frequency]", values.recurrence.frequency);
-        formData.append("recurrence[endType]", values.recurrence.endType);
-        
-        values.recurrence.daysOfWeek.forEach((day, i) => {
-            formData.append(`recurrence[daysOfWeek][${i}]`, String(day));
-        });
+        if (values.recurrence.frequency) {
+            formData.append("recurrence[frequency]", values.recurrence.frequency);
+        }
 
-        values.ticketing.map((item, i) => {
-            formData.append(`ticketing[${i}][salesEndDate]`, String(item?.salesEndDate));
-            formData.append(`ticketing[${i}][salesStartDate]`, String(item?.salesStartDate));
-            {
-                item?.signUpLimit && (
-                    formData.append(`ticketing[${i}][signUpLimit]`, String(item?.signUpLimit))
-                )
-            }
-            formData.append(`ticketing[${i}][ticketPrice]`, String(item?.ticketPrice * 100));
-            formData.append(`ticketing[${i}][ticketType]`, String(item?.ticketType));
-        })
+        if (values.recurrence.endType) {
+            formData.append("recurrence[endType]", values.recurrence.endType);
+        }
+
+        if(values.recurrence.daysOfWeek.length > 0) {
+            values.recurrence.daysOfWeek.forEach((day, i) => {
+                formData.append(`recurrence[daysOfWeek][${i}]`, String(day));
+            });
+        }
+
+
+        if (values.ticketing[0].ticketType) {
+            values.ticketing.map((item, i) => {
+                if(item?.salesEndDate) {
+                    formData.append(`ticketing[${i}][salesEndDate]`, String(item?.salesEndDate));
+                }
+                if(item?.salesStartDate) {
+                    formData.append(`ticketing[${i}][salesStartDate]`, String(item?.salesStartDate));
+                }
+                {
+                    item?.signUpLimit && (
+                        formData.append(`ticketing[${i}][signUpLimit]`, String(item?.signUpLimit))
+                    )
+                }
+                formData.append(`ticketing[${i}][ticketPrice]`, String(item?.ticketPrice * 100));
+                formData.append(`ticketing[${i}][ticketType]`, String(item?.ticketType));
+            })
+        } else { 
+            formData.append(`ticketing[${0}][signUpLimit]`, String(0))
+            formData.append(`ticketing[${0}][ticketPrice]`, String(0))
+            formData.append(`ticketing[${0}][ticketType]`, String("Standard"))
+            formData.append(`ticketing[${0}][salesStartDate]`, String(new Date().toISOString()));
+            formData.append(`ticketing[${0}][salesEndDate]`, String(values?.eventEndDate));
+        }
+
 
         if (eventImage) {
             formData.append("photo", eventImage);

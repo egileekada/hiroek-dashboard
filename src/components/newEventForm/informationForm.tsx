@@ -63,8 +63,7 @@ export default function InformationForm({ formik, data, setTab, setOpen }: IProp
                     <CustomInput borderRadius="8px" name="name" label="Event Name" type="text" placeholder="Type event name here. . ." />
                 </div>
                 <div className=" flex w-full flex-col gap-1 " >
-                    <CustomInput borderRadius="8px" name="description" label="Event Description" type="text" textarea={true} placeholder="Type event description here. . ." />
-                    {/* <textarea placeholder="Type event description here. . ." className=" h-[156px] p-3 border-[#37137F80] border-[1.5px] outline-none hover:border-[#37137F80] active:border-[#37137F80] focus:border-[#37137F80] rounded-[10px] bg-transparent w-full text-sm font-semibold text-primary " /> */}
+                    <CustomInput borderRadius="8px" name="description" label="Event Description" type="text" textarea={true} placeholder="Type event description here. . ." /> 
                 </div>
                 <div className=" flex w-full flex-col gap-1 " >
                     <Text className=" text-primary font-semibold text-sm " >Event Venue</Text>

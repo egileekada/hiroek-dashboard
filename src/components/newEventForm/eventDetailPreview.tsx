@@ -58,25 +58,26 @@ export default function EventDetailPreview(
                         </div>
                     </div>
                 </div>
-                <div className=" w-full flex flex-col lg:px-0 px-4 lg:pt-4 pt-4 " >
+                <div className=" w-full flex flex-col items-center lg:px-0 px-4 lg:pt-4 pt-4 " >
                     <div className=" w-fit bg-[#37137F26] rounded-md px-[10px] h-[25px] flex justify-center items-center "  >
                         <Text className=" font-extrabold text-xs " >About Event</Text>
                     </div>
                     <Text className=" text-primary text-opacity-90 text-xs font-medium !leading-[18px] mt-2 " >{formik.values.description}</Text>
-
                 </div>
-                <div className=" w-full flex gap-4 " >
-                    <div className=" flex flex-col gap-3 items-center " >
-                        <div className=" w-fit bg-[#37137F26] rounded-md px-[10px] h-[25px] flex justify-center items-center "  >
-                            <Text className=" font-extrabold text-xs " >Minimum Pledge</Text>
-                        </div>
+                {formik.values.fundRaiser.fundRaisingGoal && (
+                    <div className=" w-full flex gap-4 " >
+                        <div className=" flex flex-col gap-3 w-full items-center " >
+                            <div className=" w-fit bg-[#37137F26] rounded-md px-[10px] h-[25px] flex justify-center items-center "  >
+                                <Text className=" font-extrabold text-xs " >Minimum Pledge</Text>
+                            </div>
 
-                        <div className=" w-fit bg-[#37137F] text-white rounded-full px-[10px] h-[25px] flex justify-center items-center "  >
-                            <Text className=" font-extrabold text-xs " >{formatNumber(formik.values.fundRaiser.fundRaisingGoal)}</Text>
+                            <div className=" w-fit bg-[#37137F] text-white rounded-full px-[10px] h-[25px] flex justify-center items-center "  >
+                                <Text className=" font-extrabold text-xs " >{formatNumber(formik.values.fundRaiser.fundRaisingGoal)}</Text>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className=" flex flex-col gap-3 " >
+                )}
+                <div className=" flex flex-col gap-3 items-center " >
                     <div className=" w-fit bg-[#37137F26] rounded-md px-[10px] h-[25px] flex justify-center items-center "  >
                         <Text className=" font-extrabold text-xs " >Tickets Available</Text>
                     </div>

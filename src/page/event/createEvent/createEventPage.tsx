@@ -124,6 +124,7 @@ export default function CreateEventPage() {
         } else {
             navigate("/dashboard/event/create?type=fundraising")
         }
+        setIsOpen(false)
     }
 
     return (

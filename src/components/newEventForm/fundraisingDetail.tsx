@@ -1,7 +1,7 @@
 import { FormikProps } from "formik";
 import { ICreateEvent } from "../../model/event";
 import CustomInput from "./input";
-import { CustomButton } from "../shared";
+import { CustomButton, Text } from "../shared";
 import OrganizationCardWithId from "../event/organizationCardById";
 import { useLocation, useNavigate, useParams } from "react-router-dom"; 
 
@@ -31,11 +31,11 @@ export default function EventFundraising({ formik }: IProps) {
             <div className=" flex w-full flex-col gap-4 " >
                 <CustomInput borderRadius="8px" name="fundRaiser.fundRaisingGoal" label="Set Minimum Pledge" type="number" placeholder="" />
                 {/* <CustomInput borderRadius="8px" name="name" label="Add Charity Partner" type="text" placeholder="" /> */}
-                {/* <div className=" flex flex-col gap-3 " >
+                <div className=" flex flex-col gap-3 " >
                     <div className=" w-full h-[54px] flex rounded-full shadow-md border items-center justify-between px-4 " >
                         <Text className=" text-sm font-bold " >Charity Partner Name</Text>
                     </div>
-                </div> */}
+                </div>
                 {formik?.values?.fundRaiser?.organizations?.map((item: string, index: number) => {
                     return (
                         <div className=' w-full ' key={index} >
