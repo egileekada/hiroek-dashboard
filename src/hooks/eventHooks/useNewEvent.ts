@@ -177,8 +177,7 @@ const useEvent = () => {
             values.recurrence.daysOfWeek.forEach((day, i) => {
                 formData.append(`recurrence[daysOfWeek][${i}]`, String(day));
             });
-        }
-
+        } 
 
         if (values.ticketing[0].ticketType) {
             values.ticketing.map((item, i) => {
@@ -202,8 +201,7 @@ const useEvent = () => {
             formData.append(`ticketing[${0}][ticketType]`, String("Standard"))
             formData.append(`ticketing[${0}][salesStartDate]`, String(new Date().toISOString()));
             formData.append(`ticketing[${0}][salesEndDate]`, String(values?.eventEndDate));
-        }
-
+        } 
 
         if (eventImage) {
             formData.append("photo", eventImage);
