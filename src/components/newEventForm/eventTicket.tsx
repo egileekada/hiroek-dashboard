@@ -2,9 +2,9 @@ import { FormikProps } from "formik";
 import { ICreateEvent } from "../../model/event";
 import CustomInput from "./input";
 import { CustomButton, Text } from "../shared";
-import { AiOutlineMinusCircle } from "react-icons/ai"; 
+import { AiOutlineMinusCircle } from "react-icons/ai";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import CustomDatePicker from "../shared/customDatePicker"; 
+import CustomDatePicker from "../shared/customDatePicker";
 import { useQuery } from "../../utils/useQuery";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -13,53 +13,93 @@ import { useEffect } from "react";
 interface IProps {
     formik: FormikProps<ICreateEvent>;
     data: any;
-    setTab: (by: number)=> void
+    setTab: (by: number) => void
 }
 
 export default function EventTicket({ formik }: IProps) {
- 
+
     const query = useQuery();
     const history = useLocation()
-    const index = query.get('index'); 
+    const index = query.get('index');
     const { id } = useParams();
 
     const navigate = useNavigate()
 
-    useEffect(()=> {
-        formik.setFieldValue(`ticketing[${index}].absorbFees`, false)
-    }, [])
+    const validateTicket = () => {
+        const ticket = formik.values.ticketing[Number(index)];
+
+        if (!ticket.ticketPrice) return "Ticket price is required";
+        if (!ticket.ticketType) return "Ticket type is required";
+        if (!ticket.salesStartDate) return "Sales start date is required";
+        if (!ticket.salesEndDate) return "Sales end date is required";
+
+        if (new Date(ticket.salesEndDate) < new Date(ticket.salesStartDate))
+            return "End date cannot be earlier than start date";
+
+        return null;
+    };
+
+    useEffect(() => {
+        formik.setFieldValue(`ticketing[${index}].absorbFees`, false);
+    }, []);
 
     const clickTicket = (type: "remove" | "add") => {
-        if (Number(formik?.values?.ticketing[Number(index)].signUpLimit) > 0 && type === "remove") { 
+        if (Number(formik?.values?.ticketing[Number(index)].signUpLimit) > 0 && type === "remove") {
             formik.setFieldValue(`ticketing[${index}].signUpLimit`, Number(formik?.values?.ticketing[Number(index)]?.signUpLimit) - 1)
             // setTicketNo((prev) => prev - 1)
         } else if (type === "add") {
-            if(!formik?.values?.ticketing[Number(index)]?.signUpLimit) {
+            if (!formik?.values?.ticketing[Number(index)]?.signUpLimit) {
                 formik.setFieldValue(`ticketing[${index}].signUpLimit`, 1)
-            } else { 
+            } else {
                 formik.setFieldValue(`ticketing[${index}].signUpLimit`, Number(formik?.values?.ticketing[Number(index)]?.signUpLimit) + 1)
             }
         }
     }
-    
+
+    // const clickHandler = (e: any) => {
+    //     e.preventDefault()
+    //     if (!formik?.values?.ticketing[Number(index)]?.ticketPrice || !formik?.values?.ticketing[Number(index)]?.ticketType || !formik?.values?.ticketing[Number(index)]?.salesStartDate || !formik?.values?.ticketing[Number(index)]?.salesEndDate) {
+    //         toast.error("Fill Ticket Information Completely")
+    //     } else {
+    //         if (history.pathname.includes("edit")) {
+    //             navigate(`/dashboard/event/edit/${id}?type=ticketdetails`)
+    //         } else {
+    //             navigate("/dashboard/event/create?type=ticketdetails")
+    //         }
+    //     }
+    // }
     const clickHandler = (e: any) => {
-        e.preventDefault()
-        if(!formik?.values?.ticketing[Number(index)]?.ticketPrice || !formik?.values?.ticketing[Number(index)]?.ticketType || !formik?.values?.ticketing[Number(index)]?.salesStartDate || !formik?.values?.ticketing[Number(index)]?.salesEndDate) {
-            toast.error("Fill Ticket Information Completely")
-        } else {
-            if(history.pathname.includes("edit")) {
-                navigate(`/dashboard/event/edit/${id}?type=ticketdetails`) 
-            } else {
-                navigate("/dashboard/event/create?type=ticketdetails") 
-            }
+        e.preventDefault();
+
+        const error = validateTicket();
+        if (error) {
+            toast.error(error);
+            return;
         }
-    } 
+
+        if (history.pathname.includes("edit")) {
+            navigate(`/dashboard/event/edit/${id}?type=ticketdetails`);
+        } else {
+            navigate("/dashboard/event/create?type=ticketdetails");
+        }
+    };
+
+    const ticketType = [
+        "Standard", "Silver", "Gold", "Platinum"
+    ]
 
     return (
         <form onSubmit={clickHandler} className=" max-w-[450px] w-full flex flex-col gap-4 lg:pb-6 px-4 " >
             <div className=" flex w-full flex-col gap-4 " >
                 <CustomInput borderRadius="8px" name={`ticketing[${index}].ticketPrice`} label="Event Ticket Price" type="number" placeholder="" />
                 <CustomInput borderRadius="8px" name={`ticketing[${index}].ticketType`} label="Ticket Type Name" type="text" placeholder="" />
+                <div className=" w-full grid grid-cols-4 gap-3 " >
+                    {ticketType?.map((item) => {
+                        return (
+                            <CustomButton type="button" key={item} height="32px" fontSize="12px" rounded="999px" onClick={() => formik.setFieldValue(`ticketing[${index}].ticketType`, item)} >{item}</CustomButton>
+                        )
+                    })}
+                </div>
                 <div className=" w-full flex flex-col gap-1 ">
                     <div className=" flex w-full flex-col gap-1 " >
                         <div className=" w-full flex justify-between items-center " >
@@ -83,7 +123,7 @@ export default function EventTicket({ formik }: IProps) {
                     </div>
                 </div>
                 <div className=" w-full flex gap-4 mb-4 "  >
-                    <CustomDatePicker name={`ticketing[${index}].salesStartDate`} showTime={false} label="Sale Starts" height={"50px"} /> 
+                    <CustomDatePicker name={`ticketing[${index}].salesStartDate`} showTime={false} label="Sale Starts" height={"50px"} />
                     <CustomDatePicker name={`ticketing[${index}].salesEndDate`} showTime={false} label="Sale Ends" height={"50px"} />
                 </div>
                 <CustomButton >Save Ticket Type</CustomButton>

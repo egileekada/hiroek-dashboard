@@ -24,7 +24,7 @@ export default function EventFundraising({ formik }: IProps) {
         } else {
             navigate(`/dashboard/event/create?type=details`)
         }
-    }
+    } 
 
     return (
         <form onSubmit={clickHandler} className=" max-w-[450px] w-full flex h-full flex-col gap-4 lg:pb-6 px-4 " >

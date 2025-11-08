@@ -29,16 +29,6 @@ export default function CreateEventPage() {
 
     // const { updateEndDate, updateStartDate } = useDatePicker((state) => state)
 
-    // useEffect(() => {
-    //     if (history?.pathname.includes("edit")) {
-    //         updateStartDate(data?.endTime)
-    //         updateEndDate(data?.eventEndDate)
-    //     } else {
-    //         updateStartDate("")
-    //         updateEndDate("")
-    //         updateMap("")
-    //     }
-    // }, [data])
 
     const { formik, loadingEditEvent, isLoading } = useEvent()
 
@@ -50,6 +40,13 @@ export default function CreateEventPage() {
     const type = query.get('type');
     // const ticketId = query.get('ticketId');
     const { id } = useParams();
+
+
+    useEffect(() => {
+        if (!formik.values?.name) {
+            navigate("/dashboard/event/create")
+        }  
+    }, [])
 
     useEffect(() => {
         if (!formik?.values?.name && data?.name) {
@@ -121,10 +118,19 @@ export default function CreateEventPage() {
     const closeHandler = () => {
         if (tab === 0) {
             setTab(4)
+            setIsOpen(false)
+        } else if (tab === 1) {
+            navigate("/dashboard/event/create?type=details")
+            setIsOpen(false)
+        } else if (tab === 2) {
+            setTab(4)
+        }  else if (tab === 4) {
+            navigate("/dashboard/event/create?type=details")
+            setIsOpen(false)
         } else {
             navigate("/dashboard/event/create?type=fundraising")
+            setIsOpen(false)
         }
-        setIsOpen(false)
     }
 
     return (

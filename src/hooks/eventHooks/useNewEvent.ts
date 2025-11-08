@@ -179,6 +179,11 @@ const useEvent = () => {
             });
         } 
 
+
+        if(values.recurrence.occurrenceCount) { 
+                formData.append(`recurrence[totalOccurrences]`, values?.recurrence.occurrenceCount); 
+        }  
+
         if (values.ticketing[0].ticketType) {
             values.ticketing.map((item, i) => {
                 if(item?.salesEndDate) {

@@ -38,13 +38,13 @@ export default function CustomSelect(props: IProps) {
         setDefaultData(item)
         changeHandler(name, item)
         setOpen(false)
-        setOpenModal(false) 
-    }  
+        setOpenModal(false)
+    }
 
     const [open, setOpen] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [selected, setSelected] = useState("")
- 
+
     const selectHandler = (item: string) => {
         if (item === selected) {
             setSelected("")
@@ -71,9 +71,9 @@ export default function CustomSelect(props: IProps) {
         }
 
         return "";
-    }  
+    }
 
-    useEffect(()=> {
+    useEffect(() => {
         setDefaultData(value)
     }, [value])
 
@@ -86,7 +86,7 @@ export default function CustomSelect(props: IProps) {
                         <DropdownMenu.TriggerIcon />
                     </div>
                 </div>
-                {touched[name] && errors[name] && <Text className=" text-left text-xs text-red-500 font-medium " >{errors[name]}</Text>} 
+                {touched[name] && errors[name] && <Text className=" text-left text-xs text-red-500 font-medium " >{errors[name]}</Text>}
                 {/* {formState?.errors[name] && <Text className=" text-left text-xs text-red-500 font-semibold mt-1 " >{formState?.errors[name]?.message as string}</Text>} */}
             </div>
             <div className=' w-full md:hidden flex birder flex-col placeholder:text-white relative ' >
@@ -96,7 +96,7 @@ export default function CustomSelect(props: IProps) {
                         <DropdownMenu.TriggerIcon />
                     </div>
                 </div>
-                {touched[name] && errors[name] && <Text className=" text-left text-xs text-red-500 font-medium mt-1 " >{errors[name]}</Text>} 
+                {touched[name] && errors[name] && <Text className=" text-left text-xs text-red-500 font-medium mt-1 " >{errors[name]}</Text>}
             </div>
             <ModalLayout height='100vh' width=' max-w-[400px] ' open={open} setOpen={setOpen} >
                 <div className=' w-full h-full flex flex-col gap-4 py-4  ' >
@@ -108,13 +108,17 @@ export default function CustomSelect(props: IProps) {
                                     <div key={index} className=' w-full flex flex-col px-2 ' >
                                         {item?.subcategories?.length ?
                                             <div role='button' onClick={() => selectHandler(item?._id)} className=' text-sm flex items-center h-[45px] w-full justify-between font-semibold ' key={index} >
-                                                {item?.name}
+                                                <div className=' flex gap-3 items-center ' >
+                                                    <img src={item?.image} className=' w-6 ' alt={item?.name} />
+                                                    {item?.name}
+                                                </div>
                                                 {selected !== item?._id ?
                                                     <IoIosArrowDown size={"20px"} /> :
                                                     <IoIosArrowUp size={"20px"} />
                                                 }
                                             </div> :
-                                            <div role='button' onClick={() => clickhandler(item?._id)} className=' text-sm flex items-center h-[45px] font-semibold ' key={index} >
+                                            <div role='button' onClick={() => clickhandler(item?._id)} className=' text-sm flex items-center gap-3 h-[45px] font-semibold ' key={index} >
+                                                <img src={item?.image} className=' w-6 ' alt={item?.name} />
                                                 {item?.name}
                                             </div>
                                         }
@@ -124,7 +128,8 @@ export default function CustomSelect(props: IProps) {
                                                 <div className=' flex flex-col px-4 gap-2 ' >
                                                     {item?.subcategories?.map((subitem, subindex) => {
                                                         return (
-                                                            <div role='button' onClick={() => clickhandler(item?._id)} key={subindex} className=' text-sm w-full h-[45px] items-center flex ' >
+                                                            <div role='button' onClick={() => clickhandler(item?._id)} key={subindex} className=' text-sm w-full h-[45px] items-center flex gap-3  ' >
+                                                                <img src={item?.image} className=' w-6 ' alt={item?.name} />
                                                                 {subitem?.name}
                                                             </div>
                                                         )
@@ -150,13 +155,17 @@ export default function CustomSelect(props: IProps) {
                                     <div key={index} className=' w-full flex flex-col px-2 ' >
                                         {item?.subcategories?.length ?
                                             <div role='button' onClick={() => selectHandler(item?._id)} className=' text-sm flex items-center h-[45px] w-full justify-between font-semibold ' key={index} >
-                                                {item?.name}
+                                                <div className=' flex gap-3 items-center ' >
+                                                    <img src={item?.image} className=' w-6 ' alt={item?.name} />
+                                                    {item?.name}
+                                                </div>
                                                 {selected !== item?._id ?
                                                     <IoIosArrowDown size={"20px"} /> :
                                                     <IoIosArrowUp size={"20px"} />
                                                 }
                                             </div> :
-                                            <div role='button' onClick={() => clickhandler(item?._id)} className=' text-sm flex items-center h-[45px] font-semibold ' key={index} >
+                                            <div role='button' onClick={() => clickhandler(item?._id)} className=' text-sm flex items-center h-[45px] gap-3 font-semibold ' key={index} >
+                                                <img src={item?.image} className=' w-6 ' alt={item?.name} />
                                                 {item?.name}
                                             </div>
                                         }
@@ -166,7 +175,8 @@ export default function CustomSelect(props: IProps) {
                                                 <div className=' flex flex-col px-4 gap-2 ' >
                                                     {item?.subcategories?.map((subitem, subindex) => {
                                                         return (
-                                                            <div role='button' onClick={() => clickhandler(item?._id)} key={subindex} className=' text-sm w-full h-[45px] items-center flex   ' >
+                                                            <div role='button' onClick={() => clickhandler(item?._id)} key={subindex} className=' text-sm w-full h-[45px] items-center flex gap-3  ' >
+                                                                <img src={item?.image} className=' w-6 ' alt={item?.name} />
                                                                 {subitem?.name}
                                                             </div>
                                                         )

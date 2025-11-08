@@ -7,6 +7,7 @@ import { ICreateEvent } from "../../model/event";
 import { useImage } from "../../global-state/useImageData";
 import { formatNumber } from "../../utils/numberFormat";
 import { MdEditSquare } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 
 interface IProps {
@@ -20,6 +21,8 @@ export default function EventDetailPreview(
 ) {
 
     const { eventImage } = useImage((state) => state)
+
+    const router = useNavigate()
 
     return (
         <div className=" w-full flex-1 flex lg:flex-row relative flex-col pb-4 gap-6 text-primary " >
@@ -100,7 +103,7 @@ export default function EventDetailPreview(
                                                 <p className=" text-xs font-semibold ">Sales End On {dateFormat(item?.salesEndDate)}</p>
                                             )}
                                         </div>
-                                        <button>
+                                        <button onClick={()=> router(`/dashboard/event/create?type=editticket&index=${index}`)}>
                                             <MdEditSquare size={"20px"} />
                                         </button>
                                     </div>

@@ -55,6 +55,9 @@ export default function InformationForm({ formik, data, setTab, setOpen }: IProp
         }
     }
 
+    console.log(categoryData);
+    
+
     return (
         <form onSubmit={(e) => clickHandler(e)} className=" w-full flex flex-col gap-4 lg:pb-6 " >
             <ImagePicker defaultValue={data?.photo} />
