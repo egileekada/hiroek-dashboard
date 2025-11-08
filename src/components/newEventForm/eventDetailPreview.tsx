@@ -89,8 +89,7 @@ export default function EventDetailPreview(
                             <p className=" text-xs font-semibold " >Standard Ticket</p>
                             <p className=" font-semibold " >£0.00</p>
                         </div>
-                    )}
-
+                    )} 
                     {formik.values?.ticketing.length > 0 && (
                         <>
                             {formik.values?.ticketing?.map((item, index) => {
