@@ -1,6 +1,6 @@
 import { Text } from "@radix-ui/themes";
 import PageHeader from "../components/shared/pageHeader";
-import { CashIcon, CommunityIcon, EventIcon } from "../svg"; 
+import { CashIcon, CommunityIcon, EventIcon } from "../svg";
 import CommunityCardList from "../components/shared/communityCardList";
 import { useDetails } from "../global-state/useUserDetails";
 import { capitalizeFLetter } from "../utils/capitalLetter";
@@ -17,9 +17,9 @@ export default function DashboardPage() {
     const { data, isLoading } = useGetStats()
 
     return (
-        <div className=' w-full flex flex-col gap-6 ' >
-            <PageHeader header={"Welcome " + capitalizeFLetter(name)} body="Effortlessly Create Events and Engage With Your Supporters In Real Time." />
-            <LoadingAnimation loading={isLoading} >
+        <LoadingAnimation loading={isLoading} >
+            <div className=' w-full flex flex-col gap-6 ' >
+                <PageHeader header={"Welcome " + capitalizeFLetter(name)} body="Effortlessly Create Events and Engage With Your Supporters In Real Time." />
                 <div className=" w-full grid grid-cols-2 lg:flex gap-4 px-4 lg:px-0 " >
                     <div className=" lg:max-w-[264px] w-full rounded-[12px] bg-primary h-[160px] lg:h-[170px] relative flex items-center  " >
                         <div className=" px-4 flex flex-col gap-2 text-white " >
@@ -69,16 +69,17 @@ export default function DashboardPage() {
                         <img src="/images/two.png" alt="one" className=" absolute inset-0 w-full h-full rounded-[12px] " />
                     </div>
                 </div>
-            </LoadingAnimation>
-            <div className=" w-full flex flex-col px-4 lg:px-0 gap-6 h-full " >
+                <div className=" w-full flex flex-col px-4 lg:px-0 gap-6 h-full " >
+                    <div className=" w-full" >
+                        <EventCardForOngoingAndFuture />
+                    </div>
+                    <div>
+                        <CommunityCardList />
+                    </div>
+                </div>
 
-                <div className=" w-full" >
-                    <EventCardForOngoingAndFuture />
-                </div>
-                <div> 
-                    <CommunityCardList />
-                </div>
             </div>
-        </div>
+
+        </LoadingAnimation>
     )
 }

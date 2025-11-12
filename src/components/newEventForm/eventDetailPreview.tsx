@@ -97,7 +97,7 @@ export default function EventDetailPreview(
                                     <div className=" w-full justify-between items-center flex border rounded-lg  px-4 h-[96px] " >
                                         <div key={index} className=" lg:max-w-[360px] w-full flex flex-col gap-1 justify-center" >
                                             <p className=" text-xs font-semibold " >{item?.ticketType}</p>
-                                            <p className=" font-semibold " >{formatNumber(item?.ticketPrice)}</p>
+                                            <p className=" font-semibold " >{formatNumber(item?.ticketPrice/100)}</p>
                                             {item?.salesEndDate && (
                                                 <p className=" text-xs font-semibold ">Sales End On {dateFormat(item?.salesEndDate)}</p>
                                             )}

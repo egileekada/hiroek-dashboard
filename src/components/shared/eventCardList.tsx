@@ -98,7 +98,7 @@ export default function EventCardList({ title, filter, mobile }: IProps) {
                                                 </div> :
                                                 <div className=' flex flex-col ' >
                                                     <Text className=' text-[10px] font-medium ' >Tickets</Text>
-                                                    <Text className=' inter-all ' >{formatNumber(item?.ticketing[0].ticketPrice)}</Text>
+                                                    <Text className=' inter-all ' >{formatNumber(item?.ticketing[0].ticketPrice/100)}</Text>
                                                 </div>
                                             }
                                         </div>
