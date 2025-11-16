@@ -9,6 +9,10 @@ import { useImage } from "../../global-state/useImageData";
 import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
+
 const useCommunity = (pin?: boolean) => {
 
     // const router = useNavigate(); 
@@ -16,7 +20,7 @@ const useCommunity = (pin?: boolean) => {
     const history = useLocation()
     const router = useNavigate();
     const [images, setImages] = useState<File[]>([]);
-    const { id } = useParams();  
+    const { id } = useParams();
 
     const query = useQueryClient()
 
@@ -49,16 +53,16 @@ const useCommunity = (pin?: boolean) => {
             router("/dashboard/community")
         },
     });
- 
+
     const { mutate: pinPost, isLoading: loadingPinPost } = useMutation({
         mutationFn: (data: any) => httpService.post(`/posts/${data}/pin-post`),
-        onError: (error: any) => { 
+        onError: (error: any) => {
             toast.error(error?.response?.data?.error?.details?.message)
         },
         onSuccess: () => {
-            toast.success(pin ? "Post UnPinned Successfully" : "Post Pinned Successfully") 
+            toast.success(pin ? "Post UnPinned Successfully" : "Post Pinned Successfully")
             setOpenPin(false)
-            query?.invalidateQueries("post-communities") 
+            query?.invalidateQueries("post-communities")
             query?.invalidateQueries("post-pin")
         },
     });
@@ -254,7 +258,7 @@ const useCommunity = (pin?: boolean) => {
             query?.invalidateQueries("post-communities")
             query?.invalidateQueries("postssingle")
             query?.invalidateQueries("comments")
-            setContentComment("") 
+            setContentComment("")
         },
     });
 
@@ -262,7 +266,6 @@ const useCommunity = (pin?: boolean) => {
         defaultValues: {
             name: "",
             description: "",
-            privacy: "public",
         },
         validationSchema: CommunityValidation,
         submit: (data: any) => {
@@ -274,12 +277,11 @@ const useCommunity = (pin?: boolean) => {
             } else {
                 formData.append("name", data?.name)
                 formData.append("description", data?.description)
-                formData.append("privacy", data?.privacy)
                 if (eventImage) {
                     formData.append("photo", eventImage)
                 }
 
-                if(!history?.pathname.includes("edit")){
+                if (!history?.pathname.includes("edit")) {
                     mutate(formData)
                 } else {
                     editCommunity(formData)
@@ -287,6 +289,40 @@ const useCommunity = (pin?: boolean) => {
             }
         }
     });
+
+    const formik = useFormik({
+        initialValues: {
+            name: "",
+            description: "",
+        },
+        validationSchema: Yup.object({
+            name: Yup.string().required("Required"),
+            description: Yup.string().required("Required"), 
+        }),// Your Yup schema
+        onSubmit: (values) => {
+            const formData = new FormData();
+
+            // Image validation (only when creating)
+            if (!eventImage && !history?.pathname.includes("edit")) {
+                toast.error("Add Image"); 
+                return;
+            }
+
+            formData.append("name", values.name);
+            formData.append("description", values.description);
+
+            if (eventImage) {
+                formData.append("photo", eventImage);
+            }
+
+            if (!history?.pathname.includes("edit")) {
+                mutate(formData);
+            } else {
+                editCommunity(formData);
+            } 
+        },
+    });
+
 
 
     const { renderForm: postHookForm, values: postValues, setValue: setPostValue, formState: postformState } = useForm({
@@ -336,6 +372,7 @@ const useCommunity = (pin?: boolean) => {
         loadingPinPost,
         communityHookForm,
         editCommunity,
+        formik,
         loadingEdit,
         isLoading,
         isSuccess,

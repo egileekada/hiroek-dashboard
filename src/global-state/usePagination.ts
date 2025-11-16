@@ -15,7 +15,7 @@ type Action = {
 
 export const usePagintion = create<PaginationState & Action>((set) => ({  
     page: 1,
-    pageSize: 10,
+    pageSize: 30,
     eventFilter: "future",
     updatePage: (data: any) => set(() => ({ page: data })), 
     updatePageSize: (data: any) => set(() => ({ pageSize: data })), 

@@ -28,8 +28,8 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
     const { id } = useParams();
 
     return (
-        <div className=" w-full relative h-full  " >
-            <div className=" w-full flex h-full absolute inset-0 lg:flex-row flex-col gap-4 overflow-y-auto lg:overflow-y-hidden lg:gap-6 text-primary pb-6 lg:px-0 " >
+        <div className=" w-full relative h-full " >
+            <div className=" w-full flex h-full lg:flex-row flex-col gap-4 overflow-y-auto lg:overflow-y-hidden lg:gap-6 text-primary pb-6 lg:px-0 " >
                 <div className=" w-full h-fit flex flex-col rounded-b-[44px] lg:rounded-[44px] lg:p-8 pb-2 " >
                     <div className=" w-full h-[240px] bg-green-700 relative rounded-b-[44px] lg:rounded-[44px] " >
                         <div role="button" onClick={() => router("/dashboard/community")} className=" cursor-pointer lg:hidden w-11 h-11 absolute top-6 z-10 left-4 rounded-md bg-[#FFFFFF26] lg:bg-[#FFFFFF33] flex justify-center items-center " >
