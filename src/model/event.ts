@@ -110,7 +110,8 @@ interface IEventTicket {
     "salesEndDate": string,
     "salesStartDate": string,
     "ticketPrice": number,
-    "ticketType": string
+    "ticketType": string,
+    spotsLeft: any
 }
 
 export interface ITicketHistory {

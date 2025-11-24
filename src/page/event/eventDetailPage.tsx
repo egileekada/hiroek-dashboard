@@ -19,6 +19,7 @@ export default function EventDetailPage() {
     const { getSingleEventData } = useGetEventData()
     const { event } = useEventDetail((state) => state)
     const { id } = useParams();
+    const totalTickets = event?.ticketing?.reduce((sum, ticket) => sum + ticket?.spotsLeft, 0);
 
     return (
         <div className=' w-full h-full flex flex-col gap-6 ' >
@@ -101,7 +102,7 @@ export default function EventDetailPage() {
                                     )}
                                     <div className=" flex gap-2 items-center " >
                                         <TicketIcon />
-                                        {/* <Text className=" font-bold text-xs " >{event?.signUpLimit} Spot(s) Available</Text> */}
+                                        <Text className=" font-bold text-xs " >{totalTickets} Ticket{totalTickets > 1 ? "(s)" : ""} Available</Text>
                                     </div>
                                 </div>
                             </div>
@@ -118,26 +119,28 @@ export default function EventDetailPage() {
                                 Event Messages
                             </CustomButton>
                         </div>
-                        <div className=" flex flex-col gap-4 w-full px-4 py-4 " >
-                            <div className=" w-full flex flex-col lg:pt-4 pt-4 " >
+                        <div className=" flex flex-col items-center gap-4 w-full px-4 py-4 " >
+                            <div className=" w-full flex flex-col items-center lg:pt-4 pt-4 " >
                                 <div className=" w-fit bg-[#37137F26] rounded-md px-[10px] h-[25px] flex justify-center items-center "  >
                                     <Text className=" font-extrabold text-xs " >About Event</Text>
                                 </div>
                                 <Text className=" text-primary text-opacity-90 text-xs font-medium !leading-[18px] mt-2 " >{event?.description}</Text>
 
                             </div>
-                            <div className=" w-full flex gap-4 " >
-                                <div className=" flex flex-col gap-3 items-center " >
-                                    <div className=" w-fit bg-[#37137F26] rounded-md px-[10px] h-[25px] flex justify-center items-center "  >
-                                        <Text className=" font-extrabold text-xs " >Minimum Pledge</Text>
-                                    </div>
+                            <div className=" w-full flex justify-center gap-4 " >
+                                {event?.fundRaiser?.fundRaisingGoal && (
+                                    <div className=" flex flex-col gap-3 items-center " >
+                                        <div className=" w-fit bg-[#37137F26] rounded-md px-[10px] h-[25px] flex justify-center items-center "  >
+                                            <Text className=" font-extrabold text-xs " >Minimum Pledge</Text>
+                                        </div>
 
-                                    <div className=" w-fit bg-[#37137F] text-white rounded-full px-[10px] h-[25px] flex justify-center items-center "  >
-                                        <Text className=" font-extrabold text-xs " >{formatNumber(event?.fundRaiser?.fundRaisingGoal)}</Text>
+                                        <div className=" w-fit bg-[#37137F] text-white rounded-full px-[10px] h-[25px] flex justify-center items-center "  >
+                                            <Text className=" font-extrabold text-xs " >{formatNumber(event?.fundRaiser?.fundRaisingGoal)}</Text>
+                                        </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
-                            <div className=" flex flex-col gap-3 " >
+                            <div className=" w-full flex flex-col items-center gap-3 " >
                                 <div className=" w-fit bg-[#37137F26] rounded-md px-[10px] h-[25px] flex justify-center items-center "  >
                                     <Text className=" font-extrabold text-xs " >Tickets Available</Text>
                                 </div>
@@ -146,10 +149,11 @@ export default function EventDetailPage() {
                                         <div className=" w-full justify-between items-center flex border rounded-lg  px-4 h-[96px] " >
                                             <div key={index} className=" lg:max-w-[360px] w-full flex flex-col gap-1 justify-center" >
                                                 <p className=" text-xs font-semibold " >{item?.ticketType}</p>
-                                                <p className=" font-semibold " >{formatNumber(item?.ticketPrice/100)}</p>
+                                                <p className=" font-semibold " >{formatNumber(item?.ticketPrice / 100)}</p>
                                                 <p className=" text-xs font-semibold ">Sales End On {dateFormat(item?.salesEndDate)}</p>
+                                                <p className=" text-xs font-semibold ">Ticket left On {formatNumber(item?.spotsLeft, "")}</p>
                                             </div>
-                                            <button onClick={()=>  router(`/dashboard/event/edit/${event?._id}?type=editticket&ticketId=${item?._id}&index=${index}`)} > 
+                                            <button onClick={() => router(`/dashboard/event/edit/${event?._id}?type=editticket&ticketId=${item?._id}&index=${index}&ticket=true`)} >
                                                 <MdEditSquare size={"20px"} />
                                             </button>
                                         </div>

@@ -3,26 +3,28 @@ import { LocationIcon, CalendarIcon2 } from "../../svg";
 import { dateFormat, timeFormat } from "../../utils/dateFormat";
 import { CustomButton, Text } from "../shared";
 import { FormikProps } from "formik";
-import { ICreateEvent } from "../../model/event";
+import { ICreateEvent, IEvent } from "../../model/event";
 import { useImage } from "../../global-state/useImageData";
 import { formatNumber } from "../../utils/numberFormat";
 import { MdEditSquare } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 interface IProps {
     formik: FormikProps<ICreateEvent>;
     isLoading: boolean
-    data: any;
+    data: IEvent;
 }
 
 export default function EventDetailPreview(
-    { formik, isLoading }: IProps
+    { formik, isLoading, data }: IProps
 ) {
 
     const { eventImage } = useImage((state) => state)
+    const totalTickets = data?.ticketing?.reduce((sum, ticket) => sum + ticket?.spotsLeft, 0);
 
     const router = useNavigate()
+    const location = useLocation()
 
     return (
         <div className=" w-full flex-1 flex lg:flex-row relative flex-col pb-4 gap-6 text-primary " >
@@ -56,7 +58,7 @@ export default function EventDetailPreview(
                         <div className=" w-full flex justify-between items-center " >
                             <div className=" flex gap-2 items-center " >
                                 <TicketIcon />
-                                <Text className=" font-bold text-xs " >{formik.values.signUpLimit} Spot(s) Available</Text>
+                                <Text className=" font-bold text-xs " >{totalTickets} ticket(s) Available</Text>
                             </div>
                         </div>
                     </div>
@@ -89,7 +91,7 @@ export default function EventDetailPreview(
                             <p className=" text-xs font-semibold " >Standard Ticket</p>
                             <p className=" font-semibold " >£0.00</p>
                         </div>
-                    )} 
+                    )}
                     {formik.values?.ticketing.length > 0 && (
                         <>
                             {formik.values?.ticketing?.map((item, index) => {
@@ -97,12 +99,17 @@ export default function EventDetailPreview(
                                     <div className=" w-full justify-between items-center flex border rounded-lg  px-4 h-[96px] " >
                                         <div key={index} className=" lg:max-w-[360px] w-full flex flex-col gap-1 justify-center" >
                                             <p className=" text-xs font-semibold " >{item?.ticketType}</p>
-                                            <p className=" font-semibold " >{formatNumber(item?.ticketPrice/100)}</p>
+                                            <p className=" font-semibold " >{formatNumber(location?.pathname?.includes("create") || location?.pathname?.includes("edit") ? item.ticketPrice : item?.ticketPrice / 100)}</p>
                                             {item?.salesEndDate && (
                                                 <p className=" text-xs font-semibold ">Sales End On {dateFormat(item?.salesEndDate)}</p>
                                             )}
+                                            {location?.pathname?.includes("edit") ? (
+                                                <p className=" text-xs font-semibold ">Ticket left On {formatNumber(data?.ticketing[index]?.spotsLeft, "")}</p>
+                                            ) : (
+                                                <p className=" text-xs font-semibold ">Ticket left On {formatNumber(item?.signUpLimit, "")}</p>
+                                            )}
                                         </div>
-                                        <button onClick={()=> router(`/dashboard/event/create?type=editticket&index=${index}`)}>
+                                        <button onClick={() => router(`/dashboard/event/create?type=editticket&index=${index}`)}>
                                             <MdEditSquare size={"20px"} />
                                         </button>
                                     </div>

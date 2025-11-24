@@ -16,6 +16,7 @@ import ModalLayout from "../../../components/shared/modalLayout";
 import { CustomButton, Text } from "../../../components/shared";
 import EventDetailPreview from "../../../components/newEventForm/eventDetailPreview";
 import LoadingAnimation from "../../../components/shared/loadingAnimation";
+import { IEvent } from "../../../model/event";
 
 
 export default function CreateEventPage() {
@@ -43,9 +44,9 @@ export default function CreateEventPage() {
 
 
     useEffect(() => {
-        if (!formik.values?.name) {
+        if (!formik.values?.name && history?.pathname?.includes("create")) {
             navigate("/dashboard/event/create")
-        }  
+        }
     }, [])
 
     useEffect(() => {
@@ -60,17 +61,25 @@ export default function CreateEventPage() {
                     formik?.setFieldValue(`fundRaiser.organizations[${index}]`, item._id)
                 })
             }
-            formik?.setFieldValue("ticketing", data?.ticketing)
-            formik?.setFieldValue("ticketing", data?.ticketing)
-            {
-                data?.recurrence.daysOfWeek.map((item, index) => {
-                    formik?.setFieldValue(`recurrence[daysOfWeek][${index}]`, item)
-                })
+            {data?.ticketing?.map((item, index) => { 
+                formik?.setFieldValue(`ticketing[${index}].absorbFees`, item?.absorbFees) 
+                formik?.setFieldValue(`ticketing[${index}].salesEndDate`, item?.salesEndDate) 
+                formik?.setFieldValue(`ticketing[${index}].salesStartDate`, item?.salesStartDate) 
+                formik?.setFieldValue(`ticketing[${index}].signUpLimit`, item?.signUpLimit) 
+                formik?.setFieldValue(`ticketing[${index}].ticketPrice`, item?.ticketPrice/100) 
+                formik?.setFieldValue(`ticketing[${index}].ticketType`, item?.ticketType)  
+            })}
+            if (data?.recurrence?.daysOfWeek?.length > 0) {
+                {
+                    data?.recurrence.daysOfWeek.map((item, index) => {
+                        formik?.setFieldValue(`recurrence[daysOfWeek][${index}]`, item)
+                    })
+                }
             }
-            formik?.setFieldValue("recurrence.endType", data?.recurrence.endType)
-            formik?.setFieldValue("recurrence.frequency", data?.recurrence.frequency)
-            formik?.setFieldValue("recurrence.totalOccurrences", data?.recurrence.totalOccurrences)
-            formik?.setFieldValue("recurrence.interval", data?.recurrence.interval)
+            formik?.setFieldValue("recurrence.endType", data?.recurrence?.endType)
+            formik?.setFieldValue("recurrence.frequency", data?.recurrence?.frequency)
+            formik?.setFieldValue("recurrence.totalOccurrences", data?.recurrence?.totalOccurrences)
+            formik?.setFieldValue("recurrence.interval", data?.recurrence?.interval)
 
             formik?.setFieldValue("category", data?.category?._id)
             formik?.setFieldValue("privacy", data?.privacy)
@@ -84,6 +93,9 @@ export default function CreateEventPage() {
             })
         }
     }, [formik?.values, data])
+
+    console.log(formik?.values);
+    
 
 
     const clickHandler = () => {
@@ -120,15 +132,22 @@ export default function CreateEventPage() {
             setTab(4)
             setIsOpen(false)
         } else if (tab === 1) {
-            navigate("/dashboard/event/create?type=details")
-            setIsOpen(false)
+            setTab(4)
         } else if (tab === 2) {
             setTab(4)
-        }  else if (tab === 4) {
-            navigate("/dashboard/event/create?type=details")
+        } else if (tab === 4) {
+            if (id) {
+                navigate(`/dashboard/event/edit/${id}?type=details`)
+            } else {
+                navigate("/dashboard/event/create?type=details")
+            }
             setIsOpen(false)
         } else {
-            navigate("/dashboard/event/create?type=fundraising")
+            if (id) {
+                navigate(`/dashboard/event/edit/${id}?type=fundraising`)
+            } else {
+                navigate("/dashboard/event/create?type=fundraising")
+            }
             setIsOpen(false)
         }
     }
@@ -153,13 +172,13 @@ export default function CreateEventPage() {
                         <EditEventTicket formik={formik} setTab={setTab} />
                     )}
                     {type === "ticketdetails" && (
-                        <EventTicketDetails setOpen={setIsOpen} formik={formik} data={data} setTab={setTab} />
+                        <EventTicketDetails setOpen={setIsOpen} formik={formik} data={data as IEvent} setTab={setTab} />
                     )}
                     {type === "fundraising" && (
                         <EventFundraising formik={formik} data={data} setTab={setTab} />
                     )}
                     {type === "details" && (
-                        <EventDetailPreview isLoading={loadingEditEvent || isLoading} formik={formik} data={data} />
+                        <EventDetailPreview isLoading={loadingEditEvent || isLoading} formik={formik} data={data as IEvent} />
                     )}
                 </div>
 
@@ -172,7 +191,7 @@ export default function CreateEventPage() {
                         <div className=" w-full flex gap-4 pt-3 justify-center " >
 
                             <CustomButton onClick={clickHandler} type="button" width="150px" height="40px" rounded="999px" >Yes</CustomButton>
-                            <CustomButton onClick={closeHandler} type="button" color="#CC1B1B" width="150px" height="40px" bgColor="white" rounded="999px" >Cancel</CustomButton>
+                            <CustomButton onClick={closeHandler} type="button" color="#CC1B1B" width="150px" height="40px" bgColor="white" rounded="999px" >{(tab === 2 || tab === 4) ? "No" : "Cancel"}</CustomButton>
                         </div>
                     </div>
                 </ModalLayout>

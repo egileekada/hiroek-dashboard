@@ -2,7 +2,7 @@ import { AiOutlineMinusCircle } from "react-icons/ai";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { CustomButton, Text } from "../shared";
 import { FormikProps } from "formik";
-import { ICreateEvent } from "../../model/event";
+import { ICreateEvent, IEvent } from "../../model/event";
 import { formatNumber } from "../../utils/numberFormat";
 import { dateFormat } from "../../utils/dateFormat";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -10,13 +10,13 @@ import { MdEditSquare } from "react-icons/md";
 
 interface IProps {
     formik: FormikProps<ICreateEvent>;
-    data: any;
+    data: IEvent;
     setTab: (by: number) => void
     setOpen: (by: boolean) => void
 }
 
 
-export default function EventTicketDetails({ formik, setTab, setOpen }: IProps) {
+export default function EventTicketDetails({ formik, setTab, setOpen, data }: IProps) {
 
 
     // const [ticketNo, setTicketNo] = useState(0)
@@ -50,7 +50,7 @@ export default function EventTicketDetails({ formik, setTab, setOpen }: IProps) 
 
     const editHandler = (index: number) => {
         if(history.pathname.includes("edit")) {
-            navigate(`/dashboard/event/edit/${id}?type=editticket&index=${index}`)
+            navigate(`/dashboard/event/edit/${id}?type=editticket&index=${index}&ticketId=${data?.ticketing[index]?._id}`)
         } else {
             navigate(`/dashboard/event/create?type=editticket&index=${index}`)
         }

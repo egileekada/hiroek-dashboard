@@ -1,5 +1,5 @@
 import { FormikProps } from "formik";
-import { ICreateEvent } from "../../model/event";
+import { ICreateEvent, IEvent } from "../../model/event";
 import CustomInput from "./input";
 import { CustomButton, Text } from "../shared";
 import { AiOutlineMinusCircle } from "react-icons/ai";
@@ -13,6 +13,7 @@ import { numberFormat } from "../../utils/formatNumberWithK";
 import useEvent from "../../hooks/eventHooks/useNewEvent";
 
 interface IProps {
+    data?: IEvent
     formik: FormikProps<ICreateEvent>;
     setTab: (by: number) => void
 }
@@ -21,11 +22,12 @@ export default function EditEventTicket({ formik }: IProps) {
 
     const query = useQuery();
     const index = query.get('index');
+    const ticket = query.get('ticket');
     const ticketId = query.get('ticketId');
     const history = useLocation()
     const navigate = useNavigate()
 
-    const { ticketMutate, loadingticketEvent } = useEvent()
+    const { ticketMutate, loadingticketEvent } = useEvent(ticket ? true : false)
 
     const [checked, setChecked] = useState(false)
 
@@ -67,7 +69,7 @@ export default function EditEventTicket({ formik }: IProps) {
         if(ticketId) {
             ticketMutate({
                 payload: {
-                    ticketPrice: formik.values.ticketing[Number(index)].ticketPrice,
+                    ticketPrice: formik.values.ticketing[Number(index)].ticketPrice * 100,
                     ticketType: formik.values.ticketing[Number(index)].ticketType,
                     salesStartDate: formik.values.ticketing[Number(index)].salesStartDate,
                     salesEndDate: formik.values.ticketing[Number(index)].salesStartDate,
@@ -80,6 +82,10 @@ export default function EditEventTicket({ formik }: IProps) {
             clickHandler()
         }
     }
+
+    const ticketType = [
+        "Standard", "Silver", "Gold", "Platinum"
+    ]
 
     return (
         <form onSubmit={onSubmit} className=" max-w-[450px] w-full flex flex-col gap-4 lg:pb-6 px-4 lg:px-0 pb-6 " >
@@ -112,7 +118,13 @@ export default function EditEventTicket({ formik }: IProps) {
                         <Switch checked={checked} onClick={changeHandler} />
                     </div>
                 </div>
-                <CustomInput borderRadius="8px" name={`ticketing[${index}].ticketType`} label="Ticket Type Name" type="text" placeholder="" />
+                <CustomInput borderRadius="8px" name={`ticketing[${index}].ticketType`} label="Ticket Type Name" type="text" placeholder="" /><div className=" w-full grid grid-cols-4 gap-3 " >
+                    {ticketType?.map((item) => {
+                        return (
+                            <CustomButton type="button" key={item} height="32px" fontSize="12px" rounded="999px" onClick={() => formik.setFieldValue(`ticketing[${index}].ticketType`, item)} >{item}</CustomButton>
+                        )
+                    })}
+                </div>
                 <div className=" w-full flex flex-col gap-1 ">
                     <div className=" flex w-full flex-col gap-1 " >
                         <div className=" w-full flex justify-between items-center " >

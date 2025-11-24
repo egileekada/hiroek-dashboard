@@ -92,7 +92,7 @@ export default function EventTicket({ formik }: IProps) {
         <form onSubmit={clickHandler} className=" max-w-[450px] w-full flex flex-col gap-4 lg:pb-6 px-4 " >
             <div className=" flex w-full flex-col gap-4 " >
                 <CustomInput borderRadius="8px" name={`ticketing[${index}].ticketPrice`} label="Event Ticket Price" type="number" placeholder="" />
-                <CustomInput borderRadius="8px" name={`ticketing[${index}].ticketType`} label="Ticket Type Name" type="text" placeholder="" />
+                <CustomInput borderRadius="8px" disable={true} name={`ticketing[${index}].ticketType`} label="Ticket Type Name" type="text" placeholder="" />
                 <div className=" w-full grid grid-cols-4 gap-3 " >
                     {ticketType?.map((item) => {
                         return (

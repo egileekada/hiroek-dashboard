@@ -14,7 +14,7 @@ import { useMap } from '../../global-state/useMapStore';
 import { ICreateEvent } from '../../model/event';
 
 
-const useEvent = () => {
+const useEvent = (ticket?: boolean) => {
 
     const history = useLocation()
     const { eventImage } = useImage((state) => state)
@@ -78,7 +78,11 @@ const useEvent = () => {
         },
         onSuccess: () => {
             toast.success("Updated Event Successfully")
-            router("/dashboard/event/details/" + id)
+            if (ticket) {
+                router("/dashboard/event/details/" + id)
+            } else {
+                router(`/dashboard/event/edit/${id}?type=ticketdetails`)
+            }
         },
     });
 
@@ -173,40 +177,42 @@ const useEvent = () => {
             formData.append("recurrence[endType]", values.recurrence.endType);
         }
 
-        if(values.recurrence.daysOfWeek.length > 0) {
+        if (values.recurrence.daysOfWeek.length > 0) {
             values.recurrence.daysOfWeek.forEach((day, i) => {
                 formData.append(`recurrence[daysOfWeek][${i}]`, String(day));
             });
-        } 
+        }
 
 
-        if(values.recurrence.occurrenceCount) { 
-                formData.append(`recurrence[totalOccurrences]`, values?.recurrence.occurrenceCount); 
-        }  
+        if (values.recurrence.occurrenceCount) {
+            formData.append(`recurrence[totalOccurrences]`, values?.recurrence.occurrenceCount);
+        }
 
-        if (values.ticketing[0].ticketType) {
-            values.ticketing.map((item, i) => {
-                if(item?.salesEndDate) {
-                    formData.append(`ticketing[${i}][salesEndDate]`, String(item?.salesEndDate));
-                }
-                if(item?.salesStartDate) {
-                    formData.append(`ticketing[${i}][salesStartDate]`, String(item?.salesStartDate));
-                }
-                {
-                    item?.signUpLimit && (
-                        formData.append(`ticketing[${i}][signUpLimit]`, String(item?.signUpLimit))
-                    )
-                }
-                formData.append(`ticketing[${i}][ticketPrice]`, String(item?.ticketPrice * 100));
-                formData.append(`ticketing[${i}][ticketType]`, String(item?.ticketType));
-            })
-        } else { 
-            formData.append(`ticketing[${0}][signUpLimit]`, String(0))
-            formData.append(`ticketing[${0}][ticketPrice]`, String(0))
-            formData.append(`ticketing[${0}][ticketType]`, String("Standard"))
-            formData.append(`ticketing[${0}][salesStartDate]`, String(new Date().toISOString()));
-            formData.append(`ticketing[${0}][salesEndDate]`, String(values?.eventEndDate));
-        } 
+        if (!history?.pathname?.includes("edit")) {
+            if (values.ticketing[0].ticketType) {
+                values.ticketing.map((item, i) => {
+                    if (item?.salesEndDate) {
+                        formData.append(`ticketing[${i}][salesEndDate]`, String(item?.salesEndDate));
+                    }
+                    if (item?.salesStartDate) {
+                        formData.append(`ticketing[${i}][salesStartDate]`, String(item?.salesStartDate));
+                    }
+                    {
+                        item?.signUpLimit && (
+                            formData.append(`ticketing[${i}][signUpLimit]`, String(item?.signUpLimit))
+                        )
+                    }
+                    formData.append(`ticketing[${i}][ticketPrice]`, String(item?.ticketPrice * 100));
+                    formData.append(`ticketing[${i}][ticketType]`, String(item?.ticketType));
+                })
+            } else {
+                formData.append(`ticketing[${0}][signUpLimit]`, String(0))
+                formData.append(`ticketing[${0}][ticketPrice]`, String(0))
+                formData.append(`ticketing[${0}][ticketType]`, String("Standard"))
+                formData.append(`ticketing[${0}][salesStartDate]`, String(new Date().toISOString()));
+                formData.append(`ticketing[${0}][salesEndDate]`, String(values?.eventEndDate));
+            }
+        }
 
         if (eventImage) {
             formData.append("photo", eventImage);
