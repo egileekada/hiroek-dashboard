@@ -40,8 +40,7 @@ export default function CommunityDetail({ item }: { item: ICommunity }) {
                         <div className=" flex items-center gap-2 lg:hidden absolute top-6 z-10 right-4 " >
                             <div role="button" onClick={() => router(`/dashboard/community/edit/${id}`)} className=" text-white cursor-pointer text-xs lg:hidden w-fit px-3 h-11 rounded-[44px] bg-[#FFFFFF26] lg:bg-[#FFFFFF33] flex gap-2 justify-center items-center " >
                                 <EditIcon color="" />
-                                Edit Channel
-                                {/* <QRIcon /> */}
+                                Edit Channel 
                             </div> 
                             <div className=" w-fit " >
                                 <ShareBtn id={item?._id} type="CHANNEL" />
