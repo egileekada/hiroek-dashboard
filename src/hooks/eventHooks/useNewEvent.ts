@@ -156,10 +156,10 @@ const useEvent = () => {
                 "fundRaiser[fundRaisingGoal]",
                 String(values.fundRaiser.fundRaisingGoal)
             );
+            values.fundRaiser.organizations.forEach((org, i) => {
+                formData.append(`fundRaiser[organizations][${i}]`, org);
+            });
         }
-        values.fundRaiser.organizations.forEach((org, i) => {
-            formData.append(`fundRaiser[organizations][${i}]`, org);
-        });
 
         if (values.recurrence.interval) {
             formData.append("recurrence[interval]", String(values.recurrence.interval));
