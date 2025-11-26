@@ -1,155 +1,154 @@
-import { useState } from "react";
-import toast from "react-hot-toast";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import toast from "react-hot-toast";
 import httpService from "../../utils/httpService";
 import { useParams } from "react-router-dom";
 import { IMember } from "../../model/user";
 import { IComment, IPost } from "./useGetCommunityPost";
 
-
 const useGetMembers = () => {
+  const { id } = useParams();
+  const queryClient = useQueryClient();
 
-    const { id } = useParams();
+  const handleError = (error: any) => {
+    const message =
+      error?.response?.data?.error?.details?.message ||
+      error?.response?.data ||
+      error?.message ||
+      "Something went wrong";
 
-    const query = useQueryClient() 
+    toast.error(message);
+  };
 
-
-    const getPostCommentsData = () => {
-        const [data, setData] = useState<Array<IComment>>([])
-        const { isLoading } = useQuery(
-            ["comments", id],
-            () => httpService.get(`/posts/${id}/comments`),
-            {
-                onError: (error: any) => {
-                    toast.error(error.response?.data)
-                },
-                onSuccess: (data: any) => {
-                    console.log(data?.data?.comments?.data);
-                    
-                    setData(data?.data?.comments?.data); 
-                },
-            },
-        );
-        return {
-            data,
-            isLoading
-        }
-    }
-
-    const getSinglePostData = (index?: string) => {
-        const [data, setData] = useState<IPost>({} as IPost)
-        const { isLoading } = useQuery(
-            ["postssingle", index ? index : id],
-            () => httpService.get(`/posts/${index ? index : id}`),
-            {
-                onError: (error: any) => {
-                    toast.error(error.response?.data)
-                },
-                onSuccess: (data: any) => {
-                    setData(data?.data?.post); 
-                    
-                },
-            },
-        );
-        return {
-            data,
-            isLoading
-        }
-    }
-
-
-    const getMemberData = () => {
-        const [data, setData] = useState<Array<IMember>>([])
-        const { isLoading } = useQuery(
-            ["Members"],
-            () => httpService.get(`/communities/${id}/members`),
-            {
-                onError: (error: any) => {
-                    toast.error(error.response?.data)
-                },
-                onSuccess: (data: any) => {
-                    setData(data?.data?.members?.data)
-                },
-            },
-        );
-        return {
-            data,
-            isLoading
-        }
-    }
-
-    const getModeratorData = () => {
-        const [data, setData] = useState<Array<IMember>>([])
-        const { isLoading } = useQuery(
-            ["Moderators"],
-            () => httpService.get(`/communities/get-moderators/${id}`),
-            {
-                onError: (error: any) => {
-                    toast.error(error.response?.data)
-                },
-                onSuccess: (data: any) => {
-                    setData(data?.data)
-                },
-            },
-        );
-        return {
-            data,
-            isLoading,
-            getModeratorData
-        }
-    }
-
-
-    const addModerator = useMutation({
-        mutationFn: (data: { 
-            memberId: string
-        }) => httpService.post(`/organizations/add-community-moderator/${id}`, {
-            "members": [
-                data?.memberId
-            ]
-        }),
-        onError: (error: any) => {
-            console.log(error?.response?.data?.error?.details?.message);
-
-            toast.error(error?.response?.data?.error?.details?.message)
-        },
-        onSuccess: () => {
-            query?.invalidateQueries("Moderators")
-            query?.invalidateQueries("Members")
-            toast?.success("Added Moderator")
-
-        },
-    });
-
-
-    const removeModerator = useMutation({
-        mutationFn: (data: { 
-            memberId: string
-        }) => httpService.post(`/organizations/remove-community-moderator/${id}`, {
-            "moderatorId": data?.memberId 
-        }),
-        onError: (error: any) => {
-            console.log(error?.response?.data?.error?.details?.message);
-
-            toast.error(error?.response?.data?.error?.details?.message)
-        },
-        onSuccess: () => { 
-            query?.invalidateQueries("Moderators")
-            query?.invalidateQueries("Members") 
-            toast?.success("Removed Moderator")
-
-        },
-    });
-
+  // ---------------------------------------------
+  // GET COMMENTS
+  // ---------------------------------------------
+  const getPostCommentsData = () => {
+    const { data, isLoading } = useQuery(
+      ["comments", id],
+      async () => {
+        const res = await httpService.get(`/posts/${id}/comments`);
+        return res?.data?.comments?.data as Array<IComment>;
+      },
+      {
+        onError: handleError,
+      }
+    );
 
     return {
-        getMemberData,
-        getModeratorData,
-        getPostCommentsData,
-        getSinglePostData,
-        addModerator,
-        removeModerator
+      data: data ?? [],
+      isLoading,
     };
-}
+  };
 
-export default useGetMembers
+  // ---------------------------------------------
+  // GET SINGLE POST
+  // ---------------------------------------------
+  const getSinglePostData = (index?: string) => {
+    const postId = index || id;
+
+    const { data, isLoading } = useQuery(
+      ["single-post", postId],
+      async () => {
+        const res = await httpService.get(`/posts/${postId}`);
+        return res?.data?.post as IPost;
+      },
+      {
+        onError: handleError,
+      }
+    );
+
+    return {
+      data: data ?? ({} as IPost),
+      isLoading,
+    };
+  };
+
+  // ---------------------------------------------
+  // GET MEMBERS
+  // ---------------------------------------------
+  const getMemberData = () => {
+    const { data, isLoading } = useQuery(
+      ["members", id],
+      async () => {
+        const res = await httpService.get(`/communities/${id}/members`);
+        return res?.data?.members?.data as Array<IMember>;
+      },
+      {
+        onError: handleError,
+      }
+    );
+
+    return {
+      data: data ?? [],
+      isLoading,
+    };
+  };
+
+  // ---------------------------------------------
+  // GET MODERATORS
+  // ---------------------------------------------
+  const getModeratorData = () => {
+    const { data, isLoading } = useQuery(
+      ["moderators", id],
+      async () => {
+        const res = await httpService.get(`/communities/get-moderators/${id}`);
+        return res?.data as Array<IMember>;
+      },
+      {
+        onError: handleError,
+      }
+    );
+
+    return {
+      data: data ?? [],
+      isLoading,
+    };
+  };
+
+  // ---------------------------------------------
+  // ADD MODERATOR
+  // ---------------------------------------------
+  const addModerator = useMutation({
+    mutationFn: (payload: { memberId: string }) =>
+      httpService.post(`/organizations/add-community-moderator/${id}`, {
+        members: [payload.memberId],
+      }),
+
+    onError: handleError,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries(["moderators", id]);
+      queryClient.invalidateQueries(["members", id]);
+      toast.success("Added Moderator");
+    },
+  });
+
+  // ---------------------------------------------
+  // REMOVE MODERATOR
+  // ---------------------------------------------
+  const removeModerator = useMutation({
+    mutationFn: (payload: { memberId: string }) =>
+      httpService.post(`/organizations/remove-community-moderator/${id}`, {
+        moderatorId: payload.memberId,
+      }),
+
+    onError: handleError,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries(["moderators", id]);
+      queryClient.invalidateQueries(["members", id]);
+      toast.success("Removed Moderator");
+    },
+  });
+
+  return {
+    getMemberData,
+    getModeratorData,
+    getPostCommentsData,
+    getSinglePostData,
+    addModerator,
+    removeModerator,
+  };
+};
+
+export default useGetMembers;
